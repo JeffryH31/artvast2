@@ -8,11 +8,11 @@ const Header: React.FC = () => {
         <div className="flex justify-between items-center h-20">
           <div className="flex items-center">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 custom-gradient-bg rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">A</span>
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                ArtVast
+              <span className="text-2xl font-bold custom-gradient-text">
+                Artvast
               </span>
             </div>
           </div>
@@ -24,23 +24,23 @@ const Header: React.FC = () => {
                 className="text-gray-900 font-semibold hover:text-blue-600 transition-all duration-300 relative group"
               >
                 <span className="relative z-10">Home</span>
-                <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                <span className="absolute inset-x-0 -bottom-1 h-0.5 custom-gradient-bg transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
               </a>
               <a
                 href="#"
                 className="text-gray-600 hover:text-gray-900 transition-all duration-300 relative group"
               >
                 <span className="relative z-10">About Us</span>
-                <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                <span className="absolute inset-x-0 -bottom-1 h-0.5 custom-gradient-bg transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
               </a>
               <a
                 href="#"
                 className="text-gray-600 hover:text-gray-900 transition-all duration-300 relative group"
               >
                 <span className="relative z-10">Categories</span>
-                <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                <span className="absolute inset-x-0 -bottom-1 h-0.5 custom-gradient-bg transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
               </a>
-              <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold hover:shadow-lg hover:shadow-blue-500/25 transform hover:scale-105 transition-all duration-300">
+              <button className="custom-gradient-button text-white px-8 py-3 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300">
                 Get Started
               </button>
             </div>

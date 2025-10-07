@@ -11,12 +11,12 @@ const TopDesignersSection: React.FC = () => {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div className="space-y-8">
             <div>
-              <span className="inline-block px-6 py-3 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full text-sm font-medium text-blue-800 border border-blue-200 mb-6">
-                🏆 Designer Terbaik
+              <span className="inline-block px-6 py-3 custom-gradient-light rounded-full text-sm font-medium custom-gradient-text border custom-gradient-border mb-6">
+                🏆 Best Designers
               </span>
               <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-8 leading-tight">
                 <span className="block">Top</span>
-                <span className="block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="block custom-gradient-text">
                   Designers
                 </span>
               </h2>
@@ -57,9 +57,9 @@ const TopDesignersSection: React.FC = () => {
             {/* Card with gray background */}
             <div className="bg-white p-8 rounded-3xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-500 border border-gray-100 group">
               <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <div className="flex-shrink-0 w-12 h-12 custom-gradient-light rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <svg
-                    className="w-6 h-6 text-blue-600"
+                    className="w-6 h-6 custom-gradient-text"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -86,9 +86,9 @@ const TopDesignersSection: React.FC = () => {
             </div>
 
             {/* Simple text card */}
-            <div className="bg-gradient-to-br from-blue-50 to-purple-50 p-8 rounded-3xl border border-blue-100 group hover:shadow-lg transition-all duration-300">
+            <div className="custom-gradient-light p-8 rounded-3xl border custom-gradient-border group hover:shadow-lg transition-all duration-300">
               <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <div className="flex-shrink-0 w-12 h-12 custom-gradient-bg rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <svg
                     className="w-6 h-6 text-white"
                     fill="none"
@@ -174,7 +174,7 @@ const TopDesignersSection: React.FC = () => {
                         />
                       </svg>
                     </div>
-                    <div className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                    <div className="absolute -top-4 -right-4 w-8 h-8 custom-gradient-bg rounded-full flex items-center justify-center">
                       <svg
                         className="w-4 h-4 text-white"
                         fill="none"
@@ -204,7 +204,7 @@ const TopDesignersSection: React.FC = () => {
                 </div>
               </div>
               {/* Floating elements */}
-              <div className="absolute -top-6 -left-6 w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-500 rounded-2xl flex items-center justify-center shadow-xl animate-bounce">
+              <div className="absolute -top-6 -left-6 w-16 h-16 custom-gradient-bg rounded-2xl flex items-center justify-center shadow-xl animate-bounce">
                 <svg
                   className="w-8 h-8 text-white"
                   fill="none"
@@ -219,7 +219,7 @@ const TopDesignersSection: React.FC = () => {
                   />
                 </svg>
               </div>
-              <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-gradient-to-br from-purple-400 to-purple-500 rounded-2xl flex items-center justify-center shadow-xl animate-pulse">
+              <div className="absolute -bottom-6 -right-6 w-20 h-20 custom-gradient-bg rounded-2xl flex items-center justify-center shadow-xl animate-pulse">
                 <svg
                   className="w-10 h-10 text-white"
                   fill="none"

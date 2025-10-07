@@ -2,8 +2,17 @@
 
 import React from 'react';
 
-const HeroSection: React.FC = () => {
-  return (
+const HeroSection: React.FC = () => {      {/* Perfect Seamless Junction */}
+      <div className=\"absolute bottom-0 left-0 w-full h-48 z-20\">
+        {/* Ultimate Transition Layer - Exact Color Match */}
+        <div className=\"absolute inset-0 bg-gradient-to-b from-transparent via-[#1647A3]/30 to-[#1647A3]\" />
+        
+        {/* Color Harmony Layer */}
+        <div className=\"absolute bottom-0 left-0 w-full h-32 bg-gradient-to-b from-[#1647A3]/70 to-[#1647A3]\" />
+        
+        {/* Final Blend Seal */}
+        <div className=\"absolute bottom-0 left-0 w-full h-4 bg-[#1647A3]\" />
+      </div>
     <div className="hero-gradient text-white relative overflow-hidden min-h-screen hero-section-end seamless-section">
       {/* Soft Bottom Fade */}
 
@@ -99,8 +108,8 @@ const HeroSection: React.FC = () => {
       <div className="absolute -bottom-12 left-0 w-full h-16 overflow-hidden z-20">
         <div className="absolute inset-0">
           <div className="flowing-line absolute top-4 left-1/5 w-28 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent animate-flow"></div>
-          <div className="flowing-line absolute top-8 right-1/5 w-36 h-px bg-gradient-to-r from-transparent via-blue-400/40 to-transparent animate-flow-reverse"></div>
-          <div className="flowing-line absolute top-12 left-2/5 w-20 h-px bg-gradient-to-r from-transparent via-purple-400/35 to-transparent animate-flow" style={{animationDelay: '0.7s'}}></div>
+          <div className="flowing-line absolute top-8 right-1/5 w-36 h-px bg-gradient-to-r from-transparent via-[#5D6BC6]/40 to-transparent animate-flow-reverse"></div>
+          <div className="flowing-line absolute top-12 left-2/5 w-20 h-px bg-gradient-to-r from-transparent via-[#8B5A8C]/35 to-transparent animate-flow" style={{animationDelay: '0.7s'}}></div>
         </div>
       </div>
     </div>
