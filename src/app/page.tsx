@@ -6,12 +6,16 @@ import BenefitsSection from '@/components/sections/BenefitsSection';
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
+    <>
       <Header />
-      <HeroSection />
-      <ValuePropositionsSection />
+      {/* Kontainer utama dengan satu gradien latar belakang seamless */}
+      <main className="hero-gradient relative overflow-hidden seamless-container">
+        <HeroSection />
+        <ValuePropositionsSection />
+      </main>
+      {/* Section lain di luar gradien utama */}
       <TopDesignersSection />
       <BenefitsSection />
-    </main>
+    </>
   );
 }

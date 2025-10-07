@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const TopDesignersSection: React.FC = () => {
   return (
@@ -10,17 +10,10 @@ const TopDesignersSection: React.FC = () => {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div className="space-y-8">
-            <div>
-              <span className="inline-block px-6 py-3 custom-gradient-light rounded-full text-sm font-medium custom-gradient-text border custom-gradient-border mb-6">
-                🏆 Best Designers
-              </span>
-              <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-8 leading-tight">
-                <span className="block">Top</span>
-                <span className="block custom-gradient-text">
-                  Designers
-                </span>
-              </h2>
-            </div>
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-8 leading-tight">
+              <span className="block">Top</span>
+              <span className="block custom-gradient-text">Designers</span>
+            </h2>
 
             {/* Enhanced Cards */}
             {/* Card with gradient background */}
@@ -61,7 +54,7 @@ const TopDesignersSection: React.FC = () => {
                   <svg
                     className="w-6 h-6 custom-gradient-text"
                     fill="none"
-                    stroke="currentColor"
+                    stroke="white"
                     viewBox="0 0 24 24"
                   >
                     <path
@@ -77,16 +70,15 @@ const TopDesignersSection: React.FC = () => {
                     Community Network
                   </h3>
                   <p className="text-gray-600 leading-relaxed">
-                    Body text for whatever you'd like to say. Add main
-                    takeaway points, quotes, anecdotes. Connect with fellow
-                    designers.
+                    Body text for whatever you'd like to say. Add main takeaway
+                    points, quotes, anecdotes. Connect with fellow designers.
                   </p>
                 </div>
               </div>
             </div>
 
             {/* Simple text card */}
-            <div className="custom-gradient-light p-8 rounded-3xl border custom-gradient-border group hover:shadow-lg transition-all duration-300">
+            <div className="custom-gradient-light p-8 rounded-3xl group hover:shadow-lg transition-all duration-300">
               <div className="flex items-start space-x-4">
                 <div className="flex-shrink-0 w-12 h-12 custom-gradient-bg rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <svg
@@ -109,8 +101,8 @@ const TopDesignersSection: React.FC = () => {
                   </h3>
                   <p className="text-gray-600 leading-relaxed">
                     Body text for whatever you'd like to add more to the main
-                    point. It provides details, explanations, and context
-                    about our quality standards.
+                    point. It provides details, explanations, and context about
+                    our quality standards.
                   </p>
                 </div>
               </div>
