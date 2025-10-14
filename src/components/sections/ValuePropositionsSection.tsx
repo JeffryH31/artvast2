@@ -101,7 +101,7 @@ const ValuePropositionsSection: React.FC = () => {
                 icon: "M14.828 14.828a4 4 0 01-5.656 0M9 10h1.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293H15M3 3l3.586 3.586M21 21l-3.586-3.586M6.364 6.364L10 10m0 0l3.636 3.636M10 10l3.636-3.636",
                 title: "Motion Graphics",
                 description:
-                  "Visual art animated graphic design and visual effects to convey ideas, enhance storytelling, and engage audiences through movement.",
+                  "Visual art combining animated graphic design and visual effects to convey ideas, enhance storytelling, and engage audiences through dynamic movement and transitions.",
                 badge: "●",
                 badgeColor: "from-purple-400 to-pink-400",
                 glowColor: "shadow-purple-500/20",
