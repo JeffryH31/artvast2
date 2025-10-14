@@ -121,7 +121,7 @@ const BenefitsSection: React.FC = () => {
                       </svg>
                     </div>
                     <div className="flex-1">
-                      <span className="text-gray-700 font-medium text-lg underline decoration-blue-500 decoration-2 group-hover/item:text-blue-700 transition-colors duration-300">
+                      <span className="text-gray-700 font-medium text-lg decoration-blue-500 decoration-2 group-hover/item:text-blue-700 transition-colors duration-300">
                         Escrow payments
                       </span>
                       <div className="mt-1">

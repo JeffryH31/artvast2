@@ -6,7 +6,7 @@ import ParticleEffect, { Magnetic } from "../animations/ParticleEffect";
 const ValuePropositionsSection: React.FC = () => {
   return (
     // Seamless connection dari HeroSection
-    <div className="overflow-hidden seamless-section text-white">
+    <div className="seamless-section text-white">
       <div className="pt-20 pb-24 lg:pb-32">
         {/* Efek partikel untuk memperkaya visual */}
         <ParticleEffect
