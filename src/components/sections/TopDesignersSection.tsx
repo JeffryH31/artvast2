@@ -39,7 +39,7 @@ const TopDesignersSection: React.FC = () => {
                     Premium Portfolio Showcase
                   </h3>
                   <p className="text-white/90 leading-relaxed">
-                    Body text for whatever you'd like to expand on the main
+                    Body text for whatever you&apos;d like to expand on the main
                     point. Showcase your best work with advanced portfolio
                     features.
                   </p>
@@ -70,7 +70,7 @@ const TopDesignersSection: React.FC = () => {
                     Community Network
                   </h3>
                   <p className="text-gray-600 leading-relaxed">
-                    Body text for whatever you'd like to say. Add main takeaway
+                    Body text for whatever you&apos;d like to say. Add main takeaway
                     points, quotes, anecdotes. Connect with fellow designers.
                   </p>
                 </div>
@@ -100,7 +100,7 @@ const TopDesignersSection: React.FC = () => {
                     Quality Guarantee
                   </h3>
                   <p className="text-gray-600 leading-relaxed">
-                    Body text for whatever you'd like to add more to the main
+                    Body text for whatever you&apos;d like to add more to the main
                     point. It provides details, explanations, and context about
                     our quality standards.
                   </p>
