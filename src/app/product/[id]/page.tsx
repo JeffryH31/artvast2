@@ -155,7 +155,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
             {/* Features */}
             <div className="bg-gradient-to-br from-[#BD9587]/10 to-[#5D6BC6]/10 rounded-2xl p-6 border border-[#BD9587]/20">
               <h3 className="text-lg font-bold text-gray-900 mb-4">
-                What's Included:
+                What&apos;s Included:
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 {productData.features.map((feature, index) => (
