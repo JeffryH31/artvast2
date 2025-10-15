@@ -9,7 +9,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "ArtVast - Empowering Designers",
+  title: "Artvast - Empowering Designers",
   description:
     "Showcase portfolios, safely sell your work and connect with local clients",
 };

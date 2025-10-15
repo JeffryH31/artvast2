@@ -14,17 +14,15 @@ const BenefitsSection: React.FC = () => {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-20">
           <span className="inline-block px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium text-white/90 border border-white/20 mb-6">
-            💎 Keuntungan Eksklusif
+            💎 Exclusive Benefits
           </span>
           <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight">
-            <span className="block">The</span>
             <span className="block bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
-              Benefits
+              The Benefits
             </span>
           </h2>
           <p className="text-xl text-white/80 max-w-4xl mx-auto leading-relaxed">
-            Nikmati pengalaman terbaik baik sebagai client maupun designer
-            dengan fitur-fitur premium kami
+            Enjoy the best experience both as a client and designer with our premium features
           </p>
         </div>
 
@@ -60,14 +58,14 @@ const BenefitsSection: React.FC = () => {
             </div>
 
             <div className="relative">
-              <div className="absolute -left-2 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 to-purple-600 rounded-full"></div>
+              <div className="absolute -left-2 top-0 bottom-0 w-1 custom-gradient-bg rounded-full"></div>
               <div className="pl-8">
-                <h3 className="text-3xl font-bold text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text mb-8">
+                <h3 className="text-3xl font-bold custom-gradient-text mb-8">
                   For Clients
                 </h3>
                 <ul className="space-y-6">
                   <li className="group/item flex items-start space-x-4 p-4 rounded-xl hover:bg-blue-50 transition-colors duration-300">
-                    <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
+                    <div className="flex-shrink-0 w-8 h-8 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
                       <svg
                         className="w-4 h-4 text-white"
                         fill="none"
@@ -87,7 +85,7 @@ const BenefitsSection: React.FC = () => {
                     </span>
                   </li>
                   <li className="group/item flex items-start space-x-4 p-4 rounded-xl hover:bg-blue-50 transition-colors duration-300">
-                    <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
+                    <div className="flex-shrink-0 w-8 h-8 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
                       <svg
                         className="w-4 h-4 text-white"
                         fill="none"
@@ -107,7 +105,7 @@ const BenefitsSection: React.FC = () => {
                     </span>
                   </li>
                   <li className="group/item flex items-start space-x-4 p-4 rounded-xl hover:bg-blue-50 transition-colors duration-300">
-                    <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
+                    <div className="flex-shrink-0 w-8 h-8 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
                       <svg
                         className="w-4 h-4 text-white"
                         fill="none"
@@ -123,7 +121,7 @@ const BenefitsSection: React.FC = () => {
                       </svg>
                     </div>
                     <div className="flex-1">
-                      <span className="text-gray-700 font-medium text-lg underline decoration-blue-500 decoration-2 group-hover/item:text-blue-700 transition-colors duration-300">
+                      <span className="text-gray-700 font-medium text-lg decoration-blue-500 decoration-2 group-hover/item:text-blue-700 transition-colors duration-300">
                         Escrow payments
                       </span>
                       <div className="mt-1">
@@ -169,12 +167,12 @@ const BenefitsSection: React.FC = () => {
             </div>
 
             <div className="space-y-6">
-              <h3 className="text-3xl font-bold text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text mb-8">
+              <h3 className="text-3xl font-bold custom-gradient-text mb-8">
                 For Designers
               </h3>
               <ul className="space-y-6">
                 <li className="group/item flex items-start space-x-4 p-4 rounded-xl hover:bg-blue-50 transition-colors duration-300">
-                  <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
+                  <div className="flex-shrink-0 w-8 h-8 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
                     <svg
                       className="w-4 h-4 text-white"
                       fill="none"
@@ -200,7 +198,7 @@ const BenefitsSection: React.FC = () => {
                   </span>
                 </li>
                 <li className="group/item flex items-start space-x-4 p-4 rounded-xl hover:bg-blue-50 transition-colors duration-300">
-                  <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
+                  <div className="flex-shrink-0 w-8 h-8 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
                     <svg
                       className="w-4 h-4 text-white"
                       fill="none"
@@ -220,7 +218,7 @@ const BenefitsSection: React.FC = () => {
                   </span>
                 </li>
                 <li className="group/item flex items-start space-x-4 p-4 rounded-xl hover:bg-blue-50 transition-colors duration-300">
-                  <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
+                  <div className="flex-shrink-0 w-8 h-8 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
                     <svg
                       className="w-4 h-4 text-white"
                       fill="none"
@@ -240,7 +238,7 @@ const BenefitsSection: React.FC = () => {
                   </span>
                 </li>
                 <li className="group/item flex items-start space-x-4 p-4 rounded-xl hover:bg-blue-50 transition-colors duration-300">
-                  <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
+                  <div className="flex-shrink-0 w-8 h-8 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
                     <svg
                       className="w-4 h-4 text-white"
                       fill="none"
