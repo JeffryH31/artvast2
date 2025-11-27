@@ -1,165 +1,88 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import Header from "@/components/layout/Header";
-import { products } from "@/data/products";
+import { useProducts } from "@/hooks/useProducts";
 
 const MarketplacePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
-  const [selectedLicenseType, setSelectedLicenseType] =
-    useState("All Licenses");
   const [selectedRating, setSelectedRating] = useState("All Ratings");
+
+  const { products, loading, error } = useProducts();
 
   const categories = [
     "All Categories",
     "Branding",
     "UI/UX Design",
     "Motion Graphics",
+    "Illustration",
   ];
   const ratings = ["All Ratings", "5 Stars", "4+ Stars", "3+ Stars"];
 
-  const artworks = [
-    {
-      id: 1,
-      title: "Modern Dashboard UI Kit",
-      designer: "Sarah Johnson",
-      category: "UI/UX Design",
-      price: 45,
-      rating: 4.9,
-      reviews: 124,
-      image:
-        "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=400&h=300&fit=crop",
-      licenseType: "Commercial Use",
-      tags: ["Dashboard", "UI Kit", "Modern"],
-      bestseller: true,
-    },
-    {
-      id: 2,
-      title: "Brand Identity Package",
-      designer: "Marcus Chen",
-      category: "Branding",
-      price: 89,
-      rating: 5.0,
-      reviews: 67,
-      image:
-        "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=300&fit=crop",
-      licenseType: "Extended License",
-      tags: ["Logo", "Branding", "Identity"],
-      featured: true,
-    },
-    {
-      id: 3,
-      title: "Mobile App Wireframes",
-      designer: "Elena Rodriguez",
-      category: "UI/UX Design",
-      price: 35,
-      rating: 4.7,
-      reviews: 89,
-      image:
-        "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=300&fit=crop",
-      licenseType: "Commercial Use",
-      tags: ["Mobile", "Wireframes", "UX"],
-    },
-    {
-      id: 4,
-      title: "Vintage Poster Collection",
-      designer: "David Kim",
-      category: "Graphic Design",
-      price: 25,
-      rating: 4.6,
-      reviews: 156,
-      image:
-        "https://images.unsplash.com/photo-1558655146-d09347e92766?w=400&h=300&fit=crop",
-      licenseType: "Royalty Free",
-      tags: ["Poster", "Vintage", "Collection"],
-    },
-    {
-      id: 5,
-      title: "Abstract Illustrations Set",
-      designer: "Anna Kowalski",
-      category: "Illustration",
-      price: 55,
-      rating: 4.8,
-      reviews: 203,
-      image:
-        "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=300&fit=crop",
-      licenseType: "Commercial Use",
-      tags: ["Abstract", "Vector", "Modern"],
-      trending: true,
-    },
-    {
-      id: 6,
-      title: "Corporate Photography Pack",
-      designer: "James Wilson",
-      category: "Photography",
-      price: 75,
-      rating: 4.5,
-      reviews: 98,
-      image:
-        "https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop",
-      licenseType: "Extended License",
-      tags: ["Corporate", "Business", "Professional"],
-    },
-    {
-      id: 7,
-      title: "Animated Logo Templates",
-      designer: "Lisa Park",
-      category: "Motion Graphics",
-      price: 65,
-      rating: 4.9,
-      reviews: 134,
-      image:
-        "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=400&h=300&fit=crop",
-      licenseType: "Commercial Use",
-      tags: ["Animation", "Logo", "Motion"],
-    },
-    {
-      id: 8,
-      title: "E-commerce UI Components",
-      designer: "Alex Turner",
-      category: "UI/UX Design",
-      price: 40,
-      rating: 4.7,
-      reviews: 176,
-      image:
-        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop",
-      licenseType: "Commercial Use",
-      tags: ["E-commerce", "Components", "UI"],
-    },
-    {
-      id: 9,
-      title: "Social Media Templates",
-      designer: "Maya Patel",
-      category: "Graphic Design",
-      price: 30,
-      rating: 4.4,
-      reviews: 267,
-      image:
-        "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop",
-      licenseType: "Personal Use",
-      tags: ["Social Media", "Templates", "Marketing"],
-    },
-  ];
+  const filteredProducts = useMemo(() => {
+    return products.filter((product) => {
+      const matchesSearch =
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.designer?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.category.toLowerCase().includes(searchTerm.toLowerCase());
 
-  const filteredProducts = products.filter((product) => {
-    const matchesSearch =
-      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.designer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.category.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesCategory =
+        selectedCategory === "All Categories" ||
+        product.category === selectedCategory;
+      const matchesRating =
+        selectedRating === "All Ratings" ||
+        (selectedRating === "5 Stars" && (product.rating || 0) === 5.0) ||
+        (selectedRating === "4+ Stars" && (product.rating || 0) >= 4.0) ||
+        (selectedRating === "3+ Stars" && (product.rating || 0) >= 3.0);
 
-    const matchesCategory =
-      selectedCategory === "All Categories" ||
-      product.category === selectedCategory;
-    const matchesRating =
-      selectedRating === "All Ratings" ||
-      (selectedRating === "5 Stars" && product.rating === 5.0) ||
-      (selectedRating === "4+ Stars" && product.rating >= 4.0) ||
-      (selectedRating === "3+ Stars" && product.rating >= 3.0);
+      return matchesSearch && matchesCategory && matchesRating;
+    });
+  }, [products, searchTerm, selectedCategory, selectedRating]);
 
-    return matchesSearch && matchesCategory && matchesRating;
-  });
+  // Loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen relative overflow-hidden">
+        <div className="fixed inset-0 -z-10">
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50"></div>
+        </div>
+        <Header />
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="text-center">
+            <div className="w-16 h-16 border-4 border-[#5D6BC6] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading products...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="min-h-screen relative overflow-hidden">
+        <div className="fixed inset-0 -z-10">
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50"></div>
+        </div>
+        <Header />
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="text-center">
+            <div className="text-5xl mb-4">😕</div>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Something went wrong</h3>
+            <p className="text-gray-600 mb-4">{error}</p>
+            <button 
+              onClick={() => window.location.reload()}
+              className="px-6 py-2 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white rounded-xl font-medium"
+            >
+              Try Again
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen relative overflow-hidden">
@@ -310,7 +233,7 @@ const MarketplacePage = () => {
                 {/* Image Container */}
                 <div className="relative overflow-hidden h-48 sm:h-56 lg:h-64">
                   <div className="w-full h-full bg-gradient-to-br from-[#BD9587]/20 to-[#5D6BC6]/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-700">
-                    <span className="text-4xl sm:text-5xl lg:text-6xl">{product.image}</span>
+                    <span className="text-4xl sm:text-5xl lg:text-6xl">{product.image_url}</span>
                   </div>
 
                   {/* Badges */}
@@ -347,7 +270,7 @@ const MarketplacePage = () => {
                         {product.name}
                       </h3>
                       <p className="text-xs sm:text-sm text-gray-600 truncate">
-                        by {product.designer.name}
+                        by {product.designer?.name || 'Unknown'}
                       </p>
                     </div>
                     <div className="flex items-center space-x-1 text-xs sm:text-sm flex-shrink-0">
@@ -361,7 +284,7 @@ const MarketplacePage = () => {
                         {product.rating}
                       </span>
                       <span className="text-gray-500 hidden sm:inline">
-                        ({product.reviewCount})
+                        ({product.review_count})
                       </span>
                     </div>
                   </div>
@@ -374,7 +297,7 @@ const MarketplacePage = () => {
 
                   {/* Features Preview - Hidden on mobile */}
                   <div className="hidden sm:flex flex-wrap gap-2 mb-3 sm:mb-4">
-                    {product.features
+                    {(product.features || [])
                       .slice(0, 2)
                       .map((feature, featureIndex) => (
                         <span
@@ -401,7 +324,7 @@ const MarketplacePage = () => {
                         d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                       />
                     </svg>
-                    <span>Delivery: {product.deliveryTime}</span>
+                    <span>Delivery: {product.delivery_time}</span>
                   </div>
 
                   {/* Actions */}
@@ -468,7 +391,7 @@ const MarketplacePage = () => {
                 >
                   <div className="h-40 sm:h-44 lg:h-48 overflow-hidden bg-gradient-to-br from-[#BD9587]/20 to-[#5D6BC6]/20 flex items-center justify-center">
                     <span className="text-4xl sm:text-5xl group-hover:scale-110 transition-transform duration-500">
-                      {product.image}
+                      {product.image_url}
                     </span>
                   </div>
 
@@ -477,7 +400,7 @@ const MarketplacePage = () => {
                       {product.name}
                     </h4>
                     <p className="text-xs sm:text-sm text-gray-600 mb-2 truncate">
-                      by {product.designer.name}
+                      by {product.designer?.name || 'Unknown'}
                     </p>
                     <div className="flex items-center justify-between">
                       <span className="text-base sm:text-lg font-bold bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] bg-clip-text text-transparent">

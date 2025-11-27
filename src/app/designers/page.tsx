@@ -1,108 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import Header from "@/components/layout/Header";
-
-// Dummy data untuk designers
-const designersData = [
-  {
-    id: "1",
-    name: "Sarah Anderson",
-    username: "@sarahdesigns",
-    avatar: "SA",
-    specialties: ["Branding", "UI"],
-    rating: 4.9,
-    projects: 48,
-    followers: 2847,
-    avatar_bg: "from-[#BD9587] to-[#A2655F]",
-    featured_works: [
-      { id: 1, image: "🎨", title: "Brand Identity" },
-      { id: 2, image: "💼", title: "Logo Design" },
-      { id: 3, image: "✨", title: "UI Kit" },
-    ],
-  },
-  {
-    id: "2",
-    name: "Michael Chen",
-    username: "@mikechen",
-    avatar: "MC",
-    specialties: ["Illustration", "Modern"],
-    rating: 4.8,
-    projects: 62,
-    followers: 3120,
-    avatar_bg: "from-[#8B5A8C] to-[#5D6BC6]",
-    featured_works: [
-      { id: 1, image: "🎭", title: "Character Design" },
-      { id: 2, image: "🌈", title: "Illustrations" },
-      { id: 3, image: "🎪", title: "Art Collection" },
-    ],
-  },
-  {
-    id: "3",
-    name: "Emma Rodriguez",
-    username: "@emmarodriguez",
-    avatar: "ER",
-    specialties: ["UI", "Modern"],
-    rating: 5.0,
-    projects: 35,
-    followers: 1890,
-    avatar_bg: "from-[#5D6BC6] to-[#1647A3]",
-    featured_works: [
-      { id: 1, image: "📱", title: "Mobile App" },
-      { id: 2, image: "💻", title: "Web Design" },
-      { id: 3, image: "🎨", title: "Dashboard" },
-    ],
-  },
-  {
-    id: "4",
-    name: "James Wilson",
-    username: "@jameswilson",
-    avatar: "JW",
-    specialties: ["Branding", "Illustration"],
-    rating: 4.7,
-    projects: 41,
-    followers: 2345,
-    avatar_bg: "from-[#A2655F] to-[#8B5A8C]",
-    featured_works: [
-      { id: 1, image: "🏆", title: "Brand Strategy" },
-      { id: 2, image: "🎯", title: "Marketing" },
-      { id: 3, image: "📊", title: "Infographics" },
-    ],
-  },
-  {
-    id: "5",
-    name: "Sophia Lee",
-    username: "@sophialee",
-    avatar: "SL",
-    specialties: ["UI", "Branding"],
-    rating: 4.9,
-    projects: 56,
-    followers: 4120,
-    avatar_bg: "from-[#BD9587] to-[#5D6BC6]",
-    featured_works: [
-      { id: 1, image: "🎪", title: "E-commerce" },
-      { id: 2, image: "💎", title: "Luxury Brand" },
-      { id: 3, image: "🌟", title: "UI System" },
-    ],
-  },
-  {
-    id: "6",
-    name: "David Kim",
-    username: "@davidkim",
-    avatar: "DK",
-    specialties: ["Modern", "Illustration"],
-    rating: 4.8,
-    projects: 39,
-    followers: 2670,
-    avatar_bg: "from-[#5D6BC6] to-[#A2655F]",
-    featured_works: [
-      { id: 1, image: "🎨", title: "Digital Art" },
-      { id: 2, image: "🖼️", title: "Artwork" },
-      { id: 3, image: "✨", title: "Creative" },
-    ],
-  },
-];
+import { useDesigners } from "@/hooks/useDesigners";
 
 const categories = [
   { name: "All", value: "all" },
@@ -113,24 +14,72 @@ const categories = [
 ];
 
 const DesignersPage: React.FC = () => {
+  const { designers, loading, error } = useDesigners();
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortBy, setSortBy] = useState("rating");
 
   // Filter designers berdasarkan kategori
-  const filteredDesigners = designersData.filter((designer) => {
-    if (selectedCategory === "all") return true;
-    return designer.specialties.some(
-      (specialty) => specialty.toLowerCase() === selectedCategory.toLowerCase()
-    );
-  });
+  const filteredDesigners = useMemo(() => {
+    return designers.filter((designer) => {
+      if (selectedCategory === "all") return true;
+      return designer.specialties?.some(
+        (specialty) => specialty.toLowerCase() === selectedCategory.toLowerCase()
+      );
+    });
+  }, [designers, selectedCategory]);
 
   // Sort designers
-  const sortedDesigners = [...filteredDesigners].sort((a, b) => {
-    if (sortBy === "rating") return b.rating - a.rating;
-    if (sortBy === "projects") return b.projects - a.projects;
-    if (sortBy === "followers") return b.followers - a.followers;
-    return 0;
-  });
+  const sortedDesigners = useMemo(() => {
+    return [...filteredDesigners].sort((a, b) => {
+      if (sortBy === "rating") return (b.rating || 0) - (a.rating || 0);
+      if (sortBy === "projects") return (b.projects_count || 0) - (a.projects_count || 0);
+      if (sortBy === "followers") return (b.followers_count || 0) - (a.followers_count || 0);
+      return 0;
+    });
+  }, [filteredDesigners, sortBy]);
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen relative overflow-hidden">
+        <div className="fixed inset-0 -z-10">
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-purple-50"></div>
+        </div>
+        <Header />
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="text-center">
+            <div className="w-16 h-16 border-4 border-[#5D6BC6] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading designers...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="min-h-screen relative overflow-hidden">
+        <div className="fixed inset-0 -z-10">
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-purple-50"></div>
+        </div>
+        <Header />
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="text-center">
+            <div className="text-5xl mb-4">😕</div>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Something went wrong</h3>
+            <p className="text-gray-600 mb-4">{error}</p>
+            <button 
+              onClick={() => window.location.reload()}
+              className="px-6 py-2 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white rounded-xl font-medium"
+            >
+              Try Again
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen relative overflow-hidden">
@@ -215,9 +164,9 @@ const DesignersPage: React.FC = () => {
                   {/* Avatar */}
                   <div className="flex items-center space-x-3 sm:space-x-4 mb-3 sm:mb-4">
                     <div
-                      className={`w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-gradient-to-br ${designer.avatar_bg} rounded-xl sm:rounded-2xl flex items-center justify-center text-white text-lg sm:text-xl lg:text-2xl font-bold shadow-lg`}
+                      className={`w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-gradient-to-br ${designer.avatar_gradient || 'from-[#BD9587] to-[#A2655F]'} rounded-xl sm:rounded-2xl flex items-center justify-center text-white text-lg sm:text-xl lg:text-2xl font-bold shadow-lg`}
                     >
-                      {designer.avatar}
+                      {designer.avatar_initials}
                     </div>
                     <div className="flex-1 min-w-0">
                       <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 group-hover:text-[#5D6BC6] transition-colors duration-200 truncate">
@@ -239,7 +188,7 @@ const DesignersPage: React.FC = () => {
 
                   {/* Specialties */}
                   <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-4">
-                    {designer.specialties.map((specialty) => (
+                    {designer.specialties?.map((specialty) => (
                       <span
                         key={specialty}
                         className="px-2 sm:px-3 py-0.5 sm:py-1 bg-gradient-to-r from-[#BD9587]/10 to-[#8B5A8C]/10 text-[#8B5A8C] text-[10px] sm:text-xs font-semibold rounded-full border border-[#8B5A8C]/20"
@@ -260,13 +209,13 @@ const DesignersPage: React.FC = () => {
                           clipRule="evenodd"
                         />
                       </svg>
-                      <span>{designer.projects} projects</span>
+                      <span>{designer.projects_count || 0} projects</span>
                     </div>
                     <div className="flex items-center space-x-1">
                       <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
                       </svg>
-                      <span>{designer.followers.toLocaleString()} followers</span>
+                      <span>{(designer.followers_count || 0).toLocaleString()} followers</span>
                     </div>
                   </div>
                 </div>

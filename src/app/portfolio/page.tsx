@@ -1,100 +1,93 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Header from '@/components/layout/Header';
+import { usePortfolio } from '@/hooks/usePortfolio';
 
 const PortfolioPage = () => {
   const [activeFilter, setActiveFilter] = useState('All');
+  const { items: portfolioData, loading, error } = usePortfolio();
 
-  const filters = ['All', 'UI/UX', 'GRAPHIC DESIGN'];
+  const filters = ['All', 'UI/UX', 'Branding', 'Illustration', 'Graphic Design'];
 
-  const portfolioItems = [
+  // Sample fallback data if database is empty
+  const sampleItems = [
     {
-      id: 1,
+      id: 'sample-1',
       title: 'Modern E-commerce Platform',
       category: 'UI/UX',
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop&crop=center',
+      image_url: '🛒',
       description: 'Sleek and user-friendly e-commerce interface',
     },
     {
-      id: 2,
+      id: 'sample-2',
       title: 'Brand Identity System',
-      category: 'GRAPHIC DESIGN',
-      image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=300&fit=crop&crop=center',
+      category: 'Branding',
+      image_url: '🎨',
       description: 'Complete brand identity and visual system',
     },
     {
-      id: 3,
+      id: 'sample-3',
       title: 'Mobile Banking App',
       category: 'UI/UX',
-      image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=300&fit=crop&crop=center',
+      image_url: '📱',
       description: 'Secure and intuitive banking application',
     },
     {
-      id: 4,
+      id: 'sample-4',
       title: 'Marketing Campaign Posters',
-      category: 'GRAPHIC DESIGN',
-      image: 'https://images.unsplash.com/photo-1558655146-d09347e92766?w=400&h=300&fit=crop&crop=center',
+      category: 'Graphic Design',
+      image_url: '🖼️',
       description: 'Eye-catching poster series for marketing',
     },
     {
-      id: 5,
+      id: 'sample-5',
       title: 'Dashboard Analytics',
       category: 'UI/UX',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop&crop=center',
+      image_url: '📊',
       description: 'Data visualization dashboard interface',
     },
     {
-      id: 6,
+      id: 'sample-6',
       title: 'Logo Collection',
-      category: 'GRAPHIC DESIGN',
-      image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=400&h=300&fit=crop&crop=center',
+      category: 'Branding',
+      image_url: '✨',
       description: 'Professional logo designs for brands',
     },
     {
-      id: 7,
-      title: 'Social Media App',
-      category: 'UI/UX',
-      image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop&crop=center',
-      description: 'Modern social networking platform',
+      id: 'sample-7',
+      title: 'Character Illustrations',
+      category: 'Illustration',
+      image_url: '🎭',
+      description: 'Creative character design illustrations',
     },
     {
-      id: 8,
+      id: 'sample-8',
       title: 'Package Design Series',
-      category: 'GRAPHIC DESIGN',
-      image: 'https://images.unsplash.com/photo-1586880244406-556ebe35f282?w=400&h=300&fit=crop&crop=center',
+      category: 'Graphic Design',
+      image_url: '📦',
       description: 'Creative packaging design concepts',
     },
     {
-      id: 9,
+      id: 'sample-9',
       title: 'Travel Booking Platform',
       category: 'UI/UX',
-      image: 'https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=400&h=300&fit=crop&crop=center',
+      image_url: '✈️',
       description: 'Comprehensive travel booking system',
     },
   ];
 
-  const filteredItems = activeFilter === 'All' 
-    ? portfolioItems 
-    : portfolioItems.filter(item => item.category === activeFilter);
+  // Use database data if available, otherwise use sample
+  const portfolioItems = portfolioData.length > 0 ? portfolioData : sampleItems;
 
-  const recommendedItems = [
-    {
-      id: 101,
-      image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=200&fit=crop&crop=center',
-      title: 'Web Development Project',
-    },
-    {
-      id: 102,
-      image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=200&fit=crop&crop=center',
-      title: 'Brand Identity Design',
-    },
-    {
-      id: 103,
-      image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=200&fit=crop&crop=center',
-      title: 'Mobile App Interface',
-    },
-  ];
+  const filteredItems = useMemo(() => {
+    if (activeFilter === 'All') return portfolioItems;
+    return portfolioItems.filter(item => 
+      item.category.toLowerCase() === activeFilter.toLowerCase()
+    );
+  }, [portfolioItems, activeFilter]);
+
+  const recommendedItems = portfolioItems.slice(0, 3);
 
   return (
     <div className="min-h-screen bg-white">
@@ -148,17 +141,10 @@ const PortfolioPage = () => {
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   {/* Image Container */}
-                  <div className="relative overflow-hidden h-48 sm:h-56 lg:h-64 bg-gray-900">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      onError={(e) => {
-                        const colors = ['BD9587', 'A2655F', '8B5A8C', '5D6BC6', '1647A3'];
-                        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-                        e.currentTarget.src = `https://via.placeholder.com/400x300/${randomColor}/ffffff?text=${encodeURIComponent(item.category)}`;
-                      }}
-                    />
+                  <div className="relative overflow-hidden h-48 sm:h-56 lg:h-64 bg-gradient-to-br from-[#BD9587]/20 to-[#5D6BC6]/20">
+                    <div className="w-full h-full flex items-center justify-center group-hover:scale-110 transition-transform duration-700">
+                      <span className="text-5xl sm:text-6xl lg:text-7xl">{item.image_url}</span>
+                    </div>
                     
                     {/* Hover Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -196,15 +182,10 @@ const PortfolioPage = () => {
                   className="group bg-white rounded-lg sm:rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border border-gray-100"
                 >
                   {/* Image */}
-                  <div className="h-36 sm:h-40 lg:h-48 bg-gray-100 overflow-hidden">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      onError={(e) => {
-                        e.currentTarget.src = `https://via.placeholder.com/400x200/BD9587/ffffff?text=Project`;
-                      }}
-                    />
+                  <div className="h-36 sm:h-40 lg:h-48 bg-gradient-to-br from-[#BD9587]/20 to-[#5D6BC6]/20 overflow-hidden flex items-center justify-center">
+                    <span className="text-4xl sm:text-5xl group-hover:scale-110 transition-transform duration-500">
+                      {item.image_url}
+                    </span>
                   </div>
                   
                   {/* Content Lines */}

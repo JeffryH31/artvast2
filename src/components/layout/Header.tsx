@@ -4,11 +4,17 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MenuIcon } from "../ui/Icons";
+import { useAuth } from "@/hooks/useAuth";
+import AuthModal from "../auth/AuthModal";
 
 const Header: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
   const pathname = usePathname();
+  
+  const { user, loading, signOut } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,6 +26,16 @@ const Header: React.FC = () => {
   }, []);
 
   const isActive = (path: string) => pathname === path;
+
+  const openAuthModal = (mode: 'login' | 'signup') => {
+    setAuthMode(mode);
+    setAuthModalOpen(true);
+  };
+
+  const handleSignOut = async () => {
+    await signOut();
+    setMobileMenuOpen(false);
+  };
 
   return (
     <>
@@ -136,41 +152,72 @@ const Header: React.FC = () => {
                 {/* Divider */}
                 <div className="w-px h-8 bg-gradient-to-b from-transparent via-gray-300 to-transparent mx-2"></div>
 
-                {/* CTA Buttons */}
-                <button className="relative px-6 py-2.5 text-gray-700 font-medium rounded-xl hover:text-gray-900 overflow-hidden group border border-gray-200/50 hover:border-gray-300/50 transition-all duration-300">
-                  <span className="absolute inset-0 bg-white/50 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                  <span className="relative z-10">Sign In</span>
-                </button>
-
-                {/* Premium Get Started Button */}
-                <button className="relative ml-2 group overflow-hidden rounded-xl">
-                  {/* Animated gradient background */}
-                  <div className="absolute inset-0 custom-gradient-bg animate-gradient-shift"></div>
-                  {/* Glow effect */}
-                  <div className="absolute inset-0 custom-gradient-bg blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-500"></div>
-                  {/* Shine effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  
-                  <span className="relative z-10 flex items-center space-x-2 px-8 py-3 text-white font-bold">
-                    <span>Get Started</span>
-                    <svg
-                      className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
+                {/* Auth Section */}
+                {loading ? (
+                  <div className="w-8 h-8 rounded-full bg-gray-200 animate-pulse"></div>
+                ) : user ? (
+                  /* Logged in user */
+                  <div className="flex items-center space-x-3">
+                    <div className="flex items-center space-x-2 px-4 py-2 bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#5D6BC6] to-[#1647A3] flex items-center justify-center text-white text-sm font-bold">
+                        {user.email?.charAt(0).toUpperCase()}
+                      </div>
+                      <span className="text-sm text-gray-700 font-medium max-w-[120px] truncate">
+                        {user.email?.split('@')[0]}
+                      </span>
+                    </div>
+                    <button 
+                      onClick={handleSignOut}
+                      className="relative px-4 py-2 text-gray-600 font-medium rounded-xl hover:text-gray-900 overflow-hidden group border border-gray-200/50 hover:border-red-300/50 hover:bg-red-50/50 transition-all duration-300"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2.5}
-                        d="M13 7l5 5m0 0l-5 5m5-5H6"
-                      />
-                    </svg>
-                  </span>
-                  
-                  {/* Border glow */}
-                  <span className="absolute inset-0 rounded-xl ring-2 ring-white/20 group-hover:ring-white/40 transition-all duration-300"></span>
-                </button>
+                      <span className="relative z-10">Sign Out</span>
+                    </button>
+                  </div>
+                ) : (
+                  /* Not logged in */
+                  <>
+                    <button 
+                      onClick={() => openAuthModal('login')}
+                      className="relative px-6 py-2.5 text-gray-700 font-medium rounded-xl hover:text-gray-900 overflow-hidden group border border-gray-200/50 hover:border-gray-300/50 transition-all duration-300"
+                    >
+                      <span className="absolute inset-0 bg-white/50 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                      <span className="relative z-10">Sign In</span>
+                    </button>
+
+                    {/* Premium Get Started Button */}
+                    <button 
+                      onClick={() => openAuthModal('signup')}
+                      className="relative ml-2 group overflow-hidden rounded-xl"
+                    >
+                      {/* Animated gradient background */}
+                      <div className="absolute inset-0 custom-gradient-bg animate-gradient-shift"></div>
+                      {/* Glow effect */}
+                      <div className="absolute inset-0 custom-gradient-bg blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-500"></div>
+                      {/* Shine effect */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                      
+                      <span className="relative z-10 flex items-center space-x-2 px-8 py-3 text-white font-bold">
+                        <span>Get Started</span>
+                        <svg
+                          className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2.5}
+                            d="M13 7l5 5m0 0l-5 5m5-5H6"
+                          />
+                        </svg>
+                      </span>
+                      
+                      {/* Border glow */}
+                      <span className="absolute inset-0 rounded-xl ring-2 ring-white/20 group-hover:ring-white/40 transition-all duration-300"></span>
+                    </button>
+                  </>
+                )}
               </div>
             </div>
 
@@ -239,16 +286,60 @@ const Header: React.FC = () => {
               
               <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent my-3 sm:my-4"></div>
               
-              <button className="w-full px-4 sm:px-6 py-3 sm:py-4 text-gray-700 font-medium rounded-xl sm:rounded-2xl hover:bg-white/60 border border-gray-200 transition-all duration-300 text-sm sm:text-base">
-                Sign In
-              </button>
-              <button className="w-full custom-gradient-bg text-white font-bold px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 text-sm sm:text-base">
-                Get Started
-              </button>
+              {/* Mobile Auth Section */}
+              {loading ? (
+                <div className="w-full h-12 bg-gray-200 rounded-xl animate-pulse"></div>
+              ) : user ? (
+                <>
+                  <div className="flex items-center space-x-3 px-4 sm:px-6 py-3 sm:py-4 bg-white/50 rounded-xl sm:rounded-2xl">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#5D6BC6] to-[#1647A3] flex items-center justify-center text-white font-bold">
+                      {user.email?.charAt(0).toUpperCase()}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-gray-900 truncate">{user.email?.split('@')[0]}</p>
+                      <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                    </div>
+                  </div>
+                  <button 
+                    onClick={handleSignOut}
+                    className="w-full px-4 sm:px-6 py-3 sm:py-4 text-red-600 font-medium rounded-xl sm:rounded-2xl hover:bg-red-50 border border-red-200 transition-all duration-300 text-sm sm:text-base"
+                  >
+                    Sign Out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button 
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      openAuthModal('login');
+                    }}
+                    className="w-full px-4 sm:px-6 py-3 sm:py-4 text-gray-700 font-medium rounded-xl sm:rounded-2xl hover:bg-white/60 border border-gray-200 transition-all duration-300 text-sm sm:text-base"
+                  >
+                    Sign In
+                  </button>
+                  <button 
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      openAuthModal('signup');
+                    }}
+                    className="w-full custom-gradient-bg text-white font-bold px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 text-sm sm:text-base"
+                  >
+                    Get Started
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>
       )}
+
+      {/* Auth Modal */}
+      <AuthModal 
+        isOpen={authModalOpen} 
+        onClose={() => setAuthModalOpen(false)} 
+        initialMode={authMode}
+      />
     </>
   );
 };
