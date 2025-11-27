@@ -2,40 +2,40 @@ import React from 'react';
 
 const BenefitsSection: React.FC = () => {
   return (
-    <section className="value-gradient py-24 lg:py-32 relative overflow-hidden">
-      {/* Enhanced Background decoration */}
+    <section className="value-gradient py-16 sm:py-20 lg:py-24 xl:py-32 relative overflow-hidden">
+      {/* Enhanced Background decoration - responsive sizes */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
       <div className="absolute inset-0">
-        <div className="absolute top-20 left-20 w-80 h-80 bg-white/5 rounded-full blur-3xl animate-pulse delay-300"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse delay-700"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/3 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-10 sm:top-20 left-5 sm:left-20 w-40 sm:w-60 lg:w-80 h-40 sm:h-60 lg:h-80 bg-white/5 rounded-full blur-3xl animate-pulse delay-300"></div>
+        <div className="absolute bottom-10 sm:bottom-20 right-5 sm:right-20 w-48 sm:w-72 lg:w-96 h-48 sm:h-72 lg:h-96 bg-white/5 rounded-full blur-3xl animate-pulse delay-700"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[450px] lg:w-[600px] h-[300px] sm:h-[450px] lg:h-[600px] bg-white/3 rounded-full blur-3xl animate-pulse delay-1000"></div>
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-20">
-          <span className="inline-block px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium text-white/90 border border-white/20 mb-6">
+        <div className="text-center mb-10 sm:mb-16 lg:mb-20">
+          <span className="inline-block px-4 sm:px-6 py-2 sm:py-3 bg-white/10 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium text-white/90 border border-white/20 mb-4 sm:mb-6">
             💎 Exclusive Benefits
           </span>
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 lg:mb-8 leading-tight">
             <span className="block bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
               The Benefits
             </span>
           </h2>
-          <p className="text-xl text-white/80 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg lg:text-xl text-white/80 max-w-4xl mx-auto leading-relaxed px-4">
             Enjoy the best experience both as a client and designer with our premium features
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12">
           {/* For Clients Card */}
-          <div className="group bg-white/95 backdrop-blur-sm rounded-3xl p-10 shadow-2xl hover:shadow-white/10 transform hover:scale-105 hover:-translate-y-2 transition-all duration-500 border border-white/10">
+          <div className="group bg-white/95 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-5 sm:p-7 lg:p-10 shadow-xl sm:shadow-2xl hover:shadow-white/10 transform hover:scale-[1.02] sm:hover:scale-105 hover:-translate-y-1 sm:hover:-translate-y-2 transition-all duration-500 border border-white/10">
             {/* Enhanced Image placeholder */}
-            <div className="relative bg-gradient-to-br from-orange-100 via-orange-50 to-yellow-50 rounded-2xl mb-8 h-56 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform duration-500">
+            <div className="relative bg-gradient-to-br from-orange-100 via-orange-50 to-yellow-50 rounded-xl sm:rounded-2xl mb-5 sm:mb-8 h-40 sm:h-48 lg:h-56 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform duration-500">
               <div className="absolute inset-0 bg-gradient-to-br from-orange-200/20 to-yellow-200/20"></div>
               <div className="relative text-center">
-                <div className="w-20 h-20 bg-gradient-to-br from-orange-400 to-orange-500 rounded-2xl mx-auto mb-4 flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-xl">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-orange-400 to-orange-500 rounded-xl sm:rounded-2xl mx-auto mb-2 sm:mb-4 flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg sm:shadow-xl">
                   <svg
-                    className="w-10 h-10 text-white"
+                    className="w-7 h-7 sm:w-8 sm:h-8 lg:w-10 lg:h-10 text-white"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -48,26 +48,26 @@ const BenefitsSection: React.FC = () => {
                     />
                   </svg>
                 </div>
-                <p className="text-orange-700 font-semibold">
+                <p className="text-sm sm:text-base text-orange-700 font-semibold">
                   Client Premium Experience
                 </p>
-                {/* Floating elements */}
-                <div className="absolute top-4 right-4 w-4 h-4 bg-orange-300 rounded-full animate-bounce"></div>
-                <div className="absolute bottom-4 left-4 w-3 h-3 bg-yellow-300 rounded-full animate-pulse"></div>
+                {/* Floating elements - hidden on very small screens */}
+                <div className="hidden sm:block absolute top-4 right-4 w-3 h-3 sm:w-4 sm:h-4 bg-orange-300 rounded-full animate-bounce"></div>
+                <div className="hidden sm:block absolute bottom-4 left-4 w-2 h-2 sm:w-3 sm:h-3 bg-yellow-300 rounded-full animate-pulse"></div>
               </div>
             </div>
 
             <div className="relative">
-              <div className="absolute -left-2 top-0 bottom-0 w-1 custom-gradient-bg rounded-full"></div>
-              <div className="pl-8">
-                <h3 className="text-3xl font-bold custom-gradient-text mb-8">
+              <div className="absolute -left-1 sm:-left-2 top-0 bottom-0 w-0.5 sm:w-1 custom-gradient-bg rounded-full"></div>
+              <div className="pl-4 sm:pl-6 lg:pl-8">
+                <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold custom-gradient-text mb-4 sm:mb-6 lg:mb-8">
                   For Clients
                 </h3>
-                <ul className="space-y-6">
-                  <li className="group/item flex items-start space-x-4 p-4 rounded-xl hover:bg-blue-50 transition-colors duration-300">
-                    <div className="flex-shrink-0 w-8 h-8 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
+                <ul className="space-y-3 sm:space-y-4 lg:space-y-6">
+                  <li className="group/item flex items-start space-x-2 sm:space-x-3 lg:space-x-4 p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl hover:bg-blue-50 transition-colors duration-300">
+                    <div className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
                       <svg
-                        className="w-4 h-4 text-white"
+                        className="w-3 h-3 sm:w-3.5 sm:h-3.5 lg:w-4 lg:h-4 text-white"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -80,14 +80,14 @@ const BenefitsSection: React.FC = () => {
                         />
                       </svg>
                     </div>
-                    <span className="text-gray-700 font-medium text-lg group-hover/item:text-blue-700 transition-colors duration-300">
+                    <span className="text-sm sm:text-base lg:text-lg text-gray-700 font-medium group-hover/item:text-blue-700 transition-colors duration-300">
                       AI powered matchmaking
                     </span>
                   </li>
-                  <li className="group/item flex items-start space-x-4 p-4 rounded-xl hover:bg-blue-50 transition-colors duration-300">
-                    <div className="flex-shrink-0 w-8 h-8 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
+                  <li className="group/item flex items-start space-x-2 sm:space-x-3 lg:space-x-4 p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl hover:bg-blue-50 transition-colors duration-300">
+                    <div className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
                       <svg
-                        className="w-4 h-4 text-white"
+                        className="w-3 h-3 sm:w-3.5 sm:h-3.5 lg:w-4 lg:h-4 text-white"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -100,14 +100,14 @@ const BenefitsSection: React.FC = () => {
                         />
                       </svg>
                     </div>
-                    <span className="text-gray-700 font-medium text-lg group-hover/item:text-blue-700 transition-colors duration-300">
+                    <span className="text-sm sm:text-base lg:text-lg text-gray-700 font-medium group-hover/item:text-blue-700 transition-colors duration-300">
                       Transparent pricing
                     </span>
                   </li>
-                  <li className="group/item flex items-start space-x-4 p-4 rounded-xl hover:bg-blue-50 transition-colors duration-300">
-                    <div className="flex-shrink-0 w-8 h-8 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
+                  <li className="group/item flex items-start space-x-2 sm:space-x-3 lg:space-x-4 p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl hover:bg-blue-50 transition-colors duration-300">
+                    <div className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
                       <svg
-                        className="w-4 h-4 text-white"
+                        className="w-3 h-3 sm:w-3.5 sm:h-3.5 lg:w-4 lg:h-4 text-white"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -121,11 +121,11 @@ const BenefitsSection: React.FC = () => {
                       </svg>
                     </div>
                     <div className="flex-1">
-                      <span className="text-gray-700 font-medium text-lg decoration-blue-500 decoration-2 group-hover/item:text-blue-700 transition-colors duration-300">
+                      <span className="text-sm sm:text-base lg:text-lg text-gray-700 font-medium decoration-blue-500 decoration-2 group-hover/item:text-blue-700 transition-colors duration-300">
                         Escrow payments
                       </span>
                       <div className="mt-1">
-                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                        <span className="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                           🔒 Secure
                         </span>
                       </div>
@@ -137,14 +137,14 @@ const BenefitsSection: React.FC = () => {
           </div>
 
           {/* For Designers Card */}
-          <div className="group bg-white/95 backdrop-blur-sm rounded-3xl p-10 shadow-2xl hover:shadow-white/10 transform hover:scale-105 hover:-translate-y-2 transition-all duration-500 border border-white/10">
+          <div className="group bg-white/95 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-5 sm:p-7 lg:p-10 shadow-xl sm:shadow-2xl hover:shadow-white/10 transform hover:scale-[1.02] sm:hover:scale-105 hover:-translate-y-1 sm:hover:-translate-y-2 transition-all duration-500 border border-white/10">
             {/* Enhanced Image placeholder */}
-            <div className="relative bg-gradient-to-br from-gray-100 via-gray-50 to-blue-50 rounded-2xl mb-8 h-56 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform duration-500">
+            <div className="relative bg-gradient-to-br from-gray-100 via-gray-50 to-blue-50 rounded-xl sm:rounded-2xl mb-5 sm:mb-8 h-40 sm:h-48 lg:h-56 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform duration-500">
               <div className="absolute inset-0 bg-gradient-to-br from-gray-200/20 to-blue-200/20"></div>
               <div className="relative text-center">
-                <div className="w-20 h-20 bg-gradient-to-br from-gray-500 to-gray-600 rounded-2xl mx-auto mb-4 flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-xl">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-gray-500 to-gray-600 rounded-xl sm:rounded-2xl mx-auto mb-2 sm:mb-4 flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg sm:shadow-xl">
                   <svg
-                    className="w-10 h-10 text-white"
+                    className="w-7 h-7 sm:w-8 sm:h-8 lg:w-10 lg:h-10 text-white"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -157,24 +157,24 @@ const BenefitsSection: React.FC = () => {
                     />
                   </svg>
                 </div>
-                <p className="text-gray-700 font-semibold">
+                <p className="text-sm sm:text-base text-gray-700 font-semibold">
                   Designer Growth Platform
                 </p>
-                {/* Floating elements */}
-                <div className="absolute top-4 right-4 w-4 h-4 bg-blue-300 rounded-full animate-bounce delay-200"></div>
-                <div className="absolute bottom-4 left-4 w-3 h-3 bg-purple-300 rounded-full animate-pulse delay-500"></div>
+                {/* Floating elements - hidden on very small screens */}
+                <div className="hidden sm:block absolute top-4 right-4 w-3 h-3 sm:w-4 sm:h-4 bg-blue-300 rounded-full animate-bounce delay-200"></div>
+                <div className="hidden sm:block absolute bottom-4 left-4 w-2 h-2 sm:w-3 sm:h-3 bg-purple-300 rounded-full animate-pulse delay-500"></div>
               </div>
             </div>
 
-            <div className="space-y-6">
-              <h3 className="text-3xl font-bold custom-gradient-text mb-8">
+            <div className="space-y-4 sm:space-y-6">
+              <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold custom-gradient-text mb-4 sm:mb-6 lg:mb-8">
                 For Designers
               </h3>
-              <ul className="space-y-6">
-                <li className="group/item flex items-start space-x-4 p-4 rounded-xl hover:bg-blue-50 transition-colors duration-300">
-                  <div className="flex-shrink-0 w-8 h-8 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
+              <ul className="space-y-3 sm:space-y-4 lg:space-y-6">
+                <li className="group/item flex items-start space-x-2 sm:space-x-3 lg:space-x-4 p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl hover:bg-blue-50 transition-colors duration-300">
+                  <div className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
                     <svg
-                      className="w-4 h-4 text-white"
+                      className="w-3 h-3 sm:w-3.5 sm:h-3.5 lg:w-4 lg:h-4 text-white"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -193,14 +193,14 @@ const BenefitsSection: React.FC = () => {
                       />
                     </svg>
                   </div>
-                  <span className="text-gray-700 font-medium text-lg group-hover/item:text-blue-700 transition-colors duration-300">
+                  <span className="text-sm sm:text-base lg:text-lg text-gray-700 font-medium group-hover/item:text-blue-700 transition-colors duration-300">
                     Gain exposures
                   </span>
                 </li>
-                <li className="group/item flex items-start space-x-4 p-4 rounded-xl hover:bg-blue-50 transition-colors duration-300">
-                  <div className="flex-shrink-0 w-8 h-8 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
+                <li className="group/item flex items-start space-x-2 sm:space-x-3 lg:space-x-4 p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl hover:bg-blue-50 transition-colors duration-300">
+                  <div className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
                     <svg
-                      className="w-4 h-4 text-white"
+                      className="w-3 h-3 sm:w-3.5 sm:h-3.5 lg:w-4 lg:h-4 text-white"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -213,14 +213,14 @@ const BenefitsSection: React.FC = () => {
                       />
                     </svg>
                   </div>
-                  <span className="text-gray-700 font-medium text-lg group-hover/item:text-blue-700 transition-colors duration-300">
+                  <span className="text-sm sm:text-base lg:text-lg text-gray-700 font-medium group-hover/item:text-blue-700 transition-colors duration-300">
                     Self-fair prices
                   </span>
                 </li>
-                <li className="group/item flex items-start space-x-4 p-4 rounded-xl hover:bg-blue-50 transition-colors duration-300">
-                  <div className="flex-shrink-0 w-8 h-8 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
+                <li className="group/item flex items-start space-x-2 sm:space-x-3 lg:space-x-4 p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl hover:bg-blue-50 transition-colors duration-300">
+                  <div className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
                     <svg
-                      className="w-4 h-4 text-white"
+                      className="w-3 h-3 sm:w-3.5 sm:h-3.5 lg:w-4 lg:h-4 text-white"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -233,14 +233,14 @@ const BenefitsSection: React.FC = () => {
                       />
                     </svg>
                   </div>
-                  <span className="text-gray-700 font-medium text-lg group-hover/item:text-blue-700 transition-colors duration-300">
+                  <span className="text-sm sm:text-base lg:text-lg text-gray-700 font-medium group-hover/item:text-blue-700 transition-colors duration-300">
                     Protect your IP
                   </span>
                 </li>
-                <li className="group/item flex items-start space-x-4 p-4 rounded-xl hover:bg-blue-50 transition-colors duration-300">
-                  <div className="flex-shrink-0 w-8 h-8 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
+                <li className="group/item flex items-start space-x-2 sm:space-x-3 lg:space-x-4 p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl hover:bg-blue-50 transition-colors duration-300">
+                  <div className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
                     <svg
-                      className="w-4 h-4 text-white"
+                      className="w-3 h-3 sm:w-3.5 sm:h-3.5 lg:w-4 lg:h-4 text-white"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -253,7 +253,7 @@ const BenefitsSection: React.FC = () => {
                       />
                     </svg>
                   </div>
-                  <span className="text-gray-700 font-medium text-lg group-hover/item:text-blue-700 transition-colors duration-300">
+                  <span className="text-sm sm:text-base lg:text-lg text-gray-700 font-medium group-hover/item:text-blue-700 transition-colors duration-300">
                     Grow your career
                   </span>
                 </li>

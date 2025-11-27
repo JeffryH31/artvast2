@@ -37,25 +37,25 @@ const Header: React.FC = () => {
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent"></div>
 
         <nav className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
+          <div className="flex justify-between items-center h-16 sm:h-18 lg:h-20">
             {/* Logo Section - Enhanced */}
             <div className="flex items-center">
-              <Link href="/" className="flex items-center space-x-3 group cursor-pointer">
+              <Link href="/" className="flex items-center space-x-2 sm:space-x-3 group cursor-pointer">
                 <div className="relative">
                   {/* Animated glow */}
-                  <div className="absolute inset-0 custom-gradient-bg rounded-2xl blur-xl opacity-40 group-hover:opacity-70 transition-all duration-500 animate-pulse"></div>
+                  <div className="absolute inset-0 custom-gradient-bg rounded-xl sm:rounded-2xl blur-xl opacity-40 group-hover:opacity-70 transition-all duration-500 animate-pulse"></div>
                   {/* Logo box */}
-                  <div className="relative w-12 h-12 custom-gradient-bg rounded-2xl flex items-center justify-center transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-500 shadow-xl">
-                    <span className="text-white font-black text-xl">A</span>
+                  <div className="relative w-9 h-9 sm:w-10 sm:h-10 lg:w-12 lg:h-12 custom-gradient-bg rounded-xl sm:rounded-2xl flex items-center justify-center transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-500 shadow-lg sm:shadow-xl">
+                    <span className="text-white font-black text-base sm:text-lg lg:text-xl">A</span>
                   </div>
                   {/* Badge */}
-                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white shadow-lg animate-pulse"></div>
+                  <div className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 w-3 h-3 sm:w-4 sm:h-4 bg-green-500 rounded-full border-2 border-white shadow-lg animate-pulse"></div>
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-2xl font-black custom-gradient-text group-hover:scale-105 transition-transform duration-300">
+                  <span className="text-lg sm:text-xl lg:text-2xl font-black custom-gradient-text group-hover:scale-105 transition-transform duration-300">
                     Artvast
                   </span>
-                  <span className="text-[10px] text-gray-500 -mt-1 font-medium">Creative Platform</span>
+                  <span className="text-[8px] sm:text-[10px] text-gray-500 -mt-0.5 sm:-mt-1 font-medium hidden sm:block">Creative Platform</span>
                 </div>
               </Link>
             </div>
@@ -178,9 +178,9 @@ const Header: React.FC = () => {
             <div className="lg:hidden">
               <button 
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="relative p-3 rounded-2xl bg-white/60 backdrop-blur-xl hover:bg-white/80 text-gray-700 hover:text-gray-900 transition-all duration-300 border border-white/40 hover:border-white/60 shadow-xl hover:shadow-2xl group"
+                className="relative p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-white/60 backdrop-blur-xl hover:bg-white/80 text-gray-700 hover:text-gray-900 transition-all duration-300 border border-white/40 hover:border-white/60 shadow-lg sm:shadow-xl hover:shadow-2xl group"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-xl sm:rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <MenuIcon />
               </button>
             </div>
@@ -195,16 +195,16 @@ const Header: React.FC = () => {
       {mobileMenuOpen && (
         <div className="lg:hidden fixed inset-0 z-40 bg-black/20 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)}>
           <div 
-            className="absolute top-24 right-4 left-4 bg-white/90 backdrop-blur-2xl rounded-3xl shadow-2xl border border-white/50 overflow-hidden"
+            className="absolute top-20 sm:top-24 right-3 left-3 sm:right-4 sm:left-4 bg-white/90 backdrop-blur-2xl rounded-2xl sm:rounded-3xl shadow-2xl border border-white/50 overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5"></div>
             
-            <div className="relative p-6 space-y-2">
+            <div className="relative p-4 sm:p-6 space-y-1 sm:space-y-2">
               <Link 
                 href="/" 
-                className={`block px-6 py-4 rounded-2xl hover:bg-white/60 transition-all duration-300 ${
+                className={`block px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl hover:bg-white/60 transition-all duration-300 text-sm sm:text-base ${
                   isActive('/') ? 'text-gray-900 font-semibold bg-white/50' : 'text-gray-700 font-medium'
                 }`}
                 onClick={() => setMobileMenuOpen(false)}
@@ -213,7 +213,7 @@ const Header: React.FC = () => {
               </Link>
               <Link 
                 href="/portfolio" 
-                className={`block px-6 py-4 rounded-2xl hover:bg-white/60 transition-all duration-300 ${
+                className={`block px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl hover:bg-white/60 transition-all duration-300 text-sm sm:text-base ${
                   isActive('/portfolio') ? 'text-gray-900 font-semibold bg-white/50' : 'text-gray-700 font-medium'
                 }`}
                 onClick={() => setMobileMenuOpen(false)}
@@ -222,7 +222,7 @@ const Header: React.FC = () => {
               </Link>
               <Link 
                 href="/marketplace" 
-                className={`block px-6 py-4 rounded-2xl hover:bg-white/60 transition-all duration-300 ${
+                className={`block px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl hover:bg-white/60 transition-all duration-300 text-sm sm:text-base ${
                   isActive('/marketplace') ? 'text-gray-900 font-semibold bg-white/50' : 'text-gray-700 font-medium'
                 }`}
                 onClick={() => setMobileMenuOpen(false)}
@@ -231,18 +231,18 @@ const Header: React.FC = () => {
               </Link>
               <a 
                 href="#services" 
-                className="block px-6 py-4 text-gray-700 font-medium rounded-2xl hover:bg-white/60 transition-all duration-300"
+                className="block px-4 sm:px-6 py-3 sm:py-4 text-gray-700 font-medium rounded-xl sm:rounded-2xl hover:bg-white/60 transition-all duration-300 text-sm sm:text-base"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Services
               </a>
               
-              <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent my-4"></div>
+              <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent my-3 sm:my-4"></div>
               
-              <button className="w-full px-6 py-4 text-gray-700 font-medium rounded-2xl hover:bg-white/60 border border-gray-200 transition-all duration-300">
+              <button className="w-full px-4 sm:px-6 py-3 sm:py-4 text-gray-700 font-medium rounded-xl sm:rounded-2xl hover:bg-white/60 border border-gray-200 transition-all duration-300 text-sm sm:text-base">
                 Sign In
               </button>
-              <button className="w-full custom-gradient-bg text-white font-bold px-6 py-4 rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+              <button className="w-full custom-gradient-bg text-white font-bold px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 text-sm sm:text-base">
                 Get Started
               </button>
             </div>
