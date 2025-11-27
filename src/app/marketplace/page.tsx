@@ -192,42 +192,42 @@ const MarketplacePage = () => {
 
       <Header />
 
-      <div className="relative pt-20">
+      <div className="relative pt-16 sm:pt-20">
         {/* Hero Section */}
-        <div className="bg-gradient-to-r from-[#BD9587] via-[#8B5A8C] to-[#5D6BC6] py-16 shadow-2xl">
+        <div className="bg-gradient-to-r from-[#BD9587] via-[#8B5A8C] to-[#5D6BC6] py-10 sm:py-12 lg:py-16 shadow-2xl">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6">
               Creative <span className="text-white/90">Marketplace</span>
             </h1>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto mb-8">
+            <p className="text-base sm:text-lg lg:text-xl text-white/90 max-w-3xl mx-auto mb-6 sm:mb-8 px-2">
               Discover and purchase high-quality design assets from talented
               creators worldwide
             </p>
 
             {/* Featured Stats */}
-            <div className="flex justify-center space-x-8 text-white/90">
+            <div className="flex justify-center gap-6 sm:gap-8 lg:space-x-8 text-white/90">
               <div className="text-center">
-                <div className="text-2xl font-bold">1000+</div>
-                <div className="text-sm">Artworks</div>
+                <div className="text-lg sm:text-xl lg:text-2xl font-bold">1000+</div>
+                <div className="text-xs sm:text-sm">Artworks</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold">500+</div>
-                <div className="text-sm">Artists</div>
+                <div className="text-lg sm:text-xl lg:text-2xl font-bold">500+</div>
+                <div className="text-xs sm:text-sm">Artists</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold">98%</div>
-                <div className="text-sm">Satisfaction</div>
+                <div className="text-lg sm:text-xl lg:text-2xl font-bold">98%</div>
+                <div className="text-xs sm:text-sm">Satisfaction</div>
               </div>
             </div>
           </div>
         </div>
 
         {/* Search and Filters */}
-        <div className="bg-white shadow-sm border-b border-gray-200 sticky top-20 z-40">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div className="flex flex-col lg:flex-row gap-4 items-center">
-              {/* Search Bar */}
-              <div className="relative flex-1 max-w-md">
+        <div className="bg-white shadow-sm border-b border-gray-200 sticky top-16 sm:top-20 z-40">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+            <div className="flex flex-col gap-3 sm:gap-4">
+              {/* Search Bar - Full width on mobile */}
+              <div className="relative w-full">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <svg
                     className="h-5 w-5 text-gray-400"
@@ -248,17 +248,17 @@ const MarketplacePage = () => {
                   placeholder="Search artworks, designers..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-[#5D6BC6] focus:border-[#5D6BC6]"
+                  className="block w-full pl-10 pr-3 py-2.5 sm:py-3 border border-gray-300 rounded-xl leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-[#5D6BC6] focus:border-[#5D6BC6] text-sm sm:text-base"
                 />
               </div>
 
-              {/* Filters */}
-              <div className="flex gap-3 flex-wrap">
+              {/* Filters - Scrollable on mobile */}
+              <div className="flex gap-2 sm:gap-3 overflow-x-auto pb-2 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-hide">
                 {/* Category Filter */}
                 <select
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="px-4 py-3 border border-gray-300 rounded-xl bg-white focus:outline-none focus:ring-1 focus:ring-[#5D6BC6] focus:border-[#5D6BC6] text-gray-700"
+                  className="flex-shrink-0 px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-xl bg-white focus:outline-none focus:ring-1 focus:ring-[#5D6BC6] focus:border-[#5D6BC6] text-gray-700 text-sm sm:text-base min-w-[140px] sm:min-w-0"
                 >
                   {categories.map((category) => (
                     <option key={category} value={category}>
@@ -271,7 +271,7 @@ const MarketplacePage = () => {
                 <select
                   value={selectedRating}
                   onChange={(e) => setSelectedRating(e.target.value)}
-                  className="px-4 py-3 border border-gray-300 rounded-xl bg-white focus:outline-none focus:ring-1 focus:ring-[#5D6BC6] focus:border-[#5D6BC6] text-gray-700"
+                  className="flex-shrink-0 px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-xl bg-white focus:outline-none focus:ring-1 focus:ring-[#5D6BC6] focus:border-[#5D6BC6] text-gray-700 text-sm sm:text-base min-w-[120px] sm:min-w-0"
                 >
                   {ratings.map((rating) => (
                     <option key={rating} value={rating}>
@@ -285,12 +285,12 @@ const MarketplacePage = () => {
         </div>
 
         {/* Results Header */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold text-gray-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4 sm:mb-6">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
               {filteredProducts.length} Products Found
             </h2>
-            <div className="text-sm text-gray-500">
+            <div className="text-xs sm:text-sm text-gray-500">
               Sorted by:{" "}
               <span className="font-medium text-gray-700">Most Popular</span>
             </div>
@@ -298,8 +298,8 @@ const MarketplacePage = () => {
         </div>
 
         {/* Marketplace Grid */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {filteredProducts.map((product, index) => (
               <Link
                 href={`/product/${product.id}`}
@@ -308,9 +308,9 @@ const MarketplacePage = () => {
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {/* Image Container */}
-                <div className="relative overflow-hidden h-64">
+                <div className="relative overflow-hidden h-48 sm:h-56 lg:h-64">
                   <div className="w-full h-full bg-gradient-to-br from-[#BD9587]/20 to-[#5D6BC6]/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-700">
-                    <span className="text-6xl">{product.image}</span>
+                    <span className="text-4xl sm:text-5xl lg:text-6xl">{product.image}</span>
                   </div>
 
                   {/* Badges */}
@@ -340,19 +340,19 @@ const MarketplacePage = () => {
                 </div>
 
                 {/* Content */}
-                <div className="p-6">
-                  <div className="flex justify-between items-start mb-3">
-                    <div>
-                      <h3 className="text-lg font-bold text-gray-900 mb-1 group-hover:text-[#5D6BC6] transition-colors duration-200">
+                <div className="p-4 sm:p-5 lg:p-6">
+                  <div className="flex justify-between items-start mb-2 sm:mb-3">
+                    <div className="flex-1 min-w-0 pr-2">
+                      <h3 className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 mb-0.5 sm:mb-1 group-hover:text-[#5D6BC6] transition-colors duration-200 truncate">
                         {product.name}
                       </h3>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-xs sm:text-sm text-gray-600 truncate">
                         by {product.designer.name}
                       </p>
                     </div>
-                    <div className="flex items-center space-x-1 text-sm">
+                    <div className="flex items-center space-x-1 text-xs sm:text-sm flex-shrink-0">
                       <svg
-                        className="w-4 h-4 text-yellow-400 fill-current"
+                        className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400 fill-current"
                         viewBox="0 0 20 20"
                       >
                         <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
@@ -360,20 +360,20 @@ const MarketplacePage = () => {
                       <span className="font-medium text-gray-700">
                         {product.rating}
                       </span>
-                      <span className="text-gray-500">
+                      <span className="text-gray-500 hidden sm:inline">
                         ({product.reviewCount})
                       </span>
                     </div>
                   </div>
 
-                  <div className="mb-4">
-                    <span className="px-3 py-1 bg-gradient-to-r from-[#BD9587]/10 to-[#8B5A8C]/10 text-[#8B5A8C] text-sm font-medium rounded-full border border-[#8B5A8C]/20">
+                  <div className="mb-3 sm:mb-4">
+                    <span className="px-2 sm:px-3 py-0.5 sm:py-1 bg-gradient-to-r from-[#BD9587]/10 to-[#8B5A8C]/10 text-[#8B5A8C] text-xs sm:text-sm font-medium rounded-full border border-[#8B5A8C]/20">
                       {product.category}
                     </span>
                   </div>
 
-                  {/* Features Preview */}
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  {/* Features Preview - Hidden on mobile */}
+                  <div className="hidden sm:flex flex-wrap gap-2 mb-3 sm:mb-4">
                     {product.features
                       .slice(0, 2)
                       .map((feature, featureIndex) => (
@@ -387,9 +387,9 @@ const MarketplacePage = () => {
                   </div>
 
                   {/* Delivery Time */}
-                  <div className="text-xs text-gray-500 mb-4 flex items-center space-x-1">
+                  <div className="text-[10px] sm:text-xs text-gray-500 mb-3 sm:mb-4 flex items-center space-x-1">
                     <svg
-                      className="w-4 h-4"
+                      className="w-3 h-3 sm:w-4 sm:h-4"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -411,7 +411,7 @@ const MarketplacePage = () => {
                         e.preventDefault();
                         alert("Added to cart!");
                       }}
-                      className="flex-1 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white px-4 py-2 rounded-xl font-medium hover:from-[#A2655F] hover:to-[#8B5A8C] transition-all duration-300 transform hover:scale-105"
+                      className="flex-1 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white px-3 sm:px-4 py-2 rounded-lg sm:rounded-xl font-medium text-xs sm:text-sm hover:from-[#A2655F] hover:to-[#8B5A8C] transition-all duration-300 transform hover:scale-105"
                     >
                       Add to Cart
                     </button>
@@ -420,10 +420,10 @@ const MarketplacePage = () => {
                         e.preventDefault();
                         alert("Added to wishlist!");
                       }}
-                      className="px-4 py-2 border border-gray-300 text-gray-700 rounded-xl hover:border-[#5D6BC6] hover:bg-[#5D6BC6]/5 transition-colors duration-200"
+                      className="px-3 sm:px-4 py-2 border border-gray-300 text-gray-700 rounded-lg sm:rounded-xl hover:border-[#5D6BC6] hover:bg-[#5D6BC6]/5 transition-colors duration-200"
                     >
                       <svg
-                        className="w-5 h-5"
+                        className="w-4 h-4 sm:w-5 sm:h-5"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -444,48 +444,48 @@ const MarketplacePage = () => {
         </div>
 
         {/* Recommended Section */}
-        <div className="bg-gradient-to-br from-[#BD9587]/10 via-[#8B5A8C]/10 to-[#5D6BC6]/10 py-16">
+        <div className="bg-gradient-to-br from-[#BD9587]/10 via-[#8B5A8C]/10 to-[#5D6BC6]/10 py-10 sm:py-12 lg:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <div className="text-center mb-8 sm:mb-12">
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 sm:mb-4">
                 Recommended for{" "}
                 <span className="bg-gradient-to-r from-[#A2655F] to-[#5D6BC6] bg-clip-text text-transparent">
                   you
                 </span>
               </h3>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              <p className="text-sm sm:text-base lg:text-lg text-gray-600 max-w-2xl mx-auto px-4">
                 Curated selections based on your browsing history and
                 preferences
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
               {products.slice(0, 3).map((product) => (
                 <Link
                   href={`/product/${product.id}`}
                   key={product.id}
                   className="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border border-gray-100"
                 >
-                  <div className="h-48 overflow-hidden bg-gradient-to-br from-[#BD9587]/20 to-[#5D6BC6]/20 flex items-center justify-center">
-                    <span className="text-5xl group-hover:scale-110 transition-transform duration-500">
+                  <div className="h-40 sm:h-44 lg:h-48 overflow-hidden bg-gradient-to-br from-[#BD9587]/20 to-[#5D6BC6]/20 flex items-center justify-center">
+                    <span className="text-4xl sm:text-5xl group-hover:scale-110 transition-transform duration-500">
                       {product.image}
                     </span>
                   </div>
 
-                  <div className="p-4">
-                    <h4 className="font-bold text-gray-900 mb-1">
+                  <div className="p-3 sm:p-4">
+                    <h4 className="font-bold text-gray-900 mb-1 text-sm sm:text-base truncate">
                       {product.name}
                     </h4>
-                    <p className="text-sm text-gray-600 mb-2">
+                    <p className="text-xs sm:text-sm text-gray-600 mb-2 truncate">
                       by {product.designer.name}
                     </p>
                     <div className="flex items-center justify-between">
-                      <span className="text-lg font-bold bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] bg-clip-text text-transparent">
+                      <span className="text-base sm:text-lg font-bold bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] bg-clip-text text-transparent">
                         ${product.price}
                       </span>
-                      <div className="flex items-center space-x-1 text-sm">
+                      <div className="flex items-center space-x-1 text-xs sm:text-sm">
                         <svg
-                          className="w-4 h-4 text-yellow-400 fill-current"
+                          className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400 fill-current"
                           viewBox="0 0 20 20"
                         >
                           <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
@@ -503,20 +503,20 @@ const MarketplacePage = () => {
         </div>
 
         {/* Footer CTA */}
-        <div className="bg-gradient-to-r from-[#8B5A8C] to-[#1647A3] py-16">
+        <div className="bg-gradient-to-r from-[#8B5A8C] to-[#1647A3] py-10 sm:py-12 lg:py-16">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-6">
               Ready to sell your designs?
             </h3>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg lg:text-xl text-white/90 mb-6 sm:mb-8 max-w-2xl mx-auto">
               Join our marketplace and start earning from your creative work
               today
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-[#8B5A8C] px-8 py-4 rounded-xl font-semibold hover:bg-gray-50 transform hover:scale-105 transition-all duration-300 shadow-lg">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+              <button className="bg-white text-[#8B5A8C] px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold hover:bg-gray-50 transform hover:scale-105 transition-all duration-300 shadow-lg text-sm sm:text-base">
                 Start Selling
               </button>
-              <button className="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/20 transform hover:scale-105 transition-all duration-300">
+              <button className="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold hover:bg-white/20 transform hover:scale-105 transition-all duration-300 text-sm sm:text-base">
                 Learn More
               </button>
             </div>
