@@ -3,6 +3,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useAuth } from './useAuth';
+import { parseSupabaseError } from '@/lib/utils';
+import { ERROR_MESSAGES } from '@/lib/constants';
 
 interface CartItem {
   id: string;
@@ -48,9 +50,11 @@ export function useCart() {
 
       if (error) throw error;
       setItems(data || []);
+      setError(null);
     } catch (err) {
       console.error('Error fetching cart:', err);
-      setError(err instanceof Error ? err.message : 'Failed to fetch cart');
+      const errorMsg = parseSupabaseError(err);
+      setError(errorMsg || ERROR_MESSAGES.FETCH_FAILED);
     } finally {
       setLoading(false);
     }
@@ -62,7 +66,7 @@ export function useCart() {
 
   const addToCart = async (productId: string, quantity: number = 1) => {
     if (!user) {
-      setError('Please login to add items to cart');
+      setError(ERROR_MESSAGES.AUTH_REQUIRED);
       return false;
     }
 

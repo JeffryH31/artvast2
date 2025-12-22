@@ -1,16 +1,30 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import Link from "next/link";
+import toast from "react-hot-toast";
 import Header from "@/components/layout/Header";
 import { useProducts } from "@/hooks/useProducts";
+import { useCart } from "@/hooks/useCart";
+import { useSavedProducts } from "@/hooks/useSavedProducts";
+import { useAuth } from "@/hooks/useAuth";
+import { Pagination } from "@/components/ui/Pagination";
+import { SkeletonProduct } from "@/components/ui/Skeleton";
+import { FilterSidebar } from "@/components/filters/FilterSidebar";
+import { debounce } from "@/lib/utils";
+import { PAGINATION } from "@/lib/constants";
 
 const MarketplacePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
   const [selectedRating, setSelectedRating] = useState("All Ratings");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const { products, loading, error } = useProducts();
+  const { addToCart, loading: cartLoading } = useCart();
+  const { toggleSave, isSaved } = useSavedProducts();
+  const { user } = useAuth();
 
   const categories = [
     "All Categories",
@@ -21,12 +35,27 @@ const MarketplacePage = () => {
   ];
   const ratings = ["All Ratings", "5 Stars", "4+ Stars", "3+ Stars"];
 
+  // Debounced search handler
+  const debouncedSearchHandler = useCallback(
+    debounce((value: string) => {
+      setDebouncedSearch(value);
+      setCurrentPage(1); // Reset to first page on search
+    }, 300),
+    []
+  );
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    debouncedSearchHandler(value);
+  };
+
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
       const matchesSearch =
-        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.designer?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.category.toLowerCase().includes(searchTerm.toLowerCase());
+        product.name.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+        product.designer?.name?.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+        product.category.toLowerCase().includes(debouncedSearch.toLowerCase());
 
       const matchesCategory =
         selectedCategory === "All Categories" ||
@@ -39,9 +68,32 @@ const MarketplacePage = () => {
 
       return matchesSearch && matchesCategory && matchesRating;
     });
-  }, [products, searchTerm, selectedCategory, selectedRating]);
+  }, [products, debouncedSearch, selectedCategory, selectedRating]);
 
-  // Loading state
+  // Pagination logic
+  const totalPages = Math.ceil(filteredProducts.length / PAGINATION.PRODUCTS_PER_PAGE);
+  const paginatedProducts = useMemo(() => {
+    const startIndex = (currentPage - 1) * PAGINATION.PRODUCTS_PER_PAGE;
+    const endIndex = startIndex + PAGINATION.PRODUCTS_PER_PAGE;
+    return filteredProducts.slice(startIndex, endIndex);
+  }, [filteredProducts, currentPage]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+    setCurrentPage(1);
+  };
+
+  const handleRatingChange = (rating: string) => {
+    setSelectedRating(rating);
+    setCurrentPage(1);
+  };
+
+  // Loading state with skeletons
   if (loading) {
     return (
       <div className="min-h-screen relative overflow-hidden">
@@ -49,10 +101,11 @@ const MarketplacePage = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50"></div>
         </div>
         <Header />
-        <div className="flex items-center justify-center min-h-[60vh]">
-          <div className="text-center">
-            <div className="w-16 h-16 border-4 border-[#5D6BC6] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading products...</p>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 pt-24 sm:pt-28">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <SkeletonProduct key={i} />
+            ))}
           </div>
         </div>
       </div>
@@ -170,39 +223,21 @@ const MarketplacePage = () => {
                   type="text"
                   placeholder="Search artworks, designers..."
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onChange={handleSearchChange}
                   className="block w-full pl-10 pr-3 py-2.5 sm:py-3 border border-gray-300 rounded-xl leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-[#5D6BC6] focus:border-[#5D6BC6] text-sm sm:text-base"
                 />
               </div>
 
-              {/* Filters - Scrollable on mobile */}
-              <div className="flex gap-2 sm:gap-3 overflow-x-auto pb-2 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-hide">
-                {/* Category Filter */}
-                <select
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="flex-shrink-0 px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-xl bg-white focus:outline-none focus:ring-1 focus:ring-[#5D6BC6] focus:border-[#5D6BC6] text-gray-700 text-sm sm:text-base min-w-[140px] sm:min-w-0"
-                >
-                  {categories.map((category) => (
-                    <option key={category} value={category}>
-                      {category}
-                    </option>
-                  ))}
-                </select>
-
-                {/* Rating Filter */}
-                <select
-                  value={selectedRating}
-                  onChange={(e) => setSelectedRating(e.target.value)}
-                  className="flex-shrink-0 px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-xl bg-white focus:outline-none focus:ring-1 focus:ring-[#5D6BC6] focus:border-[#5D6BC6] text-gray-700 text-sm sm:text-base min-w-[120px] sm:min-w-0"
-                >
-                  {ratings.map((rating) => (
-                    <option key={rating} value={rating}>
-                      {rating}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              {/* FilterSidebar Component */}
+              <FilterSidebar
+                categories={categories.map(cat => ({ label: cat, value: cat }))}
+                ratings={ratings.map(rat => ({ label: rat, value: rat }))}
+                selectedCategory={selectedCategory}
+                selectedRating={selectedRating}
+                onCategoryChange={handleCategoryChange}
+                onRatingChange={handleRatingChange}
+                className="p-0 bg-transparent shadow-none border-0"
+              />
             </div>
           </div>
         </div>
@@ -214,16 +249,15 @@ const MarketplacePage = () => {
               {filteredProducts.length} Products Found
             </h2>
             <div className="text-xs sm:text-sm text-gray-500">
-              Sorted by:{" "}
-              <span className="font-medium text-gray-700">Most Popular</span>
+              Page {currentPage} of {totalPages} • Showing {paginatedProducts.length} products
             </div>
           </div>
         </div>
 
         {/* Marketplace Grid */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-16">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-            {filteredProducts.map((product, index) => (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+            {paginatedProducts.map((product, index) => (
               <Link
                 href={`/product/${product.id}`}
                 key={product.id}
@@ -330,24 +364,40 @@ const MarketplacePage = () => {
                   {/* Actions */}
                   <div className="flex gap-2">
                     <button
-                      onClick={(e) => {
+                      onClick={async (e) => {
                         e.preventDefault();
-                        alert("Added to cart!");
+                        if (!user) {
+                          toast.error('Please login to add items to cart');
+                          return;
+                        }
+                        const success = await addToCart(product.id);
+                        if (success) {
+                          toast.success("Added to cart!");
+                        }
                       }}
-                      className="flex-1 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white px-3 sm:px-4 py-2 rounded-lg sm:rounded-xl font-medium text-xs sm:text-sm hover:from-[#A2655F] hover:to-[#8B5A8C] transition-all duration-300 transform hover:scale-105"
+                      disabled={cartLoading}
+                      className="flex-1 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white px-3 sm:px-4 py-2 rounded-lg sm:rounded-xl font-medium text-xs sm:text-sm hover:from-[#A2655F] hover:to-[#8B5A8C] transition-all duration-300 transform hover:scale-105 disabled:opacity-50"
                     >
-                      Add to Cart
+                      {cartLoading ? 'Adding...' : 'Add to Cart'}
                     </button>
                     <button
-                      onClick={(e) => {
+                      onClick={async (e) => {
                         e.preventDefault();
-                        alert("Added to wishlist!");
+                        if (!user) {
+                          toast.error('Please login to save products');
+                          return;
+                        }
+                        await toggleSave(product.id);
                       }}
-                      className="px-3 sm:px-4 py-2 border border-gray-300 text-gray-700 rounded-lg sm:rounded-xl hover:border-[#5D6BC6] hover:bg-[#5D6BC6]/5 transition-colors duration-200"
+                      className={`px-3 sm:px-4 py-2 border rounded-lg sm:rounded-xl transition-colors duration-200 ${
+                        isSaved(product.id)
+                          ? 'border-[#5D6BC6] bg-[#5D6BC6]/10 text-[#5D6BC6]'
+                          : 'border-gray-300 text-gray-700 hover:border-[#5D6BC6] hover:bg-[#5D6BC6]/5'
+                      }`}
                     >
                       <svg
                         className="w-4 h-4 sm:w-5 sm:h-5"
-                        fill="none"
+                        fill={isSaved(product.id) ? 'currentColor' : 'none'}
                         stroke="currentColor"
                         viewBox="0 0 24 24"
                       >
@@ -422,6 +472,17 @@ const MarketplacePage = () => {
                 </Link>
               ))}
             </div>
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="mt-8 sm:mt-12">
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={handlePageChange}
+                />
+              </div>
+            )}
           </div>
         </div>
 

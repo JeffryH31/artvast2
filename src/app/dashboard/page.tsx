@@ -6,6 +6,7 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import { useAuth } from "@/hooks/useAuth";
 import { createClient } from "@/lib/supabase/client";
+import { SkeletonList, SkeletonCard } from "@/components/ui/Skeleton";
 
 interface Order {
   id: string;
@@ -117,15 +118,29 @@ export default function DashboardPage() {
     fetchUserData();
   }, [user]);
 
-  if (authLoading) {
+  if (authLoading || loading) {
     return (
       <>
         <Header />
         <main className="min-h-screen bg-[#0a0a0a] pt-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="animate-pulse">
-              <div className="h-8 bg-white/10 rounded w-48 mb-8"></div>
-              <div className="h-64 bg-white/10 rounded-xl"></div>
+            {/* Profile Header Skeleton */}
+            <div className="bg-gradient-to-r from-purple-900/30 to-blue-900/30 rounded-2xl p-6 sm:p-8 mb-8 border border-white/10">
+              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
+                <div className="w-24 h-24 rounded-full bg-white/10 animate-pulse"></div>
+                <div className="flex-1 space-y-3">
+                  <div className="h-8 bg-white/10 rounded w-48 animate-pulse"></div>
+                  <div className="h-5 bg-white/10 rounded w-64 animate-pulse"></div>
+                  <div className="h-4 bg-white/10 rounded w-full animate-pulse"></div>
+                </div>
+              </div>
+            </div>
+
+            {/* Content Skeleton */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <SkeletonCard />
+              <SkeletonCard />
+              <SkeletonCard />
             </div>
           </div>
         </main>

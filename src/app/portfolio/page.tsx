@@ -3,9 +3,12 @@
 import React, { useState, useMemo } from 'react';
 import Header from '@/components/layout/Header';
 import { usePortfolio } from '@/hooks/usePortfolio';
+import { Pagination } from '@/components/ui/Pagination';
+import { PAGINATION } from '@/lib/constants';
 
 const PortfolioPage = () => {
   const [activeFilter, setActiveFilter] = useState('All');
+  const [currentPage, setCurrentPage] = useState(1);
   const { items: portfolioData, loading, error } = usePortfolio();
 
   const filters = ['All', 'UI/UX', 'Branding', 'Illustration', 'Graphic Design'];
@@ -87,6 +90,24 @@ const PortfolioPage = () => {
     );
   }, [portfolioItems, activeFilter]);
 
+  // Pagination logic
+  const totalPages = Math.ceil(filteredItems.length / PAGINATION.PORTFOLIO_PER_PAGE);
+  const paginatedItems = useMemo(() => {
+    const startIndex = (currentPage - 1) * PAGINATION.PORTFOLIO_PER_PAGE;
+    const endIndex = startIndex + PAGINATION.PORTFOLIO_PER_PAGE;
+    return filteredItems.slice(startIndex, endIndex);
+  }, [filteredItems, currentPage]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleFilterChange = (filter: string) => {
+    setActiveFilter(filter);
+    setCurrentPage(1);
+  };
+
   const recommendedItems = portfolioItems.slice(0, 3);
 
   return (
@@ -116,7 +137,7 @@ const PortfolioPage = () => {
               {filters.map((filter) => (
                 <button
                   key={filter}
-                  onClick={() => setActiveFilter(filter)}
+                  onClick={() => handleFilterChange(filter)}
                   className={`flex-shrink-0 px-4 sm:px-6 lg:px-8 py-2 sm:py-2.5 lg:py-3 rounded-full font-medium text-sm sm:text-base transition-all duration-300 border whitespace-nowrap ${
                     activeFilter === filter
                       ? 'bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white border-transparent shadow-lg'
@@ -133,8 +154,17 @@ const PortfolioPage = () => {
         {/* Portfolio Grid */}
         <div className="py-10 sm:py-12 lg:py-16 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-              {filteredItems.map((item, index) => (
+            {/* Results Count */}
+            <div className="mb-6">
+              <p className="text-sm sm:text-base text-gray-600 text-center">
+                Showing <span className="font-bold text-gray-900">{paginatedItems.length}</span> of{" "}
+                <span className="font-bold text-gray-900">{filteredItems.length}</span> items
+                {" • "}Page {currentPage} of {totalPages}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-8">
+              {paginatedItems.map((item, index) => (
                 <div
                   key={item.id}
                   className="group bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transform hover:scale-[1.02] sm:hover:scale-105 transition-all duration-500"
@@ -162,6 +192,17 @@ const PortfolioPage = () => {
                 </div>
               ))}
             </div>
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="mt-8 sm:mt-12">
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={handlePageChange}
+                />
+              </div>
+            )}
           </div>
         </div>
 

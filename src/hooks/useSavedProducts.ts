@@ -3,6 +3,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useAuth } from './useAuth';
+import { parseSupabaseError } from '@/lib/utils';
+import { ERROR_MESSAGES } from '@/lib/constants';
 
 interface SavedProduct {
   id: string;
@@ -46,9 +48,11 @@ export function useSavedProducts() {
 
       if (error) throw error;
       setSavedProducts(data || []);
+      setError(null);
     } catch (err) {
       console.error('Error fetching saved products:', err);
-      setError(err instanceof Error ? err.message : 'Failed to fetch saved products');
+      const errorMsg = parseSupabaseError(err);
+      setError(errorMsg || ERROR_MESSAGES.FETCH_FAILED);
     } finally {
       setLoading(false);
     }
@@ -64,7 +68,7 @@ export function useSavedProducts() {
 
   const toggleSave = async (productId: string) => {
     if (!user) {
-      setError('Please login to save products');
+      setError(ERROR_MESSAGES.AUTH_REQUIRED);
       return false;
     }
 
@@ -91,10 +95,12 @@ export function useSavedProducts() {
       }
 
       await fetchSavedProducts();
+      setError(null);
       return true;
     } catch (err) {
       console.error('Error toggling save:', err);
-      setError(err instanceof Error ? err.message : 'Failed to save product');
+      const errorMsg = parseSupabaseError(err);
+      setError(errorMsg || ERROR_MESSAGES.OPERATION_FAILED);
       return false;
     }
   };

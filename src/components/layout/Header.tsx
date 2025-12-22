@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MenuIcon } from "../ui/Icons";
 import { useAuth } from "@/hooks/useAuth";
+import { useCart } from "@/hooks/useCart";
 import AuthModal from "../auth/AuthModal";
 
 const Header: React.FC = () => {
@@ -15,6 +16,7 @@ const Header: React.FC = () => {
   const pathname = usePathname();
   
   const { user, loading, signOut } = useAuth();
+  const { totalItems } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -158,14 +160,30 @@ const Header: React.FC = () => {
                 ) : user ? (
                   /* Logged in user */
                   <div className="flex items-center space-x-3">
-                    <div className="flex items-center space-x-2 px-4 py-2 bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50">
+                    {/* Cart Icon with Badge */}
+                    <Link 
+                      href="/cart"
+                      className="relative p-2 hover:bg-white/50 rounded-xl transition-all duration-300 group"
+                    >
+                      <svg className="w-6 h-6 text-gray-700 group-hover:text-[#5D6BC6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                      </svg>
+                      {totalItems > 0 && (
+                        <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
+                          {totalItems}
+                        </span>
+                      )}
+                    </Link>
+
+                    {/* User Menu */}
+                    <Link href="/dashboard" className="flex items-center space-x-2 px-4 py-2 bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50 hover:bg-white/70 transition-all">
                       <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#5D6BC6] to-[#1647A3] flex items-center justify-center text-white text-sm font-bold">
                         {user.email?.charAt(0).toUpperCase()}
                       </div>
                       <span className="text-sm text-gray-700 font-medium max-w-[120px] truncate">
                         {user.email?.split('@')[0]}
                       </span>
-                    </div>
+                    </Link>
                     <button 
                       onClick={handleSignOut}
                       className="relative px-4 py-2 text-gray-600 font-medium rounded-xl hover:text-gray-900 overflow-hidden group border border-gray-200/50 hover:border-red-300/50 hover:bg-red-50/50 transition-all duration-300"

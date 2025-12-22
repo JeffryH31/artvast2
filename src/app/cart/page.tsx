@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Header from '@/components/layout/Header';
 import { useAuth } from '@/hooks/useAuth';
 import { useCart } from '@/hooks/useCart';
+import { SkeletonList } from '@/components/ui/Skeleton';
 
 export default function CartPage() {
   const { user, loading: authLoading } = useAuth();
@@ -27,16 +28,17 @@ export default function CartPage() {
     }
   }, [user, authLoading, router]);
 
-  if (authLoading) {
+  if (authLoading || loading) {
     return (
       <>
         <Header />
-        <main className="min-h-screen bg-[#0a0a0a] pt-24">
+        <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 pt-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="animate-pulse">
-              <div className="h-8 bg-white/10 rounded w-48 mb-8"></div>
-              <div className="h-64 bg-white/10 rounded-xl"></div>
+            <div className="mb-8">
+              <div className="h-10 bg-gray-200 rounded w-48 mb-2 animate-pulse"></div>
+              <div className="h-6 bg-gray-200 rounded w-32 animate-pulse"></div>
             </div>
+            <SkeletonList count={3} />
           </div>
         </main>
       </>
@@ -174,12 +176,12 @@ export default function CartPage() {
                     Continue Shopping
                   </Link>
 
-                  {/* Secure Checkout */}
+                  {/* Secure Payment */}
                   <div className="mt-6 flex items-center justify-center gap-2 text-gray-400 text-sm">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
-                    Secure Checkout
+                    Secure Payment
                   </div>
                 </div>
               </div>

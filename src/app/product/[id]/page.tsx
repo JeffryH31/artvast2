@@ -2,7 +2,12 @@
 
 import React, { useState, use } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 import { useProduct } from "@/hooks/useProducts";
+import { useCart } from "@/hooks/useCart";
+import { useSavedProducts } from "@/hooks/useSavedProducts";
+import { useAuth } from "@/hooks/useAuth";
 import Header from "@/components/layout/Header";
 
 interface ProductDetailPageProps {
@@ -13,8 +18,12 @@ interface ProductDetailPageProps {
 
 const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
   const { id } = use(params);
+  const router = useRouter();
   const [selectedImage, setSelectedImage] = useState(0);
   const { product, reviews, loading, error } = useProduct(id);
+  const { addToCart, loading: cartLoading } = useCart();
+  const { toggleSave, isSaved } = useSavedProducts();
+  const { user } = useAuth();
 
   // Loading state
   if (loading) {
@@ -225,15 +234,41 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 sm:pt-4">
-              <button className="flex-1 relative group overflow-hidden rounded-xl sm:rounded-2xl">
+              <button 
+                onClick={async () => {
+                  if (!user) {
+                    toast.error('Please login to add items to cart');
+                    return;
+                  }
+                  const success = await addToCart(id);
+                  if (success) {
+                    toast.success('Added to cart!');
+                  }
+                }}
+                disabled={cartLoading}
+                className="flex-1 relative group overflow-hidden rounded-xl sm:rounded-2xl disabled:opacity-50"
+              >
                 <div className="absolute inset-0 bg-gradient-to-r from-[#BD9587] to-[#A2655F] opacity-100 group-hover:opacity-90 transition-opacity"></div>
                 <div className="absolute inset-0 bg-white/20 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <span className="relative z-10 block px-4 sm:px-6 lg:px-8 py-3 sm:py-4 text-white font-bold text-base sm:text-lg text-center">
-                  Add to Cart
+                  {cartLoading ? 'Adding...' : 'Add to Cart'}
                 </span>
               </button>
 
-              <button className="flex-1 relative group overflow-hidden rounded-xl sm:rounded-2xl">
+              <button 
+                onClick={async () => {
+                  if (!user) {
+                    toast.error('Please login to purchase');
+                    return;
+                  }
+                  const success = await addToCart(id);
+                  if (success) {
+                    router.push('/checkout');
+                  }
+                }}
+                disabled={cartLoading}
+                className="flex-1 relative group overflow-hidden rounded-xl sm:rounded-2xl disabled:opacity-50"
+              >
                 <div className="absolute inset-0 bg-gradient-to-r from-[#5D6BC6] to-[#1647A3]"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                 <span className="relative z-10 flex items-center justify-center space-x-2 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 text-white font-bold text-base sm:text-lg">
@@ -246,11 +281,24 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
             </div>
 
             {/* Add to Wishlist */}
-            <button className="w-full flex items-center justify-center space-x-2 px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3 border-2 border-[#8B5A8C] text-[#8B5A8C] font-semibold rounded-xl sm:rounded-2xl hover:bg-[#8B5A8C] hover:text-white transition-all duration-300 text-sm sm:text-base">
-              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button 
+              onClick={async () => {
+                if (!user) {
+                  toast.error('Please login to save products');
+                  return;
+                }
+                await toggleSave(id);
+              }}
+              className={`w-full flex items-center justify-center space-x-2 px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3 border-2 font-semibold rounded-xl sm:rounded-2xl transition-all duration-300 text-sm sm:text-base ${
+                isSaved(id)
+                  ? 'border-[#8B5A8C] bg-[#8B5A8C] text-white'
+                  : 'border-[#8B5A8C] text-[#8B5A8C] hover:bg-[#8B5A8C] hover:text-white'
+              }`}
+            >
+              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill={isSaved(id) ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
-              <span>Add to Wishlist</span>
+              <span>{isSaved(id) ? 'Saved' : 'Add to Wishlist'}</span>
             </button>
           </div>
         </div>

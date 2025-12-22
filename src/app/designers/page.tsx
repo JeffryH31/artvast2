@@ -4,6 +4,8 @@ import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import Header from "@/components/layout/Header";
 import { useDesigners } from "@/hooks/useDesigners";
+import { Pagination } from "@/components/ui/Pagination";
+import { PAGINATION } from "@/lib/constants";
 
 const categories = [
   { name: "All", value: "all" },
@@ -17,13 +19,15 @@ const DesignersPage: React.FC = () => {
   const { designers, loading, error } = useDesigners();
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortBy, setSortBy] = useState("rating");
+  const [currentPage, setCurrentPage] = useState(1);
 
   // Filter designers berdasarkan kategori
   const filteredDesigners = useMemo(() => {
     return designers.filter((designer) => {
       if (selectedCategory === "all") return true;
       return designer.specialties?.some(
-        (specialty) => specialty.toLowerCase() === selectedCategory.toLowerCase()
+        (specialty) =>
+          specialty.toLowerCase() === selectedCategory.toLowerCase()
       );
     });
   }, [designers, selectedCategory]);
@@ -32,11 +36,36 @@ const DesignersPage: React.FC = () => {
   const sortedDesigners = useMemo(() => {
     return [...filteredDesigners].sort((a, b) => {
       if (sortBy === "rating") return (b.rating || 0) - (a.rating || 0);
-      if (sortBy === "projects") return (b.projects_count || 0) - (a.projects_count || 0);
-      if (sortBy === "followers") return (b.followers_count || 0) - (a.followers_count || 0);
+      if (sortBy === "projects")
+        return (b.projects_count || 0) - (a.projects_count || 0);
+      if (sortBy === "followers")
+        return (b.followers_count || 0) - (a.followers_count || 0);
       return 0;
     });
   }, [filteredDesigners, sortBy]);
+
+  // Pagination logic
+  const totalPages = Math.ceil(sortedDesigners.length / PAGINATION.DESIGNERS_PER_PAGE);
+  const paginatedDesigners = useMemo(() => {
+    const startIndex = (currentPage - 1) * PAGINATION.DESIGNERS_PER_PAGE;
+    const endIndex = startIndex + PAGINATION.DESIGNERS_PER_PAGE;
+    return sortedDesigners.slice(startIndex, endIndex);
+  }, [sortedDesigners, currentPage]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+    setCurrentPage(1);
+  };
+
+  const handleSortChange = (sort: string) => {
+    setSortBy(sort);
+    setCurrentPage(1);
+  };
 
   // Loading state
   if (loading) {
@@ -67,9 +96,11 @@ const DesignersPage: React.FC = () => {
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
             <div className="text-5xl mb-4">😕</div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Something went wrong</h3>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">
+              Something went wrong
+            </h3>
             <p className="text-gray-600 mb-4">{error}</p>
-            <button 
+            <button
               onClick={() => window.location.reload()}
               className="px-6 py-2 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white rounded-xl font-medium"
             >
@@ -103,7 +134,8 @@ const DesignersPage: React.FC = () => {
               </span>
             </h1>
             <p className="text-sm sm:text-base lg:text-lg text-gray-600 max-w-2xl mx-auto px-2">
-              Discover talented designers ready to bring your creative vision to life
+              Discover talented designers ready to bring your creative vision to
+              life
             </p>
           </div>
 
@@ -115,7 +147,7 @@ const DesignersPage: React.FC = () => {
                 {categories.map((category) => (
                   <button
                     key={category.value}
-                    onClick={() => setSelectedCategory(category.value)}
+                    onClick={() => handleCategoryChange(category.value)}
                     className={`flex-shrink-0 px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-medium sm:font-semibold text-sm sm:text-base transition-all duration-300 ${
                       selectedCategory === category.value
                         ? "bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white shadow-lg"
@@ -129,10 +161,12 @@ const DesignersPage: React.FC = () => {
 
               {/* Sort Dropdown */}
               <div className="flex items-center justify-between sm:justify-end space-x-2 sm:space-x-3">
-                <span className="text-gray-600 font-medium text-sm sm:text-base">Sort:</span>
+                <span className="text-gray-600 font-medium text-sm sm:text-base">
+                  Sort:
+                </span>
                 <select
                   value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
+                  onChange={(e) => handleSortChange(e.target.value)}
                   className="flex-1 sm:flex-none px-3 sm:px-4 py-2 sm:py-2.5 bg-white border border-gray-200 rounded-lg sm:rounded-xl text-gray-700 font-medium text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#5D6BC6] focus:border-transparent transition-all duration-200"
                 >
                   <option value="rating">Rating</option>
@@ -146,14 +180,23 @@ const DesignersPage: React.FC = () => {
           {/* Results Count */}
           <div className="mb-4 sm:mb-6">
             <p className="text-sm sm:text-base text-gray-600">
-              Showing <span className="font-bold text-gray-900">{sortedDesigners.length}</span>{" "}
+              Showing{" "}
+              <span className="font-bold text-gray-900">
+                {paginatedDesigners.length}
+              </span>{" "}
+              of{" "}
+              <span className="font-bold text-gray-900">
+                {sortedDesigners.length}
+              </span>{" "}
               {sortedDesigners.length === 1 ? "designer" : "designers"}
+              {" • "}
+              Page {currentPage} of {totalPages}
             </p>
           </div>
 
           {/* Designers Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-            {sortedDesigners.map((designer) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-8">
+            {paginatedDesigners.map((designer) => (
               <Link
                 href={`/creator/${designer.id}`}
                 key={designer.id}
@@ -164,7 +207,10 @@ const DesignersPage: React.FC = () => {
                   {/* Avatar */}
                   <div className="flex items-center space-x-3 sm:space-x-4 mb-3 sm:mb-4">
                     <div
-                      className={`w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-gradient-to-br ${designer.avatar_gradient || 'from-[#BD9587] to-[#A2655F]'} rounded-xl sm:rounded-2xl flex items-center justify-center text-white text-lg sm:text-xl lg:text-2xl font-bold shadow-lg`}
+                      className={`w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-gradient-to-br ${
+                        designer.avatar_gradient ||
+                        "from-[#BD9587] to-[#A2655F]"
+                      } rounded-xl sm:rounded-2xl flex items-center justify-center text-white text-lg sm:text-xl lg:text-2xl font-bold shadow-lg`}
                     >
                       {designer.avatar_initials}
                     </div>
@@ -172,7 +218,9 @@ const DesignersPage: React.FC = () => {
                       <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 group-hover:text-[#5D6BC6] transition-colors duration-200 truncate">
                         {designer.name}
                       </h3>
-                      <p className="text-xs sm:text-sm text-gray-600 truncate">{designer.username}</p>
+                      <p className="text-xs sm:text-sm text-gray-600 truncate">
+                        {designer.username}
+                      </p>
                       <div className="flex items-center space-x-1 mt-1">
                         <svg
                           className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400"
@@ -181,7 +229,9 @@ const DesignersPage: React.FC = () => {
                         >
                           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                         </svg>
-                        <span className="text-sm sm:text-base text-gray-900 font-bold">{designer.rating}</span>
+                        <span className="text-sm sm:text-base text-gray-900 font-bold">
+                          {designer.rating}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -201,7 +251,11 @@ const DesignersPage: React.FC = () => {
                   {/* Stats */}
                   <div className="flex items-center justify-between text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">
                     <div className="flex items-center space-x-1">
-                      <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 20 20">
+                      <svg
+                        className="w-3 h-3 sm:w-4 sm:h-4"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
                         <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
                         <path
                           fillRule="evenodd"
@@ -212,10 +266,17 @@ const DesignersPage: React.FC = () => {
                       <span>{designer.projects_count || 0} projects</span>
                     </div>
                     <div className="flex items-center space-x-1">
-                      <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 20 20">
+                      <svg
+                        className="w-3 h-3 sm:w-4 sm:h-4"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
                         <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
                       </svg>
-                      <span>{(designer.followers_count || 0).toLocaleString()} followers</span>
+                      <span>
+                        {(designer.followers_count || 0).toLocaleString()}{" "}
+                        followers
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -247,12 +308,27 @@ const DesignersPage: React.FC = () => {
             ))}
           </div>
 
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="mt-8 sm:mt-12">
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+              />
+            </div>
+          )}
+
           {/* Empty State */}
           {sortedDesigners.length === 0 && (
             <div className="text-center py-12 sm:py-16">
               <div className="text-4xl sm:text-5xl lg:text-6xl mb-4">🔍</div>
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">No designers found</h3>
-              <p className="text-sm sm:text-base text-gray-600">Try adjusting your filters to see more results</p>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
+                No designers found
+              </h3>
+              <p className="text-sm sm:text-base text-gray-600">
+                Try adjusting your filters to see more results
+              </p>
             </div>
           )}
         </div>
