@@ -20,13 +20,12 @@ export default defineConfig({
         '**/types/',
       ],
     },
+    // Skip CSS processing in tests to avoid PostCSS conflicts
+    css: false,
   },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
-  },
-  css: {
-    postcss: null,
   },
 });
