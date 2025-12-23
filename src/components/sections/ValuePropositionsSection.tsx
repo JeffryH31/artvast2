@@ -6,14 +6,14 @@ import ParticleEffect, { Magnetic } from "../animations/ParticleEffect";
 const ValuePropositionsSection: React.FC = () => {
   return (
     // Seamless connection dari HeroSection
-    <div className="seamless-section text-white">
+    <div className="seamless-section text-white dark:text-gray-100">
       <div className="pt-12 sm:pt-16 lg:pt-20 pb-16 sm:pb-20 lg:pb-24 xl:pb-32">
         <ParticleEffect
           count={80}
           color="#ffffff"
           size={2}
           speed={0.3}
-          className="opacity-10"
+          className="opacity-10 dark:opacity-20"
         />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -22,8 +22,8 @@ const ValuePropositionsSection: React.FC = () => {
               className="animate-float"
               style={{ transform: "translateX(-50%)", animationDuration: "5s" }}
             >
-              <div className="bg-white/10 backdrop-blur-md z-50 rounded-lg sm:rounded-xl px-4 sm:px-6 lg:px-8 py-3 sm:py-4 border border-white/20 shadow-xl hover:bg-white/15 transition-all duration-300 hover:scale-105 w-max mx-auto max-w-[95vw]">
-                <div className="flex flex-wrap items-center justify-center gap-x-3 sm:gap-x-6 gap-y-2 text-white/90">
+              <div className="bg-white/10 dark:bg-white/20 backdrop-blur-md z-50 rounded-lg sm:rounded-xl px-4 sm:px-6 lg:px-8 py-3 sm:py-4 border border-white/20 dark:border-white/30 shadow-xl hover:bg-white/15 dark:hover:bg-white/25 transition-all duration-300 hover:scale-105 w-max mx-auto max-w-[95vw]">
+                <div className="flex flex-wrap items-center justify-center gap-x-3 sm:gap-x-6 gap-y-2 text-white/90 dark:text-white/95">
                   <div className="flex items-center space-x-1.5 sm:space-x-2">
                     <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-400 rounded-full animate-pulse"></div>
                     <span className="text-xs sm:text-sm font-medium">

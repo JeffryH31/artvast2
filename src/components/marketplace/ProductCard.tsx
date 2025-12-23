@@ -60,8 +60,7 @@ export function ProductCard({
   return (
     <Link
       href={`/product/${product.id}`}
-      className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 overflow-hidden"
-    >
+      className="group bg-white dark:bg-gray-800 rounded-2xl shadow-lg dark:shadow-gray-900/50 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 dark:border-gray-700 overflow-hidden">
       {/* Product Image */}
       <div className="relative bg-gradient-to-br from-[#BD9587]/20 to-[#8B5A8C]/20 aspect-square flex items-center justify-center overflow-hidden">
         {/* Badges */}
@@ -88,7 +87,7 @@ export function ProductCard({
             className={`absolute top-2 right-2 p-2 rounded-full backdrop-blur-sm transition-all duration-200 z-20 ${
               isSaved
                 ? 'bg-[#5D6BC6] text-white'
-                : 'bg-white/80 text-gray-700 hover:bg-white'
+                : 'bg-white/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700'
             }`}
             aria-label={isSaved ? 'Remove from saved' : 'Save product'}
           >
@@ -111,10 +110,10 @@ export function ProductCard({
 
       {/* Product Details */}
       <div className="p-3 sm:p-4">
-        <h4 className="font-bold text-gray-900 mb-1 text-sm sm:text-base truncate">
+        <h4 className="font-bold text-gray-900 dark:text-white mb-1 text-sm sm:text-base truncate">
           {product.name}
         </h4>
-        <p className="text-xs sm:text-sm text-gray-600 mb-2 truncate">
+        <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-2 truncate">
           by {product.designer?.name || 'Unknown'}
         </p>
 
@@ -129,7 +128,7 @@ export function ProductCard({
             >
               <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
             </svg>
-            <span className="font-medium text-gray-700">
+            <span className="font-medium text-gray-700 dark:text-gray-300">
               {product.rating}
             </span>
           </div>

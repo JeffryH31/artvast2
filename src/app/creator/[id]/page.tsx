@@ -25,13 +25,13 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
     return (
       <div className="min-h-screen relative overflow-hidden">
         <div className="fixed inset-0 -z-10">
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-purple-50"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 transition-colors duration-300"></div>
         </div>
         <Header />
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
             <div className="w-16 h-16 border-4 border-[#5D6BC6] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading designer profile...</p>
+            <p className="text-gray-600 dark:text-gray-400">Loading designer profile...</p>
           </div>
         </div>
       </div>
@@ -43,14 +43,14 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
     return (
       <div className="min-h-screen relative overflow-hidden">
         <div className="fixed inset-0 -z-10">
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-purple-50"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 transition-colors duration-300"></div>
         </div>
         <Header />
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
             <div className="text-5xl mb-4">😕</div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Designer not found</h3>
-            <p className="text-gray-600 mb-4">{error || "The designer you're looking for doesn't exist."}</p>
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Designer not found</h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-4">{error || "The designer you're looking for doesn't exist."}</p>
             <Link
               href="/designers"
               className="px-6 py-2 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white rounded-xl font-medium"
@@ -67,7 +67,7 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
     <div className="min-h-screen relative overflow-hidden">
       {/* Background */}
       <div className="fixed inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-purple-50"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 transition-colors duration-300"></div>
         <div className="absolute top-20 right-10 w-[600px] h-[600px] bg-gradient-to-br from-[#5D6BC6]/15 to-[#1647A3]/15 rounded-full blur-3xl opacity-50 animate-float"></div>
         <div className="absolute bottom-40 left-10 w-[500px] h-[500px] bg-gradient-to-br from-[#BD9587]/20 to-[#A2655F]/20 rounded-full blur-3xl opacity-60 animate-pulse"></div>
       </div>
@@ -151,9 +151,9 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
       {/* Bio Section */}
       {designer.bio && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 shadow-lg border border-gray-100">
-            <h2 className="text-xl font-bold text-gray-900 mb-3">About</h2>
-            <p className="text-gray-600 leading-relaxed">{designer.bio}</p>
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-6 shadow-lg dark:shadow-gray-900/50 border border-gray-100 dark:border-gray-700">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-3">About</h2>
+            <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{designer.bio}</p>
           </div>
         </div>
       )}
@@ -161,7 +161,7 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
       {/* Featured Works */}
       {designer.featured_works && designer.featured_works.length > 0 && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Featured Works</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">Featured Works</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
             {designer.featured_works.map((work) => (
               <div
@@ -186,14 +186,14 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
 
       {/* Products by Designer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-16">
-        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
           Products by {designer.name}
         </h2>
         
         {productsLoading ? (
           <div className="text-center py-12">
             <div className="w-12 h-12 border-4 border-[#5D6BC6] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading products...</p>
+            <p className="text-gray-600 dark:text-gray-400">Loading products...</p>
           </div>
         ) : filteredProducts.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
@@ -201,8 +201,7 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
               <Link
                 href={`/product/${product.id}`}
                 key={product.id}
-                className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-500 border border-gray-100"
-              >
+                className="group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg dark:shadow-gray-900/50 hover:shadow-2xl transform hover:scale-105 transition-all duration-500 border border-gray-100 dark:border-gray-700">
                 {/* Image */}
                 <div className="relative h-48 sm:h-56 overflow-hidden">
                   <div className="w-full h-full bg-gradient-to-br from-[#BD9587]/20 to-[#5D6BC6]/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-700">
@@ -213,25 +212,25 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
                       FEATURED
                     </div>
                   )}
-                  <div className="absolute top-3 right-3 px-3 py-1 bg-white/90 backdrop-blur-sm text-gray-800 font-bold rounded-full text-sm">
+                  <div className="absolute top-3 right-3 px-3 py-1 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm text-gray-800 dark:text-white font-bold rounded-full text-sm">
                     ${product.price}
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="p-4 sm:p-5">
-                  <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-1 group-hover:text-[#5D6BC6] transition-colors truncate">
+                  <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-1 group-hover:text-[#5D6BC6] transition-colors truncate">
                     {product.name}
                   </h3>
                   <div className="flex items-center justify-between">
-                    <span className="px-2 py-0.5 bg-[#8B5A8C]/10 text-[#8B5A8C] text-xs font-medium rounded-full">
+                    <span className="px-2 py-0.5 bg-[#8B5A8C]/10 dark:bg-[#8B5A8C]/20 text-[#8B5A8C] text-xs font-medium rounded-full">
                       {product.category}
                     </span>
                     <div className="flex items-center space-x-1 text-sm">
                       <svg className="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
                         <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
                       </svg>
-                      <span className="font-medium text-gray-700">{product.rating}</span>
+                      <span className="font-medium text-gray-700 dark:text-gray-300">{product.rating}</span>
                     </div>
                   </div>
                 </div>
@@ -239,10 +238,10 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
             ))}
           </div>
         ) : (
-          <div className="text-center py-12 bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-100">
+          <div className="text-center py-12 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl border border-gray-100 dark:border-gray-700">
             <div className="text-4xl mb-4">📦</div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">No products yet</h3>
-            <p className="text-gray-600">This designer hasn&apos;t published any products yet.</p>
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">No products yet</h3>
+            <p className="text-gray-600 dark:text-gray-400">This designer hasn&apos;t published any products yet.</p>
           </div>
         )}
       </div>

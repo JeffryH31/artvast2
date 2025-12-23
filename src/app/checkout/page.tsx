@@ -80,11 +80,11 @@ export default function CheckoutPage() {
     return (
       <>
         <Header />
-        <main className="min-h-screen bg-[#0a0a0a] pt-24">
+        <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 pt-24 transition-colors duration-300">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-pulse">
-              <div className="h-8 bg-white/10 rounded w-48 mb-8"></div>
-              <div className="h-64 bg-white/10 rounded-xl"></div>
+              <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-48 mb-8"></div>
+              <div className="h-64 bg-gray-200 dark:bg-gray-700 rounded-xl"></div>
             </div>
           </div>
         </main>
@@ -97,20 +97,20 @@ export default function CheckoutPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-[#0a0a0a] pt-24 pb-16">
+      <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 pt-24 pb-16 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="mb-8">
             <Link 
               href="/cart" 
-              className="text-gray-400 hover:text-white text-sm flex items-center gap-2 mb-4 transition-colors"
+              className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm flex items-center gap-2 mb-4 transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
               Back to Cart
             </Link>
-            <h1 className="text-2xl sm:text-3xl font-bold text-white">Checkout</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Checkout</h1>
           </div>
 
           <form onSubmit={handleSubmit}>
@@ -118,11 +118,11 @@ export default function CheckoutPage() {
               {/* Checkout Form */}
               <div className="lg:col-span-2 space-y-6">
                 {/* Contact Information */}
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
-                  <h2 className="text-lg font-semibold text-white mb-4">Contact Information</h2>
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm transition-colors duration-300">
+                  <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Contact Information</h2>
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                         Full Name
                       </label>
                       <input
@@ -131,11 +131,11 @@ export default function CheckoutPage() {
                         value={formData.fullName}
                         onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                         placeholder="Your full name"
-                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-500"
+                        className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                         Email
                       </label>
                       <input
@@ -144,15 +144,15 @@ export default function CheckoutPage() {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="your@email.com"
-                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-500"
+                        className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors"
                       />
                     </div>
                   </div>
                 </div>
 
                 {/* Payment Method */}
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
-                  <h2 className="text-lg font-semibold text-white mb-4">Payment Method</h2>
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm transition-colors duration-300">
+                  <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Payment Method</h2>
                   <div className="space-y-3">
                     {[
                       { id: 'card', label: 'Credit/Debit Card', icon: '💳' },
@@ -163,8 +163,8 @@ export default function CheckoutPage() {
                         key={method.id}
                         className={`flex items-center gap-4 p-4 rounded-lg cursor-pointer transition-colors ${
                           paymentMethod === method.id 
-                            ? 'bg-purple-500/20 border-2 border-purple-500' 
-                            : 'bg-white/5 border-2 border-transparent hover:bg-white/10'
+                            ? 'bg-purple-100 dark:bg-purple-500/20 border-2 border-purple-500' 
+                            : 'bg-gray-50 dark:bg-gray-700 border-2 border-transparent hover:bg-gray-100 dark:hover:bg-gray-600'
                         }`}
                       >
                         <input
@@ -176,9 +176,9 @@ export default function CheckoutPage() {
                           className="sr-only"
                         />
                         <span className="text-2xl">{method.icon}</span>
-                        <span className="text-white font-medium">{method.label}</span>
+                        <span className="text-gray-900 dark:text-white font-medium">{method.label}</span>
                         {paymentMethod === method.id && (
-                          <svg className="w-5 h-5 text-purple-400 ml-auto" fill="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-5 h-5 text-purple-600 dark:text-purple-400 ml-auto" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
                           </svg>
                         )}
@@ -190,34 +190,34 @@ export default function CheckoutPage() {
                   {paymentMethod === 'card' && (
                     <div className="mt-6 space-y-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                           Card Number
                         </label>
                         <input
                           type="text"
                           placeholder="1234 5678 9012 3456"
-                          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-500"
+                          className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors"
                         />
                       </div>
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-sm font-medium text-gray-300 mb-2">
+                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Expiry Date
                           </label>
                           <input
                             type="text"
                             placeholder="MM/YY"
-                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-500"
+                            className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors"
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-gray-300 mb-2">
+                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             CVV
                           </label>
                           <input
                             type="text"
                             placeholder="123"
-                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-500"
+                            className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors"
                           />
                         </div>
                       </div>
@@ -226,54 +226,54 @@ export default function CheckoutPage() {
                 </div>
 
                 {/* Order Notes */}
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10">
-                  <h2 className="text-lg font-semibold text-white mb-4">Order Notes (Optional)</h2>
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm transition-colors duration-300">
+                  <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Order Notes (Optional)</h2>
                   <textarea
                     rows={3}
                     value={formData.notes}
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                     placeholder="Any special instructions for the designer..."
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 resize-none"
+                    className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 resize-none transition-colors"
                   />
                 </div>
               </div>
 
               {/* Order Summary */}
               <div className="lg:col-span-1">
-                <div className="bg-white/5 rounded-xl p-6 border border-white/10 sticky top-24">
-                  <h2 className="text-xl font-semibold text-white mb-6">Order Summary</h2>
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm sticky top-24 transition-colors duration-300">
+                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Order Summary</h2>
                   
                   {/* Items */}
                   <div className="space-y-4 mb-6">
                     {items.map((item) => (
                       <div key={item.id} className="flex gap-3">
-                        <div className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center text-xl shrink-0">
+                        <div className="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center text-xl shrink-0">
                           {item.product?.image_url || '📦'}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-white text-sm font-medium truncate">
+                          <p className="text-gray-900 dark:text-white text-sm font-medium truncate">
                             {item.product?.name}
                           </p>
-                          <p className="text-gray-400 text-xs">Qty: {item.quantity}</p>
+                          <p className="text-gray-500 dark:text-gray-400 text-xs">Qty: {item.quantity}</p>
                         </div>
-                        <p className="text-white text-sm font-medium">
+                        <p className="text-gray-900 dark:text-white text-sm font-medium">
                           ${((item.product?.price || 0) * item.quantity).toFixed(2)}
                         </p>
                       </div>
                     ))}
                   </div>
 
-                  <div className="border-t border-white/10 pt-4 space-y-3">
-                    <div className="flex justify-between text-gray-300">
+                  <div className="border-t border-gray-200 dark:border-gray-700 pt-4 space-y-3">
+                    <div className="flex justify-between text-gray-600 dark:text-gray-300">
                       <span>Subtotal</span>
                       <span>${totalPrice.toFixed(2)}</span>
                     </div>
-                    <div className="flex justify-between text-gray-300">
+                    <div className="flex justify-between text-gray-600 dark:text-gray-300">
                       <span>Processing Fee</span>
                       <span>$0.00</span>
                     </div>
-                    <div className="border-t border-white/10 pt-3">
-                      <div className="flex justify-between text-white font-semibold text-lg">
+                    <div className="border-t border-gray-200 dark:border-gray-700 pt-3">
+                      <div className="flex justify-between text-gray-900 dark:text-white font-semibold text-lg">
                         <span>Total</span>
                         <span>${totalPrice.toFixed(2)}</span>
                       </div>
@@ -304,7 +304,7 @@ export default function CheckoutPage() {
                   </button>
 
                   {/* Trust badges */}
-                  <div className="mt-6 flex items-center justify-center gap-4 text-gray-500 text-xs">
+                  <div className="mt-6 flex items-center justify-center gap-4 text-gray-500 dark:text-gray-400 text-xs">
                     <span className="flex items-center gap-1">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />

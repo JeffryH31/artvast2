@@ -70,15 +70,15 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
   // Loading state
   if (loading) {
     return (
-      <div className="min-h-screen relative overflow-hidden">
+      <div className="min-h-screen relative overflow-hidden transition-colors duration-300">
         <div className="fixed inset-0 -z-10">
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800"></div>
         </div>
         <Header />
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
             <div className="w-16 h-16 border-4 border-[#5D6BC6] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading product...</p>
+            <p className="text-gray-600 dark:text-gray-400">Loading product...</p>
           </div>
         </div>
       </div>
@@ -88,16 +88,16 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
   // Error or not found state
   if (error || !product) {
     return (
-      <div className="min-h-screen relative overflow-hidden">
+      <div className="min-h-screen relative overflow-hidden transition-colors duration-300">
         <div className="fixed inset-0 -z-10">
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800"></div>
         </div>
         <Header />
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
             <div className="text-5xl mb-4">😕</div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Product not found</h3>
-            <p className="text-gray-600 mb-4">{error || "The product you're looking for doesn't exist."}</p>
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Product not found</h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-4">{error || "The product you're looking for doesn't exist."}</p>
             <Link
               href="/marketplace"
               className="px-6 py-2 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white rounded-xl font-medium"
@@ -116,10 +116,10 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
     : [product.image_url, product.image_url, product.image_url, product.image_url];
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
+    <div className="min-h-screen relative overflow-hidden transition-colors duration-300">
       {/* Modern Gradient Background */}
       <div className="fixed inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800"></div>
         <div className="absolute -top-20 sm:-top-40 -right-20 sm:-right-40 w-[250px] sm:w-[400px] lg:w-[500px] h-[250px] sm:h-[400px] lg:h-[500px] bg-gradient-to-br from-[#BD9587]/20 to-[#A2655F]/20 rounded-full blur-3xl opacity-60 animate-pulse"></div>
         <div className="absolute top-1/4 -left-20 sm:-left-40 w-[300px] sm:w-[500px] lg:w-[600px] h-[300px] sm:h-[500px] lg:h-[600px] bg-gradient-to-br from-[#5D6BC6]/15 to-[#1647A3]/15 rounded-full blur-3xl opacity-50 animate-float"></div>
         <div className="absolute bottom-10 sm:bottom-20 right-1/4 w-[200px] sm:w-[300px] lg:w-[400px] h-[200px] sm:h-[300px] lg:h-[400px] bg-gradient-to-br from-[#8B5A8C]/15 to-[#5D6BC6]/15 rounded-full blur-3xl opacity-60 animate-float" style={{ animationDelay: '3s', animationDuration: '12s' }}></div>
@@ -127,7 +127,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
           backgroundImage: 'radial-gradient(circle, #000 1px, transparent 1px)',
           backgroundSize: '30px 30px'
         }}></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-white/50 via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-white/50 via-transparent to-transparent dark:from-gray-900/50"></div>
       </div>
 
       <Header />
@@ -135,15 +135,15 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
       {/* Breadcrumb */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 pt-20 sm:pt-24">
         <div className="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm overflow-x-auto whitespace-nowrap">
-          <Link href="/" className="text-gray-600 hover:text-[#5D6BC6] transition-colors flex-shrink-0">
+          <Link href="/" className="text-gray-600 dark:text-gray-400 hover:text-[#5D6BC6] transition-colors flex-shrink-0">
             Home
           </Link>
-          <span className="text-gray-400">/</span>
-          <Link href="/marketplace" className="text-gray-600 hover:text-[#5D6BC6] transition-colors flex-shrink-0">
+          <span className="text-gray-400 dark:text-gray-500">/</span>
+          <Link href="/marketplace" className="text-gray-600 dark:text-gray-400 hover:text-[#5D6BC6] transition-colors flex-shrink-0">
             Marketplace
           </Link>
-          <span className="text-gray-400">/</span>
-          <span className="text-gray-900 font-medium truncate max-w-[150px] sm:max-w-none">{product.name}</span>
+          <span className="text-gray-400 dark:text-gray-500">/</span>
+          <span className="text-gray-900 dark:text-white font-medium truncate max-w-[150px] sm:max-w-none">{product.name}</span>
         </div>
       </div>
 
@@ -196,7 +196,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
           <div className="space-y-4 sm:space-y-6">
             {/* Product Name */}
             <div>
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 sm:mb-4 leading-tight">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2 sm:mb-4 leading-tight">
                 {product.name}
               </h1>
               <div className="flex flex-wrap items-center gap-2 sm:gap-4">
@@ -204,14 +204,14 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
                   {[...Array(5)].map((_, i) => (
                     <svg
                       key={i}
-                      className={`w-4 h-4 sm:w-5 sm:h-5 ${i < Math.floor(product.rating || 0) ? 'text-yellow-400' : 'text-gray-300'} fill-current`}
+                      className={`w-4 h-4 sm:w-5 sm:h-5 ${i < Math.floor(product.rating || 0) ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-600'} fill-current`}
                       viewBox="0 0 20 20"
                     >
                       <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
                     </svg>
                   ))}
                 </div>
-                <span className="text-sm sm:text-base text-gray-600 font-medium">
+                <span className="text-sm sm:text-base text-gray-600 dark:text-gray-400 font-medium">
                   {product.rating} ({product.review_count} reviews)
                 </span>
               </div>
@@ -224,7 +224,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
               </span>
               {product.original_price && (
                 <>
-                  <span className="text-lg sm:text-xl lg:text-2xl text-gray-400 line-through">
+                  <span className="text-lg sm:text-xl lg:text-2xl text-gray-400 dark:text-gray-500 line-through">
                     ${product.original_price}
                   </span>
                   <span className="px-2 sm:px-3 py-0.5 sm:py-1 bg-gradient-to-r from-[#A2655F] to-[#8B5A8C] text-white text-xs sm:text-sm font-bold rounded-full">
@@ -242,14 +242,14 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
             </div>
 
             {/* Description */}
-            <p className="text-sm sm:text-base lg:text-lg text-gray-600 leading-relaxed">
+            <p className="text-sm sm:text-base lg:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
               {product.description}
             </p>
 
             {/* Features */}
             {product.features && product.features.length > 0 && (
-              <div className="bg-gradient-to-br from-[#BD9587]/10 to-[#5D6BC6]/10 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-[#BD9587]/20">
-                <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">
+              <div className="bg-gradient-to-br from-[#BD9587]/10 to-[#5D6BC6]/10 dark:from-[#BD9587]/20 dark:to-[#5D6BC6]/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-[#BD9587]/20 dark:border-[#BD9587]/30">
+                <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
                   What&apos;s Included:
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
@@ -258,7 +258,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
                       <svg className="w-4 h-4 sm:w-5 sm:h-5 text-[#5D6BC6] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                       </svg>
-                      <span className="text-sm sm:text-base text-gray-700 font-medium">{feature}</span>
+                      <span className="text-sm sm:text-base text-gray-700 dark:text-gray-300 font-medium">{feature}</span>
                     </div>
                   ))}
                 </div>
@@ -266,7 +266,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
             )}
 
             {/* Delivery Time */}
-            <div className="flex items-center space-x-2 text-gray-700">
+            <div className="flex items-center space-x-2 text-gray-700 dark:text-gray-300">
               <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#8B5A8C] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
@@ -347,8 +347,8 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
 
         {/* Designer Section */}
         {product.designer && (
-          <div className="mt-10 sm:mt-16 bg-white/80 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-xl sm:shadow-2xl border border-[#BD9587]/20">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Designer</h2>
+          <div className="mt-10 sm:mt-16 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-xl sm:shadow-2xl dark:shadow-gray-900/50 border border-[#BD9587]/20 dark:border-gray-700">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">Designer</h2>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
               <div className="relative flex-shrink-0">
                 <div className={`w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br ${product.designer.avatar_gradient || 'from-[#BD9587] to-[#8B5A8C]'} rounded-full flex items-center justify-center text-white text-xl sm:text-2xl font-bold shadow-xl`}>
@@ -363,16 +363,16 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
                 )}
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="text-lg sm:text-xl font-bold text-gray-900 truncate">{product.designer.name}</h3>
-                <p className="text-sm text-gray-600">{product.designer.username}</p>
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white truncate">{product.designer.name}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{product.designer.username}</p>
                 <div className="flex flex-wrap items-center gap-2 sm:gap-4 mt-1 sm:mt-2">
                   <div className="flex items-center space-x-1">
                     <svg className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
                       <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
                     </svg>
-                    <span className="text-sm sm:text-base text-gray-700 font-semibold">{product.designer.rating}</span>
+                    <span className="text-sm sm:text-base text-gray-700 dark:text-gray-300 font-semibold">{product.designer.rating}</span>
                   </div>
-                  <span className="text-sm sm:text-base text-gray-600">{product.designer.projects_count} projects</span>
+                  <span className="text-sm sm:text-base text-gray-600 dark:text-gray-400">{product.designer.projects_count} projects</span>
                 </div>
               </div>
               <Link

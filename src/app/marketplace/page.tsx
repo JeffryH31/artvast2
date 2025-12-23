@@ -138,11 +138,11 @@ const MarketplacePage = () => {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
+    <div className="min-h-screen relative overflow-hidden transition-colors duration-300">
       {/* Modern Gradient Background */}
       <div className="fixed inset-0 -z-10">
         {/* Animated gradient base */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800"></div>
 
         {/* Colorful blobs */}
         <div className="absolute top-20 right-10 w-[600px] h-[600px] bg-gradient-to-br from-[#5D6BC6]/15 to-[#1647A3]/15 rounded-full blur-3xl opacity-50 animate-float"></div>
@@ -163,7 +163,7 @@ const MarketplacePage = () => {
         ></div>
 
         {/* Gradient mesh */}
-        <div className="absolute inset-0 bg-gradient-to-t from-white/50 via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-white/50 via-transparent to-transparent dark:from-gray-900/50"></div>
       </div>
 
       <Header />
@@ -199,7 +199,7 @@ const MarketplacePage = () => {
         </div>
 
         {/* Search and Filters */}
-        <div className="bg-white shadow-sm border-b border-gray-200 sticky top-16 sm:top-20 z-40">
+        <div className="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-700 sticky top-16 sm:top-20 z-40 transition-colors duration-300">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
             <div className="flex flex-col gap-3 sm:gap-4">
               {/* Search Bar - Full width on mobile */}
@@ -224,7 +224,7 @@ const MarketplacePage = () => {
                   placeholder="Search artworks, designers..."
                   value={searchTerm}
                   onChange={handleSearchChange}
-                  className="block w-full pl-10 pr-3 py-2.5 sm:py-3 border border-gray-300 rounded-xl leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-[#5D6BC6] focus:border-[#5D6BC6] text-sm sm:text-base"
+                  className="block w-full pl-10 pr-3 py-2.5 sm:py-3 border border-gray-300 dark:border-gray-600 rounded-xl leading-5 bg-white dark:bg-gray-800 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-[#5D6BC6] focus:border-[#5D6BC6] text-sm sm:text-base transition-colors duration-300"
                 />
               </div>
 
@@ -245,10 +245,10 @@ const MarketplacePage = () => {
         {/* Results Header */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4 sm:mb-6">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
               {filteredProducts.length} Products Found
             </h2>
-            <div className="text-xs sm:text-sm text-gray-500">
+            <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
               Page {currentPage} of {totalPages} • Showing {paginatedProducts.length} products
             </div>
           </div>
@@ -261,7 +261,7 @@ const MarketplacePage = () => {
               <Link
                 href={`/product/${product.id}`}
                 key={product.id}
-                className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transform hover:scale-105 hover:-translate-y-2 transition-all duration-500 border border-gray-100"
+                className="group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl dark:shadow-gray-900/50 transform hover:scale-105 hover:-translate-y-2 transition-all duration-500 border border-gray-100 dark:border-gray-700"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {/* Image Container */}
@@ -300,10 +300,10 @@ const MarketplacePage = () => {
                 <div className="p-4 sm:p-5 lg:p-6">
                   <div className="flex justify-between items-start mb-2 sm:mb-3">
                     <div className="flex-1 min-w-0 pr-2">
-                      <h3 className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 mb-0.5 sm:mb-1 group-hover:text-[#5D6BC6] transition-colors duration-200 truncate">
+                      <h3 className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 dark:text-white mb-0.5 sm:mb-1 group-hover:text-[#5D6BC6] transition-colors duration-200 truncate">
                         {product.name}
                       </h3>
-                      <p className="text-xs sm:text-sm text-gray-600 truncate">
+                      <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 truncate">
                         by {product.designer?.name || 'Unknown'}
                       </p>
                     </div>
@@ -314,10 +314,10 @@ const MarketplacePage = () => {
                       >
                         <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
                       </svg>
-                      <span className="font-medium text-gray-700">
+                      <span className="font-medium text-gray-700 dark:text-gray-300">
                         {product.rating}
                       </span>
-                      <span className="text-gray-500 hidden sm:inline">
+                      <span className="text-gray-500 dark:text-gray-400 hidden sm:inline">
                         ({product.review_count})
                       </span>
                     </div>
@@ -336,7 +336,7 @@ const MarketplacePage = () => {
                       .map((feature, featureIndex) => (
                         <span
                           key={featureIndex}
-                          className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full"
+                          className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded-full"
                         >
                           {feature}
                         </span>
@@ -344,7 +344,7 @@ const MarketplacePage = () => {
                   </div>
 
                   {/* Delivery Time */}
-                  <div className="text-[10px] sm:text-xs text-gray-500 mb-3 sm:mb-4 flex items-center space-x-1">
+                  <div className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 mb-3 sm:mb-4 flex items-center space-x-1">
                     <svg
                       className="w-3 h-3 sm:w-4 sm:h-4"
                       fill="none"
@@ -392,7 +392,7 @@ const MarketplacePage = () => {
                       className={`px-3 sm:px-4 py-2 border rounded-lg sm:rounded-xl transition-colors duration-200 ${
                         isSaved(product.id)
                           ? 'border-[#5D6BC6] bg-[#5D6BC6]/10 text-[#5D6BC6]'
-                          : 'border-gray-300 text-gray-700 hover:border-[#5D6BC6] hover:bg-[#5D6BC6]/5'
+                          : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-[#5D6BC6] hover:bg-[#5D6BC6]/5'
                       }`}
                     >
                       <svg
@@ -417,16 +417,16 @@ const MarketplacePage = () => {
         </div>
 
         {/* Recommended Section */}
-        <div className="bg-gradient-to-br from-[#BD9587]/10 via-[#8B5A8C]/10 to-[#5D6BC6]/10 py-10 sm:py-12 lg:py-16">
+        <div className="bg-gradient-to-br from-[#BD9587]/10 via-[#8B5A8C]/10 to-[#5D6BC6]/10 dark:from-[#BD9587]/5 dark:via-[#8B5A8C]/5 dark:to-[#5D6BC6]/5 py-10 sm:py-12 lg:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8 sm:mb-12">
-              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 sm:mb-4">
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2 sm:mb-4">
                 Recommended for{" "}
                 <span className="bg-gradient-to-r from-[#A2655F] to-[#5D6BC6] bg-clip-text text-transparent">
                   you
                 </span>
               </h3>
-              <p className="text-sm sm:text-base lg:text-lg text-gray-600 max-w-2xl mx-auto px-4">
+              <p className="text-sm sm:text-base lg:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto px-4">
                 Curated selections based on your browsing history and
                 preferences
               </p>
@@ -437,7 +437,7 @@ const MarketplacePage = () => {
                 <Link
                   href={`/product/${product.id}`}
                   key={product.id}
-                  className="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border border-gray-100"
+                  className="group bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl dark:shadow-gray-900/50 transition-all duration-300 transform hover:scale-105 border border-gray-100 dark:border-gray-700"
                 >
                   <div className="h-40 sm:h-44 lg:h-48 overflow-hidden bg-gradient-to-br from-[#BD9587]/20 to-[#5D6BC6]/20 flex items-center justify-center">
                     <span className="text-4xl sm:text-5xl group-hover:scale-110 transition-transform duration-500">
@@ -446,10 +446,10 @@ const MarketplacePage = () => {
                   </div>
 
                   <div className="p-3 sm:p-4">
-                    <h4 className="font-bold text-gray-900 mb-1 text-sm sm:text-base truncate">
+                    <h4 className="font-bold text-gray-900 dark:text-white mb-1 text-sm sm:text-base truncate">
                       {product.name}
                     </h4>
-                    <p className="text-xs sm:text-sm text-gray-600 mb-2 truncate">
+                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-2 truncate">
                       by {product.designer?.name || 'Unknown'}
                     </p>
                     <div className="flex items-center justify-between">
@@ -463,7 +463,7 @@ const MarketplacePage = () => {
                         >
                           <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
                         </svg>
-                        <span className="font-medium text-gray-700">
+                        <span className="font-medium text-gray-700 dark:text-gray-300">
                           {product.rating}
                         </span>
                       </div>

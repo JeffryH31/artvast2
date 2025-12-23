@@ -109,11 +109,11 @@ export default function BecomeDesignerPage() {
     return (
       <>
         <Header />
-        <main className="min-h-screen bg-[#0a0a0a] pt-24">
+        <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 pt-24 transition-colors duration-300">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-pulse">
-              <div className="h-8 bg-white/10 rounded w-48 mb-8"></div>
-              <div className="h-64 bg-white/10 rounded-xl"></div>
+              <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-48 mb-8"></div>
+              <div className="h-64 bg-gray-200 dark:bg-gray-700 rounded-xl"></div>
             </div>
           </div>
         </main>
@@ -128,42 +128,42 @@ export default function BecomeDesignerPage() {
     return (
       <>
         <Header />
-        <main className="min-h-screen bg-[#0a0a0a] pt-24 pb-16">
+        <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 pt-24 pb-16 transition-colors duration-300">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-white/5 rounded-xl p-8 border border-white/10">
-              <h1 className="text-2xl font-bold text-white mb-6">Designer Application Status</h1>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-8 border border-gray-200 dark:border-gray-700 shadow-sm">
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Designer Application Status</h1>
               
               <div className={`p-4 rounded-lg mb-6 ${
-                existingApplication.status === 'pending' ? 'bg-yellow-500/20 border border-yellow-500/50' :
-                existingApplication.status === 'approved' ? 'bg-green-500/20 border border-green-500/50' :
-                'bg-red-500/20 border border-red-500/50'
+                existingApplication.status === 'pending' ? 'bg-yellow-100 dark:bg-yellow-500/20 border border-yellow-400 dark:border-yellow-500/50' :
+                existingApplication.status === 'approved' ? 'bg-green-100 dark:bg-green-500/20 border border-green-400 dark:border-green-500/50' :
+                'bg-red-100 dark:bg-red-500/20 border border-red-400 dark:border-red-500/50'
               }`}>
-                <p className="text-white font-medium">
+                <p className="text-gray-900 dark:text-white font-medium">
                   Status: <span className="capitalize">{existingApplication.status}</span>
                 </p>
               </div>
 
               {existingApplication.status === 'pending' && (
-                <p className="text-gray-400">
+                <p className="text-gray-600 dark:text-gray-400">
                   Your application is being reviewed. We'll notify you once it's processed.
                 </p>
               )}
 
               {existingApplication.status === 'approved' && (
-                <p className="text-gray-400">
+                <p className="text-gray-600 dark:text-gray-400">
                   Congratulations! Your application has been approved. You can now start creating products.
                 </p>
               )}
 
               {existingApplication.status === 'rejected' && (
                 <>
-                  <p className="text-gray-400 mb-4">
+                  <p className="text-gray-600 dark:text-gray-400 mb-4">
                     Your application was not approved.
                   </p>
                   {existingApplication.rejection_reason && (
-                    <div className="bg-white/5 rounded-lg p-4">
-                      <p className="text-sm font-medium text-white mb-2">Reason:</p>
-                      <p className="text-gray-400 text-sm">{existingApplication.rejection_reason}</p>
+                    <div className="bg-gray-50 dark:bg-white/5 rounded-lg p-4">
+                      <p className="text-sm font-medium text-gray-900 dark:text-white mb-2">Reason:</p>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm">{existingApplication.rejection_reason}</p>
                     </div>
                   )}
                 </>
@@ -178,26 +178,26 @@ export default function BecomeDesignerPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-[#0a0a0a] pt-24 pb-16">
+      <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 pt-24 pb-16 transition-colors duration-300">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-white mb-4">Become a Designer</h1>
-            <p className="text-gray-400">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Become a Designer</h1>
+            <p className="text-gray-600 dark:text-gray-400">
               Join our community of talented designers and start selling your work.
             </p>
           </div>
 
           {error && (
-            <div className="mb-6 p-4 bg-red-500/20 border border-red-500/50 rounded-lg text-red-400">
+            <div className="mb-6 p-4 bg-red-100 dark:bg-red-500/20 border border-red-400 dark:border-red-500/50 rounded-lg text-red-600 dark:text-red-400">
               {error}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="bg-white/5 rounded-xl p-6 sm:p-8 border border-white/10">
+          <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 rounded-xl p-6 sm:p-8 border border-gray-200 dark:border-gray-700 shadow-sm transition-colors duration-300">
             <div className="space-y-6">
               {/* Designer Name */}
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Designer Name *
                 </label>
                 <input
@@ -206,13 +206,13 @@ export default function BecomeDesignerPage() {
                   value={formData.designerName}
                   onChange={(e) => setFormData({ ...formData, designerName: e.target.value })}
                   placeholder="Your professional name"
-                  className="w-full px-4 py-3 bg-white/5 border-2 border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-500"
+                  className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors"
                 />
               </div>
 
               {/* Portfolio URL */}
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Portfolio URL
                 </label>
                 <input
@@ -220,13 +220,13 @@ export default function BecomeDesignerPage() {
                   value={formData.portfolioUrl}
                   onChange={(e) => setFormData({ ...formData, portfolioUrl: e.target.value })}
                   placeholder="https://yourportfolio.com"
-                  className="w-full px-4 py-3 bg-white/5 border-2 border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-500"
+                  className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors"
                 />
               </div>
 
               {/* Specialties */}
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-3">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
                   Specialties * (Select at least one)
                 </label>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -238,7 +238,7 @@ export default function BecomeDesignerPage() {
                       className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                         formData.specialties.includes(specialty)
                           ? 'bg-purple-500 text-white'
-                          : 'bg-white/5 text-gray-400 hover:bg-white/10'
+                          : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600'
                       }`}
                     >
                       {specialty}
@@ -249,7 +249,7 @@ export default function BecomeDesignerPage() {
 
               {/* Description */}
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Tell us about yourself *
                 </label>
                 <textarea
@@ -258,7 +258,7 @@ export default function BecomeDesignerPage() {
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   placeholder="Describe your experience, skills, and what makes your work unique..."
-                  className="w-full px-4 py-3 bg-white/5 border-2 border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 resize-none"
+                  className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 resize-none transition-colors"
                 />
               </div>
 

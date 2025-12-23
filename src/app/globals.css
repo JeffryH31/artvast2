@@ -1,22 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
 @import "tailwindcss";
 
+/* Tailwind v4: Enable class-based dark mode */
+@variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Dark mode using class instead of media query */
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* --- Core Gradient Definitions (Prioritas dari CSS 1) --- */
@@ -24,8 +27,16 @@ body {
   background: linear-gradient(180deg, #BD9587 0%, #A2655F 25%, #8B5A8C 50%, #5D6BC6 75%, #1647A3 100%);
 }
 
+.dark .hero-gradient {
+  background: linear-gradient(180deg, #1a1a2e 0%, #2d1b3d 25%, #1f1333 50%, #0f1b3a 75%, #0a1428 100%);
+}
+
 .value-gradient {
   background: linear-gradient(180deg, #1647A3 0%, #5D6BC6 25%, #8B5A8C 50%, #A2655F 75%, #BD9587 100%);
+}
+
+.dark .value-gradient {
+  background: linear-gradient(180deg, #0a1428 0%, #0f1b3a 25%, #1f1333 50%, #2d1b3d 75%, #1a1a2e 100%);
 }
 
 .custom-gradient-text {

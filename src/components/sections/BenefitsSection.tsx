@@ -2,26 +2,26 @@ import React from 'react';
 
 const BenefitsSection: React.FC = () => {
   return (
-    <section className="value-gradient py-16 sm:py-20 lg:py-24 xl:py-32 relative overflow-hidden">
+    <section className="value-gradient dark:from-gray-900 dark:via-purple-900/30 dark:to-gray-900 py-16 sm:py-20 lg:py-24 xl:py-32 relative overflow-hidden transition-colors duration-300">
       {/* Enhanced Background decoration - responsive sizes */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent dark:from-black/40"></div>
       <div className="absolute inset-0">
-        <div className="absolute top-10 sm:top-20 left-5 sm:left-20 w-40 sm:w-60 lg:w-80 h-40 sm:h-60 lg:h-80 bg-white/5 rounded-full blur-3xl animate-pulse delay-300"></div>
-        <div className="absolute bottom-10 sm:bottom-20 right-5 sm:right-20 w-48 sm:w-72 lg:w-96 h-48 sm:h-72 lg:h-96 bg-white/5 rounded-full blur-3xl animate-pulse delay-700"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[450px] lg:w-[600px] h-[300px] sm:h-[450px] lg:h-[600px] bg-white/3 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-10 sm:top-20 left-5 sm:left-20 w-40 sm:w-60 lg:w-80 h-40 sm:h-60 lg:h-80 bg-white/5 dark:bg-white/10 rounded-full blur-3xl animate-pulse delay-300"></div>
+        <div className="absolute bottom-10 sm:bottom-20 right-5 sm:right-20 w-48 sm:w-72 lg:w-96 h-48 sm:h-72 lg:h-96 bg-white/5 dark:bg-white/10 rounded-full blur-3xl animate-pulse delay-700"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[450px] lg:w-[600px] h-[300px] sm:h-[450px] lg:h-[600px] bg-white/3 dark:bg-white/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10 sm:mb-16 lg:mb-20">
-          <span className="inline-block px-4 sm:px-6 py-2 sm:py-3 bg-white/10 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium text-white/90 border border-white/20 mb-4 sm:mb-6">
+          <span className="inline-block px-4 sm:px-6 py-2 sm:py-3 bg-white/10 dark:bg-white/20 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium text-white/90 dark:text-white/95 border border-white/20 dark:border-white/30 mb-4 sm:mb-6">
             💎 Exclusive Benefits
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 lg:mb-8 leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl  lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 lg:mb-8 leading-tight">
             <span className="block bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
               The Benefits
             </span>
           </h2>
-          <p className="text-base sm:text-lg lg:text-xl text-white/80 max-w-4xl mx-auto leading-relaxed px-4">
+          <p className="text-base sm:text-lg lg:text-xl text-white/80 dark:text-gray-200 max-w-4xl mx-auto leading-relaxed px-4">
             Enjoy the best experience both as a client and designer with our premium features
           </p>
         </div>

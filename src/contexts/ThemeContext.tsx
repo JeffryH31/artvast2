@@ -17,14 +17,21 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setMounted(true);
+    // Only check localStorage, ignore system preference to avoid auto-dark
     const savedTheme = localStorage.getItem('theme') as Theme;
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
-    if (savedTheme) {
+    if (savedTheme === 'dark' || savedTheme === 'light') {
       setTheme(savedTheme);
-    } else if (prefersDark) {
-      setTheme('dark');
+    } else {
+      // Default to light if no saved preference
+      setTheme('light');
+      localStorage.setItem('theme', 'light');
     }
+    
+    // Ensure HTML starts with correct class
+    const root = document.documentElement;
+    root.classList.remove('light', 'dark');
+    root.classList.add(savedTheme === 'dark' ? 'dark' : 'light');
   }, []);
 
   useEffect(() => {
@@ -39,8 +46,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const toggleTheme = () => {
     setTheme(prev => prev === 'light' ? 'dark' : 'light');
   };
-
-  if (!mounted) return null;
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>

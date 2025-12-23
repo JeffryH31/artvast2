@@ -4,30 +4,26 @@ import React from "react";
 
 const HeroSection: React.FC = () => {
   return (
-    <div className="text-white relative overflow-hidden min-h-screen pt-16 sm:pt-20">
+    <div className="text-white dark:text-gray-100 relative overflow-hidden min-h-screen pt-16 sm:pt-20">
       {/* Konten Utama Hero */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-20 flex items-center min-h-[85vh] sm:min-h-[90vh] z-20">
         <div className="max-w-2xl w-full">
           {/* Badge */}
           <div className="mb-4 sm:mb-6 animate-fade-in-up">
-            <span className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium text-white/90 border border-white/20">
+            <span className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 dark:bg-white/20 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium text-white/90 dark:text-white/95 border border-white/20 dark:border-white/30">
               🎨 Trusted Platform for Designers
             </span>
           </div>
           
           {/* Main Heading */}
           <h1
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-6 animate-fade-in-up"
-            style={{ animationDelay: "0.2s" }}
-          >
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-6 animate-fade-in-up">
             Empowering Designers, Building a Creative Community
           </h1>
           
           {/* Description */}
           <p
-            className="text-base sm:text-lg md:text-xl text-white/90 mb-6 sm:mb-8 max-w-2xl leading-relaxed animate-fade-in-up"
-            style={{ animationDelay: "0.4s" }}
-          >
+            className="text-base sm:text-lg md:text-xl text-white/90 dark:text-gray-200 mb-6 sm:mb-8 max-w-2xl leading-relaxed animate-fade-in-up">
             Showcase portfolios, safely sell your work and connect with local
             clients in a secure, professional environment
           </p>

@@ -113,7 +113,7 @@ export default function AuthModal({
 
       {/* Modal */}
       <div
-        className={`relative bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 p-8 transition-all duration-300 ease-out ${
+        className={`relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md mx-4 p-8 transition-all duration-300 ease-out ${
           isVisible
             ? "opacity-100 scale-100 translate-y-0"
             : "opacity-0 scale-95 translate-y-4"
@@ -122,7 +122,7 @@ export default function AuthModal({
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 hover:rotate-90 transition-all duration-300"
+          className="absolute top-4 right-4 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 hover:rotate-90 transition-all duration-300"
         >
           <svg
             className="w-6 h-6"
@@ -141,12 +141,12 @@ export default function AuthModal({
 
         {/* Header */}
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold text-gray-900">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
             {mode === "login" && "Welcome Back"}
             {mode === "signup" && "Create Account"}
             {mode === "forgot" && "Reset Password"}
           </h2>
-          <p className="text-gray-500 mt-2">
+          <p className="text-gray-500 dark:text-gray-400 mt-2">
             {mode === "login" && "Sign in to your account"}
             {mode === "signup" && "Join the Artvast community"}
             {mode === "forgot" && "Enter your email to reset password"}
@@ -155,12 +155,12 @@ export default function AuthModal({
 
         {/* Error/Success messages */}
         {error && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm">
+          <div className="mb-4 p-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 rounded-lg text-sm">
             {error}
           </div>
         )}
         {message && (
-          <div className="mb-4 p-3 bg-green-50 border border-green-200 text-green-600 rounded-lg text-sm">
+          <div className="mb-4 p-3 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 text-green-600 dark:text-green-400 rounded-lg text-sm">
             {message}
           </div>
         )}
@@ -168,14 +168,14 @@ export default function AuthModal({
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Email
             </label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-300 rounded-lg text-gray-900 placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#5D6BC6] focus:border-[#5D6BC6] outline-none transition-all"
+              className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:bg-white dark:focus:bg-gray-600 focus:ring-2 focus:ring-[#5D6BC6] focus:border-[#5D6BC6] outline-none transition-all"
               placeholder="you@example.com"
               required
             />
@@ -183,14 +183,14 @@ export default function AuthModal({
 
           {mode !== "forgot" && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Password
               </label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-300 rounded-lg text-gray-900 placeholder:text-gray-400 focus:bg-white focus:ring-2 focus:ring-[#5D6BC6] focus:border-[#5D6BC6] outline-none transition-all"
+                className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:bg-white dark:focus:bg-gray-600 focus:ring-2 focus:ring-[#5D6BC6] focus:border-[#5D6BC6] outline-none transition-all"
                 placeholder="••••••••"
                 required
               />
@@ -249,10 +249,10 @@ export default function AuthModal({
           <>
             <div className="relative my-6">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-200" />
+                <div className="w-full border-t border-gray-200 dark:border-gray-700" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">
+                <span className="px-2 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400">
                   or continue with
                 </span>
               </div>
@@ -262,7 +262,7 @@ export default function AuthModal({
             <button
               onClick={handleGoogleSignIn}
               disabled={loading}
-              className="w-full py-3 border border-gray-300 rounded-lg flex items-center justify-center gap-3 hover:bg-gray-50 transition-colors disabled:opacity-50"
+              className="w-full py-3 border border-gray-300 dark:border-gray-600 rounded-lg flex items-center justify-center gap-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors disabled:opacity-50 text-gray-700 dark:text-gray-300"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path
@@ -282,13 +282,13 @@ export default function AuthModal({
                   d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                 />
               </svg>
-              <span className="font-medium text-gray-700">Google</span>
+              <span className="font-medium text-gray-700 dark:text-gray-300">Google</span>
             </button>
           </>
         )}
 
         {/* Switch mode */}
-        <div className="mt-6 text-center text-sm text-gray-600">
+        <div className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
           {mode === "login" && (
             <>
               Don&apos;t have an account?{" "}
