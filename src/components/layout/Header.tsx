@@ -6,7 +6,9 @@ import { usePathname } from "next/navigation";
 import { MenuIcon } from "../ui/Icons";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/hooks/useCart";
+import { useRole } from "@/hooks/useRole";
 import AuthModal from "../auth/AuthModal";
+import { ThemeToggle } from "../ui/ThemeToggle";
 
 const Header: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -16,6 +18,7 @@ const Header: React.FC = () => {
   const pathname = usePathname();
   
   const { user, loading, signOut } = useAuth();
+  const { role, isDesigner, isAdmin } = useRole();
   const { totalItems } = useCart();
 
   useEffect(() => {
@@ -141,6 +144,29 @@ const Header: React.FC = () => {
                     }`}></span>
                   </span>
                 </Link>
+
+                {/* Designer Menu - Only for designers */}
+                {isDesigner && (
+                  <Link
+                    href="/designer/products"
+                    className={`relative px-5 py-2.5 rounded-xl overflow-hidden group ${
+                      pathname?.startsWith('/designer') 
+                        ? 'text-gray-900 font-semibold' 
+                        : 'text-gray-700 font-medium hover:text-gray-900'
+                    }`}
+                  >
+                    <span className="absolute inset-0 bg-gradient-to-r from-green-500/0 via-green-500/10 to-emerald-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+                    <span className={`absolute inset-0 bg-white/40 backdrop-blur-sm rounded-xl transition-all duration-300 ${
+                      pathname?.startsWith('/designer') ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+                    }`}></span>
+                    <span className="relative z-10 flex items-center space-x-1">
+                      <span>My Products</span>
+                      <span className={`w-1.5 h-1.5 bg-green-500 rounded-full transition-opacity duration-300 ${
+                        pathname?.startsWith('/designer') ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+                      }`}></span>
+                    </span>
+                  </Link>
+                )}
                 
                 <a
                   href="#services"
@@ -160,6 +186,9 @@ const Header: React.FC = () => {
                 ) : user ? (
                   /* Logged in user */
                   <div className="flex items-center space-x-3">
+                    {/* Theme Toggle */}
+                    <ThemeToggle />
+                    
                     {/* Cart Icon with Badge */}
                     <Link 
                       href="/cart"
@@ -301,6 +330,24 @@ const Header: React.FC = () => {
               >
                 Services
               </a>
+
+              {/* Designer Menu - Mobile */}
+              {isDesigner && (
+                <Link 
+                  href="/designer/products" 
+                  className={`block px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl hover:bg-white/60 transition-all duration-300 text-sm sm:text-base ${
+                    pathname?.startsWith('/designer') ? 'text-gray-900 font-semibold bg-white/50' : 'text-gray-700 font-medium'
+                  }`}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <span className="flex items-center space-x-2">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                    </svg>
+                    <span>My Products</span>
+                  </span>
+                </Link>
+              )}
               
               <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent my-3 sm:my-4"></div>
               

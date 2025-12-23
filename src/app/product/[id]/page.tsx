@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, use } from "react";
+import React, { useState, use, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
@@ -9,6 +9,12 @@ import { useCart } from "@/hooks/useCart";
 import { useSavedProducts } from "@/hooks/useSavedProducts";
 import { useAuth } from "@/hooks/useAuth";
 import Header from "@/components/layout/Header";
+import { ReviewSection } from "@/components/sections/ReviewSection";
+import { createClient } from "@/lib/supabase/client";
+import { trackProductView } from "@/lib/analytics";
+import { ReviewSection } from "@/components/sections/ReviewSection";
+import { createClient } from "@/lib/supabase/client";
+import { trackProductView } from "@/lib/analytics";
 
 interface ProductDetailPageProps {
   params: Promise<{
@@ -24,6 +30,42 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
   const { addToCart, loading: cartLoading } = useCart();
   const { toggleSave, isSaved } = useSavedProducts();
   const { user } = useAuth();
+
+  // Track product view
+  useEffect(() => {
+    if (product && id) {
+      // Track in analytics
+      trackProductView(id, product.name);
+
+      // Track in database
+      const trackView = async () => {
+        const supabase = createClient();
+        await supabase.from('product_views').insert({
+          product_id: id,
+          user_id: user?.id || null,
+        });
+      };
+      trackView();
+    }
+  }, [product, id, user]);
+
+  // Track product view
+  useEffect(() => {
+    if (product && id) {
+      // Track in analytics
+      trackProductView(id, product.name);
+
+      // Track in database
+      const trackView = async () => {
+        const supabase = createClient();
+        await supabase.from('product_views').insert({
+          product_id: id,
+          user_id: user?.id || null,
+        });
+      };
+      trackView();
+    }
+  }, [product, id, user]);
 
   // Loading state
   if (loading) {
@@ -344,52 +386,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
         )}
 
         {/* Reviews Section */}
-        {reviews.length > 0 && (
-          <div className="mt-10 sm:mt-16">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-8">
-              Customer Reviews ({reviews.length})
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-              {reviews.map((review) => (
-                <div
-                  key={review.id}
-                  className="bg-white/80 backdrop-blur-xl rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg border border-[#BD9587]/20 hover:shadow-2xl transition-shadow duration-300"
-                >
-                  <div className="flex items-start space-x-3 sm:space-x-4">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-[#5D6BC6] to-[#1647A3] rounded-full flex items-center justify-center text-white font-bold shadow-lg flex-shrink-0 text-sm sm:text-base">
-                      {review.author_avatar || review.author_name?.split(" ").map((n) => n[0]).join("").slice(0, 2)}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
-                        <h4 className="font-bold text-gray-900 text-sm sm:text-base truncate">{review.author_name}</h4>
-                        <span className="text-xs sm:text-sm text-gray-500 flex-shrink-0">
-                          {new Date(review.created_at).toLocaleDateString()}
-                        </span>
-                      </div>
-                      <div className="flex items-center mb-2 sm:mb-3">
-                        {[...Array(review.rating)].map((_, i) => (
-                          <svg key={i} className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
-                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-                          </svg>
-                        ))}
-                      </div>
-                      <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{review.comment}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* No Reviews State */}
-        {reviews.length === 0 && (
-          <div className="mt-10 sm:mt-16 text-center py-12 bg-white/80 backdrop-blur-xl rounded-2xl border border-[#BD9587]/20">
-            <div className="text-4xl mb-4">💬</div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">No reviews yet</h3>
-            <p className="text-gray-600">Be the first to review this product!</p>
-          </div>
-        )}
+        <ReviewSection productId={id} />
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Header from "@/components/layout/Header";
 import { useAuth } from "@/hooks/useAuth";
+import { useRole } from "@/hooks/useRole";
 import { createClient } from "@/lib/supabase/client";
 import { SkeletonList, SkeletonCard } from "@/components/ui/Skeleton";
 
@@ -36,9 +37,10 @@ interface SavedProduct {
 
 export default function DashboardPage() {
   const { user, loading: authLoading } = useAuth();
+  const { role, isDesigner } = useRole();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<
-    "overview" | "orders" | "saved" | "settings"
+    "overview" | "orders" | "saved" | "settings" | "products" | "portfolio"
   >("overview");
   const [orders, setOrders] = useState<Order[]>([]);
   const [savedProducts, setSavedProducts] = useState<SavedProduct[]>([]);
@@ -47,6 +49,7 @@ export default function DashboardPage() {
     full_name: string;
     avatar_url: string;
     bio: string;
+    role: string;
   } | null>(null);
 
   // Redirect if not logged in
@@ -201,6 +204,12 @@ export default function DashboardPage() {
               { id: "overview", label: "Overview" },
               { id: "orders", label: "My Orders" },
               { id: "saved", label: "Saved Products" },
+              ...(isDesigner
+                ? [
+                    { id: "products", label: "My Products" },
+                    { id: "portfolio", label: "Portfolio" },
+                  ]
+                : []),
               { id: "settings", label: "Settings" },
             ].map((tab) => (
               <button
@@ -208,7 +217,9 @@ export default function DashboardPage() {
                 onClick={() => setActiveTab(tab.id as typeof activeTab)}
                 className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
                   activeTab === tab.id
-                    ? "bg-purple-500 text-white"
+                    ? isDesigner && (tab.id === "products" || tab.id === "portfolio")
+                      ? "bg-green-500 text-white"
+                      : "bg-purple-500 text-white"
                     : "bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white"
                 }`}
               >
@@ -650,6 +661,45 @@ export default function DashboardPage() {
                       </Link>
                     </div>
                   )}
+                </div>
+              )}
+
+              {/* My Products Tab (Designer Only) */}
+              {activeTab === "products" && isDesigner && (
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-2xl font-bold text-white">My Products</h2>
+                    <Link
+                      href="/designer/products/new"
+                      className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors"
+                    >
+                      + Upload New Product
+                    </Link>
+                  </div>
+
+                  <div className="bg-white/5 rounded-xl border border-white/10 p-6">
+                    <p className="text-gray-400 text-center py-8">
+                      Product management interface coming soon. This will allow you to manage your products, view analytics, and more.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Portfolio Tab (Designer Only) */}
+              {activeTab === "portfolio" && isDesigner && (
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-2xl font-bold text-white">Portfolio</h2>
+                    <button className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors">
+                      + Add Portfolio Item
+                    </button>
+                  </div>
+
+                  <div className="bg-white/5 rounded-xl border border-white/10 p-6">
+                    <p className="text-gray-400 text-center py-8">
+                      Portfolio management interface coming soon. This will allow you to showcase your best work.
+                    </p>
+                  </div>
                 </div>
               )}
 
