@@ -12,13 +12,18 @@ interface Profile {
 }
 
 export function useRole() {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const [role, setRole] = useState<UserRole>('user');
   const [isVerified, setIsVerified] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchRole() {
+      // Wait for auth to finish loading first
+      if (authLoading) {
+        return;
+      }
+
       if (!user) {
         setRole('user');
         setIsVerified(false);
@@ -42,7 +47,7 @@ export function useRole() {
     }
 
     fetchRole();
-  }, [user]);
+  }, [user, authLoading]);
 
   const isUser = role === 'user';
   const isDesigner = role === 'designer' || role === 'admin';

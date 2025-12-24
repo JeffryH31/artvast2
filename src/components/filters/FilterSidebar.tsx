@@ -41,7 +41,7 @@ export function FilterSidebar({
             <button
               key={category.value}
               onClick={() => onCategoryChange(category.value)}
-              className={`flex-shrink-0 px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-medium sm:font-semibold text-sm sm:text-base transition-all duration-300 ${
+              className={`flex-shrink-0 px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-medium sm:font-semibold text-sm sm:text-base transition-all duration-300 cursor-pointer ${
                 selectedCategory === category.value
                   ? 'bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white shadow-lg'
                   : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
@@ -119,7 +119,7 @@ export function FilterPills({
         <button
           key={filter.value}
           onClick={() => onFilterChange(filter.value)}
-          className={`flex-shrink-0 px-4 sm:px-6 lg:px-8 py-2 sm:py-2.5 lg:py-3 rounded-full font-medium text-sm sm:text-base transition-all duration-300 border whitespace-nowrap ${
+          className={`flex-shrink-0 px-4 sm:px-6 lg:px-8 py-2 sm:py-2.5 lg:py-3 rounded-full font-medium text-sm sm:text-base transition-all duration-300 border whitespace-nowrap cursor-pointer ${
             activeFilter === filter.value
               ? 'bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white border-transparent shadow-lg'
               : 'bg-white text-gray-700 border-gray-300 hover:border-[#5D6BC6] hover:bg-[#5D6BC6]/5'

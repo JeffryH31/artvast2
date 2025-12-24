@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { useAuth } from '@/hooks/useAuth';
 import { useRole } from '@/hooks/useRole';
+import { useConfirmDialog } from '@/components/ui/ConfirmDialog';
 import Header from '@/components/layout/Header';
 import { createClient } from '@/lib/supabase/client';
 
@@ -29,6 +30,7 @@ interface User {
 export default function AdminPage() {
   const { user, loading: authLoading } = useAuth();
   const { isAdmin, loading: roleLoading } = useRole();
+  const { confirm } = useConfirmDialog();
   const router = useRouter();
   
   const [applications, setApplications] = useState<DesignerApplication[]>([]);
@@ -85,7 +87,15 @@ export default function AdminPage() {
   };
 
   const handleApprove = async (application: DesignerApplication) => {
-    if (!confirm(`Approve ${application.designer_name} as a designer?`)) return;
+    const confirmed = await confirm({
+      title: 'Approve Designer',
+      message: `Are you sure you want to approve ${application.designer_name} as a designer?`,
+      confirmText: 'Approve',
+      cancelText: 'Cancel',
+      confirmVariant: 'success',
+    });
+    
+    if (!confirmed) return;
 
     const supabase = createClient();
     
@@ -220,7 +230,7 @@ export default function AdminPage() {
           <div className="flex gap-2 mb-6">
             <button
               onClick={() => setActiveTab('applications')}
-              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+              className={`px-4 py-2 rounded-lg font-medium transition-colors cursor-pointer ${
                 activeTab === 'applications'
                   ? 'bg-purple-500 text-white'
                   : 'bg-white/5 text-gray-400 hover:bg-white/10'
@@ -230,7 +240,7 @@ export default function AdminPage() {
             </button>
             <button
               onClick={() => setActiveTab('users')}
-              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+              className={`px-4 py-2 rounded-lg font-medium transition-colors cursor-pointer ${
                 activeTab === 'users'
                   ? 'bg-purple-500 text-white'
                   : 'bg-white/5 text-gray-400 hover:bg-white/10'
@@ -295,13 +305,13 @@ export default function AdminPage() {
                         <div className="flex gap-3">
                           <button
                             onClick={() => handleApprove(app)}
-                            className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors"
+                            className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors cursor-pointer"
                           >
                             Approve
                           </button>
                           <button
                             onClick={() => setSelectedApp(app)}
-                            className="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg transition-colors"
+                            className="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg transition-colors cursor-pointer"
                           >
                             Reject
                           </button>
@@ -393,7 +403,7 @@ export default function AdminPage() {
             <div className="flex gap-3">
               <button
                 onClick={handleReject}
-                className="flex-1 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors"
+                className="flex-1 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors cursor-pointer"
               >
                 Confirm Rejection
               </button>
@@ -402,7 +412,7 @@ export default function AdminPage() {
                   setSelectedApp(null);
                   setRejectionReason('');
                 }}
-                className="flex-1 px-4 py-2 bg-white/5 hover:bg-white/10 text-white rounded-lg transition-colors"
+                className="flex-1 px-4 py-2 bg-white/5 hover:bg-white/10 text-white rounded-lg transition-colors cursor-pointer"
               >
                 Cancel
               </button>

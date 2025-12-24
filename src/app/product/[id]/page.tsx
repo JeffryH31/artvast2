@@ -12,9 +12,6 @@ import Header from "@/components/layout/Header";
 import { ReviewSection } from "@/components/sections/ReviewSection";
 import { createClient } from "@/lib/supabase/client";
 import { trackProductView } from "@/lib/analytics";
-import { ReviewSection } from "@/components/sections/ReviewSection";
-import { createClient } from "@/lib/supabase/client";
-import { trackProductView } from "@/lib/analytics";
 
 interface ProductDetailPageProps {
   params: Promise<{
@@ -30,24 +27,6 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
   const { addToCart, loading: cartLoading } = useCart();
   const { toggleSave, isSaved } = useSavedProducts();
   const { user } = useAuth();
-
-  // Track product view
-  useEffect(() => {
-    if (product && id) {
-      // Track in analytics
-      trackProductView(id, product.name);
-
-      // Track in database
-      const trackView = async () => {
-        const supabase = createClient();
-        await supabase.from('product_views').insert({
-          product_id: id,
-          user_id: user?.id || null,
-        });
-      };
-      trackView();
-    }
-  }, [product, id, user]);
 
   // Track product view
   useEffect(() => {
@@ -110,10 +89,14 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
     );
   }
 
-  // Product images - use image_url as primary, or create array
+  // Product images - use images array or fallback to image_url
   const productImages = product.images && product.images.length > 0 
     ? product.images 
-    : [product.image_url, product.image_url, product.image_url, product.image_url];
+    : product.image_url 
+      ? [product.image_url] 
+      : [];
+
+  const hasImages = productImages.length > 0;
 
   return (
     <div className="min-h-screen relative overflow-hidden transition-colors duration-300">
@@ -153,13 +136,20 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
           {/* Left: Product Images */}
           <div className="space-y-3 sm:space-y-4">
             {/* Main Image */}
-            <div className="relative aspect-square rounded-2xl sm:rounded-3xl overflow-hidden bg-white shadow-xl sm:shadow-2xl border border-[#BD9587]/20">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#BD9587]/5 to-[#5D6BC6]/5"></div>
-              <div className="relative w-full h-full flex items-center justify-center p-4 sm:p-6 lg:p-8">
-                <div className="w-full h-full bg-gradient-to-br from-[#BD9587]/20 to-[#A2655F]/20 rounded-xl sm:rounded-2xl flex items-center justify-center">
-                  <span className="text-4xl sm:text-5xl lg:text-6xl text-[#5D6BC6]">{productImages[selectedImage]}</span>
+            <div className="relative aspect-square rounded-2xl sm:rounded-3xl overflow-hidden bg-white dark:bg-gray-800 shadow-xl sm:shadow-2xl border border-gray-200 dark:border-gray-700">
+              {hasImages ? (
+                <img 
+                  src={productImages[selectedImage]} 
+                  alt={product.name}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="w-full h-full bg-gradient-to-br from-[#BD9587]/20 to-[#5D6BC6]/20 flex items-center justify-center">
+                  <svg className="w-24 h-24 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
                 </div>
-              </div>
+              )}
               {product.featured && (
                 <div className="absolute top-3 right-3 sm:top-6 sm:right-6 px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-[#5D6BC6] to-[#1647A3] text-white text-xs sm:text-sm font-bold rounded-full shadow-lg">
                   Featured
@@ -173,23 +163,27 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
             </div>
 
             {/* Thumbnail Images */}
-            <div className="grid grid-cols-4 gap-2 sm:gap-3 lg:gap-4">
-              {productImages.map((img, index) => (
-                <button
-                  key={index}
-                  onClick={() => setSelectedImage(index)}
-                  className={`aspect-square rounded-lg sm:rounded-xl overflow-hidden transition-all duration-300 ${
-                    selectedImage === index
-                      ? "ring-2 sm:ring-4 ring-[#5D6BC6] scale-105"
-                      : "ring-1 sm:ring-2 ring-gray-200 hover:ring-[#BD9587]"
-                  }`}
-                >
-                  <div className="w-full h-full bg-gradient-to-br from-[#BD9587]/20 to-[#8B5A8C]/20 flex items-center justify-center">
-                    <span className="text-lg sm:text-xl lg:text-2xl">{img}</span>
-                  </div>
-                </button>
-              ))}
-            </div>
+            {hasImages && productImages.length > 1 && (
+              <div className="grid grid-cols-4 gap-2 sm:gap-3 lg:gap-4">
+                {productImages.map((img, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setSelectedImage(index)}
+                    className={`aspect-square rounded-lg sm:rounded-xl overflow-hidden transition-all duration-300 cursor-pointer ${
+                      selectedImage === index
+                        ? "ring-2 sm:ring-4 ring-[#5D6BC6] scale-105"
+                        : "ring-1 sm:ring-2 ring-gray-200 dark:ring-gray-700 hover:ring-[#BD9587]"
+                    }`}
+                  >
+                    <img 
+                      src={img} 
+                      alt={`${product.name} - Image ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Right: Product Info */}
@@ -288,7 +282,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
                   }
                 }}
                 disabled={cartLoading}
-                className="flex-1 relative group overflow-hidden rounded-xl sm:rounded-2xl disabled:opacity-50"
+                className="flex-1 relative group overflow-hidden rounded-xl sm:rounded-2xl disabled:opacity-50 cursor-pointer"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-[#BD9587] to-[#A2655F] opacity-100 group-hover:opacity-90 transition-opacity"></div>
                 <div className="absolute inset-0 bg-white/20 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -309,7 +303,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
                   }
                 }}
                 disabled={cartLoading}
-                className="flex-1 relative group overflow-hidden rounded-xl sm:rounded-2xl disabled:opacity-50"
+                className="flex-1 relative group overflow-hidden rounded-xl sm:rounded-2xl disabled:opacity-50 cursor-pointer"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-[#5D6BC6] to-[#1647A3]"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
@@ -331,7 +325,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
                 }
                 await toggleSave(id);
               }}
-              className={`w-full flex items-center justify-center space-x-2 px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3 border-2 font-semibold rounded-xl sm:rounded-2xl transition-all duration-300 text-sm sm:text-base ${
+              className={`w-full flex items-center justify-center space-x-2 px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3 border-2 font-semibold rounded-xl sm:rounded-2xl transition-all duration-300 text-sm sm:text-base cursor-pointer ${
                 isSaved(id)
                   ? 'border-[#8B5A8C] bg-[#8B5A8C] text-white'
                   : 'border-[#8B5A8C] text-[#8B5A8C] hover:bg-[#8B5A8C] hover:text-white'

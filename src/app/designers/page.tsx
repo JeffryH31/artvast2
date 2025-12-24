@@ -102,7 +102,7 @@ const DesignersPage: React.FC = () => {
             <p className="text-gray-600 dark:text-gray-400 mb-4">{error}</p>
             <button
               onClick={() => window.location.reload()}
-              className="px-6 py-2 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white rounded-xl font-medium"
+              className="px-6 py-2 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white rounded-xl font-medium cursor-pointer"
             >
               Try Again
             </button>
@@ -148,7 +148,7 @@ const DesignersPage: React.FC = () => {
                   <button
                     key={category.value}
                     onClick={() => handleCategoryChange(category.value)}
-                    className={`flex-shrink-0 px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-medium sm:font-semibold text-sm sm:text-base transition-all duration-300 ${
+                    className={`flex-shrink-0 px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-medium sm:font-semibold text-sm sm:text-base transition-all duration-300 cursor-pointer ${
                       selectedCategory === category.value
                         ? "bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white shadow-lg"
                         : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
@@ -300,7 +300,7 @@ const DesignersPage: React.FC = () => {
 
                 {/* View Profile Button */}
                 <div className="p-3 sm:p-4 bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700">
-                  <button className="w-full py-2.5 sm:py-3 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white font-bold text-sm sm:text-base rounded-lg sm:rounded-xl hover:shadow-lg transition-all duration-300">
+                  <button className="w-full py-2.5 sm:py-3 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white font-bold text-sm sm:text-base rounded-lg sm:rounded-xl hover:shadow-lg transition-all duration-300 cursor-pointer">
                     View Profile
                   </button>
                 </div>

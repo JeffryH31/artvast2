@@ -127,7 +127,7 @@ const MarketplacePage = () => {
             <p className="text-gray-600 mb-4">{error}</p>
             <button 
               onClick={() => window.location.reload()}
-              className="px-6 py-2 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white rounded-xl font-medium"
+              className="px-6 py-2 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white rounded-xl font-medium cursor-pointer"
             >
               Try Again
             </button>
@@ -266,8 +266,20 @@ const MarketplacePage = () => {
               >
                 {/* Image Container */}
                 <div className="relative overflow-hidden h-48 sm:h-56 lg:h-64">
-                  <div className="w-full h-full bg-gradient-to-br from-[#BD9587]/20 to-[#5D6BC6]/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-700">
-                    <span className="text-4xl sm:text-5xl lg:text-6xl">{product.image_url}</span>
+                  <div className="w-full h-full bg-gradient-to-br from-[#BD9587]/20 to-[#5D6BC6]/20 group-hover:scale-110 transition-transform duration-700">
+                    {product.image_url && product.image_url.startsWith('http') ? (
+                      <img 
+                        src={product.image_url} 
+                        alt={product.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <svg className="w-16 h-16 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                    )}
                   </div>
 
                   {/* Badges */}
@@ -376,7 +388,7 @@ const MarketplacePage = () => {
                         }
                       }}
                       disabled={cartLoading}
-                      className="flex-1 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white px-3 sm:px-4 py-2 rounded-lg sm:rounded-xl font-medium text-xs sm:text-sm hover:from-[#A2655F] hover:to-[#8B5A8C] transition-all duration-300 transform hover:scale-105 disabled:opacity-50"
+                      className="flex-1 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white px-3 sm:px-4 py-2 rounded-lg sm:rounded-xl font-medium text-xs sm:text-sm hover:from-[#A2655F] hover:to-[#8B5A8C] transition-all duration-300 transform hover:scale-105 disabled:opacity-50 cursor-pointer"
                     >
                       {cartLoading ? 'Adding...' : 'Add to Cart'}
                     </button>
@@ -389,7 +401,7 @@ const MarketplacePage = () => {
                         }
                         await toggleSave(product.id);
                       }}
-                      className={`px-3 sm:px-4 py-2 border rounded-lg sm:rounded-xl transition-colors duration-200 ${
+                      className={`px-3 sm:px-4 py-2 border rounded-lg sm:rounded-xl transition-colors duration-200 cursor-pointer ${
                         isSaved(product.id)
                           ? 'border-[#5D6BC6] bg-[#5D6BC6]/10 text-[#5D6BC6]'
                           : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-[#5D6BC6] hover:bg-[#5D6BC6]/5'
@@ -439,10 +451,20 @@ const MarketplacePage = () => {
                   key={product.id}
                   className="group bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl dark:shadow-gray-900/50 transition-all duration-300 transform hover:scale-105 border border-gray-100 dark:border-gray-700"
                 >
-                  <div className="h-40 sm:h-44 lg:h-48 overflow-hidden bg-gradient-to-br from-[#BD9587]/20 to-[#5D6BC6]/20 flex items-center justify-center">
-                    <span className="text-4xl sm:text-5xl group-hover:scale-110 transition-transform duration-500">
-                      {product.image_url}
-                    </span>
+                  <div className="h-40 sm:h-44 lg:h-48 overflow-hidden bg-gradient-to-br from-[#BD9587]/20 to-[#5D6BC6]/20">
+                    {product.image_url && product.image_url.startsWith('http') ? (
+                      <img 
+                        src={product.image_url} 
+                        alt={product.name}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <svg className="w-12 h-12 text-gray-300 dark:text-gray-600 group-hover:scale-110 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                    )}
                   </div>
 
                   <div className="p-3 sm:p-4">
@@ -497,10 +519,10 @@ const MarketplacePage = () => {
               today
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-              <button className="bg-white text-[#8B5A8C] px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold hover:bg-gray-50 transform hover:scale-105 transition-all duration-300 shadow-lg text-sm sm:text-base">
+              <button className="bg-white text-[#8B5A8C] px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold hover:bg-gray-50 transform hover:scale-105 transition-all duration-300 shadow-lg text-sm sm:text-base cursor-pointer">
                 Start Selling
               </button>
-              <button className="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold hover:bg-white/20 transform hover:scale-105 transition-all duration-300 text-sm sm:text-base">
+              <button className="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold hover:bg-white/20 transform hover:scale-105 transition-all duration-300 text-sm sm:text-base cursor-pointer">
                 Learn More
               </button>
             </div>

@@ -122,7 +122,7 @@ export default function AuthModal({
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 hover:rotate-90 transition-all duration-300"
+          className="absolute top-4 right-4 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 hover:rotate-90 transition-all duration-300 cursor-pointer"
         >
           <svg
             className="w-6 h-6"
@@ -202,7 +202,7 @@ export default function AuthModal({
               <button
                 type="button"
                 onClick={() => setMode("forgot")}
-                className="text-sm text-[#5D6BC6] hover:underline"
+                className="text-sm text-[#5D6BC6] hover:underline cursor-pointer"
               >
                 Forgot password?
               </button>
@@ -212,7 +212,7 @@ export default function AuthModal({
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-gradient-to-r from-[#5D6BC6] to-[#8B5A8C] text-white font-semibold rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50"
+            className="w-full py-3 bg-gradient-to-r from-[#5D6BC6] to-[#8B5A8C] text-white font-semibold rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 cursor-pointer"
           >
             {loading ? (
               <span className="flex items-center justify-center gap-2">
@@ -262,7 +262,7 @@ export default function AuthModal({
             <button
               onClick={handleGoogleSignIn}
               disabled={loading}
-              className="w-full py-3 border border-gray-300 dark:border-gray-600 rounded-lg flex items-center justify-center gap-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors disabled:opacity-50 text-gray-700 dark:text-gray-300"
+              className="w-full py-3 border border-gray-300 dark:border-gray-600 rounded-lg flex items-center justify-center gap-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors disabled:opacity-50 text-gray-700 dark:text-gray-300 cursor-pointer"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path
@@ -294,7 +294,7 @@ export default function AuthModal({
               Don&apos;t have an account?{" "}
               <button
                 onClick={() => setMode("signup")}
-                className="text-[#5D6BC6] font-semibold hover:underline"
+                className="text-[#5D6BC6] font-semibold hover:underline cursor-pointer"
               >
                 Sign up
               </button>
@@ -305,7 +305,7 @@ export default function AuthModal({
               Already have an account?{" "}
               <button
                 onClick={() => setMode("login")}
-                className="text-[#5D6BC6] font-semibold hover:underline"
+                className="text-[#5D6BC6] font-semibold hover:underline cursor-pointer"
               >
                 Sign in
               </button>
@@ -314,7 +314,7 @@ export default function AuthModal({
           {mode === "forgot" && (
             <button
               onClick={() => setMode("login")}
-              className="text-[#5D6BC6] font-semibold hover:underline"
+              className="text-[#5D6BC6] font-semibold hover:underline cursor-pointer"
             >
               Back to sign in
             </button>

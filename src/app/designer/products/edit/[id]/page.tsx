@@ -62,16 +62,42 @@ export default function EditProductPage() {
         const supabase = createClient();
         
         // Get designer ID
-        const { data: designerData } = await supabase
+        let { data: designerData } = await supabase
           .from('designers')
           .select('id')
           .eq('user_id', user.id)
           .single();
 
+        // If designer profile doesn't exist, create one automatically
         if (!designerData) {
-          setError('Designer profile not found');
-          setLoading(false);
-          return;
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('full_name, username')
+            .eq('id', user.id)
+            .single();
+
+          const designerName = profile?.full_name || profile?.username || user.email?.split('@')[0] || 'Designer';
+          
+          const { data: newDesigner, error: createError } = await supabase
+            .from('designers')
+            .insert({
+              user_id: user.id,
+              name: designerName,
+              username: designerName.toLowerCase().replace(/\s+/g, '-') + '-' + Date.now(),
+              avatar_initials: designerName.substring(0, 2).toUpperCase(),
+              bio: '',
+              verified: true,
+            })
+            .select('id')
+            .single();
+
+          if (createError) {
+            setError('Failed to create designer profile. Please contact support.');
+            setLoading(false);
+            return;
+          }
+
+          designerData = newDesigner;
         }
 
         // Get product
@@ -147,7 +173,15 @@ export default function EditProductPage() {
   };
 
   const handleImageUpload = (uploadedImages: ProductImage[]) => {
-    setImages(uploadedImages);
+    setImages(prev => [...prev, ...uploadedImages]);
+  };
+
+  const handleImageRemove = (index: number) => {
+    setImages(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const removeExistingImage = (index: number) => {
+    setExistingImages(prev => prev.filter((_, i) => i !== index));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -237,7 +271,7 @@ export default function EditProductPage() {
           <p className="text-red-600 mb-4">{error}</p>
           <button
             onClick={() => router.push('/designer/products')}
-            className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+            className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 cursor-pointer"
           >
             Back to Products
           </button>
@@ -252,7 +286,7 @@ export default function EditProductPage() {
         <div className="mb-8">
           <button
             onClick={() => router.back()}
-            className="flex items-center gap-2 text-gray-600 hover:text-purple-600 mb-4"
+            className="flex items-center gap-2 text-gray-600 hover:text-purple-600 mb-4 cursor-pointer"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -289,7 +323,7 @@ export default function EditProductPage() {
                       <button
                         type="button"
                         onClick={() => setExistingImages(existingImages.filter((_, i) => i !== index))}
-                        className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -309,12 +343,13 @@ export default function EditProductPage() {
             {/* Upload New Images */}
             <ImageUpload
               onUpload={handleImageUpload}
-              maxFiles={5 - existingImages.length}
-              existingImages={[]}
+              onRemove={handleImageRemove}
+              maxFiles={5 - existingImages.length - images.length}
+              existingImages={images.map(img => img.url)}
               bucket="product-images"
             />
             <p className="text-sm text-gray-500 mt-2">
-              You can upload up to {5 - existingImages.length} more images (max 5 total)
+              You can upload up to {5 - existingImages.length - images.length} more images (max 5 total)
             </p>
           </div>
 
@@ -459,7 +494,7 @@ export default function EditProductPage() {
                     <button
                       type="button"
                       onClick={() => removeFeature(index)}
-                      className="px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg"
+                      className="px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg cursor-pointer"
                     >
                       Remove
                     </button>
@@ -470,7 +505,7 @@ export default function EditProductPage() {
               <button
                 type="button"
                 onClick={addFeature}
-                className="text-purple-600 hover:text-purple-700 font-medium"
+                className="text-purple-600 hover:text-purple-700 font-medium cursor-pointer"
               >
                 + Add Feature
               </button>
@@ -493,7 +528,7 @@ export default function EditProductPage() {
               <button
                 type="button"
                 onClick={addTag}
-                className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+                className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 cursor-pointer"
               >
                 Add
               </button>
@@ -510,7 +545,7 @@ export default function EditProductPage() {
                     <button
                       type="button"
                       onClick={() => removeTag(tag)}
-                      className="hover:text-purple-900"
+                      className="hover:text-purple-900 cursor-pointer"
                     >
                       ×
                     </button>
@@ -525,7 +560,7 @@ export default function EditProductPage() {
             <button
               type="button"
               onClick={() => router.back()}
-              className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+              className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 cursor-pointer"
               disabled={saving}
             >
               Cancel
@@ -533,7 +568,7 @@ export default function EditProductPage() {
             <button
               type="submit"
               disabled={saving}
-              className="flex-1 px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
               {saving ? 'Updating...' : 'Update Product'}
             </button>

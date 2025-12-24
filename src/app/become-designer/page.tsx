@@ -235,7 +235,7 @@ export default function BecomeDesignerPage() {
                       key={specialty}
                       type="button"
                       onClick={() => toggleSpecialty(specialty)}
-                      className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                      className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
                         formData.specialties.includes(specialty)
                           ? 'bg-purple-500 text-white'
                           : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600'
@@ -267,7 +267,7 @@ export default function BecomeDesignerPage() {
                 <button
                   type="submit"
                   disabled={submitting || formData.specialties.length === 0}
-                  className="w-full py-3 px-6 bg-purple-500 hover:bg-purple-600 disabled:bg-purple-500/50 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-colors"
+                  className="w-full py-3 px-6 bg-purple-500 hover:bg-purple-600 disabled:bg-purple-500/50 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-colors cursor-pointer"
                 >
                   {submitting ? 'Submitting...' : 'Submit Application'}
                 </button>

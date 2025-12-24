@@ -12,6 +12,7 @@ interface UploadedFile {
 
 interface ImageUploadProps {
   onUpload: (files: UploadedFile[]) => void;
+  onRemove?: (index: number) => void;
   maxFiles?: number;
   existingImages?: string[];
   bucket?: string;
@@ -19,13 +20,16 @@ interface ImageUploadProps {
 
 export function ImageUpload({ 
   onUpload, 
+  onRemove,
   maxFiles = 5, 
   existingImages = [],
   bucket = 'product-images' 
 }: ImageUploadProps) {
   const [uploading, setUploading] = useState(false);
   const [dragActive, setDragActive] = useState(false);
-  const [previews, setPreviews] = useState<string[]>(existingImages);
+
+  // Use existingImages directly as the source of truth for previews
+  const previews = existingImages;
 
   const validateFile = (file: File): boolean => {
     const validTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
@@ -83,13 +87,6 @@ export function ImageUpload({
           path: filePath,
           name: file.name,
         });
-
-        // Add preview
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          setPreviews(prev => [...prev, e.target?.result as string]);
-        };
-        reader.readAsDataURL(file);
       }
 
       onUpload(uploadedFiles);
@@ -130,7 +127,10 @@ export function ImageUpload({
   };
 
   const removeImage = (index: number) => {
-    setPreviews(prev => prev.filter((_, i) => i !== index));
+    // Just call onRemove - parent manages the state
+    if (onRemove) {
+      onRemove(index);
+    }
   };
 
   return (
@@ -200,7 +200,7 @@ export function ImageUpload({
               <button
                 type="button"
                 onClick={() => removeImage(index)}
-                className="absolute top-2 right-2 w-8 h-8 bg-red-500 hover:bg-red-600 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+                className="absolute top-2 right-2 w-8 h-8 bg-red-500 hover:bg-red-600 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

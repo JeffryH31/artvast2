@@ -19,7 +19,7 @@ const Button: React.FC<ButtonProps> = ({
   icon,
   href
 }) => {
-  const baseClasses = 'font-semibold rounded-xl transition-all duration-300 flex items-center justify-center space-x-2 transform hover:scale-105';
+  const baseClasses = 'font-semibold rounded-xl transition-all duration-300 flex items-center justify-center space-x-2 transform hover:scale-105 cursor-pointer';
   
   const variantClasses = {
     primary: 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:shadow-lg hover:shadow-blue-500/25',

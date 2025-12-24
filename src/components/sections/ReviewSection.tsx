@@ -77,7 +77,7 @@ export function ReviewSection({ productId }: ReviewSectionProps) {
         {canReview && !showForm && (
           <button
             onClick={() => setShowForm(true)}
-            className="px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg transition-colors"
+            className="px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg transition-colors cursor-pointer"
           >
             Write a Review
           </button>
@@ -98,7 +98,7 @@ export function ReviewSection({ productId }: ReviewSectionProps) {
                   key={star}
                   type="button"
                   onClick={() => setRating(star)}
-                  className="focus:outline-none"
+                  className="focus:outline-none cursor-pointer"
                 >
                   <svg
                     className={`w-8 h-8 ${
@@ -138,14 +138,14 @@ export function ReviewSection({ productId }: ReviewSectionProps) {
             <button
               type="submit"
               disabled={submitting}
-              className="px-6 py-2 bg-purple-500 hover:bg-purple-600 disabled:bg-purple-300 text-white rounded-lg transition-colors"
+              className="px-6 py-2 bg-purple-500 hover:bg-purple-600 disabled:bg-purple-300 text-white rounded-lg transition-colors cursor-pointer"
             >
               {submitting ? 'Submitting...' : 'Submit Review'}
             </button>
             <button
               type="button"
               onClick={() => setShowForm(false)}
-              className="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition-colors"
+              className="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition-colors cursor-pointer"
             >
               Cancel
             </button>

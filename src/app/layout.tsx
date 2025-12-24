@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/Toaster";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import { ConfirmDialogProvider } from "@/components/ui/ConfirmDialog";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -56,10 +57,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${manrope.variable} font-sans antialiased`}>
         <ThemeProvider>
-          <ErrorBoundary>
-            {children}
-            <Toaster />
-          </ErrorBoundary>
+          <ConfirmDialogProvider>
+            <ErrorBoundary>
+              {children}
+              <Toaster />
+            </ErrorBoundary>
+          </ConfirmDialogProvider>
         </ThemeProvider>
       </body>
     </html>

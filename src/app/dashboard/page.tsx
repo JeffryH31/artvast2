@@ -8,6 +8,8 @@ import { useAuth } from "@/hooks/useAuth";
 import { useRole } from "@/hooks/useRole";
 import { createClient } from "@/lib/supabase/client";
 import { SkeletonList, SkeletonCard } from "@/components/ui/Skeleton";
+import { ImageUpload } from "@/components/ui/ImageUpload";
+import toast from "react-hot-toast";
 
 interface Order {
   id: string;
@@ -35,6 +37,29 @@ interface SavedProduct {
   };
 }
 
+interface PortfolioItem {
+  id: string;
+  title: string;
+  description: string | null;
+  category: string;
+  image_url: string;
+  featured: boolean;
+  created_at: string;
+}
+
+const PORTFOLIO_CATEGORIES = [
+  "Illustration",
+  "UI/UX Design",
+  "Branding",
+  "Typography",
+  "Photography",
+  "3D Design",
+  "Motion Graphics",
+  "Print Design",
+  "Web Design",
+  "Other",
+];
+
 export default function DashboardPage() {
   const { user, loading: authLoading } = useAuth();
   const { role, isDesigner } = useRole();
@@ -51,6 +76,20 @@ export default function DashboardPage() {
     bio: string;
     role: string;
   } | null>(null);
+
+  // Portfolio states
+  const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([]);
+  const [designerId, setDesignerId] = useState<string | null>(null);
+  const [showPortfolioModal, setShowPortfolioModal] = useState(false);
+  const [editingPortfolio, setEditingPortfolio] = useState<PortfolioItem | null>(null);
+  const [portfolioForm, setPortfolioForm] = useState({
+    title: "",
+    description: "",
+    category: "Illustration",
+    image_url: "",
+    featured: false,
+  });
+  const [portfolioSubmitting, setPortfolioSubmitting] = useState(false);
 
   // Redirect if not logged in
   useEffect(() => {
@@ -111,6 +150,48 @@ export default function DashboardPage() {
         if (savedData) {
           setSavedProducts(savedData);
         }
+
+        // Fetch designer info if user is a designer
+        let { data: designerData } = await supabase
+          .from("designers")
+          .select("id")
+          .eq("user_id", user.id)
+          .single();
+
+        // If user is a designer but no designer record exists, create one
+        if (!designerData && profileData?.role === 'designer') {
+          const designerName = profileData?.full_name || profileData?.username || user.email?.split('@')[0] || 'Designer';
+          
+          const { data: newDesigner } = await supabase
+            .from("designers")
+            .insert({
+              user_id: user.id,
+              name: designerName,
+              username: designerName.toLowerCase().replace(/\s+/g, '-') + '-' + Date.now(),
+              avatar_initials: designerName.substring(0, 2).toUpperCase(),
+              bio: '',
+              verified: true,
+            })
+            .select("id")
+            .single();
+
+          designerData = newDesigner;
+        }
+
+        if (designerData) {
+          setDesignerId(designerData.id);
+          
+          // Fetch portfolio items
+          const { data: portfolioData } = await supabase
+            .from("portfolio_items")
+            .select("*")
+            .eq("designer_id", designerData.id)
+            .order("created_at", { ascending: false });
+
+          if (portfolioData) {
+            setPortfolioItems(portfolioData);
+          }
+        }
       } catch (error) {
         console.error("Error fetching user data:", error);
       } finally {
@@ -154,6 +235,147 @@ export default function DashboardPage() {
   if (!user) {
     return null; // Will redirect
   }
+
+  // Portfolio functions
+  const openAddPortfolioModal = () => {
+    setEditingPortfolio(null);
+    setPortfolioForm({
+      title: "",
+      description: "",
+      category: "Illustration",
+      image_url: "",
+      featured: false,
+    });
+    setShowPortfolioModal(true);
+  };
+
+  const openEditPortfolioModal = (item: PortfolioItem) => {
+    setEditingPortfolio(item);
+    setPortfolioForm({
+      title: item.title,
+      description: item.description || "",
+      category: item.category,
+      image_url: item.image_url,
+      featured: item.featured,
+    });
+    setShowPortfolioModal(true);
+  };
+
+  const closePortfolioModal = () => {
+    setShowPortfolioModal(false);
+    setEditingPortfolio(null);
+    setPortfolioForm({
+      title: "",
+      description: "",
+      category: "Illustration",
+      image_url: "",
+      featured: false,
+    });
+  };
+
+  const handlePortfolioSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!designerId) {
+      toast.error("Designer profile not found");
+      return;
+    }
+
+    if (!portfolioForm.title.trim()) {
+      toast.error("Please enter a title");
+      return;
+    }
+
+    if (!portfolioForm.image_url) {
+      toast.error("Please upload an image");
+      return;
+    }
+
+    setPortfolioSubmitting(true);
+    const supabase = createClient();
+
+    try {
+      if (editingPortfolio) {
+        // Update existing
+        const { error } = await supabase
+          .from("portfolio_items")
+          .update({
+            title: portfolioForm.title,
+            description: portfolioForm.description || null,
+            category: portfolioForm.category,
+            image_url: portfolioForm.image_url,
+            featured: portfolioForm.featured,
+          })
+          .eq("id", editingPortfolio.id);
+
+        if (error) throw error;
+
+        setPortfolioItems((prev) =>
+          prev.map((item) =>
+            item.id === editingPortfolio.id
+              ? { ...item, ...portfolioForm }
+              : item
+          )
+        );
+        toast.success("Portfolio item updated!");
+      } else {
+        // Create new
+        const { data, error } = await supabase
+          .from("portfolio_items")
+          .insert({
+            designer_id: designerId,
+            title: portfolioForm.title,
+            description: portfolioForm.description || null,
+            category: portfolioForm.category,
+            image_url: portfolioForm.image_url,
+            featured: portfolioForm.featured,
+          })
+          .select()
+          .single();
+
+        if (error) throw error;
+
+        setPortfolioItems((prev) => [data, ...prev]);
+        toast.success("Portfolio item added!");
+      }
+
+      closePortfolioModal();
+    } catch (error) {
+      console.error("Error saving portfolio item:", error);
+      toast.error("Failed to save portfolio item");
+    } finally {
+      setPortfolioSubmitting(false);
+    }
+  };
+
+  const handleDeletePortfolio = async (itemId: string) => {
+    if (!confirm("Are you sure you want to delete this portfolio item?")) {
+      return;
+    }
+
+    const supabase = createClient();
+
+    try {
+      const { error } = await supabase
+        .from("portfolio_items")
+        .delete()
+        .eq("id", itemId);
+
+      if (error) throw error;
+
+      setPortfolioItems((prev) => prev.filter((item) => item.id !== itemId));
+      toast.success("Portfolio item deleted!");
+    } catch (error) {
+      console.error("Error deleting portfolio item:", error);
+      toast.error("Failed to delete portfolio item");
+    }
+  };
+
+  const handlePortfolioImageUpload = (files: { url: string; path: string; name: string }[]) => {
+    if (files.length > 0) {
+      setPortfolioForm((prev) => ({ ...prev, image_url: files[0].url }));
+    }
+  };
 
   return (
     <>
@@ -690,16 +912,95 @@ export default function DashboardPage() {
                 <div>
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Portfolio</h2>
-                    <button className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors">
+                    <button 
+                      onClick={openAddPortfolioModal}
+                      className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors cursor-pointer"
+                    >
                       + Add Portfolio Item
                     </button>
                   </div>
 
-                  <div className="bg-white dark:bg-white/5 rounded-xl border border-gray-200 dark:border-white/10 p-6 shadow-sm">
-                    <p className="text-gray-500 dark:text-gray-400 text-center py-8">
-                      Portfolio management interface coming soon. This will allow you to showcase your best work.
-                    </p>
-                  </div>
+                  {portfolioItems.length > 0 ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {portfolioItems.map((item) => (
+                        <div
+                          key={item.id}
+                          className="bg-white dark:bg-white/5 rounded-xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-sm group"
+                        >
+                          {/* Image */}
+                          <div className="aspect-video bg-gray-100 dark:bg-white/10 relative overflow-hidden">
+                            {item.image_url ? (
+                              <img
+                                src={item.image_url}
+                                alt={item.title}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                              />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center">
+                                <svg className="w-12 h-12 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                              </div>
+                            )}
+                            {item.featured && (
+                              <div className="absolute top-2 left-2 px-2 py-1 bg-yellow-500 text-white text-xs font-medium rounded">
+                                Featured
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Content */}
+                          <div className="p-4">
+                            <div className="flex items-start justify-between gap-2 mb-2">
+                              <h3 className="font-semibold text-gray-900 dark:text-white truncate">
+                                {item.title}
+                              </h3>
+                              <span className="px-2 py-0.5 bg-purple-100 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 text-xs rounded-full whitespace-nowrap">
+                                {item.category}
+                              </span>
+                            </div>
+                            {item.description && (
+                              <p className="text-gray-600 dark:text-gray-400 text-sm line-clamp-2 mb-3">
+                                {item.description}
+                              </p>
+                            )}
+                            <div className="flex gap-2">
+                              <button
+                                onClick={() => openEditPortfolioModal(item)}
+                                className="flex-1 px-3 py-2 bg-blue-100 hover:bg-blue-200 dark:bg-blue-500/20 dark:hover:bg-blue-500/30 text-blue-600 dark:text-blue-400 text-sm rounded-lg transition-colors cursor-pointer"
+                              >
+                                Edit
+                              </button>
+                              <button
+                                onClick={() => handleDeletePortfolio(item.id)}
+                                className="px-3 py-2 bg-red-100 hover:bg-red-200 dark:bg-red-500/20 dark:hover:bg-red-500/30 text-red-600 dark:text-red-400 text-sm rounded-lg transition-colors cursor-pointer"
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="bg-white dark:bg-white/5 rounded-xl border border-gray-200 dark:border-white/10 p-6 shadow-sm text-center py-16">
+                      <svg className="w-16 h-16 text-gray-400 dark:text-gray-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                      <h3 className="text-xl font-medium text-gray-900 dark:text-white mb-2">
+                        No Portfolio Items Yet
+                      </h3>
+                      <p className="text-gray-500 dark:text-gray-400 mb-6">
+                        Start showcasing your best work by adding portfolio items
+                      </p>
+                      <button
+                        onClick={openAddPortfolioModal}
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors cursor-pointer"
+                      >
+                        + Add Your First Item
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -771,7 +1072,7 @@ export default function DashboardPage() {
                       Once you delete your account, there is no going back.
                       Please be certain.
                     </p>
-                    <button className="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg transition-colors text-sm">
+                    <button className="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg transition-colors text-sm cursor-pointer">
                       Delete Account
                     </button>
                   </div>
@@ -781,6 +1082,146 @@ export default function DashboardPage() {
           )}
         </div>
       </main>
+
+      {/* Portfolio Modal */}
+      {showPortfolioModal && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                {editingPortfolio ? "Edit Portfolio Item" : "Add Portfolio Item"}
+              </h2>
+              <button
+                onClick={closePortfolioModal}
+                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors cursor-pointer"
+              >
+                <svg className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Modal Form */}
+            <form onSubmit={handlePortfolioSubmit} className="p-6 space-y-6">
+              {/* Image Upload */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Image *
+                </label>
+                {portfolioForm.image_url ? (
+                  <div className="relative">
+                    <img
+                      src={portfolioForm.image_url}
+                      alt="Preview"
+                      className="w-full h-48 object-cover rounded-lg"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setPortfolioForm((prev) => ({ ...prev, image_url: "" }))}
+                      className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors cursor-pointer"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+                ) : (
+                  <ImageUpload
+                    onUpload={handlePortfolioImageUpload}
+                    maxFiles={1}
+                    existingImages={[]}
+                    bucket="product-images"
+                  />
+                )}
+              </div>
+
+              {/* Title */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Title *
+                </label>
+                <input
+                  type="text"
+                  value={portfolioForm.title}
+                  onChange={(e) => setPortfolioForm((prev) => ({ ...prev, title: e.target.value }))}
+                  placeholder="Enter portfolio item title"
+                  className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-green-500 transition-colors"
+                  required
+                />
+              </div>
+
+              {/* Category */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Category *
+                </label>
+                <select
+                  value={portfolioForm.category}
+                  onChange={(e) => setPortfolioForm((prev) => ({ ...prev, category: e.target.value }))}
+                  className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:border-green-500 transition-colors cursor-pointer"
+                >
+                  {PORTFOLIO_CATEGORIES.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Description */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Description
+                </label>
+                <textarea
+                  value={portfolioForm.description}
+                  onChange={(e) => setPortfolioForm((prev) => ({ ...prev, description: e.target.value }))}
+                  placeholder="Describe this portfolio item..."
+                  rows={4}
+                  className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-green-500 transition-colors resize-none"
+                />
+              </div>
+
+              {/* Featured */}
+              <div className="flex items-center gap-3">
+                <input
+                  type="checkbox"
+                  id="featured"
+                  checked={portfolioForm.featured}
+                  onChange={(e) => setPortfolioForm((prev) => ({ ...prev, featured: e.target.checked }))}
+                  className="w-5 h-5 rounded border-gray-300 text-green-500 focus:ring-green-500 cursor-pointer"
+                />
+                <label htmlFor="featured" className="text-sm text-gray-700 dark:text-gray-300 cursor-pointer">
+                  Mark as Featured (will be highlighted in your portfolio)
+                </label>
+              </div>
+
+              {/* Actions */}
+              <div className="flex gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                <button
+                  type="button"
+                  onClick={closePortfolioModal}
+                  className="flex-1 px-4 py-3 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-lg transition-colors cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={portfolioSubmitting}
+                  className="flex-1 px-4 py-3 bg-green-500 hover:bg-green-600 disabled:bg-green-500/50 text-white font-medium rounded-lg transition-colors disabled:cursor-not-allowed cursor-pointer"
+                >
+                  {portfolioSubmitting
+                    ? "Saving..."
+                    : editingPortfolio
+                    ? "Update Item"
+                    : "Add Item"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </>
   );
 }

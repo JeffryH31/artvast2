@@ -215,7 +215,7 @@ const Header: React.FC = () => {
                     </Link>
                     <button 
                       onClick={handleSignOut}
-                      className="relative px-4 py-2 text-gray-600 dark:text-gray-400 font-medium rounded-xl hover:text-gray-900 dark:hover:text-white overflow-hidden group border border-gray-200/50 dark:border-gray-700/50 hover:border-red-300/50 dark:hover:border-red-500/50 hover:bg-red-50/50 dark:hover:bg-red-900/30 transition-all duration-300"
+                      className="relative px-4 py-2 text-gray-600 dark:text-gray-400 font-medium rounded-xl hover:text-gray-900 dark:hover:text-white overflow-hidden group border border-gray-200/50 dark:border-gray-700/50 hover:border-red-300/50 dark:hover:border-red-500/50 hover:bg-red-50/50 dark:hover:bg-red-900/30 transition-all duration-300 cursor-pointer"
                     >
                       <span className="relative z-10">Sign Out</span>
                     </button>
@@ -225,7 +225,7 @@ const Header: React.FC = () => {
                   <>
                     <button 
                       onClick={() => openAuthModal('login')}
-                      className="relative px-6 py-2.5 text-gray-700 dark:text-gray-300 font-medium rounded-xl hover:text-gray-900 dark:hover:text-white overflow-hidden group border border-gray-200/50 dark:border-gray-700/50 hover:border-gray-300/50 dark:hover:border-gray-600/50 transition-all duration-300"
+                      className="relative px-6 py-2.5 text-gray-700 dark:text-gray-300 font-medium rounded-xl hover:text-gray-900 dark:hover:text-white overflow-hidden group border border-gray-200/50 dark:border-gray-700/50 hover:border-gray-300/50 dark:hover:border-gray-600/50 transition-all duration-300 cursor-pointer"
                     >
                       <span className="absolute inset-0 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                       <span className="relative z-10">Sign In</span>
@@ -234,7 +234,7 @@ const Header: React.FC = () => {
                     {/* Premium Get Started Button */}
                     <button 
                       onClick={() => openAuthModal('signup')}
-                      className="relative ml-2 group overflow-hidden rounded-xl"
+                      className="relative ml-2 group overflow-hidden rounded-xl cursor-pointer"
                     >
                       {/* Animated gradient background */}
                       <div className="absolute inset-0 custom-gradient-bg animate-gradient-shift"></div>
@@ -272,7 +272,7 @@ const Header: React.FC = () => {
             <div className="lg:hidden">
               <button 
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="relative p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl hover:bg-white/80 dark:hover:bg-gray-700/80 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-all duration-300 border border-white/40 dark:border-gray-700/40 hover:border-white/60 dark:hover:border-gray-600/60 shadow-lg sm:shadow-xl hover:shadow-2xl group"
+                className="relative p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl hover:bg-white/80 dark:hover:bg-gray-700/80 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-all duration-300 border border-white/40 dark:border-gray-700/40 hover:border-white/60 dark:hover:border-gray-600/60 shadow-lg sm:shadow-xl hover:shadow-2xl group cursor-pointer"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-xl sm:rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <MenuIcon />
@@ -367,7 +367,7 @@ const Header: React.FC = () => {
                   </div>
                   <button 
                     onClick={handleSignOut}
-                    className="w-full px-4 sm:px-6 py-3 sm:py-4 text-red-600 dark:text-red-400 font-medium rounded-xl sm:rounded-2xl hover:bg-red-50 dark:hover:bg-red-900/30 border border-red-200 dark:border-red-800 transition-all duration-300 text-sm sm:text-base"
+                    className="w-full px-4 sm:px-6 py-3 sm:py-4 text-red-600 dark:text-red-400 font-medium rounded-xl sm:rounded-2xl hover:bg-red-50 dark:hover:bg-red-900/30 border border-red-200 dark:border-red-800 transition-all duration-300 text-sm sm:text-base cursor-pointer"
                   >
                     Sign Out
                   </button>
@@ -379,7 +379,7 @@ const Header: React.FC = () => {
                       setMobileMenuOpen(false);
                       openAuthModal('login');
                     }}
-                    className="w-full px-4 sm:px-6 py-3 sm:py-4 text-gray-700 dark:text-gray-300 font-medium rounded-xl sm:rounded-2xl hover:bg-white/60 dark:hover:bg-gray-700/60 border border-gray-200 dark:border-gray-700 transition-all duration-300 text-sm sm:text-base"
+                    className="w-full px-4 sm:px-6 py-3 sm:py-4 text-gray-700 dark:text-gray-300 font-medium rounded-xl sm:rounded-2xl hover:bg-white/60 dark:hover:bg-gray-700/60 border border-gray-200 dark:border-gray-700 transition-all duration-300 text-sm sm:text-base cursor-pointer"
                   >
                     Sign In
                   </button>
@@ -388,7 +388,7 @@ const Header: React.FC = () => {
                       setMobileMenuOpen(false);
                       openAuthModal('signup');
                     }}
-                    className="w-full custom-gradient-bg text-white font-bold px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 text-sm sm:text-base"
+                    className="w-full custom-gradient-bg text-white font-bold px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 text-sm sm:text-base cursor-pointer"
                   >
                     Get Started
                   </button>
