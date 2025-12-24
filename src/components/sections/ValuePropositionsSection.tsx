@@ -6,30 +6,29 @@ import ParticleEffect, { Magnetic } from "../animations/ParticleEffect";
 const ValuePropositionsSection: React.FC = () => {
   return (
     // Seamless connection dari HeroSection
-    <div className="seamless-section text-white">
+    <div className="seamless-section text-white dark:text-gray-100">
       <div className="pt-12 sm:pt-16 lg:pt-20 pb-16 sm:pb-20 lg:pb-24 xl:pb-32">
-        {/* Efek partikel untuk memperkaya visual */}
         <ParticleEffect
           count={80}
           color="#ffffff"
           size={2}
           speed={0.3}
-          className="opacity-10"
+          className="opacity-10 dark:opacity-20"
         />
 
-        {/* Kontainer utama */}
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Floating Content Bridge, muncul dengan animasi float */}
           <div className="relative -mt-12 sm:-mt-16 lg:-mt-20 mb-12 sm:mb-16 lg:mb-24 z-30">
             <div
               className="animate-float"
               style={{ transform: "translateX(-50%)", animationDuration: "5s" }}
             >
-              <div className="bg-white/10 backdrop-blur-md z-50 rounded-lg sm:rounded-xl px-4 sm:px-6 lg:px-8 py-3 sm:py-4 border border-white/20 shadow-xl hover:bg-white/15 transition-all duration-300 hover:scale-105 w-max mx-auto max-w-[95vw]">
-                <div className="flex flex-wrap items-center justify-center gap-x-3 sm:gap-x-6 gap-y-2 text-white/90">
+              <div className="bg-white/10 dark:bg-white/20 backdrop-blur-md z-50 rounded-lg sm:rounded-xl px-4 sm:px-6 lg:px-8 py-3 sm:py-4 border border-white/20 dark:border-white/30 shadow-xl hover:bg-white/15 dark:hover:bg-white/25 transition-all duration-300 hover:scale-105 w-max mx-auto max-w-[95vw]">
+                <div className="flex flex-wrap items-center justify-center gap-x-3 sm:gap-x-6 gap-y-2 text-white/90 dark:text-white/95">
                   <div className="flex items-center space-x-1.5 sm:space-x-2">
                     <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-400 rounded-full animate-pulse"></div>
-                    <span className="text-xs sm:text-sm font-medium">Live Services</span>
+                    <span className="text-xs sm:text-sm font-medium">
+                      Live Services
+                    </span>
                   </div>
                   <div className="w-px h-3 sm:h-4 bg-white/30 hidden sm:block"></div>
                   <div className="flex items-center space-x-1.5 sm:space-x-2">
@@ -40,7 +39,9 @@ const ValuePropositionsSection: React.FC = () => {
                     >
                       <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
                     </svg>
-                    <span className="text-xs sm:text-sm font-medium">Premium Quality</span>
+                    <span className="text-xs sm:text-sm font-medium">
+                      Premium Quality
+                    </span>
                   </div>
                   <div className="w-px h-3 sm:h-4 bg-white/30 hidden sm:block"></div>
                   <div className="flex items-center space-x-1.5 sm:space-x-2">
@@ -49,7 +50,9 @@ const ValuePropositionsSection: React.FC = () => {
                       <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 border border-white"></div>
                       <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-gradient-to-r from-orange-500 to-red-500 border border-white"></div>
                     </div>
-                    <span className="text-xs sm:text-sm font-medium">1000+ Designers</span>
+                    <span className="text-xs sm:text-sm font-medium">
+                      1000+ Designers
+                    </span>
                   </div>
                 </div>
               </div>

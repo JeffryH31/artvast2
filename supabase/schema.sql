@@ -253,14 +253,14 @@ ON CONFLICT DO NOTHING;
 
 -- Insert sample products
 INSERT INTO products (id, designer_id, name, description, category, price, original_price, rating, review_count, image_url, featured, features, delivery_time, bestseller) VALUES
-  ('p1111111-1111-1111-1111-111111111111', 'd1111111-1111-1111-1111-111111111111', 'Premium Logo Design Package', 'Professional logo design service with unlimited revisions. Perfect for startups and businesses looking to establish their brand identity.', 'Branding', 299, 399, 4.9, 127, '🎨', true, ARRAY['3 Initial Concepts', 'Unlimited Revisions', 'Vector Files', 'Brand Guidelines'], '5-7 days', true),
-  ('p2222222-2222-2222-2222-222222222222', 'd3333333-3333-3333-3333-333333333333', 'Modern Website UI/UX Design', 'Complete website design with modern aesthetics and excellent user experience.', 'UI/UX Design', 599, 799, 4.8, 89, '💻', true, ARRAY['Full UI Design', 'Responsive Design', 'Figma Files', 'Design System'], '10-14 days', false),
-  ('p3333333-3333-3333-3333-333333333333', 'd2222222-2222-2222-2222-222222222222', 'Custom Illustration Pack', 'Unique hand-crafted illustrations for your projects.', 'Illustration', 199, NULL, 5.0, 45, '🎭', false, ARRAY['5 Custom Illustrations', 'Commercial License', 'High Resolution', 'Revisions Included'], '7-10 days', false)
+  ('a1111111-1111-1111-1111-111111111111', 'd1111111-1111-1111-1111-111111111111', 'Premium Logo Design Package', 'Professional logo design service with unlimited revisions. Perfect for startups and businesses looking to establish their brand identity.', 'Branding', 299, 399, 4.9, 127, '🎨', true, ARRAY['3 Initial Concepts', 'Unlimited Revisions', 'Vector Files', 'Brand Guidelines'], '5-7 days', true),
+  ('a2222222-2222-2222-2222-222222222222', 'd3333333-3333-3333-3333-333333333333', 'Modern Website UI/UX Design', 'Complete website design with modern aesthetics and excellent user experience.', 'UI/UX Design', 599, 799, 4.8, 89, '💻', true, ARRAY['Full UI Design', 'Responsive Design', 'Figma Files', 'Design System'], '10-14 days', false),
+  ('a3333333-3333-3333-3333-333333333333', 'd2222222-2222-2222-2222-222222222222', 'Custom Illustration Pack', 'Unique hand-crafted illustrations for your projects.', 'Illustration', 199, NULL, 5.0, 45, '🎭', false, ARRAY['5 Custom Illustrations', 'Commercial License', 'High Resolution', 'Revisions Included'], '7-10 days', false)
 ON CONFLICT DO NOTHING;
 
 -- Insert sample reviews
 INSERT INTO reviews (product_id, author_name, author_avatar, rating, comment) VALUES
-  ('p1111111-1111-1111-1111-111111111111', 'John Doe', 'JD', 5, 'Excellent work! The designer understood my vision perfectly and delivered beyond expectations.'),
-  ('p1111111-1111-1111-1111-111111111111', 'Jane Smith', 'JS', 5, 'Very professional and responsive. Would definitely work with again!'),
-  ('p1111111-1111-1111-1111-111111111111', 'Mike Johnson', 'MJ', 4, 'Great quality work. Communication was clear throughout the project.')
+  ('a1111111-1111-1111-1111-111111111111', 'John Doe', 'JD', 5, 'Excellent work! The designer understood my vision perfectly and delivered beyond expectations.'),
+  ('a1111111-1111-1111-1111-111111111111', 'Jane Smith', 'JS', 5, 'Very professional and responsive. Would definitely work with again!'),
+  ('a1111111-1111-1111-1111-111111111111', 'Mike Johnson', 'MJ', 4, 'Great quality work. Communication was clear throughout the project.')
 ON CONFLICT DO NOTHING;

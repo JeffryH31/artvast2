@@ -6,7 +6,7 @@ import BenefitsSection from '@/components/sections/BenefitsSection';
 
 export default function Home() {
   return (
-    <>
+    <div className="bg-white dark:bg-gray-950 transition-colors duration-300">
       <Header />
       {/* Kontainer utama dengan satu gradien latar belakang seamless */}
       <main className="hero-gradient relative overflow-hidden seamless-container">
@@ -16,6 +16,6 @@ export default function Home() {
       {/* Section lain di luar gradien utama */}
       <TopDesignersSection />
       <BenefitsSection />
-    </>
+    </div>
   );
 }

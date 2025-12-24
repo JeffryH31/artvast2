@@ -2,15 +2,15 @@ import React from "react";
 
 const TopDesignersSection: React.FC = () => {
   return (
-    <section className="py-16 sm:py-20 lg:py-24 xl:py-32 bg-gradient-to-br from-gray-50 via-white to-gray-50 relative overflow-hidden">
+    <section className="py-16 sm:py-20 lg:py-24 xl:py-32 bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden transition-colors duration-300">
       {/* Background decoration - responsive sizes */}
-      <div className="absolute top-10 sm:top-20 right-5 sm:right-20 w-40 sm:w-60 lg:w-80 h-40 sm:h-60 lg:h-80 bg-blue-100 rounded-full blur-3xl opacity-50"></div>
-      <div className="absolute bottom-10 sm:bottom-20 left-5 sm:left-20 w-48 sm:w-72 lg:w-96 h-48 sm:h-72 lg:h-96 bg-purple-100 rounded-full blur-3xl opacity-50"></div>
+      <div className="absolute top-10 sm:top-20 right-5 sm:right-20 w-40 sm:w-60 lg:w-80 h-40 sm:h-60 lg:h-80 bg-blue-100 dark:bg-blue-900/30 rounded-full blur-3xl opacity-50"></div>
+      <div className="absolute bottom-10 sm:bottom-20 left-5 sm:left-20 w-48 sm:w-72 lg:w-96 h-48 sm:h-72 lg:h-96 bg-purple-100 dark:bg-purple-900/30 rounded-full blur-3xl opacity-50"></div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
           <div className="space-y-6 sm:space-y-8">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-4 sm:mb-6 lg:mb-8 leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 lg:mb-8 leading-tight transition-colors duration-300">
               <span className="block">Top</span>
               <span className="block custom-gradient-text">Designers</span>
             </h2>
@@ -48,13 +48,13 @@ const TopDesignersSection: React.FC = () => {
             </div>
 
             {/* Card with gray background */}
-            <div className="bg-white p-5 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl shadow-lg sm:shadow-xl hover:shadow-2xl transform hover:scale-[1.02] sm:hover:scale-105 transition-all duration-500 border border-gray-100 group">
+            <div className="bg-white dark:bg-gray-800 p-5 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl shadow-lg sm:shadow-xl hover:shadow-2xl transform hover:scale-[1.02] sm:hover:scale-105 transition-all duration-500 border border-gray-100 dark:border-gray-700 group">
               <div className="flex items-start space-x-3 sm:space-x-4">
-                <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 custom-gradient-light rounded-lg sm:rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 custom-gradient-light dark:bg-purple-900/50 rounded-lg sm:rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <svg
-                    className="w-5 h-5 sm:w-6 sm:h-6 custom-gradient-text"
+                    className="w-5 h-5 sm:w-6 sm:h-6 custom-gradient-text dark:text-purple-300"
                     fill="none"
-                    stroke="white"
+                    stroke="currentColor"
                     viewBox="0 0 24 24"
                   >
                     <path
@@ -66,19 +66,20 @@ const TopDesignersSection: React.FC = () => {
                   </svg>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-base sm:text-lg lg:text-xl font-semibold text-gray-900 mb-2 sm:mb-3">
+                  <h3 className="text-base sm:text-lg lg:text-xl font-semibold text-gray-900 dark:text-white mb-2 sm:mb-3 transition-colors duration-300">
                     Community Network
                   </h3>
-                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                    Body text for whatever you&apos;d like to say. Add main takeaway
-                    points, quotes, anecdotes. Connect with fellow designers.
+                  <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed transition-colors duration-300">
+                    Body text for whatever you&apos;d like to say. Add main
+                    takeaway points, quotes, anecdotes. Connect with fellow
+                    designers.
                   </p>
                 </div>
               </div>
             </div>
 
             {/* Simple text card */}
-            <div className="custom-gradient-light p-5 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl group hover:shadow-lg transition-all duration-300">
+            <div className="custom-gradient-light dark:bg-gray-800/80 p-5 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl group hover:shadow-lg transition-all duration-300">
               <div className="flex items-start space-x-3 sm:space-x-4">
                 <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 custom-gradient-bg rounded-lg sm:rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <svg
@@ -96,13 +97,13 @@ const TopDesignersSection: React.FC = () => {
                   </svg>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-base sm:text-lg lg:text-xl font-semibold text-gray-900 mb-2 sm:mb-3">
+                  <h3 className="text-base sm:text-lg lg:text-xl font-semibold text-gray-900 dark:text-white mb-2 sm:mb-3 transition-colors duration-300">
                     Quality Guarantee
                   </h3>
-                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                    Body text for whatever you&apos;d like to add more to the main
-                    point. It provides details, explanations, and context about
-                    our quality standards.
+                  <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed transition-colors duration-300">
+                    Body text for whatever you&apos;d like to add more to the
+                    main point. It provides details, explanations, and context
+                    about our quality standards.
                   </p>
                 </div>
               </div>
@@ -110,7 +111,7 @@ const TopDesignersSection: React.FC = () => {
 
             {/* Enhanced Buttons */}
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 lg:gap-6 pt-4 sm:pt-6 lg:pt-8">
-              <button className="group bg-gradient-to-r from-gray-900 to-gray-800 text-white px-6 sm:px-8 lg:px-10 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-semibold hover:from-gray-800 hover:to-gray-700 transform hover:scale-105 transition-all duration-300 shadow-lg sm:shadow-xl hover:shadow-2xl flex items-center justify-center space-x-2 sm:space-x-3 text-sm sm:text-base">
+              <button className="group bg-gradient-to-r from-gray-900 to-gray-800 dark:from-purple-600 dark:to-blue-600 text-white px-6 sm:px-8 lg:px-10 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-semibold hover:from-gray-800 hover:to-gray-700 dark:hover:from-purple-500 dark:hover:to-blue-500 transform hover:scale-105 transition-all duration-300 shadow-lg sm:shadow-xl hover:shadow-2xl flex items-center justify-center space-x-2 sm:space-x-3 text-sm sm:text-base cursor-pointer">
                 <span>Explore Portfolios</span>
                 <svg
                   className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-300"
@@ -126,7 +127,7 @@ const TopDesignersSection: React.FC = () => {
                   />
                 </svg>
               </button>
-              <button className="group bg-white text-gray-900 px-6 sm:px-8 lg:px-10 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-semibold border-2 border-gray-200 hover:border-gray-300 hover:bg-gray-50 transform hover:scale-105 transition-all duration-300 shadow-md sm:shadow-lg hover:shadow-xl flex items-center justify-center space-x-2 sm:space-x-3 text-sm sm:text-base">
+              <button className="group bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-6 sm:px-8 lg:px-10 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-semibold border-2 border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 hover:bg-gray-50 dark:hover:bg-gray-600 transform hover:scale-105 transition-all duration-300 shadow-md sm:shadow-lg hover:shadow-xl flex items-center justify-center space-x-2 sm:space-x-3 text-sm sm:text-base cursor-pointer">
                 <svg
                   className="w-4 h-4 sm:w-5 sm:h-5"
                   fill="none"
@@ -148,10 +149,10 @@ const TopDesignersSection: React.FC = () => {
           {/* Right Enhanced Image */}
           <div className="order-first lg:order-last">
             <div className="relative">
-              <div className="bg-gradient-to-br from-orange-100 via-orange-50 to-yellow-50 rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-12 h-[300px] sm:h-[400px] lg:h-[500px] flex items-center justify-center shadow-xl sm:shadow-2xl border border-orange-100 transform hover:scale-[1.02] sm:hover:scale-105 transition-all duration-500 group">
+              <div className="bg-gradient-to-br from-orange-100 via-orange-50 to-yellow-50 dark:from-orange-900/40 dark:via-orange-800/30 dark:to-yellow-900/30 rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-12 h-[300px] sm:h-[400px] lg:h-[500px] flex items-center justify-center shadow-xl sm:shadow-2xl border border-orange-100 dark:border-orange-800/50 transform hover:scale-[1.02] sm:hover:scale-105 transition-all duration-500 group">
                 <div className="text-center">
                   <div className="relative mb-4 sm:mb-6 lg:mb-8">
-                    <div className="w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 bg-gradient-to-br from-orange-400 to-orange-500 rounded-2xl sm:rounded-3xl mx-auto flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg sm:shadow-xl">
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 bg-gradient-to-br from-orange-400 to-orange-500 dark:from-orange-500 dark:to-orange-600 rounded-2xl sm:rounded-3xl mx-auto flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg sm:shadow-xl">
                       <svg
                         className="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 text-white"
                         fill="none"
@@ -182,16 +183,16 @@ const TopDesignersSection: React.FC = () => {
                       </svg>
                     </div>
                   </div>
-                  <h4 className="text-lg sm:text-xl lg:text-2xl font-bold text-orange-800 mb-2 sm:mb-3 lg:mb-4">
+                  <h4 className="text-lg sm:text-xl lg:text-2xl font-bold text-orange-800 dark:text-orange-200 mb-2 sm:mb-3 lg:mb-4 transition-colors duration-300">
                     Premium Portfolio Showcase
                   </h4>
-                  <p className="text-sm sm:text-base text-orange-700 font-medium px-2">
+                  <p className="text-sm sm:text-base text-orange-700 dark:text-orange-300 font-medium px-2 transition-colors duration-300">
                     Featuring world-class designer portfolios
                   </p>
                   <div className="flex justify-center space-x-2 mt-4 sm:mt-6">
                     <div className="w-2 h-2 sm:w-3 sm:h-3 bg-orange-400 rounded-full"></div>
                     <div className="w-2 h-2 sm:w-3 sm:h-3 bg-orange-300 rounded-full"></div>
-                    <div className="w-2 h-2 sm:w-3 sm:h-3 bg-orange-200 rounded-full"></div>
+                    <div className="w-2 h-2 sm:w-3 sm:h-3 bg-orange-200 dark:bg-orange-500 rounded-full"></div>
                   </div>
                 </div>
               </div>
