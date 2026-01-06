@@ -180,14 +180,15 @@ const Header: React.FC = () => {
                 {/* Divider */}
                 <div className="w-px h-8 bg-gradient-to-b from-transparent via-gray-300 dark:via-gray-600 to-transparent mx-2"></div>
 
+                {/* Theme Toggle - Always visible */}
+                <ThemeToggle />
+
                 {/* Auth Section */}
                 {loading ? (
                   <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse"></div>
                 ) : user ? (
                   /* Logged in user */
                   <div className="flex items-center space-x-3">
-                    {/* Theme Toggle */}
-                    <ThemeToggle />
                     
                     {/* Cart Icon with Badge */}
                     <Link 
@@ -349,6 +350,14 @@ const Header: React.FC = () => {
                 </Link>
               )}
               
+              <div className="h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent my-3 sm:my-4"></div>
+              
+              {/* Theme Toggle - Mobile */}
+              <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4">
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Theme</span>
+                <ThemeToggle />
+              </div>
+
               <div className="h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent my-3 sm:my-4"></div>
               
               {/* Mobile Auth Section */}
