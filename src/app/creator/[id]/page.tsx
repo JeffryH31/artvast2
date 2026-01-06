@@ -5,6 +5,7 @@ import Link from "next/link";
 import Header from "@/components/layout/Header";
 import { useDesigner } from "@/hooks/useDesigners";
 import { useProducts } from "@/hooks/useProducts";
+import { formatPrice } from "@/lib/utils";
 
 interface CreatorPageProps {
   params: Promise<{
@@ -225,7 +226,7 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
                     </div>
                   )}
                   <div className="absolute top-3 right-3 px-3 py-1 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm text-gray-800 dark:text-white font-bold rounded-full text-sm">
-                    ${product.price}
+                    {formatPrice(product.price)}
                   </div>
                 </div>
 

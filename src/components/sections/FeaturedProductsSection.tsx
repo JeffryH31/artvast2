@@ -3,9 +3,12 @@
 import React from 'react';
 import Link from 'next/link';
 import { useProducts } from '@/hooks/useProducts';
+import { useLanguage } from '@/lib/i18n';
+import { formatPrice } from '@/lib/utils';
 
 const FeaturedProductsSection: React.FC = () => {
   const { products, loading } = useProducts({ featured: true, limit: 6 });
+  const { t } = useLanguage();
 
   if (loading) {
     return (
@@ -13,9 +16,9 @@ const FeaturedProductsSection: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300">
-              Featured <span className="bg-gradient-to-r from-[#BD9587] to-[#A2655F] bg-clip-text text-transparent">Products</span>
+              {t.featuredProducts.title} <span className="bg-gradient-to-r from-[#BD9587] to-[#A2655F] bg-clip-text text-transparent">{t.featuredProducts.titleHighlight}</span>
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 text-lg transition-colors duration-300">Loading amazing products...</p>
+            <p className="text-gray-600 dark:text-gray-300 text-lg transition-colors duration-300">{t.common.loading}...</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3].map((i) => (
@@ -49,13 +52,13 @@ const FeaturedProductsSection: React.FC = () => {
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300">
-            Featured{" "}
+            {t.featuredProducts.title}{" "}
             <span className="bg-gradient-to-r from-[#BD9587] to-[#A2655F] bg-clip-text text-transparent">
-              Products
+              {t.featuredProducts.titleHighlight}
             </span>
           </h2>
           <p className="text-gray-600 dark:text-gray-300 text-base sm:text-lg max-w-2xl mx-auto transition-colors duration-300">
-            Discover premium design assets from top creators
+            {t.featuredProducts.description}
           </p>
         </div>
 
@@ -89,19 +92,19 @@ const FeaturedProductsSection: React.FC = () => {
                 <div className="absolute top-3 left-3 flex gap-2">
                   {product.featured && (
                     <span className="px-2 py-1 bg-gradient-to-r from-[#5D6BC6] to-[#1647A3] text-white text-xs font-bold rounded-full">
-                      FEATURED
+                      {t.product.featured.toUpperCase()}
                     </span>
                   )}
                   {product.bestseller && (
                     <span className="px-2 py-1 bg-gradient-to-r from-[#A2655F] to-[#8B5A8C] text-white text-xs font-bold rounded-full">
-                      BESTSELLER
+                      {t.product.bestseller.toUpperCase()}
                     </span>
                   )}
                 </div>
 
                 {/* Price */}
                 <div className="absolute top-3 right-3 px-3 py-1 bg-white/90 backdrop-blur-sm text-gray-800 font-bold rounded-full">
-                  ${product.price}
+                  {formatPrice(product.price)}
                 </div>
               </div>
 
@@ -111,7 +114,7 @@ const FeaturedProductsSection: React.FC = () => {
                   {product.name}
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 truncate">
-                  by {product.designer?.name || 'Designer'}
+                  {t.product.by} {product.designer?.name || t.common.designer}
                 </p>
                 
                 <div className="flex items-center justify-between">
@@ -136,7 +139,7 @@ const FeaturedProductsSection: React.FC = () => {
             href="/marketplace"
             className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-[#BD9587] to-[#A2655F] text-white font-semibold rounded-xl hover:shadow-xl transform hover:scale-105 transition-all duration-300"
           >
-            Browse Marketplace
+            {t.featuredProducts.browseMarketplace}
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>

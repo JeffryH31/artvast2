@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
+import { useLanguage } from "@/lib/i18n";
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -25,6 +26,7 @@ export default function AuthModal({
 
   const { signInWithEmail, signUpWithEmail, signInWithGoogle, resetPassword } =
     useAuth();
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (isOpen) {
@@ -142,14 +144,14 @@ export default function AuthModal({
         {/* Header */}
         <div className="text-center mb-8">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-            {mode === "login" && "Welcome Back"}
-            {mode === "signup" && "Create Account"}
-            {mode === "forgot" && "Reset Password"}
+            {mode === "login" && t.auth.welcomeBack}
+            {mode === "signup" && t.auth.createAccount}
+            {mode === "forgot" && t.auth.resetPassword}
           </h2>
           <p className="text-gray-500 dark:text-gray-400 mt-2">
-            {mode === "login" && "Sign in to your account"}
-            {mode === "signup" && "Join the Artvast community"}
-            {mode === "forgot" && "Enter your email to reset password"}
+            {mode === "login" && t.auth.signInToAccount}
+            {mode === "signup" && t.auth.joinCommunity}
+            {mode === "forgot" && t.auth.enterEmailReset}
           </p>
         </div>
 
@@ -169,14 +171,14 @@ export default function AuthModal({
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Email
+              {t.auth.email}
             </label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:bg-white dark:focus:bg-gray-600 focus:ring-2 focus:ring-[#5D6BC6] focus:border-[#5D6BC6] outline-none transition-all"
-              placeholder="you@example.com"
+              placeholder={t.auth.emailPlaceholder}
               required
             />
           </div>
@@ -184,7 +186,7 @@ export default function AuthModal({
           {mode !== "forgot" && (
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Password
+                {t.auth.password}
               </label>
               <input
                 type="password"
@@ -204,7 +206,7 @@ export default function AuthModal({
                 onClick={() => setMode("forgot")}
                 className="text-sm text-[#5D6BC6] hover:underline cursor-pointer"
               >
-                Forgot password?
+                {t.auth.forgotPassword}
               </button>
             </div>
           )}
@@ -232,13 +234,13 @@ export default function AuthModal({
                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                   />
                 </svg>
-                Loading...
+                {t.common.loading}
               </span>
             ) : (
               <>
-                {mode === "login" && "Sign In"}
-                {mode === "signup" && "Create Account"}
-                {mode === "forgot" && "Send Reset Link"}
+                {mode === "login" && t.auth.signIn}
+                {mode === "signup" && t.auth.createAccount}
+                {mode === "forgot" && t.auth.sendResetLink}
               </>
             )}
           </button>
@@ -253,7 +255,7 @@ export default function AuthModal({
               </div>
               <div className="relative flex justify-center text-sm">
                 <span className="px-2 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400">
-                  or continue with
+                  {t.auth.orContinueWith}
                 </span>
               </div>
             </div>
@@ -291,23 +293,23 @@ export default function AuthModal({
         <div className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
           {mode === "login" && (
             <>
-              Don&apos;t have an account?{" "}
+              {t.auth.noAccount}{" "}
               <button
                 onClick={() => setMode("signup")}
                 className="text-[#5D6BC6] font-semibold hover:underline cursor-pointer"
               >
-                Sign up
+                {t.auth.signUp}
               </button>
             </>
           )}
           {mode === "signup" && (
             <>
-              Already have an account?{" "}
+              {t.auth.haveAccount}{" "}
               <button
                 onClick={() => setMode("login")}
                 className="text-[#5D6BC6] font-semibold hover:underline cursor-pointer"
               >
-                Sign in
+                {t.auth.signIn}
               </button>
             </>
           )}
@@ -316,7 +318,7 @@ export default function AuthModal({
               onClick={() => setMode("login")}
               className="text-[#5D6BC6] font-semibold hover:underline cursor-pointer"
             >
-              Back to sign in
+              {t.auth.backToSignIn}
             </button>
           )}
         </div>

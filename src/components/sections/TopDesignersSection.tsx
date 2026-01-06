@@ -1,6 +1,11 @@
+"use client";
+
 import React from "react";
+import { useLanguage } from "@/lib/i18n";
 
 const TopDesignersSection: React.FC = () => {
+  const { t } = useLanguage();
+  
   return (
     <section className="py-16 sm:py-20 lg:py-24 xl:py-32 bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden transition-colors duration-300">
       {/* Background decoration - responsive sizes */}
@@ -11,8 +16,8 @@ const TopDesignersSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
           <div className="space-y-6 sm:space-y-8">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 lg:mb-8 leading-tight transition-colors duration-300">
-              <span className="block">Top</span>
-              <span className="block custom-gradient-text">Designers</span>
+              <span className="block">{t.topDesigners.title}</span>
+              <span className="block custom-gradient-text">{t.topDesigners.titleHighlight}</span>
             </h2>
 
             {/* Enhanced Cards */}
@@ -36,12 +41,10 @@ const TopDesignersSection: React.FC = () => {
                 </div>
                 <div className="flex-1 min-w-0">
                   <h3 className="text-base sm:text-lg lg:text-xl font-semibold mb-2 sm:mb-3">
-                    Premium Portfolio Showcase
+                    {t.topDesigners.cards.portfolioShowcase.title}
                   </h3>
                   <p className="text-sm sm:text-base text-white/90 leading-relaxed">
-                    Body text for whatever you&apos;d like to expand on the main
-                    point. Showcase your best work with advanced portfolio
-                    features.
+                    {t.topDesigners.cards.portfolioShowcase.description}
                   </p>
                 </div>
               </div>
@@ -67,12 +70,10 @@ const TopDesignersSection: React.FC = () => {
                 </div>
                 <div className="flex-1 min-w-0">
                   <h3 className="text-base sm:text-lg lg:text-xl font-semibold text-gray-900 dark:text-white mb-2 sm:mb-3 transition-colors duration-300">
-                    Community Network
+                    {t.topDesigners.cards.communityNetwork.title}
                   </h3>
                   <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed transition-colors duration-300">
-                    Body text for whatever you&apos;d like to say. Add main
-                    takeaway points, quotes, anecdotes. Connect with fellow
-                    designers.
+                    {t.topDesigners.cards.communityNetwork.description}
                   </p>
                 </div>
               </div>
@@ -98,12 +99,10 @@ const TopDesignersSection: React.FC = () => {
                 </div>
                 <div className="flex-1 min-w-0">
                   <h3 className="text-base sm:text-lg lg:text-xl font-semibold text-gray-900 dark:text-white mb-2 sm:mb-3 transition-colors duration-300">
-                    Quality Guarantee
+                    {t.topDesigners.cards.qualityGuarantee.title}
                   </h3>
                   <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed transition-colors duration-300">
-                    Body text for whatever you&apos;d like to add more to the
-                    main point. It provides details, explanations, and context
-                    about our quality standards.
+                    {t.topDesigners.cards.qualityGuarantee.description}
                   </p>
                 </div>
               </div>
@@ -112,7 +111,7 @@ const TopDesignersSection: React.FC = () => {
             {/* Enhanced Buttons */}
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 lg:gap-6 pt-4 sm:pt-6 lg:pt-8">
               <button className="group bg-gradient-to-r from-gray-900 to-gray-800 dark:from-purple-600 dark:to-blue-600 text-white px-6 sm:px-8 lg:px-10 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-semibold hover:from-gray-800 hover:to-gray-700 dark:hover:from-purple-500 dark:hover:to-blue-500 transform hover:scale-105 transition-all duration-300 shadow-lg sm:shadow-xl hover:shadow-2xl flex items-center justify-center space-x-2 sm:space-x-3 text-sm sm:text-base cursor-pointer">
-                <span>Explore Portfolios</span>
+                <span>{t.topDesigners.explorePortfolios}</span>
                 <svg
                   className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-300"
                   fill="none"
@@ -141,7 +140,7 @@ const TopDesignersSection: React.FC = () => {
                     d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
                   />
                 </svg>
-                <span>Contact Us</span>
+                <span>{t.topDesigners.contactUs}</span>
               </button>
             </div>
           </div>
@@ -184,10 +183,10 @@ const TopDesignersSection: React.FC = () => {
                     </div>
                   </div>
                   <h4 className="text-lg sm:text-xl lg:text-2xl font-bold text-orange-800 dark:text-orange-200 mb-2 sm:mb-3 lg:mb-4 transition-colors duration-300">
-                    Premium Portfolio Showcase
+                    {t.topDesigners.image.title}
                   </h4>
                   <p className="text-sm sm:text-base text-orange-700 dark:text-orange-300 font-medium px-2 transition-colors duration-300">
-                    Featuring world-class designer portfolios
+                    {t.topDesigners.image.description}
                   </p>
                   <div className="flex justify-center space-x-2 mt-4 sm:mt-6">
                     <div className="w-2 h-2 sm:w-3 sm:h-3 bg-orange-400 rounded-full"></div>

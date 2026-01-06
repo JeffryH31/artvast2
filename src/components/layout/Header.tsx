@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { MenuIcon } from "../ui/Icons";
 import { useAuth } from "@/hooks/useAuth";
@@ -9,6 +10,8 @@ import { useCart } from "@/hooks/useCart";
 import { useRole } from "@/hooks/useRole";
 import AuthModal from "../auth/AuthModal";
 import { ThemeToggle } from "../ui/ThemeToggle";
+import { LanguageToggle } from "../ui/LanguageToggle";
+import { useLanguage } from "@/lib/i18n";
 
 const Header: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -20,6 +23,7 @@ const Header: React.FC = () => {
   const { user, loading, signOut } = useAuth();
   const { role, isDesigner, isAdmin } = useRole();
   const { totalItems } = useCart();
+  const { t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -63,19 +67,25 @@ const Header: React.FC = () => {
             <div className="flex items-center">
               <Link href="/" className="flex items-center space-x-2 sm:space-x-3 group cursor-pointer">
                 <div className="relative">
-                  {/* Animated glow */}
-                  <div className="absolute inset-0 custom-gradient-bg rounded-xl sm:rounded-2xl blur-xl opacity-40 group-hover:opacity-70 transition-all duration-500 animate-pulse"></div>
-                  {/* Logo box */}
-                  <div className="relative w-9 h-9 sm:w-10 sm:h-10 lg:w-12 lg:h-12 custom-gradient-bg rounded-xl sm:rounded-2xl flex items-center justify-center transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-500 shadow-lg sm:shadow-xl">
-                    <span className="text-white font-black text-base sm:text-lg lg:text-xl">A</span>
-                  </div>
-                  {/* Badge */}
-                  <div className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 w-3 h-3 sm:w-4 sm:h-4 bg-green-500 rounded-full border-2 border-white shadow-lg animate-pulse"></div>
+                  {/* Logo Image */}
+                  <Image 
+                    src="/Artvast Logo.png" 
+                    alt="Artvast Logo" 
+                    width={48} 
+                    height={48} 
+                    className="w-9 h-9 sm:w-10 sm:h-10 lg:w-12 lg:h-12 object-contain group-hover:scale-110 transition-all duration-500"
+                    priority
+                  />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-lg sm:text-xl lg:text-2xl font-black custom-gradient-text group-hover:scale-105 transition-transform duration-300">
-                    Artvast
-                  </span>
+                  <Image 
+                    src="/Artvast Logo Text.png" 
+                    alt="Artvast" 
+                    width={120} 
+                    height={32} 
+                    className="h-5 sm:h-6 lg:h-7 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
+                    priority
+                  />
                   <span className="text-[8px] sm:text-[10px] text-gray-500 dark:text-gray-400 -mt-0.5 sm:-mt-1 font-medium hidden sm:block">Creative Platform</span>
                 </div>
               </Link>
@@ -98,7 +108,7 @@ const Header: React.FC = () => {
                     isActive('/') ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
                   }`}></span>
                   <span className="relative z-10 flex items-center space-x-1">
-                    <span>Home</span>
+                    <span>{t.nav.home}</span>
                     <span className={`w-1.5 h-1.5 bg-blue-500 rounded-full transition-opacity duration-300 ${
                       isActive('/') ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
                     }`}></span>
@@ -118,7 +128,7 @@ const Header: React.FC = () => {
                     isActive('/portfolio') ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
                   }`}></span>
                   <span className="relative z-10 flex items-center space-x-1">
-                    <span>Portfolio</span>
+                    <span>{t.nav.portfolio}</span>
                     <span className={`w-1.5 h-1.5 bg-purple-500 rounded-full transition-opacity duration-300 ${
                       isActive('/portfolio') ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
                     }`}></span>
@@ -138,7 +148,7 @@ const Header: React.FC = () => {
                     isActive('/marketplace') ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
                   }`}></span>
                   <span className="relative z-10 flex items-center space-x-1">
-                    <span>Marketplace</span>
+                    <span>{t.nav.marketplace}</span>
                     <span className={`w-1.5 h-1.5 bg-pink-500 rounded-full transition-opacity duration-300 ${
                       isActive('/marketplace') ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
                     }`}></span>
@@ -160,7 +170,7 @@ const Header: React.FC = () => {
                       pathname?.startsWith('/designer') ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
                     }`}></span>
                     <span className="relative z-10 flex items-center space-x-1">
-                      <span>My Products</span>
+                      <span>{t.nav.myProducts}</span>
                       <span className={`w-1.5 h-1.5 bg-green-500 rounded-full transition-opacity duration-300 ${
                         pathname?.startsWith('/designer') ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
                       }`}></span>
@@ -174,11 +184,14 @@ const Header: React.FC = () => {
                 >
                   <span className="absolute inset-0 bg-gradient-to-r from-orange-500/0 via-orange-500/10 to-yellow-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
                   <span className="absolute inset-0 bg-white/40 dark:bg-gray-700/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-xl"></span>
-                  <span className="relative z-10">Services</span>
+                  <span className="relative z-10">{t.nav.services}</span>
                 </a>
 
                 {/* Divider */}
                 <div className="w-px h-8 bg-gradient-to-b from-transparent via-gray-300 dark:via-gray-600 to-transparent mx-2"></div>
+
+                {/* Language Toggle */}
+                <LanguageToggle />
 
                 {/* Theme Toggle - Always visible */}
                 <ThemeToggle />
@@ -218,7 +231,7 @@ const Header: React.FC = () => {
                       onClick={handleSignOut}
                       className="relative px-4 py-2 text-gray-600 dark:text-gray-400 font-medium rounded-xl hover:text-gray-900 dark:hover:text-white overflow-hidden group border border-gray-200/50 dark:border-gray-700/50 hover:border-red-300/50 dark:hover:border-red-500/50 hover:bg-red-50/50 dark:hover:bg-red-900/30 transition-all duration-300 cursor-pointer"
                     >
-                      <span className="relative z-10">Sign Out</span>
+                      <span className="relative z-10">{t.auth.signOut}</span>
                     </button>
                   </div>
                 ) : (
@@ -229,7 +242,7 @@ const Header: React.FC = () => {
                       className="relative px-6 py-2.5 text-gray-700 dark:text-gray-300 font-medium rounded-xl hover:text-gray-900 dark:hover:text-white overflow-hidden group border border-gray-200/50 dark:border-gray-700/50 hover:border-gray-300/50 dark:hover:border-gray-600/50 transition-all duration-300 cursor-pointer"
                     >
                       <span className="absolute inset-0 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                      <span className="relative z-10">Sign In</span>
+                      <span className="relative z-10">{t.auth.signIn}</span>
                     </button>
 
                     {/* Premium Get Started Button */}
@@ -245,7 +258,7 @@ const Header: React.FC = () => {
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                       
                       <span className="relative z-10 flex items-center space-x-2 px-8 py-3 text-white font-bold">
-                        <span>Get Started</span>
+                        <span>{t.auth.getStarted}</span>
                         <svg
                           className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300"
                           fill="none"
@@ -304,7 +317,7 @@ const Header: React.FC = () => {
                 }`}
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Home
+                {t.nav.home}
               </Link>
               <Link 
                 href="/portfolio" 
@@ -313,7 +326,7 @@ const Header: React.FC = () => {
                 }`}
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Portfolio
+                {t.nav.portfolio}
               </Link>
               <Link 
                 href="/marketplace" 
@@ -322,14 +335,14 @@ const Header: React.FC = () => {
                 }`}
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Marketplace
+                {t.nav.marketplace}
               </Link>
               <a 
                 href="#services" 
                 className="block px-4 sm:px-6 py-3 sm:py-4 text-gray-700 dark:text-gray-300 font-medium rounded-xl sm:rounded-2xl hover:bg-white/60 dark:hover:bg-gray-700/60 transition-all duration-300 text-sm sm:text-base"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Services
+                {t.nav.services}
               </a>
 
               {/* Designer Menu - Mobile */}
@@ -345,16 +358,22 @@ const Header: React.FC = () => {
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                     </svg>
-                    <span>My Products</span>
+                    <span>{t.nav.myProducts}</span>
                   </span>
                 </Link>
               )}
               
               <div className="h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent my-3 sm:my-4"></div>
               
+              {/* Language Toggle - Mobile */}
+              <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4">
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t.settings.language}</span>
+                <LanguageToggle />
+              </div>
+              
               {/* Theme Toggle - Mobile */}
               <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4">
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Theme</span>
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t.settings.theme}</span>
                 <ThemeToggle />
               </div>
 
@@ -378,7 +397,7 @@ const Header: React.FC = () => {
                     onClick={handleSignOut}
                     className="w-full px-4 sm:px-6 py-3 sm:py-4 text-red-600 dark:text-red-400 font-medium rounded-xl sm:rounded-2xl hover:bg-red-50 dark:hover:bg-red-900/30 border border-red-200 dark:border-red-800 transition-all duration-300 text-sm sm:text-base cursor-pointer"
                   >
-                    Sign Out
+                    {t.auth.signOut}
                   </button>
                 </>
               ) : (
@@ -390,7 +409,7 @@ const Header: React.FC = () => {
                     }}
                     className="w-full px-4 sm:px-6 py-3 sm:py-4 text-gray-700 dark:text-gray-300 font-medium rounded-xl sm:rounded-2xl hover:bg-white/60 dark:hover:bg-gray-700/60 border border-gray-200 dark:border-gray-700 transition-all duration-300 text-sm sm:text-base cursor-pointer"
                   >
-                    Sign In
+                    {t.auth.signIn}
                   </button>
                   <button 
                     onClick={() => {
@@ -399,7 +418,7 @@ const Header: React.FC = () => {
                     }}
                     className="w-full custom-gradient-bg text-white font-bold px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 text-sm sm:text-base cursor-pointer"
                   >
-                    Get Started
+                    {t.auth.getStarted}
                   </button>
                 </>
               )}

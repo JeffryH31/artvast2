@@ -11,8 +11,9 @@ import { useAuth } from "@/hooks/useAuth";
 import { Pagination } from "@/components/ui/Pagination";
 import { SkeletonProduct } from "@/components/ui/Skeleton";
 import { FilterSidebar } from "@/components/filters/FilterSidebar";
-import { debounce } from "@/lib/utils";
+import { debounce, formatPrice } from "@/lib/utils";
 import { PAGINATION } from "@/lib/constants";
+import { useLanguage } from "@/lib/i18n";
 
 const MarketplacePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -25,6 +26,7 @@ const MarketplacePage = () => {
   const { addToCart, loading: cartLoading } = useCart();
   const { toggleSave, isSaved } = useSavedProducts();
   const { user } = useAuth();
+  const { t } = useLanguage();
 
   const categories = [
     "All Categories",
@@ -123,13 +125,13 @@ const MarketplacePage = () => {
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
             <div className="text-5xl mb-4">😕</div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Something went wrong</h3>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">{t.errors.somethingWentWrong}</h3>
             <p className="text-gray-600 mb-4">{error}</p>
             <button 
               onClick={() => window.location.reload()}
               className="px-6 py-2 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white rounded-xl font-medium cursor-pointer"
             >
-              Try Again
+              {t.common.tryAgain}
             </button>
           </div>
         </div>
@@ -173,26 +175,25 @@ const MarketplacePage = () => {
         <div className="bg-gradient-to-r from-[#BD9587] via-[#8B5A8C] to-[#5D6BC6] py-10 sm:py-12 lg:py-16 shadow-2xl">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6">
-              Creative <span className="text-white/90">Marketplace</span>
+              {t.marketplace.title} <span className="text-white/90">{t.marketplace.titleHighlight}</span>
             </h1>
             <p className="text-base sm:text-lg lg:text-xl text-white/90 max-w-3xl mx-auto mb-6 sm:mb-8 px-2">
-              Discover and purchase high-quality design assets from talented
-              creators worldwide
+              {t.marketplace.description}
             </p>
 
             {/* Featured Stats */}
             <div className="flex justify-center gap-6 sm:gap-8 lg:space-x-8 text-white/90">
               <div className="text-center">
                 <div className="text-lg sm:text-xl lg:text-2xl font-bold">1000+</div>
-                <div className="text-xs sm:text-sm">Artworks</div>
+                <div className="text-xs sm:text-sm">{t.marketplace.stats.artworks}</div>
               </div>
               <div className="text-center">
                 <div className="text-lg sm:text-xl lg:text-2xl font-bold">500+</div>
-                <div className="text-xs sm:text-sm">Artists</div>
+                <div className="text-xs sm:text-sm">{t.marketplace.stats.artists}</div>
               </div>
               <div className="text-center">
                 <div className="text-lg sm:text-xl lg:text-2xl font-bold">98%</div>
-                <div className="text-xs sm:text-sm">Satisfaction</div>
+                <div className="text-xs sm:text-sm">{t.marketplace.stats.satisfaction}</div>
               </div>
             </div>
           </div>
@@ -221,7 +222,7 @@ const MarketplacePage = () => {
                 </div>
                 <input
                   type="text"
-                  placeholder="Search artworks, designers..."
+                  placeholder={t.marketplace.searchPlaceholder}
                   value={searchTerm}
                   onChange={handleSearchChange}
                   className="block w-full pl-10 pr-3 py-2.5 sm:py-3 border border-gray-300 dark:border-gray-600 rounded-xl leading-5 bg-white dark:bg-gray-800 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-[#5D6BC6] focus:border-[#5D6BC6] text-sm sm:text-base transition-colors duration-300"
@@ -246,10 +247,10 @@ const MarketplacePage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4 sm:mb-6">
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
-              {filteredProducts.length} Products Found
+              {filteredProducts.length} {t.marketplace.productsFound}
             </h2>
             <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-              Page {currentPage} of {totalPages} • Showing {paginatedProducts.length} products
+              {t.pagination.page} {currentPage} {t.pagination.of} {totalPages} • {t.marketplace.showing} {paginatedProducts.length} {t.marketplace.products}
             </div>
           </div>
         </div>
@@ -286,7 +287,7 @@ const MarketplacePage = () => {
                   <div className="absolute top-4 left-4 flex gap-2">
                     {product.featured && (
                       <span className="px-2 py-1 bg-gradient-to-r from-[#5D6BC6] to-[#1647A3] text-white text-xs font-bold rounded-full">
-                        FEATURED
+                        {t.product.featured.toUpperCase()}
                       </span>
                     )}
                   </div>
@@ -294,7 +295,7 @@ const MarketplacePage = () => {
                   {/* Price */}
                   <div className="absolute top-4 right-4">
                     <span className="px-3 py-1 bg-white/90 backdrop-blur-sm text-gray-800 font-bold rounded-full">
-                      ${product.price}
+                      {formatPrice(product.price)}
                     </span>
                   </div>
 
@@ -302,7 +303,7 @@ const MarketplacePage = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="absolute bottom-4 left-4 right-4">
                       <div className="w-full bg-white text-gray-900 px-4 py-2 rounded-xl font-semibold hover:bg-gray-50 transition-colors duration-200 transform hover:scale-105 text-center">
-                        View Details
+                        {t.product.viewDetails}
                       </div>
                     </div>
                   </div>
@@ -316,7 +317,7 @@ const MarketplacePage = () => {
                         {product.name}
                       </h3>
                       <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 truncate">
-                        by {product.designer?.name || 'Unknown'}
+                        {t.product.by} {product.designer?.name || t.common.unknown}
                       </p>
                     </div>
                     <div className="flex items-center space-x-1 text-xs sm:text-sm flex-shrink-0">
@@ -370,7 +371,7 @@ const MarketplacePage = () => {
                         d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                       />
                     </svg>
-                    <span>Delivery: {product.delivery_time}</span>
+                    <span>{t.product.delivery}: {product.delivery_time}</span>
                   </div>
 
                   {/* Actions */}
@@ -379,24 +380,24 @@ const MarketplacePage = () => {
                       onClick={async (e) => {
                         e.preventDefault();
                         if (!user) {
-                          toast.error('Please login to add items to cart');
+                          toast.error(t.errors.loginRequired);
                           return;
                         }
                         const success = await addToCart(product.id);
                         if (success) {
-                          toast.success("Added to cart!");
+                          toast.success(t.success.addedToCart);
                         }
                       }}
                       disabled={cartLoading}
                       className="flex-1 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white px-3 sm:px-4 py-2 rounded-lg sm:rounded-xl font-medium text-xs sm:text-sm hover:from-[#A2655F] hover:to-[#8B5A8C] transition-all duration-300 transform hover:scale-105 disabled:opacity-50 cursor-pointer"
                     >
-                      {cartLoading ? 'Adding...' : 'Add to Cart'}
+                      {cartLoading ? t.common.loading : t.product.addToCart}
                     </button>
                     <button
                       onClick={async (e) => {
                         e.preventDefault();
                         if (!user) {
-                          toast.error('Please login to save products');
+                          toast.error(t.errors.loginRequired);
                           return;
                         }
                         await toggleSave(product.id);
@@ -433,14 +434,13 @@ const MarketplacePage = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8 sm:mb-12">
               <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2 sm:mb-4">
-                Recommended for{" "}
+                {t.marketplace.recommended}{" "}
                 <span className="bg-gradient-to-r from-[#A2655F] to-[#5D6BC6] bg-clip-text text-transparent">
-                  you
+                  {t.marketplace.forYou}
                 </span>
               </h3>
               <p className="text-sm sm:text-base lg:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto px-4">
-                Curated selections based on your browsing history and
-                preferences
+                {t.marketplace.curatedDescription}
               </p>
             </div>
 
@@ -476,7 +476,7 @@ const MarketplacePage = () => {
                     </p>
                     <div className="flex items-center justify-between">
                       <span className="text-base sm:text-lg font-bold bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] bg-clip-text text-transparent">
-                        ${product.price}
+                        {formatPrice(product.price)}
                       </span>
                       <div className="flex items-center space-x-1 text-xs sm:text-sm">
                         <svg

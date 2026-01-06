@@ -1,6 +1,11 @@
+"use client";
+
 import React from 'react';
+import { useLanguage } from '@/lib/i18n';
 
 const BenefitsSection: React.FC = () => {
+  const { t } = useLanguage();
+  
   return (
     <section className="value-gradient dark:from-gray-900 dark:via-purple-900/30 dark:to-gray-900 py-16 sm:py-20 lg:py-24 xl:py-32 relative overflow-hidden transition-colors duration-300">
       {/* Enhanced Background decoration - responsive sizes */}
@@ -14,15 +19,15 @@ const BenefitsSection: React.FC = () => {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10 sm:mb-16 lg:mb-20">
           <span className="inline-block px-4 sm:px-6 py-2 sm:py-3 bg-white/10 dark:bg-white/20 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium text-white/90 dark:text-white/95 border border-white/20 dark:border-white/30 mb-4 sm:mb-6">
-            💎 Exclusive Benefits
+            💎 {t.benefits.badge}
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl  lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 lg:mb-8 leading-tight">
             <span className="block bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
-              The Benefits
+              {t.benefits.title}
             </span>
           </h2>
           <p className="text-base sm:text-lg lg:text-xl text-white/80 dark:text-gray-200 max-w-4xl mx-auto leading-relaxed px-4">
-            Enjoy the best experience both as a client and designer with our premium features
+            {t.benefits.description}
           </p>
         </div>
 
@@ -49,7 +54,7 @@ const BenefitsSection: React.FC = () => {
                   </svg>
                 </div>
                 <p className="text-sm sm:text-base text-orange-700 font-semibold">
-                  Client Premium Experience
+                  {t.benefits.forClients.imageText}
                 </p>
                 {/* Floating elements - hidden on very small screens */}
                 <div className="hidden sm:block absolute top-4 right-4 w-3 h-3 sm:w-4 sm:h-4 bg-orange-300 rounded-full animate-bounce"></div>
@@ -61,7 +66,7 @@ const BenefitsSection: React.FC = () => {
               <div className="absolute -left-1 sm:-left-2 top-0 bottom-0 w-0.5 sm:w-1 custom-gradient-bg rounded-full"></div>
               <div className="pl-4 sm:pl-6 lg:pl-8">
                 <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold custom-gradient-text mb-4 sm:mb-6 lg:mb-8">
-                  For Clients
+                  {t.benefits.forClients.title}
                 </h3>
                 <ul className="space-y-3 sm:space-y-4 lg:space-y-6">
                   <li className="group/item flex items-start space-x-2 sm:space-x-3 lg:space-x-4 p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl hover:bg-blue-50 transition-colors duration-300">
@@ -81,7 +86,7 @@ const BenefitsSection: React.FC = () => {
                       </svg>
                     </div>
                     <span className="text-sm sm:text-base lg:text-lg text-gray-700 font-medium group-hover/item:text-blue-700 transition-colors duration-300">
-                      AI powered matchmaking
+                      {t.benefits.forClients.features.aiMatchmaking}
                     </span>
                   </li>
                   <li className="group/item flex items-start space-x-2 sm:space-x-3 lg:space-x-4 p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl hover:bg-blue-50 transition-colors duration-300">
@@ -101,7 +106,7 @@ const BenefitsSection: React.FC = () => {
                       </svg>
                     </div>
                     <span className="text-sm sm:text-base lg:text-lg text-gray-700 font-medium group-hover/item:text-blue-700 transition-colors duration-300">
-                      Transparent pricing
+                      {t.benefits.forClients.features.transparentPricing}
                     </span>
                   </li>
                   <li className="group/item flex items-start space-x-2 sm:space-x-3 lg:space-x-4 p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl hover:bg-blue-50 transition-colors duration-300">
@@ -122,11 +127,11 @@ const BenefitsSection: React.FC = () => {
                     </div>
                     <div className="flex-1">
                       <span className="text-sm sm:text-base lg:text-lg text-gray-700 font-medium decoration-blue-500 decoration-2 group-hover/item:text-blue-700 transition-colors duration-300">
-                        Escrow payments
+                        {t.benefits.forClients.features.escrowPayments}
                       </span>
                       <div className="mt-1">
                         <span className="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                          🔒 Secure
+                          🔒 {t.benefits.forClients.features.secure}
                         </span>
                       </div>
                     </div>
@@ -158,7 +163,7 @@ const BenefitsSection: React.FC = () => {
                   </svg>
                 </div>
                 <p className="text-sm sm:text-base text-gray-700 font-semibold">
-                  Designer Growth Platform
+                  {t.benefits.forDesigners.imageText}
                 </p>
                 {/* Floating elements - hidden on very small screens */}
                 <div className="hidden sm:block absolute top-4 right-4 w-3 h-3 sm:w-4 sm:h-4 bg-blue-300 rounded-full animate-bounce delay-200"></div>
@@ -168,7 +173,7 @@ const BenefitsSection: React.FC = () => {
 
             <div className="space-y-4 sm:space-y-6">
               <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold custom-gradient-text mb-4 sm:mb-6 lg:mb-8">
-                For Designers
+                {t.benefits.forDesigners.title}
               </h3>
               <ul className="space-y-3 sm:space-y-4 lg:space-y-6">
                 <li className="group/item flex items-start space-x-2 sm:space-x-3 lg:space-x-4 p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl hover:bg-blue-50 transition-colors duration-300">
@@ -194,7 +199,7 @@ const BenefitsSection: React.FC = () => {
                     </svg>
                   </div>
                   <span className="text-sm sm:text-base lg:text-lg text-gray-700 font-medium group-hover/item:text-blue-700 transition-colors duration-300">
-                    Gain exposures
+                    {t.benefits.forDesigners.features.gainExposure}
                   </span>
                 </li>
                 <li className="group/item flex items-start space-x-2 sm:space-x-3 lg:space-x-4 p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl hover:bg-blue-50 transition-colors duration-300">
@@ -214,7 +219,7 @@ const BenefitsSection: React.FC = () => {
                     </svg>
                   </div>
                   <span className="text-sm sm:text-base lg:text-lg text-gray-700 font-medium group-hover/item:text-blue-700 transition-colors duration-300">
-                    Self-fair prices
+                    {t.benefits.forDesigners.features.fairPricing}
                   </span>
                 </li>
                 <li className="group/item flex items-start space-x-2 sm:space-x-3 lg:space-x-4 p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl hover:bg-blue-50 transition-colors duration-300">
@@ -234,7 +239,7 @@ const BenefitsSection: React.FC = () => {
                     </svg>
                   </div>
                   <span className="text-sm sm:text-base lg:text-lg text-gray-700 font-medium group-hover/item:text-blue-700 transition-colors duration-300">
-                    Protect your IP
+                    {t.benefits.forDesigners.features.protectIP}
                   </span>
                 </li>
                 <li className="group/item flex items-start space-x-2 sm:space-x-3 lg:space-x-4 p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl hover:bg-blue-50 transition-colors duration-300">
@@ -254,7 +259,7 @@ const BenefitsSection: React.FC = () => {
                     </svg>
                   </div>
                   <span className="text-sm sm:text-base lg:text-lg text-gray-700 font-medium group-hover/item:text-blue-700 transition-colors duration-300">
-                    Grow your career
+                    {t.benefits.forDesigners.features.growCareer}
                   </span>
                 </li>
               </ul>

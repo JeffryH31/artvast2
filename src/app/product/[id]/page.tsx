@@ -12,6 +12,7 @@ import Header from "@/components/layout/Header";
 import { ReviewSection } from "@/components/sections/ReviewSection";
 import { createClient } from "@/lib/supabase/client";
 import { trackProductView } from "@/lib/analytics";
+import { formatPrice } from "@/lib/utils";
 
 interface ProductDetailPageProps {
   params: Promise<{
@@ -214,12 +215,12 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
             {/* Price */}
             <div className="flex flex-wrap items-baseline gap-2 sm:gap-3">
               <span className="text-3xl sm:text-4xl lg:text-5xl font-black bg-gradient-to-r from-[#5D6BC6] to-[#1647A3] bg-clip-text text-transparent">
-                ${product.price}
+                {formatPrice(product.price)}
               </span>
               {product.original_price && (
                 <>
                   <span className="text-lg sm:text-xl lg:text-2xl text-gray-400 dark:text-gray-500 line-through">
-                    ${product.original_price}
+                    {formatPrice(product.original_price)}
                   </span>
                   <span className="px-2 sm:px-3 py-0.5 sm:py-1 bg-gradient-to-r from-[#A2655F] to-[#8B5A8C] text-white text-xs sm:text-sm font-bold rounded-full">
                     {Math.round(((Number(product.original_price) - Number(product.price)) / Number(product.original_price)) * 100)}% OFF

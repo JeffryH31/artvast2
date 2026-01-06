@@ -8,6 +8,7 @@ import Header from '@/components/layout/Header';
 import { useAuth } from '@/hooks/useAuth';
 import { useCart } from '@/hooks/useCart';
 import { createClient } from '@/lib/supabase/client';
+import { formatPrice } from '@/lib/utils';
 
 export default function CheckoutPage() {
   const { user, loading: authLoading } = useAuth();
@@ -269,7 +270,7 @@ export default function CheckoutPage() {
                           <p className="text-gray-500 dark:text-gray-400 text-xs">Qty: {item.quantity}</p>
                         </div>
                         <p className="text-gray-900 dark:text-white text-sm font-medium">
-                          ${((item.product?.price || 0) * item.quantity).toFixed(2)}
+                          {formatPrice((item.product?.price || 0) * item.quantity)}
                         </p>
                       </div>
                     ))}
@@ -278,16 +279,16 @@ export default function CheckoutPage() {
                   <div className="border-t border-gray-200 dark:border-gray-700 pt-4 space-y-3">
                     <div className="flex justify-between text-gray-600 dark:text-gray-300">
                       <span>Subtotal</span>
-                      <span>${totalPrice.toFixed(2)}</span>
+                      <span>{formatPrice(totalPrice)}</span>
                     </div>
                     <div className="flex justify-between text-gray-600 dark:text-gray-300">
                       <span>Processing Fee</span>
-                      <span>$0.00</span>
+                      <span>{formatPrice(0)}</span>
                     </div>
                     <div className="border-t border-gray-200 dark:border-gray-700 pt-3">
                       <div className="flex justify-between text-gray-900 dark:text-white font-semibold text-lg">
                         <span>Total</span>
-                        <span>${totalPrice.toFixed(2)}</span>
+                        <span>{formatPrice(totalPrice)}</span>
                       </div>
                     </div>
                   </div>
