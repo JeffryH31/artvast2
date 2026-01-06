@@ -7,7 +7,7 @@ import Header from "@/components/layout/Header";
 import { useAuth } from "@/hooks/useAuth";
 import { useRole } from "@/hooks/useRole";
 import { createClient } from "@/lib/supabase/client";
-import { SkeletonList, SkeletonCard } from "@/components/ui/Skeleton";
+import { SkeletonCard } from "@/components/ui/Skeleton";
 import { ImageUpload } from "@/components/ui/ImageUpload";
 import toast from "react-hot-toast";
 
@@ -62,7 +62,7 @@ const PORTFOLIO_CATEGORIES = [
 
 export default function DashboardPage() {
   const { user, loading: authLoading } = useAuth();
-  const { role, isDesigner } = useRole();
+  const { isDesigner } = useRole();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<
     "overview" | "orders" | "saved" | "settings" | "products" | "portfolio"
@@ -81,7 +81,8 @@ export default function DashboardPage() {
   const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([]);
   const [designerId, setDesignerId] = useState<string | null>(null);
   const [showPortfolioModal, setShowPortfolioModal] = useState(false);
-  const [editingPortfolio, setEditingPortfolio] = useState<PortfolioItem | null>(null);
+  const [editingPortfolio, setEditingPortfolio] =
+    useState<PortfolioItem | null>(null);
   const [portfolioForm, setPortfolioForm] = useState({
     title: "",
     description: "",
@@ -110,7 +111,7 @@ export default function DashboardPage() {
         // Fetch profile
         const { data: profileData } = await supabase
           .from("profiles")
-          .select("*")
+          .select("full_name, avatar_url, bio, role")
           .eq("id", user.id)
           .single();
 
@@ -152,40 +153,52 @@ export default function DashboardPage() {
         }
 
         // Fetch designer info if user is a designer
-        let { data: designerData } = await supabase
+        const { data: designerData } = await supabase
           .from("designers")
           .select("id")
           .eq("user_id", user.id)
-          .single();
+          .maybeSingle();
+
+        // Type assertion for profileData
+        const profileWithRole = profileData as { role?: string; full_name?: string; username?: string } | null;
+        
+        let finalDesignerId = (designerData as { id: string } | null)?.id;
 
         // If user is a designer but no designer record exists, create one
-        if (!designerData && profileData?.role === 'designer') {
-          const designerName = profileData?.full_name || profileData?.username || user.email?.split('@')[0] || 'Designer';
-          
+        if (!designerData && profileWithRole?.role === "designer") {
+          const designerName =
+            profileWithRole?.full_name ||
+            profileWithRole?.username ||
+            user.email?.split("@")[0] ||
+            "Designer";
+
           const { data: newDesigner } = await supabase
             .from("designers")
             .insert({
               user_id: user.id,
               name: designerName,
-              username: designerName.toLowerCase().replace(/\s+/g, '-') + '-' + Date.now(),
+              username:
+                designerName.toLowerCase().replace(/\s+/g, "-") +
+                "-" +
+                Date.now(),
               avatar_initials: designerName.substring(0, 2).toUpperCase(),
-              bio: '',
+              bio: "",
               verified: true,
-            })
+            } as never)
             .select("id")
             .single();
 
-          designerData = newDesigner;
+          finalDesignerId = (newDesigner as { id: string } | null)?.id;
         }
 
-        if (designerData) {
-          setDesignerId(designerData.id);
-          
+        if (finalDesignerId) {
+          setDesignerId(finalDesignerId);
+
           // Fetch portfolio items
           const { data: portfolioData } = await supabase
             .from("portfolio_items")
             .select("*")
-            .eq("designer_id", designerData.id)
+            .eq("designer_id", finalDesignerId)
             .order("created_at", { ascending: false });
 
           if (portfolioData) {
@@ -275,7 +288,7 @@ export default function DashboardPage() {
 
   const handlePortfolioSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!designerId) {
       toast.error("Designer profile not found");
       return;
@@ -305,7 +318,7 @@ export default function DashboardPage() {
             category: portfolioForm.category,
             image_url: portfolioForm.image_url,
             featured: portfolioForm.featured,
-          })
+          } as never)
           .eq("id", editingPortfolio.id);
 
         if (error) throw error;
@@ -329,7 +342,7 @@ export default function DashboardPage() {
             category: portfolioForm.category,
             image_url: portfolioForm.image_url,
             featured: portfolioForm.featured,
-          })
+          } as never)
           .select()
           .single();
 
@@ -371,7 +384,9 @@ export default function DashboardPage() {
     }
   };
 
-  const handlePortfolioImageUpload = (files: { url: string; path: string; name: string }[]) => {
+  const handlePortfolioImageUpload = (
+    files: { url: string; path: string; name: string }[]
+  ) => {
     if (files.length > 0) {
       setPortfolioForm((prev) => ({ ...prev, image_url: files[0].url }));
     }
@@ -395,7 +410,9 @@ export default function DashboardPage() {
                 <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">
                   {profile?.full_name || user.email?.split("@")[0] || "User"}
                 </h1>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">{user.email}</p>
+                <p className="text-gray-600 dark:text-gray-400 mb-4">
+                  {user.email}
+                </p>
                 <p className="text-gray-700 dark:text-gray-300 text-sm max-w-lg">
                   {profile?.bio ||
                     "Welcome to your dashboard! Here you can manage your orders, saved products, and account settings."}
@@ -408,13 +425,17 @@ export default function DashboardPage() {
                   <p className="text-2xl font-bold text-gray-900 dark:text-white">
                     {orders.length}
                   </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Orders</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Orders
+                  </p>
                 </div>
                 <div>
                   <p className="text-2xl font-bold text-gray-900 dark:text-white">
                     {savedProducts.length}
                   </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Saved</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Saved
+                  </p>
                 </div>
               </div>
             </div>
@@ -439,7 +460,8 @@ export default function DashboardPage() {
                 onClick={() => setActiveTab(tab.id as typeof activeTab)}
                 className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
                   activeTab === tab.id
-                    ? isDesigner && (tab.id === "products" || tab.id === "portfolio")
+                    ? isDesigner &&
+                      (tab.id === "products" || tab.id === "portfolio")
                       ? "bg-green-500 text-white"
                       : "bg-purple-500 text-white"
                     : "bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-white/10 hover:text-gray-900 dark:hover:text-white"
@@ -537,7 +559,9 @@ export default function DashboardPage() {
                             d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
                           />
                         </svg>
-                        <p className="text-gray-500 dark:text-gray-400">No orders yet</p>
+                        <p className="text-gray-500 dark:text-gray-400">
+                          No orders yet
+                        </p>
                         <Link
                           href="/marketplace"
                           className="text-purple-600 dark:text-purple-400 text-sm hover:text-purple-700 dark:hover:text-purple-300 mt-2 inline-block"
@@ -613,7 +637,9 @@ export default function DashboardPage() {
                             d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                           />
                         </svg>
-                        <p className="text-gray-500 dark:text-gray-400">No saved products</p>
+                        <p className="text-gray-500 dark:text-gray-400">
+                          No saved products
+                        </p>
                         <Link
                           href="/marketplace"
                           className="text-purple-600 dark:text-purple-400 text-sm hover:text-purple-700 dark:hover:text-purple-300 mt-2 inline-block"
@@ -712,7 +738,9 @@ export default function DashboardPage() {
                           d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                         />
                       </svg>
-                      <p className="text-gray-900 dark:text-white font-medium text-sm">Settings</p>
+                      <p className="text-gray-900 dark:text-white font-medium text-sm">
+                        Settings
+                      </p>
                     </button>
                   </div>
                 </div>
@@ -890,7 +918,9 @@ export default function DashboardPage() {
               {activeTab === "products" && isDesigner && (
                 <div>
                   <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">My Products</h2>
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                      My Products
+                    </h2>
                     <Link
                       href="/designer/products/new"
                       className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors"
@@ -901,7 +931,8 @@ export default function DashboardPage() {
 
                   <div className="bg-white dark:bg-white/5 rounded-xl border border-gray-200 dark:border-white/10 p-6 shadow-sm">
                     <p className="text-gray-500 dark:text-gray-400 text-center py-8">
-                      Product management interface coming soon. This will allow you to manage your products, view analytics, and more.
+                      Product management interface coming soon. This will allow
+                      you to manage your products, view analytics, and more.
                     </p>
                   </div>
                 </div>
@@ -911,8 +942,10 @@ export default function DashboardPage() {
               {activeTab === "portfolio" && isDesigner && (
                 <div>
                   <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Portfolio</h2>
-                    <button 
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                      Portfolio
+                    </h2>
+                    <button
                       onClick={openAddPortfolioModal}
                       className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors cursor-pointer"
                     >
@@ -937,8 +970,18 @@ export default function DashboardPage() {
                               />
                             ) : (
                               <div className="w-full h-full flex items-center justify-center">
-                                <svg className="w-12 h-12 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                <svg
+                                  className="w-12 h-12 text-gray-300 dark:text-gray-600"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={1.5}
+                                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                                  />
                                 </svg>
                               </div>
                             )}
@@ -984,14 +1027,25 @@ export default function DashboardPage() {
                     </div>
                   ) : (
                     <div className="bg-white dark:bg-white/5 rounded-xl border border-gray-200 dark:border-white/10 p-6 shadow-sm text-center py-16">
-                      <svg className="w-16 h-16 text-gray-400 dark:text-gray-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      <svg
+                        className="w-16 h-16 text-gray-400 dark:text-gray-600 mx-auto mb-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={1.5}
+                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
                       </svg>
                       <h3 className="text-xl font-medium text-gray-900 dark:text-white mb-2">
                         No Portfolio Items Yet
                       </h3>
                       <p className="text-gray-500 dark:text-gray-400 mb-6">
-                        Start showcasing your best work by adding portfolio items
+                        Start showcasing your best work by adding portfolio
+                        items
                       </p>
                       <button
                         onClick={openAddPortfolioModal}
@@ -1090,14 +1144,26 @@ export default function DashboardPage() {
             {/* Modal Header */}
             <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
               <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-                {editingPortfolio ? "Edit Portfolio Item" : "Add Portfolio Item"}
+                {editingPortfolio
+                  ? "Edit Portfolio Item"
+                  : "Add Portfolio Item"}
               </h2>
               <button
                 onClick={closePortfolioModal}
                 className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors cursor-pointer"
               >
-                <svg className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <svg
+                  className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               </button>
             </div>
@@ -1118,11 +1184,23 @@ export default function DashboardPage() {
                     />
                     <button
                       type="button"
-                      onClick={() => setPortfolioForm((prev) => ({ ...prev, image_url: "" }))}
+                      onClick={() =>
+                        setPortfolioForm((prev) => ({ ...prev, image_url: "" }))
+                      }
                       className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors cursor-pointer"
                     >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M6 18L18 6M6 6l12 12"
+                        />
                       </svg>
                     </button>
                   </div>
@@ -1144,7 +1222,12 @@ export default function DashboardPage() {
                 <input
                   type="text"
                   value={portfolioForm.title}
-                  onChange={(e) => setPortfolioForm((prev) => ({ ...prev, title: e.target.value }))}
+                  onChange={(e) =>
+                    setPortfolioForm((prev) => ({
+                      ...prev,
+                      title: e.target.value,
+                    }))
+                  }
                   placeholder="Enter portfolio item title"
                   className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-green-500 transition-colors"
                   required
@@ -1158,7 +1241,12 @@ export default function DashboardPage() {
                 </label>
                 <select
                   value={portfolioForm.category}
-                  onChange={(e) => setPortfolioForm((prev) => ({ ...prev, category: e.target.value }))}
+                  onChange={(e) =>
+                    setPortfolioForm((prev) => ({
+                      ...prev,
+                      category: e.target.value,
+                    }))
+                  }
                   className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:border-green-500 transition-colors cursor-pointer"
                 >
                   {PORTFOLIO_CATEGORIES.map((cat) => (
@@ -1176,7 +1264,12 @@ export default function DashboardPage() {
                 </label>
                 <textarea
                   value={portfolioForm.description}
-                  onChange={(e) => setPortfolioForm((prev) => ({ ...prev, description: e.target.value }))}
+                  onChange={(e) =>
+                    setPortfolioForm((prev) => ({
+                      ...prev,
+                      description: e.target.value,
+                    }))
+                  }
                   placeholder="Describe this portfolio item..."
                   rows={4}
                   className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-green-500 transition-colors resize-none"
@@ -1189,10 +1282,18 @@ export default function DashboardPage() {
                   type="checkbox"
                   id="featured"
                   checked={portfolioForm.featured}
-                  onChange={(e) => setPortfolioForm((prev) => ({ ...prev, featured: e.target.checked }))}
+                  onChange={(e) =>
+                    setPortfolioForm((prev) => ({
+                      ...prev,
+                      featured: e.target.checked,
+                    }))
+                  }
                   className="w-5 h-5 rounded border-gray-300 text-green-500 focus:ring-green-500 cursor-pointer"
                 />
-                <label htmlFor="featured" className="text-sm text-gray-700 dark:text-gray-300 cursor-pointer">
+                <label
+                  htmlFor="featured"
+                  className="text-sm text-gray-700 dark:text-gray-300 cursor-pointer"
+                >
                   Mark as Featured (will be highlighted in your portfolio)
                 </label>
               </div>

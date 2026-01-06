@@ -519,7 +519,6 @@ export interface SavedProductWithDetails extends SavedProduct {
   }
 }
 export type FeaturedWork = Database['public']['Tables']['featured_works']['Row']
-export type Category = Database['public']['Tables']['categories']['Row']
 
 // Product with designer relation
 export type ProductWithDesigner = Product & {

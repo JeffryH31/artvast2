@@ -74,9 +74,11 @@ export default function AdminPage() {
 
       if (usersError) throw usersError;
       
+      // Type assertion for usersData
+      const typedUsersData = usersData as { id: string }[] | null;
+      
       // Get emails from auth
-      const userIds = usersData?.map(u => u.id) || [];
-      setUsers(usersData?.map(u => ({ id: u.id, email: `user-${u.id.substring(0, 8)}` })) || []);
+      setUsers(typedUsersData?.map(u => ({ id: u.id, email: `user-${u.id.substring(0, 8)}` })) || []);
       
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -107,7 +109,7 @@ export default function AdminPage() {
           status: 'approved',
           reviewed_at: new Date().toISOString(),
           reviewed_by: user?.id,
-        })
+        } as never)
         .eq('id', application.id);
 
       if (updateError) throw updateError;
@@ -115,7 +117,7 @@ export default function AdminPage() {
       // Update user role to designer
       const { error: roleError } = await supabase
         .from('profiles')
-        .update({ role: 'designer', is_verified: true })
+        .update({ role: 'designer', is_verified: true } as never)
         .eq('id', application.user_id);
 
       if (roleError) throw roleError;
@@ -131,7 +133,7 @@ export default function AdminPage() {
           bio: application.description,
           specialties: application.specialties,
           verified: true,
-        });
+        } as never);
 
       if (designerError) throw designerError;
 
@@ -159,7 +161,7 @@ export default function AdminPage() {
           reviewed_at: new Date().toISOString(),
           reviewed_by: user?.id,
           rejection_reason: rejectionReason,
-        })
+        } as never)
         .eq('id', selectedApp.id);
 
       if (error) throw error;

@@ -57,6 +57,8 @@ export default function DesignerProductsPage() {
   }, [user, isDesigner, authLoading, roleLoading, router]);
 
   const fetchDesignerProducts = async () => {
+    if (!user) return;
+    
     try {
       setLoading(true);
       setError(null);
@@ -64,32 +66,34 @@ export default function DesignerProductsPage() {
       const supabase = createClient();
 
       // Get designer record
-      let { data: designer, error: designerError } = await supabase
+      let designerId: string | undefined;
+      const { data: existingDesigner, error: designerError } = await supabase
         .from("designers")
         .select("id")
-        .eq("user_id", user?.id)
+        .eq("user_id", user.id)
         .single();
 
       // If designer profile doesn't exist, create one automatically
-      if (designerError || !designer) {
+      if (designerError || !existingDesigner) {
         const { data: profile } = await supabase
           .from("profiles")
           .select("full_name, username")
-          .eq("id", user?.id)
+          .eq("id", user.id)
           .single();
 
-        const designerName = profile?.full_name || profile?.username || user?.email?.split('@')[0] || 'Designer';
+        const profileData = profile as { full_name?: string; username?: string } | null;
+        const designerName = profileData?.full_name || profileData?.username || user.email?.split('@')[0] || 'Designer';
         
         const { data: newDesigner, error: createError } = await supabase
           .from("designers")
           .insert({
-            user_id: user?.id,
+            user_id: user.id,
             name: designerName,
             username: designerName.toLowerCase().replace(/\s+/g, '-') + '-' + Date.now(),
             avatar_initials: designerName.substring(0, 2).toUpperCase(),
             bio: '',
             verified: true,
-          })
+          } as never)
           .select("id")
           .single();
 
@@ -97,7 +101,13 @@ export default function DesignerProductsPage() {
           throw new Error("Failed to create designer profile. Please contact support.");
         }
 
-        designer = newDesigner;
+        designerId = (newDesigner as unknown as { id: string })?.id;
+      } else {
+        designerId = (existingDesigner as unknown as { id: string })?.id;
+      }
+
+      if (!designerId) {
+        throw new Error("Could not get designer ID.");
       }
 
       // Fetch products with order count
@@ -114,25 +124,27 @@ export default function DesignerProductsPage() {
           image_url,
           orders(id)
         `)
-        .eq("designer_id", designer.id)
+        .eq("designer_id", designerId)
         .order("created_at", { ascending: false });
 
       if (productsError) throw productsError;
 
-      setProducts(productsData || []);
+      type ProductWithOrders = Product & { orders?: { id: string }[] };
+      const products = (productsData || []) as unknown as ProductWithOrders[];
+      setProducts(products);
 
       // Calculate stats
-      const totalSales = productsData?.reduce(
+      const totalSales = products.reduce(
         (sum, p) => sum + (p.orders?.length || 0),
         0
-      ) || 0;
-      const totalRevenue = productsData?.reduce(
+      );
+      const totalRevenue = products.reduce(
         (sum, p) => sum + p.price * (p.orders?.length || 0),
         0
-      ) || 0;
+      );
 
       setStats({
-        totalProducts: productsData?.length || 0,
+        totalProducts: products.length,
         totalSales,
         totalRevenue,
         totalViews: 0, // TODO: Implement view tracking

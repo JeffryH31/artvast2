@@ -38,9 +38,10 @@ export function useRole() {
         .eq('id', user.id)
         .single();
 
-      if (data && !error) {
-        setRole(data.role as UserRole);
-        setIsVerified(data.is_verified || false);
+      const profileData = data as { role?: string; is_verified?: boolean } | null;
+      if (profileData && !error) {
+        setRole(profileData.role as UserRole);
+        setIsVerified(profileData.is_verified || false);
       }
       
       setLoading(false);

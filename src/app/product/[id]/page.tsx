@@ -40,7 +40,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
         await supabase.from('product_views').insert({
           product_id: id,
           user_id: user?.id || null,
-        });
+        } as never);
       };
       trackView();
     }

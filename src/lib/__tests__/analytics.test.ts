@@ -14,7 +14,7 @@ describe('Analytics Utilities', () => {
     // Mock window.gtag
     global.window = {
       gtag: vi.fn(),
-    } as any;
+    } as unknown as Window & typeof globalThis;
   });
 
   describe('pageview', () => {
@@ -28,7 +28,7 @@ describe('Analytics Utilities', () => {
     });
 
     it('should handle undefined window.gtag gracefully', () => {
-      delete (window as any).gtag;
+      delete (window as Record<string, unknown>).gtag;
       expect(() => pageview('/test')).not.toThrow();
     });
   });
