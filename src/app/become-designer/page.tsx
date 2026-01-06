@@ -21,7 +21,10 @@ export default function BecomeDesignerPage() {
   });
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [existingApplication, setExistingApplication] = useState<any>(null);
+  const [existingApplication, setExistingApplication] = useState<{
+    status: string;
+    rejection_reason?: string;
+  } | null>(null);
 
   const specialtyOptions = [
     'Branding',
@@ -92,7 +95,7 @@ export default function BecomeDesignerPage() {
           portfolio_url: formData.portfolioUrl,
           description: formData.description,
           specialties: formData.specialties,
-        });
+        } as never);
 
       if (submitError) throw submitError;
 
@@ -145,7 +148,7 @@ export default function BecomeDesignerPage() {
 
               {existingApplication.status === 'pending' && (
                 <p className="text-gray-600 dark:text-gray-400">
-                  Your application is being reviewed. We'll notify you once it's processed.
+                  Your application is being reviewed. We&apos;ll notify you once it&apos;s processed.
                 </p>
               )}
 

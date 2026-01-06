@@ -60,7 +60,7 @@ export default function CheckoutPage() {
           status: 'pending',
           payment_status: 'paid', // Simulated payment
           notes: formData.notes,
-        });
+        } as never);
       }
 
       // Clear cart after successful checkout

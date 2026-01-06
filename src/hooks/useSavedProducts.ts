@@ -52,7 +52,7 @@ export function useSavedProducts() {
     } catch (err) {
       console.error('Error fetching saved products:', err);
       const errorMsg = parseSupabaseError(err);
-      setError(errorMsg || ERROR_MESSAGES.FETCH_FAILED);
+      setError(errorMsg || ERROR_MESSAGES.GENERIC.SOMETHING_WRONG);
     } finally {
       setLoading(false);
     }
@@ -68,7 +68,7 @@ export function useSavedProducts() {
 
   const toggleSave = async (productId: string) => {
     if (!user) {
-      setError(ERROR_MESSAGES.AUTH_REQUIRED);
+      setError(ERROR_MESSAGES.AUTH.NOT_AUTHENTICATED);
       return false;
     }
 
@@ -89,7 +89,7 @@ export function useSavedProducts() {
         // Add to saved
         const { error } = await supabase
           .from('saved_products')
-          .insert({ user_id: user.id, product_id: productId });
+          .insert({ user_id: user.id, product_id: productId } as never);
 
         if (error) throw error;
       }
@@ -100,7 +100,7 @@ export function useSavedProducts() {
     } catch (err) {
       console.error('Error toggling save:', err);
       const errorMsg = parseSupabaseError(err);
-      setError(errorMsg || ERROR_MESSAGES.OPERATION_FAILED);
+      setError(errorMsg || ERROR_MESSAGES.GENERIC.SOMETHING_WRONG);
       return false;
     }
   };

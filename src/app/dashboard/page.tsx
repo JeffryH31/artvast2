@@ -7,7 +7,7 @@ import Header from "@/components/layout/Header";
 import { useAuth } from "@/hooks/useAuth";
 import { useRole } from "@/hooks/useRole";
 import { createClient } from "@/lib/supabase/client";
-import { SkeletonList, SkeletonCard } from "@/components/ui/Skeleton";
+import { SkeletonCard } from "@/components/ui/Skeleton";
 import { ImageUpload } from "@/components/ui/ImageUpload";
 import toast from "react-hot-toast";
 
@@ -62,7 +62,7 @@ const PORTFOLIO_CATEGORIES = [
 
 export default function DashboardPage() {
   const { user, loading: authLoading } = useAuth();
-  const { role, isDesigner } = useRole();
+  const { isDesigner } = useRole();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<
     "overview" | "orders" | "saved" | "settings" | "products" | "portfolio"
@@ -153,23 +153,27 @@ export default function DashboardPage() {
         }
 
         // Fetch designer info if user is a designer
-        let { data: designerData } = await supabase
+        const { data: designerData } = await supabase
           .from("designers")
           .select("id")
           .eq("user_id", user.id)
           .maybeSingle();
 
+        // Type assertion for profileData
+        const profileWithRole = profileData as { role?: string; full_name?: string; username?: string } | null;
+        
+        let finalDesignerId = (designerData as { id: string } | null)?.id;
+
         // If user is a designer but no designer record exists, create one
-        if (!designerData && (profileData as any)?.role === "designer") {
+        if (!designerData && profileWithRole?.role === "designer") {
           const designerName =
-            (profileData as any)?.full_name ||
-            (profileData as any)?.username ||
+            profileWithRole?.full_name ||
+            profileWithRole?.username ||
             user.email?.split("@")[0] ||
             "Designer";
 
           const { data: newDesigner } = await supabase
             .from("designers")
-            // @ts-ignore - Supabase type inference issue
             .insert({
               user_id: user.id,
               name: designerName,
@@ -180,21 +184,21 @@ export default function DashboardPage() {
               avatar_initials: designerName.substring(0, 2).toUpperCase(),
               bio: "",
               verified: true,
-            })
+            } as never)
             .select("id")
             .single();
 
-          designerData = newDesigner;
+          finalDesignerId = (newDesigner as { id: string } | null)?.id;
         }
 
-        if (designerData) {
-          setDesignerId((designerData as any).id);
+        if (finalDesignerId) {
+          setDesignerId(finalDesignerId);
 
           // Fetch portfolio items
           const { data: portfolioData } = await supabase
             .from("portfolio_items")
             .select("*")
-            .eq("designer_id", (designerData as any).id)
+            .eq("designer_id", finalDesignerId)
             .order("created_at", { ascending: false });
 
           if (portfolioData) {
@@ -308,14 +312,13 @@ export default function DashboardPage() {
         // Update existing
         const { error } = await supabase
           .from("portfolio_items")
-          // @ts-ignore - Supabase type inference issue
           .update({
             title: portfolioForm.title,
             description: portfolioForm.description || null,
             category: portfolioForm.category,
             image_url: portfolioForm.image_url,
             featured: portfolioForm.featured,
-          })
+          } as never)
           .eq("id", editingPortfolio.id);
 
         if (error) throw error;
@@ -332,7 +335,6 @@ export default function DashboardPage() {
         // Create new
         const { data, error } = await supabase
           .from("portfolio_items")
-          // @ts-ignore - Supabase type inference issue
           .insert({
             designer_id: designerId,
             title: portfolioForm.title,
@@ -340,7 +342,7 @@ export default function DashboardPage() {
             category: portfolioForm.category,
             image_url: portfolioForm.image_url,
             featured: portfolioForm.featured,
-          })
+          } as never)
           .select()
           .single();
 

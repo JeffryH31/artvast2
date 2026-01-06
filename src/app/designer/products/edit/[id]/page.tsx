@@ -76,7 +76,8 @@ export default function EditProductPage() {
             .eq('id', user.id)
             .single();
 
-          const designerName = profile?.full_name || profile?.username || user.email?.split('@')[0] || 'Designer';
+          const typedProfile = profile as { full_name?: string; username?: string } | null;
+          const designerName = typedProfile?.full_name || typedProfile?.username || user.email?.split('@')[0] || 'Designer';
           
           const { data: newDesigner, error: createError } = await supabase
             .from('designers')
@@ -87,7 +88,7 @@ export default function EditProductPage() {
               avatar_initials: designerName.substring(0, 2).toUpperCase(),
               bio: '',
               verified: true,
-            })
+            } as never)
             .select('id')
             .single();
 
@@ -100,12 +101,20 @@ export default function EditProductPage() {
           designerData = newDesigner;
         }
 
+        if (!designerData) {
+          setError('Designer profile not found');
+          setLoading(false);
+          return;
+        }
+
+        const designerIdForQuery = (designerData as { id: string }).id;
+
         // Get product
         const { data: productData, error: productError } = await supabase
           .from('products')
           .select('*')
           .eq('id', params.id)
-          .eq('designer_id', designerData.id)
+          .eq('designer_id', designerIdForQuery)
           .single();
 
         if (productError || !productData) {
@@ -114,17 +123,19 @@ export default function EditProductPage() {
           return;
         }
 
-        setProduct(productData);
-        setName(productData.name);
-        setDescription(productData.description || '');
-        setCategory(productData.category);
-        setPrice(productData.price.toString());
-        setOriginalPrice(productData.original_price?.toString() || '');
-        setDeliveryTime(productData.delivery_time || '1-3 days');
-        setLicenseType(productData.license_type || 'personal');
-        setFeatures(productData.features || ['']);
-        setTags(productData.tags || []);
-        setExistingImages(productData.images || []);
+        const typedProduct = productData as unknown as Product;
+
+        setProduct(typedProduct);
+        setName(typedProduct.name);
+        setDescription(typedProduct.description || '');
+        setCategory(typedProduct.category);
+        setPrice(typedProduct.price.toString());
+        setOriginalPrice(typedProduct.original_price?.toString() || '');
+        setDeliveryTime(typedProduct.delivery_time || '1-3 days');
+        setLicenseType(typedProduct.license_type || 'personal');
+        setFeatures(typedProduct.features || ['']);
+        setTags(typedProduct.tags || []);
+        setExistingImages(typedProduct.images || []);
         setLoading(false);
       } catch (err) {
         console.error('Error fetching product:', err);
@@ -240,8 +251,8 @@ export default function EditProductPage() {
           tags,
           images: allImages,
           updated_at: new Date().toISOString(),
-        })
-        .eq('id', params.id);
+        } as never)
+        .eq('id', params.id as string);
 
       if (updateError) throw updateError;
 
@@ -398,8 +409,8 @@ export default function EditProductPage() {
                 >
                   <option value="">Select a category</option>
                   {PRODUCT_CATEGORIES.map((cat) => (
-                    <option key={cat.value} value={cat.value}>
-                      {cat.label}
+                    <option key={cat} value={cat}>
+                      {cat}
                     </option>
                   ))}
                 </select>

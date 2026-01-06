@@ -57,7 +57,7 @@ export default function NewProductPage() {
     }
   }, [user, isDesigner, isLoading, router]);
 
-  const handleImageUpload = (files: any[]) => {
+  const handleImageUpload = (files: { url: string }[]) => {
     const urls = files.map(f => f.url);
     setFormData(prev => ({
       ...prev,
@@ -141,6 +141,7 @@ export default function NewProductPage() {
 
     try {
       // Get designer record
+      // eslint-disable-next-line prefer-const
       let { data: designer, error: designerError } = await supabase
         .from('designers')
         .select('id')
@@ -156,7 +157,8 @@ export default function NewProductPage() {
           .eq('id', user.id)
           .single();
 
-        const designerName = profile?.full_name || profile?.username || user.email?.split('@')[0] || 'Designer';
+        const typedProfile = profile as { full_name?: string; username?: string } | null;
+        const designerName = typedProfile?.full_name || typedProfile?.username || user.email?.split('@')[0] || 'Designer';
         
         const { data: newDesigner, error: createError } = await supabase
           .from('designers')
@@ -167,7 +169,7 @@ export default function NewProductPage() {
             avatar_initials: designerName.substring(0, 2).toUpperCase(),
             bio: '',
             verified: true,
-          })
+          } as never)
           .select('id')
           .single();
 
@@ -179,9 +181,11 @@ export default function NewProductPage() {
         designer = newDesigner;
       }
 
+      const designerId = (designer as unknown as { id: string }).id;
+
       // Create product
       const { error } = await supabase.from('products').insert({
-        designer_id: designer.id,
+        designer_id: designerId,
         name: formData.name,
         description: formData.description,
         category: formData.category,
@@ -193,7 +197,7 @@ export default function NewProductPage() {
         tags: formData.tags,
         delivery_time: formData.deliveryTime,
         license_type: formData.licenseType,
-      });
+      } as never);
 
       if (error) throw error;
 

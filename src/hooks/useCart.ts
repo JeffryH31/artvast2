@@ -54,7 +54,7 @@ export function useCart() {
     } catch (err) {
       console.error('Error fetching cart:', err);
       const errorMsg = parseSupabaseError(err);
-      setError(errorMsg || ERROR_MESSAGES.FETCH_FAILED);
+      setError(errorMsg || ERROR_MESSAGES.GENERIC.SOMETHING_WRONG);
     } finally {
       setLoading(false);
     }
@@ -66,7 +66,7 @@ export function useCart() {
 
   const addToCart = async (productId: string, quantity: number = 1) => {
     if (!user) {
-      setError(ERROR_MESSAGES.AUTH_REQUIRED);
+      setError(ERROR_MESSAGES.AUTH.NOT_AUTHENTICATED);
       return false;
     }
 
@@ -81,19 +81,20 @@ export function useCart() {
         .eq('product_id', productId)
         .single();
 
-      if (existing) {
+      const existingItem = existing as { id: string; quantity: number } | null;
+      if (existingItem) {
         // Update quantity
         const { error } = await supabase
           .from('cart_items')
-          .update({ quantity: existing.quantity + quantity })
-          .eq('id', existing.id);
+          .update({ quantity: existingItem.quantity + quantity } as never)
+          .eq('id', existingItem.id);
 
         if (error) throw error;
       } else {
         // Insert new
         const { error } = await supabase
           .from('cart_items')
-          .insert({ user_id: user.id, product_id: productId, quantity });
+          .insert({ user_id: user.id, product_id: productId, quantity } as never);
 
         if (error) throw error;
       }
@@ -115,7 +116,7 @@ export function useCart() {
     try {
       const { error } = await supabase
         .from('cart_items')
-        .update({ quantity })
+        .update({ quantity } as never)
         .eq('id', itemId)
         .eq('user_id', user.id);
 

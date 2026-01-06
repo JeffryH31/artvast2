@@ -96,7 +96,7 @@ export function useReviews(productId: string) {
         author_name: user.email?.split('@')[0] || 'Anonymous',
         rating,
         comment,
-      });
+      } as never);
 
       if (error) throw error;
 

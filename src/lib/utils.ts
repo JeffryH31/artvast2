@@ -77,6 +77,7 @@ export async function handleAsync<T>(
 /**
  * Debounce function
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function debounce<T extends (...args: any[]) => any>(
   func: T,
   wait: number
@@ -97,6 +98,7 @@ export function debounce<T extends (...args: any[]) => any>(
 /**
  * Throttle function
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function throttle<T extends (...args: any[]) => any>(
   func: T,
   limit: number
@@ -115,24 +117,25 @@ export function throttle<T extends (...args: any[]) => any>(
 /**
  * Parse Supabase error to user-friendly message
  */
-export function parseSupabaseError(error: any): string {
-  if (!error) return ERROR_MESSAGES.GENERIC.SOMETHING_WRONG;
+export function parseSupabaseError(error: unknown): string {
+  const err = error as { message?: string; code?: string } | null;
+  if (!err) return ERROR_MESSAGES.GENERIC.SOMETHING_WRONG;
   
   // Common Supabase errors
-  if (error.message?.includes('Invalid login credentials')) {
+  if (err.message?.includes('Invalid login credentials')) {
     return ERROR_MESSAGES.AUTH.INVALID_CREDENTIALS;
   }
   
-  if (error.message?.includes('not found')) {
+  if (err.message?.includes('not found')) {
     return ERROR_MESSAGES.PRODUCT.NOT_FOUND;
   }
   
-  if (error.message?.includes('network')) {
+  if (err.message?.includes('network')) {
     return ERROR_MESSAGES.GENERIC.NETWORK_ERROR;
   }
   
   // Return original message or generic error
-  return error.message || ERROR_MESSAGES.GENERIC.SOMETHING_WRONG;
+  return err.message || ERROR_MESSAGES.GENERIC.SOMETHING_WRONG;
 }
 
 /**

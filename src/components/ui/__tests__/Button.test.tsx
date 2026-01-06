@@ -4,6 +4,15 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 // Mock Button component untuk testing (tanpa import actual component yang ada CSS)
+interface MockButtonProps {
+  children: React.ReactNode;
+  onClick?: () => void;
+  disabled?: boolean;
+  loading?: boolean;
+  className?: string;
+  variant?: string;
+}
+
 const Button = ({ 
   children, 
   onClick, 
@@ -11,7 +20,7 @@ const Button = ({
   loading,
   className, 
   variant = 'primary' 
-}: any) => (
+}: MockButtonProps) => (
   <button
     onClick={onClick}
     disabled={disabled || loading}
