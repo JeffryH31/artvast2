@@ -31,6 +31,9 @@ export const id = {
     noResults: 'Tidak ada hasil',
     seeAll: 'Lihat Semua',
     learnMore: 'Pelajari Lebih Lanjut',
+    designer: 'Desainer',
+    unknown: 'Tidak diketahui',
+    tryAgain: 'Coba lagi',
   },
 
   // Navigation
@@ -86,6 +89,15 @@ export const id = {
     passwordMinLength: 'Kata sandi minimal 6 karakter',
     passwordMismatch: 'Kata sandi tidak cocok',
     emailInvalid: 'Format email tidak valid',
+    resetPassword: 'Reset Kata Sandi',
+    signInToAccount: 'Masuk ke akun Anda',
+    joinCommunity: 'Bergabung dengan komunitas',
+    enterEmailReset: 'Masukkan email untuk reset kata sandi',
+    emailPlaceholder: 'email@contoh.com',
+    sendResetLink: 'Kirim Link Reset',
+    noAccount: 'Belum punya akun?',
+    haveAccount: 'Sudah punya akun?',
+    backToSignIn: 'Kembali ke Masuk',
   },
 
   // Hero Section
@@ -159,10 +171,13 @@ export const id = {
   // Featured Products
   featuredProducts: {
     title: 'Produk Unggulan',
+    titleHighlight: 'Unggulan',
     subtitle: 'Koleksi terbaik pilihan editor',
+    description: 'Temukan koleksi produk digital terbaik yang dipilih oleh tim editor kami',
     viewProduct: 'Lihat Produk',
     addToCart: 'Tambah ke Keranjang',
     by: 'oleh',
+    browseMarketplace: 'Jelajahi Marketplace',
   },
 
   // Featured Designers
@@ -275,6 +290,11 @@ export const id = {
     noProducts: 'Tidak ada produk ditemukan',
     tryDifferentFilter: 'Coba filter yang berbeda',
     clearFilters: 'Hapus Filter',
+    showing: 'Menampilkan',
+    products: 'produk',
+    recommended: 'Direkomendasikan',
+    forYou: 'Untuk Anda',
+    curatedDescription: 'Produk pilihan berdasarkan preferensi Anda',
     stats: {
       artworks: 'Karya Seni',
       artists: 'Seniman',
@@ -289,6 +309,7 @@ export const id = {
     price: 'Harga',
     category: 'Kategori',
     designer: 'Desainer',
+    by: 'oleh',
     addToCart: 'Tambah ke Keranjang',
     buyNow: 'Beli Sekarang',
     addedToCart: 'Ditambahkan ke keranjang!',
@@ -306,9 +327,12 @@ export const id = {
     relatedProducts: 'Produk Terkait',
     byDesigner: 'oleh',
     viewDesigner: 'Lihat Profil Desainer',
+    viewDetails: 'Lihat Detail',
     featured: 'Unggulan',
     new: 'Baru',
     sale: 'Diskon',
+    bestseller: 'Terlaris',
+    delivery: 'Pengiriman',
   },
 
   // Cart
@@ -316,7 +340,10 @@ export const id = {
     title: 'Keranjang Belanja',
     empty: 'Keranjang Anda kosong',
     emptySubtitle: 'Mulai belanja dan tambahkan produk ke keranjang',
+    emptyTitle: 'Keranjang Anda kosong',
+    emptyDescription: 'Mulai belanja dan tambahkan produk ke keranjang Anda',
     continueShopping: 'Lanjut Belanja',
+    item: 'item',
     items: 'item',
     subtotal: 'Subtotal',
     tax: 'Pajak',
@@ -327,6 +354,12 @@ export const id = {
     updateCart: 'Perbarui Keranjang',
     cartUpdated: 'Keranjang diperbarui',
     itemRemoved: 'Item dihapus dari keranjang',
+    clearAll: 'Hapus Semua',
+    orderSummary: 'Ringkasan Pesanan',
+    processingFee: 'Biaya Proses',
+    proceedToCheckout: 'Lanjut ke Checkout',
+    securePayment: 'Pembayaran Aman',
+    browseMarketplace: 'Jelajahi Marketplace',
   },
 
   // Checkout
@@ -538,6 +571,7 @@ export const id = {
   // Errors
   errors: {
     somethingWrong: 'Terjadi kesalahan',
+    somethingWentWrong: 'Terjadi kesalahan',
     tryAgain: 'Coba lagi',
     pageNotFound: 'Halaman tidak ditemukan',
     unauthorized: 'Akses tidak diizinkan',
@@ -550,6 +584,7 @@ export const id = {
     invalidFormat: 'Format tidak valid',
     fileTooLarge: 'Ukuran file terlalu besar',
     unsupportedFileType: 'Tipe file tidak didukung',
+    loginRequired: 'Silakan masuk terlebih dahulu',
   },
 
   // Success Messages

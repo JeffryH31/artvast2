@@ -31,6 +31,9 @@ export const en = {
     noResults: 'No results',
     seeAll: 'See All',
     learnMore: 'Learn More',
+    designer: 'Designer',
+    unknown: 'Unknown',
+    tryAgain: 'Try again',
   },
 
   // Navigation
@@ -86,6 +89,15 @@ export const en = {
     passwordMinLength: 'Password must be at least 6 characters',
     passwordMismatch: 'Passwords do not match',
     emailInvalid: 'Invalid email format',
+    resetPassword: 'Reset Password',
+    signInToAccount: 'Sign in to your account',
+    joinCommunity: 'Join our community',
+    enterEmailReset: 'Enter your email to reset password',
+    emailPlaceholder: 'email@example.com',
+    sendResetLink: 'Send Reset Link',
+    noAccount: "Don't have an account?",
+    haveAccount: 'Already have an account?',
+    backToSignIn: 'Back to Sign In',
   },
 
   // Hero Section
@@ -159,10 +171,13 @@ export const en = {
   // Featured Products
   featuredProducts: {
     title: 'Featured Products',
+    titleHighlight: 'Featured',
     subtitle: "Editor's pick collection",
+    description: 'Discover the best digital products selected by our editorial team',
     viewProduct: 'View Product',
     addToCart: 'Add to Cart',
     by: 'by',
+    browseMarketplace: 'Browse Marketplace',
   },
 
   // Featured Designers
@@ -275,6 +290,11 @@ export const en = {
     noProducts: 'No products found',
     tryDifferentFilter: 'Try different filters',
     clearFilters: 'Clear Filters',
+    showing: 'Showing',
+    products: 'products',
+    recommended: 'Recommended',
+    forYou: 'For You',
+    curatedDescription: 'Products selected based on your preferences',
     stats: {
       artworks: 'Artworks',
       artists: 'Artists',
@@ -289,6 +309,7 @@ export const en = {
     price: 'Price',
     category: 'Category',
     designer: 'Designer',
+    by: 'by',
     addToCart: 'Add to Cart',
     buyNow: 'Buy Now',
     addedToCart: 'Added to cart!',
@@ -306,9 +327,12 @@ export const en = {
     relatedProducts: 'Related Products',
     byDesigner: 'by',
     viewDesigner: 'View Designer Profile',
+    viewDetails: 'View Details',
     featured: 'Featured',
     new: 'New',
     sale: 'Sale',
+    bestseller: 'Bestseller',
+    delivery: 'Delivery',
   },
 
   // Cart
@@ -316,7 +340,10 @@ export const en = {
     title: 'Shopping Cart',
     empty: 'Your cart is empty',
     emptySubtitle: 'Start shopping and add products to your cart',
+    emptyTitle: 'Your cart is empty',
+    emptyDescription: 'Start shopping and add products to your cart',
     continueShopping: 'Continue Shopping',
+    item: 'item',
     items: 'items',
     subtotal: 'Subtotal',
     tax: 'Tax',
@@ -327,6 +354,12 @@ export const en = {
     updateCart: 'Update Cart',
     cartUpdated: 'Cart updated',
     itemRemoved: 'Item removed from cart',
+    clearAll: 'Clear All',
+    orderSummary: 'Order Summary',
+    processingFee: 'Processing Fee',
+    proceedToCheckout: 'Proceed to Checkout',
+    securePayment: 'Secure Payment',
+    browseMarketplace: 'Browse Marketplace',
   },
 
   // Checkout
@@ -538,6 +571,7 @@ export const en = {
   // Errors
   errors: {
     somethingWrong: 'Something went wrong',
+    somethingWentWrong: 'Something went wrong',
     tryAgain: 'Try again',
     pageNotFound: 'Page not found',
     unauthorized: 'Unauthorized access',
@@ -550,6 +584,7 @@ export const en = {
     invalidFormat: 'Invalid format',
     fileTooLarge: 'File size is too large',
     unsupportedFileType: 'Unsupported file type',
+    loginRequired: 'Please login first',
   },
 
   // Success Messages
