@@ -1,10 +1,14 @@
 "use client";
 
-import React, { use } from "react";
+import React, { use, useState } from "react";
 import Link from "next/link";
 import Header from "@/components/layout/Header";
+import MessageModal from "@/components/messages/MessageModal";
 import { useDesigner } from "@/hooks/useDesigners";
 import { useProducts } from "@/hooks/useProducts";
+import { useFollow } from "@/hooks/useFollow";
+import { useAuth } from "@/hooks/useAuth";
+import { formatPrice } from "@/lib/utils";
 
 interface CreatorPageProps {
   params: Promise<{
@@ -16,9 +20,31 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
   const { id } = use(params);
   const { designer, loading, error } = useDesigner(id);
   const { products: designerProducts, loading: productsLoading } = useProducts();
+  const { user } = useAuth();
+  const { isFollowing, followersCount, actionLoading, toggleFollow } = useFollow({ designerId: id });
+  const [messageModalOpen, setMessageModalOpen] = useState(false);
+  const [showAuthPrompt, setShowAuthPrompt] = useState(false);
 
   // Filter products by this designer
   const filteredProducts = designerProducts.filter(p => p.designer_id === id);
+
+  const handleFollowClick = async () => {
+    if (!user) {
+      setShowAuthPrompt(true);
+      setTimeout(() => setShowAuthPrompt(false), 3000);
+      return;
+    }
+    await toggleFollow();
+  };
+
+  const handleMessageClick = () => {
+    if (!user) {
+      setShowAuthPrompt(true);
+      setTimeout(() => setShowAuthPrompt(false), 3000);
+      return;
+    }
+    setMessageModalOpen(true);
+  };
 
   // Loading state
   if (loading) {
@@ -128,19 +154,56 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
                     <p className="text-white/70 text-sm">Projects</p>
                   </div>
                   <div className="text-center">
-                    <span className="text-xl sm:text-2xl font-bold text-white">{(designer.followers_count || 0).toLocaleString()}</span>
+                    <span className="text-xl sm:text-2xl font-bold text-white">{followersCount.toLocaleString()}</span>
                     <p className="text-white/70 text-sm">Followers</p>
                   </div>
                 </div>
               </div>
 
               {/* Actions */}
-              <div className="flex flex-col gap-3 w-full md:w-auto">
-                <button className="px-6 sm:px-8 py-3 bg-white text-[#8B5A8C] font-bold rounded-xl hover:bg-gray-100 transition-all duration-300 shadow-lg cursor-pointer">
-                  Follow
+              <div className="flex flex-col gap-3 w-full md:w-auto relative">
+                {/* Auth Prompt Toast */}
+                {showAuthPrompt && (
+                  <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 whitespace-nowrap bg-gray-900 text-white px-4 py-2 rounded-lg text-sm shadow-lg animate-fade-in-up">
+                    Please sign in to continue
+                  </div>
+                )}
+                
+                <button 
+                  onClick={handleFollowClick}
+                  disabled={actionLoading}
+                  className={`px-6 sm:px-8 py-3 font-bold rounded-xl transition-all duration-300 shadow-lg cursor-pointer flex items-center justify-center space-x-2 ${
+                    isFollowing 
+                      ? 'bg-white/20 backdrop-blur-sm text-white border border-white/30 hover:bg-white/30' 
+                      : 'bg-white text-[#8B5A8C] hover:bg-gray-100'
+                  } ${actionLoading ? 'opacity-70' : ''}`}
+                >
+                  {actionLoading ? (
+                    <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
+                  ) : isFollowing ? (
+                    <>
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                      <span>Following</span>
+                    </>
+                  ) : (
+                    <>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                      </svg>
+                      <span>Follow</span>
+                    </>
+                  )}
                 </button>
-                <button className="px-6 sm:px-8 py-3 bg-white/20 backdrop-blur-sm text-white font-bold rounded-xl border border-white/30 hover:bg-white/30 transition-all duration-300 cursor-pointer">
-                  Message
+                <button 
+                  onClick={handleMessageClick}
+                  className="px-6 sm:px-8 py-3 bg-white/20 backdrop-blur-sm text-white font-bold rounded-xl border border-white/30 hover:bg-white/30 transition-all duration-300 cursor-pointer flex items-center justify-center space-x-2"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                  <span>Message</span>
                 </button>
               </div>
             </div>
@@ -225,7 +288,7 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
                     </div>
                   )}
                   <div className="absolute top-3 right-3 px-3 py-1 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm text-gray-800 dark:text-white font-bold rounded-full text-sm">
-                    ${product.price}
+                    {formatPrice(product.price)}
                   </div>
                 </div>
 
@@ -257,6 +320,18 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
           </div>
         )}
       </div>
+
+      {/* Message Modal */}
+      {designer && (
+        <MessageModal
+          isOpen={messageModalOpen}
+          onClose={() => setMessageModalOpen(false)}
+          designerId={designer.id}
+          designerName={designer.name}
+          designerInitials={designer.avatar_initials}
+          designerGradient={designer.avatar_gradient || 'from-[#BD9587] to-[#A2655F]'}
+        />
+      )}
     </div>
   );
 };

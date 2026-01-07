@@ -1,8 +1,19 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
+import { useLanguage } from "@/lib/i18n";
 
 const HeroSection: React.FC = () => {
+  const { t } = useLanguage();
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+  
   return (
     <div className="text-white dark:text-gray-100 relative overflow-hidden min-h-screen pt-16 sm:pt-20">
       {/* Konten Utama Hero */}
@@ -11,21 +22,20 @@ const HeroSection: React.FC = () => {
           {/* Badge */}
           <div className="mb-4 sm:mb-6 animate-fade-in-up">
             <span className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 dark:bg-white/20 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium text-white/90 dark:text-white/95 border border-white/20 dark:border-white/30">
-              🎨 Trusted Platform for Designers
+              🎨 {t.hero.badge}
             </span>
           </div>
           
           {/* Main Heading */}
           <h1
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-6 animate-fade-in-up">
-            Empowering Designers, Building a Creative Community
+            {t.hero.title}
           </h1>
           
           {/* Description */}
           <p
             className="text-base sm:text-lg md:text-xl text-white/90 dark:text-gray-200 mb-6 sm:mb-8 max-w-2xl leading-relaxed animate-fade-in-up">
-            Showcase portfolios, safely sell your work and connect with local
-            clients in a secure, professional environment
+            {t.hero.description}
           </p>
           
           {/* CTA Buttons */}
@@ -33,8 +43,11 @@ const HeroSection: React.FC = () => {
             className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-12 animate-fade-in-up"
             style={{ animationDelay: "0.6s" }}
           >
-            <button className="group bg-white text-gray-900 px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl font-semibold hover:bg-gray-50 transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-white/20 flex items-center justify-center space-x-2 text-sm sm:text-base cursor-pointer">
-              <span>Get Started</span>
+            <Link 
+              href="/marketplace"
+              className="group bg-white text-gray-900 px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl font-semibold hover:bg-gray-50 transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-white/20 flex items-center justify-center space-x-2 text-sm sm:text-base cursor-pointer"
+            >
+              <span>{t.hero.getStarted}</span>
               <svg
                 className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-300"
                 fill="none"
@@ -48,9 +61,12 @@ const HeroSection: React.FC = () => {
                   d="M9 5l7 7-7 7"
                 />
               </svg>
-            </button>
-            <button className="group bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl font-semibold hover:bg-white/20 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 text-sm sm:text-base cursor-pointer">
-              <span>Learn More</span>
+            </Link>
+            <button 
+              onClick={() => scrollToSection("services")}
+              className="group bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl font-semibold hover:bg-white/20 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 text-sm sm:text-base cursor-pointer"
+            >
+              <span>{t.hero.learnMore}</span>
             </button>
           </div>
           
@@ -60,16 +76,16 @@ const HeroSection: React.FC = () => {
             style={{ animationDelay: "0.8s" }}
           >
             <div className="text-center">
-              <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2">1000+</div>
-              <div className="text-white/70 text-[10px] sm:text-xs md:text-sm leading-tight">Active Designers</div>
+              <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2">{t.hero.stats.designers.value}</div>
+              <div className="text-white/70 text-[10px] sm:text-xs md:text-sm leading-tight">{t.hero.stats.designers.label}</div>
             </div>
             <div className="text-center">
-              <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2">500+</div>
-              <div className="text-white/70 text-[10px] sm:text-xs md:text-sm leading-tight">Projects Completed</div>
+              <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2">{t.hero.stats.projects.value}</div>
+              <div className="text-white/70 text-[10px] sm:text-xs md:text-sm leading-tight">{t.hero.stats.projects.label}</div>
             </div>
             <div className="text-center">
-              <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2">98%</div>
-              <div className="text-white/70 text-[10px] sm:text-xs md:text-sm leading-tight">Client Satisfaction</div>
+              <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2">{t.hero.stats.satisfaction.value}</div>
+              <div className="text-white/70 text-[10px] sm:text-xs md:text-sm leading-tight">{t.hero.stats.satisfaction.label}</div>
             </div>
           </div>
         </div>

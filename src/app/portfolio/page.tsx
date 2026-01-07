@@ -59,7 +59,7 @@ const PortfolioPage = () => {
         </div>
 
         {/* Filter Section */}
-        <div className="bg-white dark:bg-gray-900 py-4 sm:py-6 lg:py-8 sticky top-16 sm:top-20 z-40 border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
+        <div className="bg-white dark:bg-gray-900 py-4 sm:py-6 lg:py-8 sticky top-16 sm:top-20 z-30 border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-center gap-2 sm:gap-3 lg:gap-4 overflow-x-auto pb-2 sm:pb-0 scrollbar-hide">
               {filters.map((filter) => (

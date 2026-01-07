@@ -9,6 +9,7 @@ import { useRole } from "@/hooks/useRole";
 import { useConfirmDialog } from "@/components/ui/ConfirmDialog";
 import Header from "@/components/layout/Header";
 import { createClient } from "@/lib/supabase/client";
+import { formatPrice } from "@/lib/utils";
 
 interface Product {
   id: string;
@@ -297,7 +298,7 @@ export default function DesignerProductsPage() {
                 </svg>
               </div>
               <p className="text-3xl font-bold text-gray-900 dark:text-white">
-                ${stats.totalRevenue.toFixed(2)}
+                {formatPrice(stats.totalRevenue)}
               </p>
             </div>
 
@@ -423,7 +424,7 @@ export default function DesignerProductsPage() {
 
                     <div className="flex items-center justify-between mb-4">
                       <p className="text-green-600 dark:text-green-400 font-semibold text-lg">
-                        ${product.price}
+                        {formatPrice(product.price)}
                       </p>
                       <p className="text-gray-500 dark:text-gray-400 text-sm">
                         {product.orders?.length || 0} sales

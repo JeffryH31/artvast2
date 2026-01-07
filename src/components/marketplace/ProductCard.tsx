@@ -4,6 +4,8 @@ import React from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import type { Product } from '@/types/database.types';
+import { useLanguage } from '@/lib/i18n';
+import { formatPrice } from '@/lib/utils';
 
 interface ProductCardProps {
   product: Product & {
@@ -16,6 +18,8 @@ interface ProductCardProps {
   isSaved?: boolean;
   isAuthenticated?: boolean;
   cartLoading?: boolean;
+  isDesigner?: boolean; // True if current user is a designer (seller mode - cannot buy)
+  isOwner?: boolean; // True if current user is the product owner
 }
 
 export function ProductCard({
@@ -25,20 +29,24 @@ export function ProductCard({
   isSaved = false,
   isAuthenticated = false,
   cartLoading = false,
+  isDesigner = false,
+  isOwner = false,
 }: ProductCardProps) {
+  const { t } = useLanguage();
+  
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     
     if (!isAuthenticated) {
-      toast.error('Please login to add items to cart');
+      toast.error(t.errors.loginRequired);
       return;
     }
 
     if (onAddToCart) {
       const success = await onAddToCart(product.id);
       if (success) {
-        toast.success('Added to cart!');
+        toast.success(t.success.addedToCart);
       }
     }
   };
@@ -48,7 +56,7 @@ export function ProductCard({
     e.stopPropagation();
     
     if (!isAuthenticated) {
-      toast.error('Please login to save products');
+      toast.error(t.errors.loginRequired);
       return;
     }
 
@@ -66,12 +74,12 @@ export function ProductCard({
         {/* Badges */}
         {product.featured && (
           <div className="absolute top-2 left-2 px-2 py-1 bg-gradient-to-r from-[#5D6BC6] to-[#1647A3] text-white text-xs font-bold rounded-full shadow-lg z-10">
-            Featured
+            {t.product.featured}
           </div>
         )}
         {product.bestseller && (
           <div className="absolute top-2 right-2 px-2 py-1 bg-gradient-to-r from-[#A2655F] to-[#8B5A8C] text-white text-xs font-bold rounded-full shadow-lg z-10">
-            Bestseller
+            {t.product.bestseller}
           </div>
         )}
 
@@ -90,8 +98,8 @@ export function ProductCard({
           </div>
         )}
 
-        {/* Save Button Overlay */}
-        {onToggleSave && (
+        {/* Save Button Overlay - Hide for designers (sellers) */}
+        {onToggleSave && !isDesigner && (
           <button
             onClick={handleToggleSave}
             className={`absolute top-2 right-2 p-2 rounded-full backdrop-blur-sm transition-all duration-200 z-20 cursor-pointer ${
@@ -124,12 +132,12 @@ export function ProductCard({
           {product.name}
         </h4>
         <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-2 truncate">
-          by {product.designer?.name || 'Unknown'}
+          {t.product.by} {product.designer?.name || t.common.unknown}
         </p>
 
         <div className="flex items-center justify-between mb-3">
           <span className="text-base sm:text-lg font-bold bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] bg-clip-text text-transparent">
-            ${product.price}
+            {formatPrice(product.price)}
           </span>
           <div className="flex items-center space-x-1 text-xs sm:text-sm">
             <svg
@@ -144,15 +152,25 @@ export function ProductCard({
           </div>
         </div>
 
-        {/* Add to Cart Button */}
-        {onAddToCart && (
+        {/* Add to Cart Button - Show only for non-designers */}
+        {onAddToCart && !isDesigner && !isOwner && (
           <button
             onClick={handleAddToCart}
             disabled={cartLoading}
             className="w-full bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white px-3 sm:px-4 py-2 rounded-lg sm:rounded-xl font-medium text-xs sm:text-sm hover:from-[#A2655F] hover:to-[#8B5A8C] transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
           >
-            {cartLoading ? 'Adding...' : 'Add to Cart'}
+            {cartLoading ? t.common.loading : t.product.addToCart}
           </button>
+        )}
+
+        {/* Show "Your Product" badge for product owner */}
+        {isOwner && (
+          <div className="w-full flex items-center justify-center space-x-2 px-3 py-2 bg-gradient-to-r from-[#5D6BC6]/10 to-[#8B5A8C]/10 text-[#5D6BC6] text-xs sm:text-sm font-medium rounded-lg border border-[#5D6BC6]/20">
+            <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+            <span>Your Product</span>
+          </div>
         )}
       </div>
     </Link>

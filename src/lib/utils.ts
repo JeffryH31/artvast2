@@ -3,12 +3,14 @@
 import { ERROR_MESSAGES } from './constants';
 
 /**
- * Format price to currency string
+ * Format price to currency string (IDR for Indonesian market)
  */
-export function formatPrice(price: number, currency: string = 'USD'): string {
-  return new Intl.NumberFormat('en-US', {
+export function formatPrice(price: number, currency: string = 'IDR'): string {
+  return new Intl.NumberFormat('id-ID', {
     style: 'currency',
     currency,
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
   }).format(price);
 }
 

@@ -7,10 +7,13 @@ import Header from '@/components/layout/Header';
 import { useAuth } from '@/hooks/useAuth';
 import { useCart } from '@/hooks/useCart';
 import { SkeletonList } from '@/components/ui/Skeleton';
+import { useLanguage } from '@/lib/i18n';
+import { formatPrice } from '@/lib/utils';
 
 export default function CartPage() {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
+  const { t } = useLanguage();
   const { 
     items, 
     loading, 
@@ -57,15 +60,15 @@ export default function CartPage() {
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Shopping Cart</h1>
-              <p className="text-gray-600 dark:text-gray-400 mt-1">{totalItems} {totalItems === 1 ? 'item' : 'items'}</p>
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{t.cart.title}</h1>
+              <p className="text-gray-600 dark:text-gray-400 mt-1">{totalItems} {totalItems === 1 ? t.cart.item : t.cart.items}</p>
             </div>
             {items.length > 0 && (
               <button
                 onClick={clearCart}
                 className="text-red-400 hover:text-red-300 text-sm transition-colors cursor-pointer"
               >
-                Clear All
+                {t.cart.clearAll}
               </button>
             )}
           </div>
@@ -111,7 +114,7 @@ export default function CartPage() {
                         {item.product?.name || 'Product'}
                       </Link>
                       <p className="text-gray-600 dark:text-gray-400 text-sm">
-                        by {item.product?.designer?.name || 'Designer'}
+                        {t.product.by} {item.product?.designer?.name || t.common.designer}
                       </p>
                       
                       {/* Price & Quantity */}
@@ -135,7 +138,7 @@ export default function CartPage() {
 
                         <div className="flex items-center gap-4">
                           <p className="text-purple-600 dark:text-purple-400 font-semibold">
-                            ${((item.product?.price || 0) * item.quantity).toFixed(2)}
+                            {formatPrice((item.product?.price || 0) * item.quantity)}
                           </p>
                           <button
                             onClick={() => removeFromCart(item.id)}
@@ -155,21 +158,21 @@ export default function CartPage() {
               {/* Order Summary */}
               <div className="lg:col-span-1">
                 <div className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm sticky top-24 transition-colors duration-300">
-                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Order Summary</h2>
+                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">{t.cart.orderSummary}</h2>
                   
                   <div className="space-y-4 mb-6">
                     <div className="flex justify-between text-gray-600 dark:text-gray-300">
-                      <span>Subtotal ({totalItems} items)</span>
-                      <span>${totalPrice.toFixed(2)}</span>
+                      <span>{t.cart.subtotal} ({totalItems} {totalItems === 1 ? t.cart.item : t.cart.items})</span>
+                      <span>{formatPrice(totalPrice)}</span>
                     </div>
                     <div className="flex justify-between text-gray-600 dark:text-gray-300">
-                      <span>Processing Fee</span>
-                      <span>$0.00</span>
+                      <span>{t.cart.processingFee}</span>
+                      <span>{formatPrice(0)}</span>
                     </div>
                     <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
                       <div className="flex justify-between text-gray-900 dark:text-white font-semibold text-lg">
-                        <span>Total</span>
-                        <span>${totalPrice.toFixed(2)}</span>
+                        <span>{t.cart.total}</span>
+                        <span>{formatPrice(totalPrice)}</span>
                       </div>
                     </div>
                   </div>
@@ -178,14 +181,14 @@ export default function CartPage() {
                     href="/checkout"
                     className="block w-full py-3 px-4 bg-purple-500 hover:bg-purple-600 text-white font-medium rounded-lg text-center transition-colors"
                   >
-                    Proceed to Checkout
+                    {t.cart.proceedToCheckout}
                   </Link>
 
                   <Link
                     href="/marketplace"
                     className="block w-full py-3 px-4 mt-3 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-medium rounded-lg text-center transition-colors"
                   >
-                    Continue Shopping
+                    {t.cart.continueShopping}
                   </Link>
 
                   {/* Secure Payment */}
@@ -193,7 +196,7 @@ export default function CartPage() {
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
-                    Secure Payment
+                    {t.cart.securePayment}
                   </div>
                 </div>
               </div>
@@ -206,9 +209,9 @@ export default function CartPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                 </svg>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Your Cart is Empty</h2>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t.cart.emptyTitle}</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-md mx-auto">
-                Looks like you haven&apos;t added any items to your cart yet. Start exploring our marketplace!
+                {t.cart.emptyDescription}
               </p>
               <Link
                 href="/marketplace"
@@ -217,7 +220,7 @@ export default function CartPage() {
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                 </svg>
-                Browse Marketplace
+                {t.cart.browseMarketplace}
               </Link>
             </div>
           )}
