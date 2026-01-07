@@ -101,7 +101,7 @@ export default function AuthModal({
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-300 ease-out ${
+      className={`fixed inset-0 z-[70] flex items-center justify-center transition-opacity duration-300 ease-out ${
         isVisible ? "opacity-100" : "opacity-0"
       }`}
     >

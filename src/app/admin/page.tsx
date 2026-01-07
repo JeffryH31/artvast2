@@ -387,7 +387,7 @@ export default function AdminPage() {
 
       {/* Rejection Modal */}
       {selectedApp && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[70] p-4">
           <div className="bg-[#1a1a1a] rounded-xl p-6 max-w-md w-full border border-white/10">
             <h3 className="text-xl font-semibold text-white mb-4">Reject Application</h3>
             <p className="text-gray-400 mb-4">

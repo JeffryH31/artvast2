@@ -3,9 +3,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { useLanguage, Language } from '@/lib/i18n';
 
-const languages: { code: Language; name: string; flag: string }[] = [
-  { code: 'id', name: 'Bahasa Indonesia', flag: '🇮🇩' },
-  { code: 'en', name: 'English', flag: '�🇸' },
+const languages: { code: Language; name: string }[] = [
+  { code: 'id', name: 'Bahasa Indonesia' },
+  { code: 'en', name: 'English' },
 ];
 
 export function LanguageToggle() {
@@ -40,8 +40,7 @@ export function LanguageToggle() {
         aria-expanded={isOpen}
         aria-haspopup="listbox"
       >
-        <span className="text-base">{currentLang.flag}</span>
-        <span className="hidden sm:inline">{currentLang.code.toUpperCase()}</span>
+        <span>{currentLang.code.toUpperCase()}</span>
         <svg
           className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
           fill="none"
@@ -66,7 +65,6 @@ export function LanguageToggle() {
               role="option"
               aria-selected={language === lang.code}
             >
-              <span className="text-lg">{lang.flag}</span>
               <span className="flex-1 text-left">{lang.name}</span>
               {language === lang.code && (
                 <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">

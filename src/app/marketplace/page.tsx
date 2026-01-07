@@ -8,6 +8,7 @@ import { useProducts } from "@/hooks/useProducts";
 import { useCart } from "@/hooks/useCart";
 import { useSavedProducts } from "@/hooks/useSavedProducts";
 import { useAuth } from "@/hooks/useAuth";
+import { useRole } from "@/hooks/useRole";
 import { Pagination } from "@/components/ui/Pagination";
 import { SkeletonProduct } from "@/components/ui/Skeleton";
 import { FilterSidebar } from "@/components/filters/FilterSidebar";
@@ -26,6 +27,7 @@ const MarketplacePage = () => {
   const { addToCart, loading: cartLoading } = useCart();
   const { toggleSave, isSaved } = useSavedProducts();
   const { user } = useAuth();
+  const { isDesigner, designerProfile } = useRole();
   const { t } = useLanguage();
 
   const categories = [
@@ -200,7 +202,7 @@ const MarketplacePage = () => {
         </div>
 
         {/* Search and Filters */}
-        <div className="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-700 sticky top-16 sm:top-20 z-40 transition-colors duration-300">
+        <div className="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-700 sticky top-16 sm:top-20 z-30 transition-colors duration-300">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
             <div className="flex flex-col gap-3 sm:gap-4">
               {/* Search Bar - Full width on mobile */}
@@ -374,7 +376,18 @@ const MarketplacePage = () => {
                     <span>{t.product.delivery}: {product.delivery_time}</span>
                   </div>
 
-                  {/* Actions */}
+                  {/* Actions - Show Your Product badge for designer's own products, hide buttons for designers, show buttons for users */}
+                  {designerProfile && product.designer_id === designerProfile.id ? (
+                    <div className="flex items-center justify-center space-x-2 px-3 py-2 bg-gradient-to-r from-[#5D6BC6]/10 to-[#8B5A8C]/10 text-[#5D6BC6] text-xs sm:text-sm font-medium rounded-lg border border-[#5D6BC6]/20">
+                      <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      <span>Your Product</span>
+                    </div>
+                  ) : isDesigner ? (
+                    /* Designer viewing other products - no action buttons */
+                    null
+                  ) : (
                   <div className="flex gap-2">
                     <button
                       onClick={async (e) => {
@@ -423,6 +436,7 @@ const MarketplacePage = () => {
                       </svg>
                     </button>
                   </div>
+                  )}
                 </div>
               </Link>
             ))}

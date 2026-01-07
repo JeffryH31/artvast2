@@ -1,10 +1,18 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { useLanguage } from "@/lib/i18n";
 
 const HeroSection: React.FC = () => {
   const { t } = useLanguage();
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   
   return (
     <div className="text-white dark:text-gray-100 relative overflow-hidden min-h-screen pt-16 sm:pt-20">
@@ -35,7 +43,10 @@ const HeroSection: React.FC = () => {
             className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-12 animate-fade-in-up"
             style={{ animationDelay: "0.6s" }}
           >
-            <button className="group bg-white text-gray-900 px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl font-semibold hover:bg-gray-50 transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-white/20 flex items-center justify-center space-x-2 text-sm sm:text-base cursor-pointer">
+            <Link 
+              href="/marketplace"
+              className="group bg-white text-gray-900 px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl font-semibold hover:bg-gray-50 transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-white/20 flex items-center justify-center space-x-2 text-sm sm:text-base cursor-pointer"
+            >
               <span>{t.hero.getStarted}</span>
               <svg
                 className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-300"
@@ -50,8 +61,11 @@ const HeroSection: React.FC = () => {
                   d="M9 5l7 7-7 7"
                 />
               </svg>
-            </button>
-            <button className="group bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl font-semibold hover:bg-white/20 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 text-sm sm:text-base cursor-pointer">
+            </Link>
+            <button 
+              onClick={() => scrollToSection("services")}
+              className="group bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl font-semibold hover:bg-white/20 transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 text-sm sm:text-base cursor-pointer"
+            >
               <span>{t.hero.learnMore}</span>
             </button>
           </div>

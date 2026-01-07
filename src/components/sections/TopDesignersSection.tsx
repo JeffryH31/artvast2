@@ -1,10 +1,18 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { useLanguage } from "@/lib/i18n";
 
 const TopDesignersSection: React.FC = () => {
   const { t } = useLanguage();
+
+  const scrollToContact = () => {
+    const element = document.getElementById("contact");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   
   return (
     <section className="py-16 sm:py-20 lg:py-24 xl:py-32 bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden transition-colors duration-300">
@@ -110,7 +118,10 @@ const TopDesignersSection: React.FC = () => {
 
             {/* Enhanced Buttons */}
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 lg:gap-6 pt-4 sm:pt-6 lg:pt-8">
-              <button className="group bg-gradient-to-r from-gray-900 to-gray-800 dark:from-purple-600 dark:to-blue-600 text-white px-6 sm:px-8 lg:px-10 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-semibold hover:from-gray-800 hover:to-gray-700 dark:hover:from-purple-500 dark:hover:to-blue-500 transform hover:scale-105 transition-all duration-300 shadow-lg sm:shadow-xl hover:shadow-2xl flex items-center justify-center space-x-2 sm:space-x-3 text-sm sm:text-base cursor-pointer">
+              <Link 
+                href="/designers"
+                className="group bg-gradient-to-r from-gray-900 to-gray-800 dark:from-purple-600 dark:to-blue-600 text-white px-6 sm:px-8 lg:px-10 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-semibold hover:from-gray-800 hover:to-gray-700 dark:hover:from-purple-500 dark:hover:to-blue-500 transform hover:scale-105 transition-all duration-300 shadow-lg sm:shadow-xl hover:shadow-2xl flex items-center justify-center space-x-2 sm:space-x-3 text-sm sm:text-base cursor-pointer"
+              >
                 <span>{t.topDesigners.explorePortfolios}</span>
                 <svg
                   className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-300"
@@ -125,8 +136,11 @@ const TopDesignersSection: React.FC = () => {
                     d="M17 8l4 4m0 0l-4 4m4-4H3"
                   />
                 </svg>
-              </button>
-              <button className="group bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-6 sm:px-8 lg:px-10 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-semibold border-2 border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 hover:bg-gray-50 dark:hover:bg-gray-600 transform hover:scale-105 transition-all duration-300 shadow-md sm:shadow-lg hover:shadow-xl flex items-center justify-center space-x-2 sm:space-x-3 text-sm sm:text-base cursor-pointer">
+              </Link>
+              <button 
+                onClick={scrollToContact}
+                className="group bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-6 sm:px-8 lg:px-10 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-semibold border-2 border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 hover:bg-gray-50 dark:hover:bg-gray-600 transform hover:scale-105 transition-all duration-300 shadow-md sm:shadow-lg hover:shadow-xl flex items-center justify-center space-x-2 sm:space-x-3 text-sm sm:text-base cursor-pointer"
+              >
                 <svg
                   className="w-4 h-4 sm:w-5 sm:h-5"
                   fill="none"

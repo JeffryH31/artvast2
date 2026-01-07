@@ -1,12 +1,13 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import ParticleEffect, { Magnetic } from "../animations/ParticleEffect";
 
 const ValuePropositionsSection: React.FC = () => {
   return (
     // Seamless connection dari HeroSection
-    <div className="seamless-section text-white dark:text-gray-100">
+    <div id="services" className="seamless-section text-white dark:text-gray-100">
       <div className="pt-12 sm:pt-16 lg:pt-20 pb-16 sm:pb-20 lg:pb-24 xl:pb-32">
         <ParticleEffect
           count={80}
@@ -90,6 +91,7 @@ const ValuePropositionsSection: React.FC = () => {
                 badge: "★",
                 badgeColor: "from-yellow-400 to-orange-400",
                 glowColor: "shadow-yellow-500/20",
+                href: "/marketplace?category=branding",
               },
               {
                 icon: "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
@@ -99,6 +101,7 @@ const ValuePropositionsSection: React.FC = () => {
                 badge: "◆",
                 badgeColor: "from-green-400 to-blue-400",
                 glowColor: "shadow-blue-500/20",
+                href: "/marketplace?category=ui-ux",
               },
               {
                 icon: "M14.828 14.828a4 4 0 01-5.656 0M9 10h1.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293H15M3 3l3.586 3.586M21 21l-3.586-3.586M6.364 6.364L10 10m0 0l3.636 3.636M10 10l3.636-3.636",
@@ -108,6 +111,7 @@ const ValuePropositionsSection: React.FC = () => {
                 badge: "●",
                 badgeColor: "from-purple-400 to-pink-400",
                 glowColor: "shadow-purple-500/20",
+                href: "/marketplace?category=motion-graphics",
               },
             ].map((service, index) => (
               <Magnetic key={index} intensity={0.1}>
@@ -150,7 +154,10 @@ const ValuePropositionsSection: React.FC = () => {
                     <div className="relative">
                       <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg sm:rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                       <div className="relative pt-4 sm:pt-5 lg:pt-6 border-t border-gray-100">
-                        <span className="inline-flex items-center text-xs sm:text-sm font-medium text-blue-600 group-hover:text-blue-700 transition-colors duration-300">
+                        <Link 
+                          href={service.href}
+                          className="inline-flex items-center text-xs sm:text-sm font-medium text-blue-600 group-hover:text-blue-700 transition-colors duration-300"
+                        >
                           Learn More
                           <svg
                             className="w-3 h-3 sm:w-4 sm:h-4 ml-1.5 sm:ml-2 group-hover:translate-x-1 transition-transform duration-300"
@@ -165,7 +172,7 @@ const ValuePropositionsSection: React.FC = () => {
                               d="M9 5l7 7-7 7"
                             />
                           </svg>
-                        </span>
+                        </Link>
                       </div>
                     </div>
                   </div>

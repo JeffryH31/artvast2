@@ -53,6 +53,10 @@ export const id = {
 
   // Auth
   auth: {
+    signIn: 'Masuk',
+    signUp: 'Daftar',
+    signOut: 'Keluar',
+    getStarted: 'Mulai Sekarang',
     login: 'Masuk',
     register: 'Daftar',
     email: 'Email',

@@ -8,6 +8,7 @@ import { useProduct } from "@/hooks/useProducts";
 import { useCart } from "@/hooks/useCart";
 import { useSavedProducts } from "@/hooks/useSavedProducts";
 import { useAuth } from "@/hooks/useAuth";
+import { useRole } from "@/hooks/useRole";
 import Header from "@/components/layout/Header";
 import { ReviewSection } from "@/components/sections/ReviewSection";
 import { createClient } from "@/lib/supabase/client";
@@ -28,6 +29,10 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
   const { addToCart, loading: cartLoading } = useCart();
   const { toggleSave, isSaved } = useSavedProducts();
   const { user } = useAuth();
+  const { isDesigner, designerProfile } = useRole();
+
+  // Check if current user is the owner of this product
+  const isProductOwner = designerProfile && product?.designer_id === designerProfile.id;
 
   // Track product view
   useEffect(() => {
@@ -269,7 +274,33 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
               <span className="text-sm sm:text-base text-[#5D6BC6] font-bold">{product.delivery_time}</span>
             </div>
 
-            {/* Action Buttons */}
+            {/* Action Buttons - Show for users only, Your Product for own products */}
+            {isProductOwner ? (
+              <div className="bg-gradient-to-br from-[#5D6BC6]/10 to-[#8B5A8C]/10 dark:from-[#5D6BC6]/20 dark:to-[#8B5A8C]/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-[#5D6BC6]/20 dark:border-[#5D6BC6]/30">
+                <div className="flex items-center space-x-3 text-[#5D6BC6]">
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  <span className="font-medium text-sm sm:text-base">This is your product</span>
+                </div>
+                <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mt-2">
+                  You can manage this product from your designer dashboard.
+                </p>
+                <Link 
+                  href={`/designer/products/edit/${id}`}
+                  className="inline-flex items-center space-x-2 mt-3 px-4 py-2 bg-gradient-to-r from-[#5D6BC6] to-[#8B5A8C] text-white font-medium text-sm rounded-lg hover:shadow-lg transition-all duration-300"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                  <span>Edit Product</span>
+                </Link>
+              </div>
+            ) : isDesigner ? (
+              /* Designer viewing other products - no action buttons, just viewing */
+              null
+            ) : (
+            <>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 sm:pt-4">
               <button 
                 onClick={async () => {
@@ -317,7 +348,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
               </button>
             </div>
 
-            {/* Add to Wishlist */}
+            {/* Add to Wishlist - Only for non-owners */}
             <button 
               onClick={async () => {
                 if (!user) {
@@ -337,6 +368,8 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
               </svg>
               <span>{isSaved(id) ? 'Saved' : 'Add to Wishlist'}</span>
             </button>
+            </>
+            )}
           </div>
         </div>
 

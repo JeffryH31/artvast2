@@ -53,6 +53,10 @@ export const en = {
 
   // Auth
   auth: {
+    signIn: 'Sign In',
+    signUp: 'Sign Up',
+    signOut: 'Sign Out',
+    getStarted: 'Get Started',
     login: 'Login',
     register: 'Register',
     email: 'Email',
