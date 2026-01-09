@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useReviews } from '@/hooks/useReviews';
+import { useLanguage } from '@/lib/i18n';
 
 interface ReviewSectionProps {
   productId: string;
@@ -10,6 +11,7 @@ interface ReviewSectionProps {
 
 export function ReviewSection({ productId }: ReviewSectionProps) {
   const { reviews, loading, canReview, averageRating, totalReviews, addReview } = useReviews(productId);
+  const { t } = useLanguage();
   const [showForm, setShowForm] = useState(false);
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState('');
@@ -18,7 +20,7 @@ export function ReviewSection({ productId }: ReviewSectionProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!comment.trim()) {
-      toast.error('Please write a review');
+      toast.error(t.reviews.pleaseWriteReview);
       return;
     }
 
@@ -26,12 +28,12 @@ export function ReviewSection({ productId }: ReviewSectionProps) {
 
     try {
       await addReview(rating, comment);
-      toast.success('Review added successfully!');
+      toast.success(t.reviews.reviewAddedSuccess);
       setShowForm(false);
       setComment('');
       setRating(5);
     } catch (error) {
-      toast.error('Failed to add review');
+      toast.error(t.reviews.failedToAddReview);
     } finally {
       setSubmitting(false);
     }
@@ -42,7 +44,7 @@ export function ReviewSection({ productId }: ReviewSectionProps) {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">Reviews</h2>
+          <h2 className="text-2xl font-bold text-gray-900">{t.reviews.title}</h2>
           {totalReviews > 0 && (
             <div className="flex items-center gap-2 mt-1">
               <div className="flex items-center">
@@ -68,7 +70,7 @@ export function ReviewSection({ productId }: ReviewSectionProps) {
                 ))}
               </div>
               <span className="text-gray-600 text-sm">
-                {averageRating.toFixed(1)} ({totalReviews} {totalReviews === 1 ? 'review' : 'reviews'})
+                {averageRating.toFixed(1)} ({totalReviews} {totalReviews === 1 ? t.reviews.review : t.reviews.reviewsPlural})
               </span>
             </div>
           )}
@@ -79,7 +81,7 @@ export function ReviewSection({ productId }: ReviewSectionProps) {
             onClick={() => setShowForm(true)}
             className="px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg transition-colors cursor-pointer"
           >
-            Write a Review
+            {t.reviews.writeReview}
           </button>
         )}
       </div>
@@ -87,11 +89,11 @@ export function ReviewSection({ productId }: ReviewSectionProps) {
       {/* Review Form */}
       {showForm && (
         <form onSubmit={handleSubmit} className="bg-gray-50 rounded-xl p-6 border-2 border-purple-500/20">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Write Your Review</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">{t.reviews.writeYourReview}</h3>
 
           {/* Rating */}
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Rating</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">{t.reviews.rating}</label>
             <div className="flex gap-2">
               {[1, 2, 3, 4, 5].map((star) => (
                 <button
@@ -122,12 +124,12 @@ export function ReviewSection({ productId }: ReviewSectionProps) {
 
           {/* Comment */}
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Your Review</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">{t.reviews.yourReview}</label>
             <textarea
               rows={4}
               value={comment}
               onChange={(e) => setComment(e.target.value)}
-              placeholder="Share your experience with this product..."
+              placeholder={t.reviews.placeholder}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
               required
             />
@@ -140,14 +142,14 @@ export function ReviewSection({ productId }: ReviewSectionProps) {
               disabled={submitting}
               className="px-6 py-2 bg-purple-500 hover:bg-purple-600 disabled:bg-purple-300 text-white rounded-lg transition-colors cursor-pointer"
             >
-              {submitting ? 'Submitting...' : 'Submit Review'}
+              {submitting ? t.reviews.submitting : t.reviews.submitReview}
             </button>
             <button
               type="button"
               onClick={() => setShowForm(false)}
               className="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition-colors cursor-pointer"
             >
-              Cancel
+              {t.reviews.cancel}
             </button>
           </div>
         </form>
@@ -224,8 +226,8 @@ export function ReviewSection({ productId }: ReviewSectionProps) {
               d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
             />
           </svg>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">No reviews yet</h3>
-          <p className="text-gray-600">Be the first to review this product!</p>
+          <h3 className="text-lg font-medium text-gray-900 mb-2">{t.reviews.noReviewsYet}</h3>
+          <p className="text-gray-600">{t.reviews.beFirstToReview}</p>
         </div>
       )}
     </div>

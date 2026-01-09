@@ -3,9 +3,11 @@
 import React from 'react';
 import Link from 'next/link';
 import { useDesigners } from '@/hooks/useDesigners';
+import { useLanguage } from '@/lib/i18n';
 
 const FeaturedDesignersSection: React.FC = () => {
   const { designers, loading } = useDesigners();
+  const { t } = useLanguage();
 
   // Take top 4 verified designers
   const featuredDesigners = designers
@@ -18,9 +20,9 @@ const FeaturedDesignersSection: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300">
-              Featured <span className="bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] bg-clip-text text-transparent">Designers</span>
+              {t.featuredDesigners.featured} <span className="bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] bg-clip-text text-transparent">{t.featuredDesigners.designers}</span>
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 text-lg transition-colors duration-300">Loading amazing designers...</p>
+            <p className="text-gray-600 dark:text-gray-300 text-lg transition-colors duration-300">{t.featuredDesigners.loading}</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[1, 2, 3, 4].map((i) => (
@@ -50,13 +52,13 @@ const FeaturedDesignersSection: React.FC = () => {
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300">
-            Featured{" "}
+            {t.featuredDesigners.featured}{" "}
             <span className="bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] bg-clip-text text-transparent">
-              Designers
+              {t.featuredDesigners.designers}
             </span>
           </h2>
           <p className="text-gray-600 dark:text-gray-300 text-base sm:text-lg max-w-2xl mx-auto transition-colors duration-300">
-            Discover talented creators who bring exceptional design to life
+            {t.featuredDesigners.discoverTalented}
           </p>
         </div>
 
@@ -94,7 +96,7 @@ const FeaturedDesignersSection: React.FC = () => {
                     <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
                   </svg>
                   <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">{designer.rating}</span>
-                  <span className="text-xs text-gray-500 dark:text-gray-400">({designer.projects_count} projects)</span>
+                  <span className="text-xs text-gray-500 dark:text-gray-400">({designer.projects_count} {t.featuredDesigners.projects})</span>
                 </div>
 
                 {/* Specialties */}
@@ -119,7 +121,7 @@ const FeaturedDesignersSection: React.FC = () => {
             href="/designers"
             className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white font-semibold rounded-xl hover:shadow-xl transform hover:scale-105 transition-all duration-300"
           >
-            View All Designers
+            {t.featuredDesigners.viewAllDesigners}
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>

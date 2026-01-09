@@ -3,6 +3,7 @@
 import { useState, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import toast from 'react-hot-toast';
+import { useLanguage } from '@/lib/i18n';
 
 interface UploadedFile {
   url: string;
@@ -25,6 +26,7 @@ export function ImageUpload({
   existingImages = [],
   bucket = 'product-images' 
 }: ImageUploadProps) {
+  const { t } = useLanguage();
   const [uploading, setUploading] = useState(false);
   const [dragActive, setDragActive] = useState(false);
 
@@ -172,7 +174,7 @@ export function ImageUpload({
 
           <div>
             <p className="text-white font-medium mb-1">
-              {uploading ? 'Uploading...' : 'Drop images here or click to browse'}
+              {uploading ? t.imageUpload.uploading : t.imageUpload.dropImages}
             </p>
             <p className="text-gray-400 text-sm">
               PNG, JPG, WebP or GIF (max. 5MB each, {maxFiles} images max)

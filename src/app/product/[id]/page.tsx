@@ -14,6 +14,7 @@ import { ReviewSection } from "@/components/sections/ReviewSection";
 import { createClient } from "@/lib/supabase/client";
 import { trackProductView } from "@/lib/analytics";
 import { formatPrice } from "@/lib/utils";
+import { useLanguage, useDatabaseTranslation } from "@/lib/i18n";
 
 interface ProductDetailPageProps {
   params: Promise<{
@@ -30,6 +31,8 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
   const { toggleSave, isSaved } = useSavedProducts();
   const { user } = useAuth();
   const { isDesigner, designerProfile } = useRole();
+  const { t } = useLanguage();
+  const { translateCategory } = useDatabaseTranslation();
 
   // Check if current user is the owner of this product
   const isProductOwner = designerProfile && product?.designer_id === designerProfile.id;
@@ -63,7 +66,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
             <div className="w-16 h-16 border-4 border-[#5D6BC6] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-gray-600 dark:text-gray-400">Loading product...</p>
+            <p className="text-gray-600 dark:text-gray-400">{t.productDetail.loadingProduct}</p>
           </div>
         </div>
       </div>
@@ -81,13 +84,13 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
             <div className="text-5xl mb-4">😕</div>
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Product not found</h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">{error || "The product you're looking for doesn't exist."}</p>
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{t.productDetail.productNotFound}</h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-4">{error || t.productDetail.productNotFoundDesc}</p>
             <Link
               href="/marketplace"
               className="px-6 py-2 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white rounded-xl font-medium"
             >
-              Back to Marketplace
+              {t.productDetail.backToMarketplace}
             </Link>
           </div>
         </div>
@@ -125,11 +128,11 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 pt-20 sm:pt-24">
         <div className="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm overflow-x-auto whitespace-nowrap">
           <Link href="/" className="text-gray-600 dark:text-gray-400 hover:text-[#5D6BC6] transition-colors flex-shrink-0">
-            Home
+            {t.breadcrumb.home}
           </Link>
           <span className="text-gray-400 dark:text-gray-500">/</span>
           <Link href="/marketplace" className="text-gray-600 dark:text-gray-400 hover:text-[#5D6BC6] transition-colors flex-shrink-0">
-            Marketplace
+            {t.breadcrumb.marketplace}
           </Link>
           <span className="text-gray-400 dark:text-gray-500">/</span>
           <span className="text-gray-900 dark:text-white font-medium truncate max-w-[150px] sm:max-w-none">{product.name}</span>
@@ -237,7 +240,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
             {/* Category */}
             <div>
               <span className="px-3 py-1 bg-gradient-to-r from-[#BD9587]/10 to-[#8B5A8C]/10 text-[#8B5A8C] text-sm font-medium rounded-full border border-[#8B5A8C]/20">
-                {product.category}
+                {translateCategory(product.category)}
               </span>
             </div>
 

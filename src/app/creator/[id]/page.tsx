@@ -9,6 +9,7 @@ import { useProducts } from "@/hooks/useProducts";
 import { useFollow } from "@/hooks/useFollow";
 import { useAuth } from "@/hooks/useAuth";
 import { formatPrice } from "@/lib/utils";
+import { useLanguage, useDatabaseTranslation } from "@/lib/i18n";
 
 interface CreatorPageProps {
   params: Promise<{
@@ -24,6 +25,8 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
   const { isFollowing, followersCount, actionLoading, toggleFollow } = useFollow({ designerId: id });
   const [messageModalOpen, setMessageModalOpen] = useState(false);
   const [showAuthPrompt, setShowAuthPrompt] = useState(false);
+  const { t } = useLanguage();
+  const { translateCategory } = useDatabaseTranslation();
 
   // Filter products by this designer
   const filteredProducts = designerProducts.filter(p => p.designer_id === id);
@@ -57,7 +60,7 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
             <div className="w-16 h-16 border-4 border-[#5D6BC6] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-gray-600 dark:text-gray-400">Loading designer profile...</p>
+            <p className="text-gray-600 dark:text-gray-400">{t.designerProfile.loading}</p>
           </div>
         </div>
       </div>
@@ -75,13 +78,13 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
             <div className="text-5xl mb-4">😕</div>
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Designer not found</h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">{error || "The designer you're looking for doesn't exist."}</p>
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{t.designerProfile.notFound}</h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-4">{error || t.designerProfile.notFoundMessage}</p>
             <Link
               href="/designers"
               className="px-6 py-2 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white rounded-xl font-medium"
             >
-              Browse Designers
+              {t.designerProfile.browseDesigners}
             </Link>
           </div>
         </div>
@@ -147,15 +150,15 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
                       </svg>
                       <span className="text-xl sm:text-2xl font-bold text-white">{designer.rating}</span>
                     </div>
-                    <p className="text-white/70 text-sm">Rating</p>
+                    <p className="text-white/70 text-sm">{t.designerProfile.rating}</p>
                   </div>
                   <div className="text-center">
                     <span className="text-xl sm:text-2xl font-bold text-white">{designer.projects_count}</span>
-                    <p className="text-white/70 text-sm">Projects</p>
+                    <p className="text-white/70 text-sm">{t.designerProfile.projects}</p>
                   </div>
                   <div className="text-center">
                     <span className="text-xl sm:text-2xl font-bold text-white">{followersCount.toLocaleString()}</span>
-                    <p className="text-white/70 text-sm">Followers</p>
+                    <p className="text-white/70 text-sm">{t.designerProfile.followers}</p>
                   </div>
                 </div>
               </div>
@@ -165,7 +168,7 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
                 {/* Auth Prompt Toast */}
                 {showAuthPrompt && (
                   <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 whitespace-nowrap bg-gray-900 text-white px-4 py-2 rounded-lg text-sm shadow-lg animate-fade-in-up">
-                    Please sign in to continue
+                    {t.designerProfile.signInToFollow}
                   </div>
                 )}
                 
@@ -185,14 +188,14 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
                       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
-                      <span>Following</span>
+                      <span>{t.designerProfile.following}</span>
                     </>
                   ) : (
                     <>
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                       </svg>
-                      <span>Follow</span>
+                      <span>{t.designerProfile.follow}</span>
                     </>
                   )}
                 </button>
@@ -203,7 +206,7 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                   </svg>
-                  <span>Message</span>
+                  <span>{t.designerProfile.message}</span>
                 </button>
               </div>
             </div>
@@ -215,7 +218,7 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
       {designer.bio && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-6 shadow-lg dark:shadow-gray-900/50 border border-gray-100 dark:border-gray-700">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-3">About</h2>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{t.designerProfile.about}</h2>
             <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{designer.bio}</p>
           </div>
         </div>
@@ -250,13 +253,13 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
       {/* Products by Designer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-16">
         <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-          Products by {designer.name}
+          {t.designerProfile.products} - {designer.name}
         </h2>
         
         {productsLoading ? (
           <div className="text-center py-12">
             <div className="w-12 h-12 border-4 border-[#5D6BC6] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-gray-600 dark:text-gray-400">Loading products...</p>
+            <p className="text-gray-600 dark:text-gray-400">{t.common.loading}</p>
           </div>
         ) : filteredProducts.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
@@ -299,7 +302,7 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
                   </h3>
                   <div className="flex items-center justify-between">
                     <span className="px-2 py-0.5 bg-[#8B5A8C]/10 dark:bg-[#8B5A8C]/20 text-[#8B5A8C] text-xs font-medium rounded-full">
-                      {product.category}
+                      {translateCategory(product.category)}
                     </span>
                     <div className="flex items-center space-x-1 text-sm">
                       <svg className="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
@@ -315,8 +318,8 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
         ) : (
           <div className="text-center py-12 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl border border-gray-100 dark:border-gray-700">
             <div className="text-4xl mb-4">📦</div>
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">No products yet</h3>
-            <p className="text-gray-600 dark:text-gray-400">This designer hasn&apos;t published any products yet.</p>
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{t.designerProfile.noProducts}</h3>
+            <p className="text-gray-600 dark:text-gray-400">{t.designerProfile.noProducts}</p>
           </div>
         )}
       </div>

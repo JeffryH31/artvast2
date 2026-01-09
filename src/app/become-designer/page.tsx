@@ -7,11 +7,13 @@ import Header from '@/components/layout/Header';
 import { useAuth } from '@/hooks/useAuth';
 import { useRole } from '@/hooks/useRole';
 import { createClient } from '@/lib/supabase/client';
+import { useLanguage } from '@/lib/i18n';
 
 export default function BecomeDesignerPage() {
   const { user, loading: authLoading } = useAuth();
   const { isDesigner, loading: roleLoading } = useRole();
   const router = useRouter();
+  const { t } = useLanguage();
   
   const [formData, setFormData] = useState({
     designerName: '',
@@ -134,7 +136,7 @@ export default function BecomeDesignerPage() {
         <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 pt-24 pb-16 transition-colors duration-300">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="bg-white dark:bg-gray-800 rounded-xl p-8 border border-gray-200 dark:border-gray-700 shadow-sm">
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Designer Application Status</h1>
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">{t.becomeDesigner.applicationStatus}</h1>
               
               <div className={`p-4 rounded-lg mb-6 ${
                 existingApplication.status === 'pending' ? 'bg-yellow-100 dark:bg-yellow-500/20 border border-yellow-400 dark:border-yellow-500/50' :
@@ -142,30 +144,30 @@ export default function BecomeDesignerPage() {
                 'bg-red-100 dark:bg-red-500/20 border border-red-400 dark:border-red-500/50'
               }`}>
                 <p className="text-gray-900 dark:text-white font-medium">
-                  Status: <span className="capitalize">{existingApplication.status}</span>
+                  {t.becomeDesigner.statusLabel}: <span className="capitalize">{existingApplication.status}</span>
                 </p>
               </div>
 
               {existingApplication.status === 'pending' && (
                 <p className="text-gray-600 dark:text-gray-400">
-                  Your application is being reviewed. We&apos;ll notify you once it&apos;s processed.
+                  {t.becomeDesigner.applicationReviewMessage}
                 </p>
               )}
 
               {existingApplication.status === 'approved' && (
                 <p className="text-gray-600 dark:text-gray-400">
-                  Congratulations! Your application has been approved. You can now start creating products.
+                  {t.becomeDesigner.applicationApprovedMessage}
                 </p>
               )}
 
               {existingApplication.status === 'rejected' && (
                 <>
                   <p className="text-gray-600 dark:text-gray-400 mb-4">
-                    Your application was not approved.
+                    {t.becomeDesigner.applicationRejectedMessage}
                   </p>
                   {existingApplication.rejection_reason && (
                     <div className="bg-gray-50 dark:bg-white/5 rounded-lg p-4">
-                      <p className="text-sm font-medium text-gray-900 dark:text-white mb-2">Reason:</p>
+                      <p className="text-sm font-medium text-gray-900 dark:text-white mb-2">{t.becomeDesigner.rejectionReason}:</p>
                       <p className="text-gray-600 dark:text-gray-400 text-sm">{existingApplication.rejection_reason}</p>
                     </div>
                   )}
@@ -184,9 +186,9 @@ export default function BecomeDesignerPage() {
       <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 pt-24 pb-16 transition-colors duration-300">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Become a Designer</h1>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">{t.becomeDesigner.title}</h1>
             <p className="text-gray-600 dark:text-gray-400">
-              Join our community of talented designers and start selling your work.
+              {t.becomeDesigner.subtitle}
             </p>
           </div>
 
@@ -201,14 +203,14 @@ export default function BecomeDesignerPage() {
               {/* Designer Name */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Designer Name *
+                  {t.becomeDesigner.fullName} *
                 </label>
                 <input
                   type="text"
                   required
                   value={formData.designerName}
                   onChange={(e) => setFormData({ ...formData, designerName: e.target.value })}
-                  placeholder="Your professional name"
+                  placeholder={t.checkoutPage.fullNamePlaceholder}
                   className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors"
                 />
               </div>
@@ -216,7 +218,7 @@ export default function BecomeDesignerPage() {
               {/* Portfolio URL */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Portfolio URL
+                  {t.becomeDesigner.portfolioUrl}
                 </label>
                 <input
                   type="url"
@@ -230,7 +232,7 @@ export default function BecomeDesignerPage() {
               {/* Specialties */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
-                  Specialties * (Select at least one)
+                  {t.becomeDesigner.specialization} *
                 </label>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                   {specialtyOptions.map((specialty) => (
@@ -253,14 +255,14 @@ export default function BecomeDesignerPage() {
               {/* Description */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Tell us about yourself *
+                  {t.becomeDesigner.whyJoin} *
                 </label>
                 <textarea
                   required
                   rows={6}
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  placeholder="Describe your experience, skills, and what makes your work unique..."
+                  placeholder={t.becomeDesigner.whyJoinPlaceholder}
                   className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 resize-none transition-colors"
                 />
               </div>
@@ -272,7 +274,7 @@ export default function BecomeDesignerPage() {
                   disabled={submitting || formData.specialties.length === 0}
                   className="w-full py-3 px-6 bg-purple-500 hover:bg-purple-600 disabled:bg-purple-500/50 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-colors cursor-pointer"
                 >
-                  {submitting ? 'Submitting...' : 'Submit Application'}
+                  {submitting ? t.common.loading : t.becomeDesigner.submitApplication}
                 </button>
               </div>
             </div>

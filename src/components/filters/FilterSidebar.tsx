@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useLanguage } from '@/lib/i18n';
 
 interface FilterOption {
   label: string;
@@ -32,6 +33,8 @@ export function FilterSidebar({
   onSortChange,
   className = '',
 }: FilterSidebarProps) {
+  const { t } = useLanguage();
+
   return (
     <div className={`bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg border border-white/50 dark:border-gray-700/50 ${className}`}>
       <div className="flex flex-col gap-4">
@@ -58,7 +61,7 @@ export function FilterSidebar({
           {ratings && onRatingChange && selectedRating !== undefined && (
             <div className="flex items-center space-x-2 flex-1 min-w-[140px]">
               <span className="text-gray-600 dark:text-gray-400 font-medium text-sm sm:text-base whitespace-nowrap">
-                Rating:
+                {t.filter.rating}:
               </span>
               <select
                 value={selectedRating}
@@ -78,7 +81,7 @@ export function FilterSidebar({
           {sortOptions && onSortChange && selectedSort !== undefined && (
             <div className="flex items-center space-x-2 flex-1 min-w-[140px]">
               <span className="text-gray-600 dark:text-gray-400 font-medium text-sm sm:text-base whitespace-nowrap">
-                Sort:
+                {t.filter.sortBy}:
               </span>
               <select
                 value={selectedSort}

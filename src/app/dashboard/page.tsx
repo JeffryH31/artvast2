@@ -9,6 +9,7 @@ import { useRole } from "@/hooks/useRole";
 import { createClient } from "@/lib/supabase/client";
 import { SkeletonCard } from "@/components/ui/Skeleton";
 import { ImageUpload } from "@/components/ui/ImageUpload";
+import { useLanguage, useDatabaseTranslation } from "@/lib/i18n";
 import toast from "react-hot-toast";
 
 interface Order {
@@ -64,6 +65,8 @@ export default function DashboardPage() {
   const { user, loading: authLoading } = useAuth();
   const { isDesigner } = useRole();
   const router = useRouter();
+  const { t } = useLanguage();
+  const { translateCategory } = useDatabaseTranslation();
   const [activeTab, setActiveTab] = useState<
     "overview" | "orders" | "saved" | "settings" | "products" | "portfolio"
   >("overview");
@@ -414,8 +417,7 @@ export default function DashboardPage() {
                   {user.email}
                 </p>
                 <p className="text-gray-700 dark:text-gray-300 text-sm max-w-lg">
-                  {profile?.bio ||
-                    "Welcome to your dashboard! Here you can manage your orders, saved products, and account settings."}
+                  {profile?.bio || t.dashboard.welcomeMessage}
                 </p>
               </div>
 
@@ -426,7 +428,7 @@ export default function DashboardPage() {
                     {orders.length}
                   </p>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Orders
+                    {t.dashboard.orders}
                   </p>
                 </div>
                 <div>
@@ -434,7 +436,7 @@ export default function DashboardPage() {
                     {savedProducts.length}
                   </p>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Saved
+                    {t.dashboard.saved}
                   </p>
                 </div>
               </div>
@@ -444,16 +446,16 @@ export default function DashboardPage() {
           {/* Tabs */}
           <div className="flex gap-2 mb-8 overflow-x-auto pb-2">
             {[
-              { id: "overview", label: "Overview" },
-              { id: "orders", label: "My Orders" },
-              { id: "saved", label: "Saved Products" },
+              { id: "overview", label: t.dashboard.overview },
+              { id: "orders", label: t.dashboard.myOrders },
+              { id: "saved", label: t.dashboard.savedProducts },
               ...(isDesigner
                 ? [
-                    { id: "products", label: "My Products" },
-                    { id: "portfolio", label: "Portfolio" },
+                    { id: "products", label: t.dashboard.myProducts },
+                    { id: "portfolio", label: t.dashboard.portfolio },
                   ]
                 : []),
-              { id: "settings", label: "Settings" },
+              { id: "settings", label: t.dashboard.settings },
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -491,13 +493,13 @@ export default function DashboardPage() {
                   <div className="bg-white dark:bg-white/5 rounded-xl p-6 border border-gray-200 dark:border-white/10 shadow-sm transition-colors duration-300">
                     <div className="flex items-center justify-between mb-4">
                       <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-                        Recent Orders
+                        {t.dashboard.recentOrders}
                       </h2>
                       <button
                         onClick={() => setActiveTab("orders")}
                         className="text-purple-600 dark:text-purple-400 text-sm hover:text-purple-700 dark:hover:text-purple-300"
                       >
-                        View All
+                        {t.dashboard.viewAll}
                       </button>
                     </div>
                     {orders.length > 0 ? (
@@ -560,13 +562,13 @@ export default function DashboardPage() {
                           />
                         </svg>
                         <p className="text-gray-500 dark:text-gray-400">
-                          No orders yet
+                          {t.dashboard.noOrders}
                         </p>
                         <Link
                           href="/marketplace"
                           className="text-purple-600 dark:text-purple-400 text-sm hover:text-purple-700 dark:hover:text-purple-300 mt-2 inline-block"
                         >
-                          Browse Products
+                          {t.dashboard.browseProducts}
                         </Link>
                       </div>
                     )}
@@ -576,13 +578,13 @@ export default function DashboardPage() {
                   <div className="bg-white dark:bg-white/5 rounded-xl p-6 border border-gray-200 dark:border-white/10 shadow-sm transition-colors duration-300">
                     <div className="flex items-center justify-between mb-4">
                       <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-                        Saved Products
+                        {t.dashboard.savedProducts}
                       </h2>
                       <button
                         onClick={() => setActiveTab("saved")}
                         className="text-purple-600 dark:text-purple-400 text-sm hover:text-purple-700 dark:hover:text-purple-300"
                       >
-                        View All
+                        {t.dashboard.viewAll}
                       </button>
                     </div>
                     {savedProducts.length > 0 ? (
@@ -638,13 +640,13 @@ export default function DashboardPage() {
                           />
                         </svg>
                         <p className="text-gray-500 dark:text-gray-400">
-                          No saved products
+                          {t.dashboard.noSavedProducts}
                         </p>
                         <Link
                           href="/marketplace"
                           className="text-purple-600 dark:text-purple-400 text-sm hover:text-purple-700 dark:hover:text-purple-300 mt-2 inline-block"
                         >
-                          Discover Products
+                          {t.dashboard.discoverProducts}
                         </Link>
                       </div>
                     )}
@@ -670,7 +672,7 @@ export default function DashboardPage() {
                         />
                       </svg>
                       <p className="text-gray-900 dark:text-white font-medium text-sm">
-                        Marketplace
+                        {t.nav.marketplace}
                       </p>
                     </Link>
                     <Link
@@ -691,7 +693,7 @@ export default function DashboardPage() {
                         />
                       </svg>
                       <p className="text-gray-900 dark:text-white font-medium text-sm">
-                        Designers
+                        {t.nav.designers}
                       </p>
                     </Link>
                     <Link
@@ -712,7 +714,7 @@ export default function DashboardPage() {
                         />
                       </svg>
                       <p className="text-gray-900 dark:text-white font-medium text-sm">
-                        Portfolio
+                        {t.nav.portfolio}
                       </p>
                     </Link>
                     <button
@@ -739,7 +741,7 @@ export default function DashboardPage() {
                         />
                       </svg>
                       <p className="text-gray-900 dark:text-white font-medium text-sm">
-                        Settings
+                        {t.dashboard.settings}
                       </p>
                     </button>
                   </div>
@@ -826,16 +828,16 @@ export default function DashboardPage() {
                         />
                       </svg>
                       <h3 className="text-xl font-medium text-gray-900 dark:text-white mb-2">
-                        No Orders Yet
+                        {t.dashboard.noOrders}
                       </h3>
                       <p className="text-gray-500 dark:text-gray-400 mb-6">
-                        Start shopping to see your orders here
+                        {t.dashboard.browseProducts}
                       </p>
                       <Link
                         href="/marketplace"
                         className="inline-flex items-center gap-2 px-6 py-3 bg-purple-500 hover:bg-purple-600 text-white rounded-lg transition-colors"
                       >
-                        Browse Marketplace
+                        {t.nav.marketplace}
                       </Link>
                     </div>
                   )}
@@ -898,16 +900,16 @@ export default function DashboardPage() {
                         />
                       </svg>
                       <h3 className="text-xl font-medium text-gray-900 dark:text-white mb-2">
-                        No Saved Products
+                        {t.dashboard.noSavedProducts}
                       </h3>
                       <p className="text-gray-500 dark:text-gray-400 mb-6">
-                        Save products you like to find them later
+                        {t.dashboard.discoverProducts}
                       </p>
                       <Link
                         href="/marketplace"
                         className="inline-flex items-center gap-2 px-6 py-3 bg-purple-500 hover:bg-purple-600 text-white rounded-lg transition-colors"
                       >
-                        Discover Products
+                        {t.dashboard.discoverProducts}
                       </Link>
                     </div>
                   )}
@@ -919,13 +921,13 @@ export default function DashboardPage() {
                 <div>
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                      My Products
+                      {t.dashboard.myProducts}
                     </h2>
                     <Link
                       href="/designer/products/new"
                       className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors"
                     >
-                      + Upload New Product
+                      + {t.designerDashboard.addProduct}
                     </Link>
                   </div>
 
@@ -943,13 +945,13 @@ export default function DashboardPage() {
                 <div>
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                      Portfolio
+                      {t.dashboard.portfolio}
                     </h2>
                     <button
                       onClick={openAddPortfolioModal}
                       className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors cursor-pointer"
                     >
-                      + Add Portfolio Item
+                      + {t.dashboard.addPortfolio}
                     </button>
                   </div>
 
@@ -987,7 +989,7 @@ export default function DashboardPage() {
                             )}
                             {item.featured && (
                               <div className="absolute top-2 left-2 px-2 py-1 bg-yellow-500 text-white text-xs font-medium rounded">
-                                Featured
+                                {t.dashboard.portfolioFeatured}
                               </div>
                             )}
                           </div>
@@ -999,7 +1001,7 @@ export default function DashboardPage() {
                                 {item.title}
                               </h3>
                               <span className="px-2 py-0.5 bg-purple-100 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 text-xs rounded-full whitespace-nowrap">
-                                {item.category}
+                                {translateCategory(item.category)}
                               </span>
                             </div>
                             {item.description && (
@@ -1012,13 +1014,13 @@ export default function DashboardPage() {
                                 onClick={() => openEditPortfolioModal(item)}
                                 className="flex-1 px-3 py-2 bg-blue-100 hover:bg-blue-200 dark:bg-blue-500/20 dark:hover:bg-blue-500/30 text-blue-600 dark:text-blue-400 text-sm rounded-lg transition-colors cursor-pointer"
                               >
-                                Edit
+                                {t.common.edit}
                               </button>
                               <button
                                 onClick={() => handleDeletePortfolio(item.id)}
                                 className="px-3 py-2 bg-red-100 hover:bg-red-200 dark:bg-red-500/20 dark:hover:bg-red-500/30 text-red-600 dark:text-red-400 text-sm rounded-lg transition-colors cursor-pointer"
                               >
-                                Delete
+                                {t.common.delete}
                               </button>
                             </div>
                           </div>
@@ -1041,17 +1043,16 @@ export default function DashboardPage() {
                         />
                       </svg>
                       <h3 className="text-xl font-medium text-gray-900 dark:text-white mb-2">
-                        No Portfolio Items Yet
+                        {t.dashboard.noPortfolioItems}
                       </h3>
                       <p className="text-gray-500 dark:text-gray-400 mb-6">
-                        Start showcasing your best work by adding portfolio
-                        items
+                        {t.dashboard.createFirstPortfolio}
                       </p>
                       <button
                         onClick={openAddPortfolioModal}
                         className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors cursor-pointer"
                       >
-                        + Add Your First Item
+                        + {t.dashboard.addPortfolio}
                       </button>
                     </div>
                   )}
@@ -1063,25 +1064,25 @@ export default function DashboardPage() {
                 <div className="max-w-2xl">
                   <div className="bg-white dark:bg-white/5 rounded-xl border border-gray-200 dark:border-white/10 p-6 shadow-sm transition-colors duration-300">
                     <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
-                      Account Settings
+                      {t.dashboard.accountSettings}
                     </h2>
 
                     <form className="space-y-6">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                          Full Name
+                          {t.dashboard.fullName}
                         </label>
                         <input
                           type="text"
                           defaultValue={profile?.full_name || ""}
-                          placeholder="Your full name"
+                          placeholder={t.dashboard.fullName}
                           className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-300 dark:border-white/10 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors"
                         />
                       </div>
 
                       <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                          Email
+                          {t.auth.email}
                         </label>
                         <input
                           type="email"
@@ -1089,19 +1090,16 @@ export default function DashboardPage() {
                           disabled
                           className="w-full px-4 py-3 bg-gray-100 dark:bg-white/5 border border-gray-300 dark:border-white/10 rounded-lg text-gray-500 dark:text-gray-400 cursor-not-allowed"
                         />
-                        <p className="text-xs text-gray-500 mt-1">
-                          Email cannot be changed
-                        </p>
                       </div>
 
                       <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                          Bio
+                          {t.dashboard.bio}
                         </label>
                         <textarea
                           rows={4}
                           defaultValue={profile?.bio || ""}
-                          placeholder="Tell us about yourself"
+                          placeholder={t.dashboard.bio}
                           className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-300 dark:border-white/10 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 resize-none transition-colors"
                         />
                       </div>
@@ -1111,7 +1109,7 @@ export default function DashboardPage() {
                           type="submit"
                           className="px-6 py-3 bg-purple-500 hover:bg-purple-600 text-white font-medium rounded-lg transition-colors"
                         >
-                          Save Changes
+                          {t.common.save}
                         </button>
                       </div>
                     </form>
@@ -1120,14 +1118,13 @@ export default function DashboardPage() {
                   {/* Danger Zone */}
                   <div className="bg-red-50 dark:bg-red-900/10 rounded-xl border border-red-200 dark:border-red-500/20 p-6 mt-6">
                     <h3 className="text-lg font-semibold text-red-600 dark:text-red-400 mb-2">
-                      Danger Zone
+                      {t.common.delete}
                     </h3>
                     <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
-                      Once you delete your account, there is no going back.
-                      Please be certain.
+                      {t.dashboard.deleteConfirm}
                     </p>
                     <button className="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg transition-colors text-sm cursor-pointer">
-                      Delete Account
+                      {t.common.delete}
                     </button>
                   </div>
                 </div>
@@ -1145,8 +1142,8 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
               <h2 className="text-xl font-bold text-gray-900 dark:text-white">
                 {editingPortfolio
-                  ? "Edit Portfolio Item"
-                  : "Add Portfolio Item"}
+                  ? t.dashboard.editPortfolio
+                  : t.dashboard.addPortfolio}
               </h2>
               <button
                 onClick={closePortfolioModal}
@@ -1173,7 +1170,7 @@ export default function DashboardPage() {
               {/* Image Upload */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Image *
+                  {t.dashboard.portfolioImage} *
                 </label>
                 {portfolioForm.image_url ? (
                   <div className="relative">
@@ -1217,7 +1214,7 @@ export default function DashboardPage() {
               {/* Title */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Title *
+                  {t.dashboard.portfolioTitle} *
                 </label>
                 <input
                   type="text"
@@ -1228,7 +1225,7 @@ export default function DashboardPage() {
                       title: e.target.value,
                     }))
                   }
-                  placeholder="Enter portfolio item title"
+                  placeholder={t.dashboard.portfolioTitle}
                   className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-green-500 transition-colors"
                   required
                 />
@@ -1237,7 +1234,7 @@ export default function DashboardPage() {
               {/* Category */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Category *
+                  {t.dashboard.portfolioCategory} *
                 </label>
                 <select
                   value={portfolioForm.category}
@@ -1260,7 +1257,7 @@ export default function DashboardPage() {
               {/* Description */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Description
+                  {t.dashboard.portfolioDescription}
                 </label>
                 <textarea
                   value={portfolioForm.description}
@@ -1270,7 +1267,7 @@ export default function DashboardPage() {
                       description: e.target.value,
                     }))
                   }
-                  placeholder="Describe this portfolio item..."
+                  placeholder={t.dashboard.portfolioDescription}
                   rows={4}
                   className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-green-500 transition-colors resize-none"
                 />
@@ -1294,7 +1291,7 @@ export default function DashboardPage() {
                   htmlFor="featured"
                   className="text-sm text-gray-700 dark:text-gray-300 cursor-pointer"
                 >
-                  Mark as Featured (will be highlighted in your portfolio)
+                  {t.dashboard.portfolioFeatured}
                 </label>
               </div>
 
@@ -1305,7 +1302,7 @@ export default function DashboardPage() {
                   onClick={closePortfolioModal}
                   className="flex-1 px-4 py-3 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-lg transition-colors cursor-pointer"
                 >
-                  Cancel
+                  {t.common.cancel}
                 </button>
                 <button
                   type="submit"
@@ -1313,10 +1310,10 @@ export default function DashboardPage() {
                   className="flex-1 px-4 py-3 bg-green-500 hover:bg-green-600 disabled:bg-green-500/50 text-white font-medium rounded-lg transition-colors disabled:cursor-not-allowed cursor-pointer"
                 >
                   {portfolioSubmitting
-                    ? "Saving..."
+                    ? t.common.loading
                     : editingPortfolio
-                    ? "Update Item"
-                    : "Add Item"}
+                    ? t.common.save
+                    : t.dashboard.addPortfolio}
                 </button>
               </div>
             </form>

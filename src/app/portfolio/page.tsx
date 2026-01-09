@@ -5,11 +5,14 @@ import Header from '@/components/layout/Header';
 import { usePortfolio } from '@/hooks/usePortfolio';
 import { Pagination } from '@/components/ui/Pagination';
 import { PAGINATION } from '@/lib/constants';
+import { useLanguage, useDatabaseTranslation } from '@/lib/i18n';
 
 const PortfolioPage = () => {
   const [activeFilter, setActiveFilter] = useState('All');
   const [currentPage, setCurrentPage] = useState(1);
   const { items: portfolioData, loading, error } = usePortfolio();
+  const { t } = useLanguage();
+  const { translateCategory } = useDatabaseTranslation();
 
   const filters = ['All', 'UI/UX', 'Branding', 'Illustration', 'Graphic Design'];
 
@@ -47,13 +50,13 @@ const PortfolioPage = () => {
         <div className="bg-gradient-to-br from-[#BD9587]/10 via-[#8B5A8C]/10 to-[#5D6BC6]/10 dark:from-[#BD9587]/20 dark:via-[#8B5A8C]/20 dark:to-[#5D6BC6]/20 py-10 sm:py-12 lg:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">
-              Showcase Your{" "}
+              {t.portfolioPage.showcaseYour}{" "}
               <span className="bg-gradient-to-r from-[#A2655F] via-[#8B5A8C] to-[#5D6BC6] bg-clip-text text-transparent">
-                Portfolio
+                {t.portfolioPage.portfolioHighlight}
               </span>
             </h1>
             <p className="text-base sm:text-lg lg:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto px-2">
-              Discover exceptional design work from our talented community of creators
+              {t.portfolioPage.discoverDesignWork}
             </p>
           </div>
         </div>
@@ -86,7 +89,7 @@ const PortfolioPage = () => {
             {loading && (
               <div className="text-center py-16">
                 <div className="w-12 h-12 border-4 border-[#5D6BC6] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                <p className="text-gray-600 dark:text-gray-400">Memuat portfolio...</p>
+                <p className="text-gray-600 dark:text-gray-400">{t.portfolioPage.loading}</p>
               </div>
             )}
 
@@ -94,7 +97,7 @@ const PortfolioPage = () => {
             {error && !loading && (
               <div className="text-center py-16">
                 <div className="text-5xl mb-4">⚠️</div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Terjadi Kesalahan</h3>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{t.portfolioPage.errorOccurred}</h3>
                 <p className="text-gray-600 dark:text-gray-400">{error}</p>
               </div>
             )}
@@ -103,15 +106,15 @@ const PortfolioPage = () => {
             {!loading && !error && portfolioData.length === 0 && (
               <div className="text-center py-16">
                 <div className="text-6xl mb-6">🎨</div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">Belum Ada Portfolio</h3>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">{t.portfolioPage.noPortfolioYet}</h3>
                 <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto mb-6">
-                  Belum ada karya portfolio yang ditampilkan. Designer dapat mengupload karya mereka melalui dashboard.
+                  {t.portfolioPage.noPortfolioDesc}
                 </p>
                 <a 
                   href="/become-designer"
                   className="inline-block px-6 py-3 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300"
                 >
-                  Jadi Designer
+                  {t.portfolioPage.becomeDesigner}
                 </a>
               </div>
             )}
@@ -122,9 +125,9 @@ const PortfolioPage = () => {
                 {/* Results Count */}
                 <div className="mb-6">
                   <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 text-center">
-                    Menampilkan <span className="font-bold text-gray-900 dark:text-white">{paginatedItems.length}</span> dari{" "}
-                    <span className="font-bold text-gray-900 dark:text-white">{filteredItems.length}</span> karya
-                    {totalPages > 1 && <> • Halaman {currentPage} dari {totalPages}</>}
+                    {t.portfolioPage.showingWorks} <span className="font-bold text-gray-900 dark:text-white">{paginatedItems.length}</span> {t.portfolioPage.ofWorks}{" "}
+                    <span className="font-bold text-gray-900 dark:text-white">{filteredItems.length}</span> {t.portfolioPage.works}
+                    {totalPages > 1 && <> • {t.pagination.page} {currentPage} {t.pagination.of} {totalPages}</>}
                   </p>
                 </div>
 
@@ -157,7 +160,7 @@ const PortfolioPage = () => {
                           <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4">
                             <div className="text-white">
                               <span className="inline-block px-2 sm:px-3 py-0.5 sm:py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium mb-1 sm:mb-2">
-                                {item.category}
+                                {translateCategory(item.category)}
                               </span>
                               <h3 className="text-sm sm:text-base lg:text-lg font-bold mb-0.5 sm:mb-1">{item.title}</h3>
                               <p className="text-xs sm:text-sm text-white/80 line-clamp-2">{item.description}</p>
@@ -188,17 +191,17 @@ const PortfolioPage = () => {
         <div className="bg-gradient-to-r from-[#8B5A8C] to-[#1647A3] py-10 sm:py-12 lg:py-16">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-6">
-              Siap menampilkan karya Anda?
+              {t.portfolioPage.readyToShowcase}
             </h3>
             <p className="text-base sm:text-lg lg:text-xl text-white/80 mb-6 sm:mb-8 max-w-2xl mx-auto">
-              Bergabunglah dengan ribuan designer yang mempercayai platform kami untuk menampilkan karya terbaik mereka
+              {t.portfolioPage.joinThousands}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <a href="/become-designer" className="bg-white text-[#8B5A8C] px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-sm sm:text-base hover:bg-gray-50 transform hover:scale-105 transition-all duration-300 shadow-lg">
-                Daftar Sebagai Designer
+                {t.portfolioPage.registerAsDesigner}
               </a>
               <a href="/designers" className="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-sm sm:text-base hover:bg-white/20 transform hover:scale-105 transition-all duration-300">
-                Lihat Designer
+                {t.portfolioPage.exploreDesigners}
               </a>
             </div>
           </div>

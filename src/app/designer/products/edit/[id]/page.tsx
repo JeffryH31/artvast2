@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
 import { useRole } from '@/hooks/useRole';
+import { useLanguage, useDatabaseTranslation } from '@/lib/i18n';
 import { createClient } from '@/lib/supabase/client';
 import { ImageUpload } from '@/components/ui/ImageUpload';
 import { PRODUCT_CATEGORIES } from '@/lib/constants';
@@ -34,6 +35,8 @@ export default function EditProductPage() {
   const params = useParams();
   const { user, loading: authLoading } = useAuth();
   const { role, isDesigner, loading: roleLoading } = useRole();
+  const { t } = useLanguage();
+  const { translateCategory } = useDatabaseTranslation();
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -103,7 +106,7 @@ export default function EditProductPage() {
         }
 
         if (!designerData) {
-          setError('Designer profile not found');
+          setError(t.designerProducts.productNotFound);
           setLoading(false);
           return;
         }
@@ -119,7 +122,7 @@ export default function EditProductPage() {
           .single();
 
         if (productError || !productData) {
-          setError('Product not found or you do not have permission to edit it');
+          setError(t.designerProducts.productNotFound);
           setLoading(false);
           return;
         }
@@ -202,23 +205,23 @@ export default function EditProductPage() {
 
     // Validation
     if (!name.trim()) {
-      setError('Product name is required');
+      setError(t.designerProducts.nameRequired);
       return;
     }
 
     if (!description.trim()) {
-      setError('Description is required');
+      setError(t.designerProducts.descriptionRequired);
       return;
     }
 
     if (!category) {
-      setError('Please select a category');
+      setError(t.designerProducts.categoryRequired);
       return;
     }
 
     const priceNum = parseFloat(price);
     if (isNaN(priceNum) || priceNum <= 0) {
-      setError('Please enter a valid price');
+      setError(t.designerProducts.priceInvalid);
       return;
     }
 
@@ -226,7 +229,7 @@ export default function EditProductPage() {
     const allImages = [...existingImages, ...images.map((img) => img.url)];
     
     if (allImages.length === 0) {
-      setError('Please upload at least one product image');
+      setError(t.designerProducts.imageRequired);
       return;
     }
 
@@ -260,7 +263,7 @@ export default function EditProductPage() {
       router.push('/designer/products');
     } catch (err) {
       console.error('Error updating product:', err);
-      setError('Failed to update product. Please try again.');
+      setError(t.designerProducts.updateFailed);
       setSaving(false);
     }
   };
@@ -275,7 +278,7 @@ export default function EditProductPage() {
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
             <div className="w-16 h-16 border-4 border-[#5D6BC6] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-gray-600 dark:text-gray-400">Loading product...</p>
+            <p className="text-gray-600 dark:text-gray-400">{t.designerProducts.loadingProduct}</p>
           </div>
         </div>
       </div>
@@ -297,7 +300,7 @@ export default function EditProductPage() {
               onClick={() => router.push('/designer/products')}
               className="px-6 py-2 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white rounded-xl font-medium hover:shadow-lg transition-all cursor-pointer"
             >
-              Back to Products
+              {t.designerProducts.backToProducts}
             </button>
           </div>
         </div>
@@ -326,10 +329,10 @@ export default function EditProductPage() {
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
-              Back
+              {t.designerProducts.back}
             </button>
-            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">Edit Product</h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-2">Update your product information</p>
+            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">{t.designerProducts.editProduct}</h1>
+            <p className="text-gray-600 dark:text-gray-400 mt-2">{t.designerProducts.editProductSubtitle}</p>
           </div>
 
           {error && (
@@ -341,12 +344,12 @@ export default function EditProductPage() {
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Product Images */}
             <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-6 shadow-lg dark:shadow-gray-900/50 border border-gray-100 dark:border-gray-700">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Product Images</h2>
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">{t.designerProducts.productImages}</h2>
             
               {/* Existing Images */}
               {existingImages.length > 0 && (
                 <div className="mb-4">
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Current Images:</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{t.designerProducts.currentImages}</p>
                   <div className="grid grid-cols-3 gap-4">
                     {existingImages.map((img, index) => (
                       <div key={index} className="relative group">
@@ -366,7 +369,7 @@ export default function EditProductPage() {
                         </button>
                         {index === 0 && (
                           <div className="absolute bottom-2 left-2 px-2 py-1 bg-gradient-to-r from-[#5D6BC6] to-[#8B5A8C] text-white text-xs rounded">
-                            Main
+                            {t.designerProducts.mainImage}
                           </div>
                         )}
                       </div>
@@ -384,46 +387,46 @@ export default function EditProductPage() {
                 bucket="product-images"
               />
               <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
-                You can upload up to {5 - existingImages.length - images.length} more images (max 5 total)
+                {t.designerProducts.canUploadMore} {5 - existingImages.length - images.length} {t.designerProducts.moreImages}
               </p>
             </div>
 
             {/* Basic Information */}
             <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-6 shadow-lg dark:shadow-gray-900/50 border border-gray-100 dark:border-gray-700">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Basic Information</h2>
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">{t.designerProducts.basicInfo}</h2>
             
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Product Name *
+                    {t.designerProducts.productName} *
                   </label>
                   <input
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#5D6BC6] focus:border-transparent transition-colors"
-                    placeholder="Enter product name"
+                    placeholder={t.designerProducts.productNamePlaceholder}
                     required
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Description *
+                    {t.designerProducts.description} *
                   </label>
                   <textarea
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     rows={4}
                     className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#5D6BC6] focus:border-transparent transition-colors"
-                    placeholder="Describe your product..."
+                    placeholder={t.designerProducts.descriptionPlaceholder}
                     required
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Category *
+                    {t.designerProducts.category} *
                   </label>
                   <select
                     value={category}
@@ -431,10 +434,10 @@ export default function EditProductPage() {
                     className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#5D6BC6] focus:border-transparent transition-colors"
                     required
                   >
-                    <option value="">Select a category</option>
+                    <option value="">{t.designerProducts.selectCategory}</option>
                     {PRODUCT_CATEGORIES.map((cat) => (
                       <option key={cat} value={cat}>
-                        {cat}
+                        {translateCategory(cat)}
                       </option>
                     ))}
                   </select>
@@ -442,17 +445,17 @@ export default function EditProductPage() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Delivery Time
+                    {t.designerProducts.deliveryTime}
                   </label>
                   <select
                     value={deliveryTime}
                     onChange={(e) => setDeliveryTime(e.target.value)}
                     className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#5D6BC6] focus:border-transparent transition-colors"
                   >
-                    <option value="instant">Instant</option>
-                    <option value="1-3 days">1-3 days</option>
-                    <option value="3-7 days">3-7 days</option>
-                    <option value="1-2 weeks">1-2 weeks</option>
+                    <option value="instant">{t.deliveryTimes.instant}</option>
+                    <option value="1-3 days">{t.deliveryTimes['1-3 days']}</option>
+                    <option value="3-7 days">{t.deliveryTimes['3-7 days']}</option>
+                    <option value="1-2 weeks">{t.deliveryTimes['1-2 weeks']}</option>
                   </select>
                 </div>
               </div>
@@ -460,12 +463,12 @@ export default function EditProductPage() {
 
             {/* Pricing */}
             <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-6 shadow-lg dark:shadow-gray-900/50 border border-gray-100 dark:border-gray-700">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Pricing</h2>
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">{t.designerProducts.pricing}</h2>
             
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Price (IDR) *
+                    {t.designerProducts.priceIdr} *
                   </label>
                   <input
                     type="number"
@@ -481,7 +484,7 @@ export default function EditProductPage() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Original Price (IDR)
+                    {t.designerProducts.originalPrice}
                   </label>
                   <input
                     type="number"
@@ -490,30 +493,30 @@ export default function EditProductPage() {
                     min="0"
                     step="1000"
                     className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#5D6BC6] focus:border-transparent transition-colors"
-                    placeholder="Optional"
+                    placeholder={t.designerProducts.originalPrice.split(' ')[0]}
                   />
                 </div>
               </div>
 
               <div className="mt-4">
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  License Type
+                  {t.designerProducts.licenseType}
                 </label>
                 <select
                   value={licenseType}
                   onChange={(e) => setLicenseType(e.target.value)}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#5D6BC6] focus:border-transparent transition-colors"
                 >
-                  <option value="personal">Personal Use</option>
-                  <option value="commercial">Commercial Use</option>
-                  <option value="extended">Extended License</option>
+                  <option value="personal">{t.designerProducts.personalUse}</option>
+                  <option value="commercial">{t.designerProducts.commercialUse}</option>
+                  <option value="extended">{t.designerProducts.extendedLicense}</option>
                 </select>
               </div>
             </div>
 
             {/* Features */}
             <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-6 shadow-lg dark:shadow-gray-900/50 border border-gray-100 dark:border-gray-700">
-              <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Features</h2>
+              <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">{t.designerProducts.features}</h2>
             
               <div className="space-y-3">
                 {features.map((feature, index) => (
@@ -523,7 +526,7 @@ export default function EditProductPage() {
                       value={feature}
                       onChange={(e) => handleFeatureChange(index, e.target.value)}
                       className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#5D6BC6] focus:border-transparent transition-colors"
-                      placeholder={`Feature ${index + 1}`}
+                      placeholder={t.designerProducts.featurePlaceholder}
                     />
                     {features.length > 1 && (
                       <button
@@ -531,7 +534,7 @@ export default function EditProductPage() {
                         onClick={() => removeFeature(index)}
                         className="px-3 py-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-xl cursor-pointer transition-colors"
                       >
-                        Remove
+                        {t.designerProducts.remove}
                       </button>
                     )}
                   </div>
@@ -542,14 +545,14 @@ export default function EditProductPage() {
                   onClick={addFeature}
                   className="text-[#5D6BC6] hover:text-[#1647A3] font-medium cursor-pointer transition-colors"
                 >
-                  + Add Feature
+                  {t.designerProducts.addFeature}
                 </button>
               </div>
             </div>
 
             {/* Tags */}
             <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-6 shadow-lg dark:shadow-gray-900/50 border border-gray-100 dark:border-gray-700">
-              <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Tags</h2>
+              <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">{t.designerProducts.tags}</h2>
             
               <div className="flex gap-2 mb-3">
                 <input
@@ -558,14 +561,14 @@ export default function EditProductPage() {
                   onChange={(e) => setTagInput(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())}
                   className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#5D6BC6] focus:border-transparent transition-colors"
-                  placeholder="Add a tag..."
+                  placeholder={t.designerProducts.tagPlaceholder}
                 />
                 <button
                   type="button"
                   onClick={addTag}
                   className="px-6 py-2 bg-gradient-to-r from-[#5D6BC6] to-[#1647A3] text-white rounded-xl hover:shadow-lg hover:shadow-[#5D6BC6]/30 cursor-pointer transition-all duration-300"
                 >
-                  Add
+                  {t.designerProducts.addTag}
                 </button>
               </div>
 
@@ -598,14 +601,14 @@ export default function EditProductPage() {
                 className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer transition-colors"
                 disabled={saving}
               >
-                Cancel
+                {t.common.cancel}
               </button>
               <button
                 type="submit"
                 disabled={saving}
                 className="flex-1 px-6 py-3 bg-gradient-to-r from-[#5D6BC6] to-[#1647A3] text-white rounded-xl hover:shadow-lg hover:shadow-[#5D6BC6]/30 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-all duration-300"
               >
-                {saving ? 'Updating...' : 'Update Product'}
+                {saving ? t.designerProducts.updatingProduct : t.designerProducts.updateProduct}
               </button>
             </div>
           </form>

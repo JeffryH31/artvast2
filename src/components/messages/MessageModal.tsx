@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useMessages, Message, Conversation } from '@/hooks/useMessages';
 import { useAuth } from '@/hooks/useAuth';
 import { useRole } from '@/hooks/useRole';
+import { useLanguage } from '@/lib/i18n';
 
 interface MessageModalProps {
   isOpen: boolean;
@@ -22,6 +23,7 @@ const MessageModal: React.FC<MessageModalProps> = ({
   designerInitials,
   designerGradient,
 }) => {
+  const { t } = useLanguage();
   const [messageInput, setMessageInput] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -135,7 +137,7 @@ const MessageModal: React.FC<MessageModalProps> = ({
             </div>
             <div>
               <h3 className="font-semibold text-gray-900 dark:text-white">{designerName}</h3>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Designer</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">{t.messages.designer}</p>
             </div>
           </div>
           <button
@@ -154,9 +156,9 @@ const MessageModal: React.FC<MessageModalProps> = ({
             <div className="flex items-center justify-center h-full text-center">
               <div>
                 <div className="text-4xl mb-4">🔒</div>
-                <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Sign in required</h4>
+                <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{t.messages.signInRequired}</h4>
                 <p className="text-gray-500 dark:text-gray-400 text-sm">
-                  Please sign in to send messages
+                  {t.messages.pleaseSignIn}
                 </p>
               </div>
             </div>
@@ -168,9 +170,9 @@ const MessageModal: React.FC<MessageModalProps> = ({
             <div className="flex items-center justify-center h-full text-center">
               <div>
                 <div className="text-4xl mb-4">💬</div>
-                <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Start a conversation</h4>
+                <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{t.messages.startConversation}</h4>
                 <p className="text-gray-500 dark:text-gray-400 text-sm">
-                  Send a message to {designerName}
+                  {t.messages.sendMessageTo} {designerName}
                 </p>
               </div>
             </div>
@@ -227,7 +229,7 @@ const MessageModal: React.FC<MessageModalProps> = ({
                   value={messageInput}
                   onChange={(e) => setMessageInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  placeholder="Type a message..."
+                  placeholder={t.messages.typeMessage}
                   rows={1}
                   className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5D6BC6] focus:border-transparent resize-none text-gray-900 dark:text-white placeholder-gray-400"
                   style={{ minHeight: '48px', maxHeight: '120px' }}
@@ -248,7 +250,7 @@ const MessageModal: React.FC<MessageModalProps> = ({
               </button>
             </div>
             <p className="text-xs text-gray-400 mt-2 text-center">
-              Press Enter to send, Shift+Enter for new line
+              {t.messages.pressEnter}
             </p>
           </div>
         )}

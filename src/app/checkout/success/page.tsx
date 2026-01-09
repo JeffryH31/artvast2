@@ -5,10 +5,12 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Header from '@/components/layout/Header';
 import { useAuth } from '@/hooks/useAuth';
+import { useLanguage } from '@/lib/i18n';
 
 export default function CheckoutSuccessPage() {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
+  const { t } = useLanguage();
 
   // Redirect if not logged in
   useEffect(() => {
@@ -47,33 +49,33 @@ export default function CheckoutSuccessPage() {
             </div>
 
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              Payment Successful!
+              {t.checkoutSuccess.paymentSuccessful}
             </h1>
             <p className="text-gray-600 dark:text-gray-300 mb-8 max-w-md mx-auto">
-              Thank you for your purchase! Your order has been confirmed and the designer has been notified.
+              {t.checkoutSuccess.thankYouMessage}
             </p>
 
             {/* Order Info */}
             <div className="bg-gray-100 dark:bg-white/5 rounded-xl p-6 mb-8 text-left">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">What happens next?</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">{t.checkoutSuccess.whatHappensNext}</h2>
               <div className="space-y-4">
                 {[
                   {
                     step: 1,
-                    title: 'Order Confirmation',
-                    description: 'You\'ll receive an email with your order details.',
+                    title: t.checkoutSuccess.orderConfirmation,
+                    description: t.checkoutSuccess.orderConfirmationDesc,
                     icon: '📧',
                   },
                   {
                     step: 2,
-                    title: 'Designer Contact',
-                    description: 'The designer will reach out to discuss your project.',
+                    title: t.checkoutSuccess.designerContact,
+                    description: t.checkoutSuccess.designerContactDesc,
                     icon: '💬',
                   },
                   {
                     step: 3,
-                    title: 'Delivery',
-                    description: 'Your files will be delivered within the estimated timeframe.',
+                    title: t.checkoutSuccess.delivery,
+                    description: t.checkoutSuccess.deliveryDesc,
                     icon: '📦',
                   },
                 ].map((item) => (
@@ -98,12 +100,12 @@ export default function CheckoutSuccessPage() {
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
-                View My Orders
+                {t.checkoutSuccess.viewMyOrders}
               </Link>
               <Link
                 href="/marketplace"
                 className="px-6 py-3 bg-gray-200 hover:bg-gray-300 dark:bg-white/10 dark:hover:bg-white/20 text-gray-900 dark:text-white font-medium rounded-lg transition-colors">
-                Continue Shopping
+                {t.cart.continueShopping}
               </Link>
             </div>
           </div>
@@ -111,9 +113,9 @@ export default function CheckoutSuccessPage() {
           {/* Support */}
           <div className="mt-8 text-center">
             <p className="text-gray-500 dark:text-gray-400 text-sm">
-              Questions about your order?{' '}
+              {t.checkoutSuccess.questionsAboutOrder}{' '}
               <a href="mailto:support@artvast.com" className="text-purple-500 dark:text-purple-400 hover:text-purple-600 dark:hover:text-purple-300">
-                Contact Support
+                {t.checkoutSuccess.contactSupport}
               </a>
             </p>
           </div>

@@ -14,12 +14,12 @@ import { SkeletonProduct } from "@/components/ui/Skeleton";
 import { FilterSidebar } from "@/components/filters/FilterSidebar";
 import { debounce, formatPrice } from "@/lib/utils";
 import { PAGINATION } from "@/lib/constants";
-import { useLanguage } from "@/lib/i18n";
+import { useLanguage, useDatabaseTranslation } from "@/lib/i18n";
 
 const MarketplacePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All Categories");
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedRating, setSelectedRating] = useState("All Ratings");
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -29,14 +29,24 @@ const MarketplacePage = () => {
   const { user } = useAuth();
   const { isDesigner, designerProfile } = useRole();
   const { t } = useLanguage();
+  const { translateCategory } = useDatabaseTranslation();
 
-  const categories = [
-    "All Categories",
-    "Branding",
-    "UI/UX Design",
-    "Motion Graphics",
-    "Illustration",
+  // Category keys for filtering (match database values)
+  const categoryKeys = [
+    "all",
+    "branding",
+    "ui-ux",
+    "motion-graphics",
+    "illustration",
+    "graphic-design",
   ];
+
+  // Create translated category options
+  const categories = categoryKeys.map(key => ({
+    value: key,
+    label: key === 'all' ? t.common.all : translateCategory(key)
+  }));
+
   const ratings = ["All Ratings", "5 Stars", "4+ Stars", "3+ Stars"];
 
   // Debounced search handler
@@ -62,8 +72,9 @@ const MarketplacePage = () => {
         product.category.toLowerCase().includes(debouncedSearch.toLowerCase());
 
       const matchesCategory =
-        selectedCategory === "All Categories" ||
-        product.category === selectedCategory;
+        selectedCategory === "all" ||
+        product.category.toLowerCase().replace(/\s+/g, '-').replace('/', '-') === selectedCategory ||
+        product.category.toLowerCase() === selectedCategory.replace(/-/g, ' ');
       const matchesRating =
         selectedRating === "All Ratings" ||
         (selectedRating === "5 Stars" && (product.rating || 0) === 5.0) ||
@@ -233,7 +244,7 @@ const MarketplacePage = () => {
 
               {/* FilterSidebar Component */}
               <FilterSidebar
-                categories={categories.map(cat => ({ label: cat, value: cat }))}
+                categories={categories}
                 ratings={ratings.map(rat => ({ label: rat, value: rat }))}
                 selectedCategory={selectedCategory}
                 selectedRating={selectedRating}
@@ -340,7 +351,7 @@ const MarketplacePage = () => {
 
                   <div className="mb-3 sm:mb-4">
                     <span className="px-2 sm:px-3 py-0.5 sm:py-1 bg-gradient-to-r from-[#BD9587]/10 to-[#8B5A8C]/10 text-[#8B5A8C] text-xs sm:text-sm font-medium rounded-full border border-[#8B5A8C]/20">
-                      {product.category}
+                      {translateCategory(product.category)}
                     </span>
                   </div>
 
@@ -382,7 +393,7 @@ const MarketplacePage = () => {
                       <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                       </svg>
-                      <span>Your Product</span>
+                      <span>{t.productDetail.yourProduct}</span>
                     </div>
                   ) : isDesigner ? (
                     /* Designer viewing other products - no action buttons */

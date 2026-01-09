@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { useAuth } from "@/hooks/useAuth";
 import { useRole } from "@/hooks/useRole";
 import { useConfirmDialog } from "@/components/ui/ConfirmDialog";
+import { useLanguage } from "@/lib/i18n";
 import Header from "@/components/layout/Header";
 import { createClient } from "@/lib/supabase/client";
 import { formatPrice } from "@/lib/utils";
@@ -34,6 +35,7 @@ export default function DesignerProductsPage() {
   const { user, loading: authLoading } = useAuth();
   const { isDesigner, loading: roleLoading } = useRole();
   const { confirm } = useConfirmDialog();
+  const { t } = useLanguage();
   const router = useRouter();
   const [products, setProducts] = useState<Product[]>([]);
   const [stats, setStats] = useState<DesignerStats>({
@@ -160,10 +162,10 @@ export default function DesignerProductsPage() {
 
   const handleDeleteProduct = async (productId: string) => {
     const confirmed = await confirm({
-      title: 'Delete Product',
-      message: 'Are you sure you want to delete this product? This action cannot be undone.',
-      confirmText: 'Delete',
-      cancelText: 'Cancel',
+      title: t.designerProducts.deleteProduct,
+      message: t.designerProducts.deleteConfirm,
+      confirmText: t.designerProducts.delete,
+      cancelText: t.common.cancel,
       confirmVariant: 'danger',
     });
     
@@ -178,12 +180,12 @@ export default function DesignerProductsPage() {
 
       if (error) throw error;
 
-      toast.success("Product deleted successfully");
+      toast.success(t.designerProducts.deleteSuccess);
       // Refresh products list
       fetchDesignerProducts();
     } catch (err) {
       console.error("Error deleting product:", err);
-      toast.error("Failed to delete product");
+      toast.error(t.designerProducts.deleteFailed);
     }
   };
 
@@ -220,17 +222,17 @@ export default function DesignerProductsPage() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
             <div>
               <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2">
-                My Products
+                {t.designerProducts.title}
               </h1>
               <p className="text-gray-600 dark:text-gray-400">
-                Manage your digital products and track performance
+                {t.designerProducts.subtitle}
               </p>
             </div>
             <Link
               href="/designer/products/new"
               className="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-medium rounded-lg transition-all shadow-lg shadow-green-500/20"
             >
-              + Upload New Product
+              {t.designerProducts.uploadNew}
             </Link>
           </div>
 
@@ -238,7 +240,7 @@ export default function DesignerProductsPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <div className="bg-gradient-to-br from-purple-100 to-purple-50 dark:from-purple-900/30 dark:to-purple-800/20 rounded-xl p-6 border border-purple-200 dark:border-purple-500/20">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-gray-600 dark:text-gray-400 text-sm">Total Products</p>
+                <p className="text-gray-600 dark:text-gray-400 text-sm">{t.designerProducts.totalProducts}</p>
                 <svg
                   className="w-8 h-8 text-purple-500 dark:text-purple-400"
                   fill="none"
@@ -260,7 +262,7 @@ export default function DesignerProductsPage() {
 
             <div className="bg-gradient-to-br from-green-100 to-green-50 dark:from-green-900/30 dark:to-green-800/20 rounded-xl p-6 border border-green-200 dark:border-green-500/20">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-gray-600 dark:text-gray-400 text-sm">Total Sales</p>
+                <p className="text-gray-600 dark:text-gray-400 text-sm">{t.designerProducts.totalSales}</p>
                 <svg
                   className="w-8 h-8 text-green-500 dark:text-green-400"
                   fill="none"
@@ -282,7 +284,7 @@ export default function DesignerProductsPage() {
 
             <div className="bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900/30 dark:to-blue-800/20 rounded-xl p-6 border border-blue-200 dark:border-blue-500/20">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-gray-600 dark:text-gray-400 text-sm">Total Revenue</p>
+                <p className="text-gray-600 dark:text-gray-400 text-sm">{t.designerProducts.totalRevenue}</p>
                 <svg
                   className="w-8 h-8 text-blue-500 dark:text-blue-400"
                   fill="none"
@@ -304,7 +306,7 @@ export default function DesignerProductsPage() {
 
             <div className="bg-gradient-to-br from-orange-100 to-orange-50 dark:from-orange-900/30 dark:to-orange-800/20 rounded-xl p-6 border border-orange-200 dark:border-orange-500/20">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-gray-600 dark:text-gray-400 text-sm">Total Views</p>
+                <p className="text-gray-600 dark:text-gray-400 text-sm">{t.designerProducts.totalViews}</p>
                 <svg
                   className="w-8 h-8 text-orange-500 dark:text-orange-400"
                   fill="none"
@@ -361,16 +363,16 @@ export default function DesignerProductsPage() {
                 />
               </svg>
               <h3 className="text-xl font-medium text-gray-900 dark:text-white mb-2">
-                No Products Yet
+                {t.designerProducts.noProductsYet}
               </h3>
               <p className="text-gray-600 dark:text-gray-400 mb-6">
-                Upload your first product to start selling
+                {t.designerProducts.noProductsDesc}
               </p>
               <Link
                 href="/designer/products/new"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors"
               >
-                + Upload Product
+                {t.designerProducts.uploadProduct}
               </Link>
             </div>
           ) : (
@@ -413,7 +415,7 @@ export default function DesignerProductsPage() {
                       </h3>
                       {product.featured && (
                         <span className="px-2 py-1 bg-yellow-100 dark:bg-yellow-500/20 text-yellow-600 dark:text-yellow-400 text-xs rounded">
-                          Featured
+                          {t.designerProducts.featured}
                         </span>
                       )}
                     </div>
@@ -427,7 +429,7 @@ export default function DesignerProductsPage() {
                         {formatPrice(product.price)}
                       </p>
                       <p className="text-gray-500 dark:text-gray-400 text-sm">
-                        {product.orders?.length || 0} sales
+                        {product.orders?.length || 0} {t.designerProducts.sales}
                       </p>
                     </div>
 
@@ -437,19 +439,19 @@ export default function DesignerProductsPage() {
                         href={`/product/${product.id}`}
                         className="flex-1 px-3 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-white/5 dark:hover:bg-white/10 text-gray-700 dark:text-white text-sm text-center rounded-lg transition-colors"
                       >
-                        View
+                        {t.designerProducts.view}
                       </Link>
                       <Link
                         href={`/designer/products/edit/${product.id}`}
                         className="flex-1 px-3 py-2 bg-green-100 hover:bg-green-200 dark:bg-green-500/20 dark:hover:bg-green-500/30 text-green-600 dark:text-green-400 text-sm text-center rounded-lg transition-colors cursor-pointer"
                       >
-                        Edit
+                        {t.designerProducts.edit}
                       </Link>
                       <button
                         onClick={() => handleDeleteProduct(product.id)}
                         className="px-3 py-2 bg-red-100 hover:bg-red-200 dark:bg-red-500/20 dark:hover:bg-red-500/30 text-red-600 dark:text-red-400 text-sm rounded-lg transition-colors cursor-pointer"
                       >
-                        Delete
+                        {t.designerProducts.delete}
                       </button>
                     </div>
                   </div>

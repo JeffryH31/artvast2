@@ -3,12 +3,13 @@
 import React from 'react';
 import Link from 'next/link';
 import { useProducts } from '@/hooks/useProducts';
-import { useLanguage } from '@/lib/i18n';
+import { useLanguage, useDatabaseTranslation } from '@/lib/i18n';
 import { formatPrice } from '@/lib/utils';
 
 const FeaturedProductsSection: React.FC = () => {
   const { products, loading } = useProducts({ featured: true, limit: 6 });
   const { t } = useLanguage();
+  const { translateCategory } = useDatabaseTranslation();
 
   if (loading) {
     return (
@@ -119,7 +120,7 @@ const FeaturedProductsSection: React.FC = () => {
                 
                 <div className="flex items-center justify-between">
                   <span className="px-2 py-0.5 bg-[#8B5A8C]/10 dark:bg-[#8B5A8C]/30 text-[#8B5A8C] dark:text-[#c48bc5] text-xs font-medium rounded-full">
-                    {product.category}
+                    {translateCategory(product.category)}
                   </span>
                   <div className="flex items-center gap-1">
                     <svg className="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">

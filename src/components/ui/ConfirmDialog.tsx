@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback, createContext, useContext, ReactNode } from 'react';
+import { useLanguage } from '@/lib/i18n';
 
 interface ConfirmDialogOptions {
   title?: string;
@@ -29,6 +30,7 @@ interface ConfirmDialogProviderProps {
 }
 
 export function ConfirmDialogProvider({ children }: ConfirmDialogProviderProps) {
+  const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [options, setOptions] = useState<ConfirmDialogOptions | null>(null);
   const [resolvePromise, setResolvePromise] = useState<((value: boolean) => void) | null>(null);
@@ -88,7 +90,7 @@ export function ConfirmDialogProvider({ children }: ConfirmDialogProviderProps) 
             
             {/* Title */}
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white text-center mb-2">
-              {options?.title || 'Confirm'}
+              {options?.title || t.common.confirm}
             </h3>
             
             {/* Message */}
@@ -102,13 +104,13 @@ export function ConfirmDialogProvider({ children }: ConfirmDialogProviderProps) 
                 onClick={handleCancel}
                 className="flex-1 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-xl transition-colors cursor-pointer"
               >
-                {options?.cancelText || 'Cancel'}
+                {options?.cancelText || t.common.cancel}
               </button>
               <button
                 onClick={handleConfirm}
                 className={`flex-1 px-4 py-2.5 font-medium rounded-xl transition-colors cursor-pointer ${getVariantStyles()}`}
               >
-                {options?.confirmText || 'Confirm'}
+                {options?.confirmText || t.common.confirm}
               </button>
             </div>
           </div>

@@ -6,20 +6,22 @@ import Header from "@/components/layout/Header";
 import { useDesigners } from "@/hooks/useDesigners";
 import { Pagination } from "@/components/ui/Pagination";
 import { PAGINATION } from "@/lib/constants";
-
-const categories = [
-  { name: "All", value: "all" },
-  { name: "Branding", value: "branding" },
-  { name: "Illustration", value: "illustration" },
-  { name: "Modern", value: "modern" },
-  { name: "UI", value: "ui" },
-];
+import { useLanguage } from "@/lib/i18n";
 
 const DesignersPage: React.FC = () => {
   const { designers, loading, error } = useDesigners();
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortBy, setSortBy] = useState("rating");
   const [currentPage, setCurrentPage] = useState(1);
+  const { t } = useLanguage();
+
+  const categories = [
+    { name: t.categories.all, value: "all" },
+    { name: t.categories.branding, value: "branding" },
+    { name: t.categories.illustration, value: "illustration" },
+    { name: "Modern", value: "modern" },
+    { name: "UI", value: "ui" },
+  ];
 
   // Filter designers berdasarkan kategori
   const filteredDesigners = useMemo(() => {
@@ -78,7 +80,7 @@ const DesignersPage: React.FC = () => {
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
             <div className="w-16 h-16 border-4 border-[#5D6BC6] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-gray-600 dark:text-gray-400">Loading designers...</p>
+            <p className="text-gray-600 dark:text-gray-400">{t.designersPage.loadingDesigners}</p>
           </div>
         </div>
       </div>
@@ -97,14 +99,14 @@ const DesignersPage: React.FC = () => {
           <div className="text-center">
             <div className="text-5xl mb-4">😕</div>
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-              Something went wrong
+              {t.errors.somethingWentWrong}
             </h3>
             <p className="text-gray-600 dark:text-gray-400 mb-4">{error}</p>
             <button
               onClick={() => window.location.reload()}
               className="px-6 py-2 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white rounded-xl font-medium cursor-pointer"
             >
-              Try Again
+              {t.common.tryAgain}
             </button>
           </div>
         </div>
@@ -128,14 +130,13 @@ const DesignersPage: React.FC = () => {
           {/* Page Header */}
           <div className="mb-8 sm:mb-12 text-center">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
-              Available{" "}
+              {t.designersPage.availableDesigners}{" "}
               <span className="bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] bg-clip-text text-transparent">
-                Designers
+                {t.designersPage.designersHighlight}
               </span>
             </h1>
             <p className="text-sm sm:text-base lg:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto px-2">
-              Discover talented designers ready to bring your creative vision to
-              life
+              {t.designersPage.discoverTalented}
             </p>
           </div>
 
@@ -162,16 +163,16 @@ const DesignersPage: React.FC = () => {
               {/* Sort Dropdown */}
               <div className="flex items-center justify-between sm:justify-end space-x-2 sm:space-x-3">
                 <span className="text-gray-600 dark:text-gray-400 font-medium text-sm sm:text-base">
-                  Sort:
+                  {t.marketplace.sortBy}:
                 </span>
                 <select
                   value={sortBy}
                   onChange={(e) => handleSortChange(e.target.value)}
                   className="flex-1 sm:flex-none px-3 sm:px-4 py-2 sm:py-2.5 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg sm:rounded-xl text-gray-700 dark:text-gray-300 font-medium text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#5D6BC6] focus:border-transparent transition-all duration-200"
                 >
-                  <option value="rating">Rating</option>
-                  <option value="projects">Projects</option>
-                  <option value="followers">Followers</option>
+                  <option value="rating">{t.designersPage.rating}</option>
+                  <option value="projects">{t.designersPage.projects}</option>
+                  <option value="followers">{t.designersPage.followers}</option>
                 </select>
               </div>
             </div>

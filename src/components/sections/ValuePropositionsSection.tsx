@@ -3,8 +3,11 @@
 import React from "react";
 import Link from "next/link";
 import ParticleEffect, { Magnetic } from "../animations/ParticleEffect";
+import { useLanguage } from "@/lib/i18n";
 
 const ValuePropositionsSection: React.FC = () => {
+  const { t } = useLanguage();
+
   return (
     // Seamless connection dari HeroSection
     <div id="services" className="seamless-section text-white dark:text-gray-100">
@@ -28,7 +31,7 @@ const ValuePropositionsSection: React.FC = () => {
                   <div className="flex items-center space-x-1.5 sm:space-x-2">
                     <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-400 rounded-full animate-pulse"></div>
                     <span className="text-xs sm:text-sm font-medium">
-                      Live Services
+                      {t.valuePropositions.liveServices}
                     </span>
                   </div>
                   <div className="w-px h-3 sm:h-4 bg-white/30 hidden sm:block"></div>
@@ -41,7 +44,7 @@ const ValuePropositionsSection: React.FC = () => {
                       <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
                     </svg>
                     <span className="text-xs sm:text-sm font-medium">
-                      Premium Quality
+                      {t.valuePropositions.premiumQuality}
                     </span>
                   </div>
                   <div className="w-px h-3 sm:h-4 bg-white/30 hidden sm:block"></div>
@@ -52,7 +55,7 @@ const ValuePropositionsSection: React.FC = () => {
                       <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-gradient-to-r from-orange-500 to-red-500 border border-white"></div>
                     </div>
                     <span className="text-xs sm:text-sm font-medium">
-                      1000+ Designers
+                      {t.valuePropositions.designers1000}
                     </span>
                   </div>
                 </div>
@@ -63,21 +66,17 @@ const ValuePropositionsSection: React.FC = () => {
           <div className="text-center mb-12 sm:mb-16 lg:mb-24">
             <div className="inline-flex items-center space-x-2 px-4 sm:px-6 py-2 sm:py-3 bg-white/10 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium text-white/90 border border-white/20 mb-4 sm:mb-6 lg:mb-8">
               <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full"></div>
-              <span>Featured Services</span>
+              <span>{t.valuePropositions.featuredServices}</span>
               <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"></div>
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight animate-fade-in-up">
-              Our{" "}
-              <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                Value
-              </span>{" "}
-              Propositions
+              {t.valuePropositions.ourValuePropositions}
             </h2>
             <p
               className="text-base sm:text-lg lg:text-xl text-white/80 max-w-3xl mx-auto leading-relaxed mb-4 sm:mb-6 lg:mb-8 animate-fade-in-up px-4"
               style={{ animationDelay: "0.2s" }}
             >
-              Complete solutions for all your design and branding needs
+              {t.valuePropositions.completeDescription}
             </p>
           </div>
 
@@ -158,7 +157,7 @@ const ValuePropositionsSection: React.FC = () => {
                           href={service.href}
                           className="inline-flex items-center text-xs sm:text-sm font-medium text-blue-600 group-hover:text-blue-700 transition-colors duration-300"
                         >
-                          Learn More
+                          {t.valuePropositions.learnMore}
                           <svg
                             className="w-3 h-3 sm:w-4 sm:h-4 ml-1.5 sm:ml-2 group-hover:translate-x-1 transition-transform duration-300"
                             fill="none"

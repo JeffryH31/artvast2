@@ -1,84 +1,101 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useLanguage } from '@/lib/i18n';
 
 const PortfolioSection: React.FC = () => {
+  const { t } = useLanguage();
   const [activeFilter, setActiveFilter] = useState('All');
 
-  const filters = ['All', 'UI/UX', 'Graphic Design', 'Branding', 'Motion Graphics'];
+  const filters = [
+    { key: 'All', label: t.portfolioSection.filters.all },
+    { key: 'UI/UX', label: t.portfolioSection.filters.uiux },
+    { key: 'Graphic Design', label: t.portfolioSection.filters.graphicDesign },
+    { key: 'Branding', label: t.portfolioSection.filters.branding },
+    { key: 'Motion Graphics', label: t.portfolioSection.filters.motionGraphics },
+  ];
 
   const portfolioItems = [
     {
       id: 1,
-      title: 'Modern E-commerce Platform',
+      title: t.portfolioSection.items.ecommerce.title,
       category: 'UI/UX',
+      categoryDisplay: t.portfolioSection.filters.uiux,
       image: 'https://via.placeholder.com/400x300/5D6BC6/ffffff?text=UI/UX+Project',
-      description: 'Sleek and user-friendly e-commerce interface with seamless navigation',
-      tags: ['React', 'Figma', 'User Research'],
+      description: t.portfolioSection.items.ecommerce.description,
+      tags: [t.portfolioSection.tags.react, t.portfolioSection.tags.figma, t.portfolioSection.tags.userResearch],
     },
     {
       id: 2,
-      title: 'Brand Identity System',
+      title: t.portfolioSection.items.brandIdentity.title,
       category: 'Branding',
+      categoryDisplay: t.portfolioSection.filters.branding,
       image: 'https://via.placeholder.com/400x300/8B5A8C/ffffff?text=Branding+Project',
-      description: 'Complete brand identity including logo, colors, and guidelines',
-      tags: ['Logo Design', 'Brand Guidelines', 'Typography'],
+      description: t.portfolioSection.items.brandIdentity.description,
+      tags: [t.portfolioSection.tags.logoDesign, t.portfolioSection.tags.brandGuidelines, t.portfolioSection.tags.typography],
     },
     {
       id: 3,
-      title: 'Mobile App Design',
+      title: t.portfolioSection.items.mobileApp.title,
       category: 'UI/UX',
+      categoryDisplay: t.portfolioSection.filters.uiux,
       image: 'https://via.placeholder.com/400x300/A2655F/ffffff?text=Mobile+App',
-      description: 'Intuitive mobile application with modern design principles',
-      tags: ['Mobile UI', 'Prototyping', 'User Testing'],
+      description: t.portfolioSection.items.mobileApp.description,
+      tags: [t.portfolioSection.tags.mobileUI, t.portfolioSection.tags.prototyping, t.portfolioSection.tags.userTesting],
     },
     {
       id: 4,
-      title: 'Poster Campaign Series',
+      title: t.portfolioSection.items.poster.title,
       category: 'Graphic Design',
+      categoryDisplay: t.portfolioSection.filters.graphicDesign,
       image: 'https://via.placeholder.com/400x300/BD9587/ffffff?text=Poster+Design',
-      description: 'Creative poster series for marketing campaign',
-      tags: ['Print Design', 'Typography', 'Visual Impact'],
+      description: t.portfolioSection.items.poster.description,
+      tags: [t.portfolioSection.tags.printDesign, t.portfolioSection.tags.typography, t.portfolioSection.tags.visualImpact],
     },
     {
       id: 5,
-      title: 'Animated Logo Reveal',
+      title: t.portfolioSection.items.animatedLogo.title,
       category: 'Motion Graphics',
+      categoryDisplay: t.portfolioSection.filters.motionGraphics,
       image: 'https://via.placeholder.com/400x300/1647A3/ffffff?text=Motion+Graphics',
-      description: 'Dynamic logo animation for brand introduction',
-      tags: ['After Effects', 'Animation', 'Branding'],
+      description: t.portfolioSection.items.animatedLogo.description,
+      tags: [t.portfolioSection.tags.afterEffects, t.portfolioSection.tags.animation, t.portfolioSection.tags.branding],
     },
     {
       id: 6,
-      title: 'Website Landing Page',
+      title: t.portfolioSection.items.landingPage.title,
       category: 'UI/UX',
+      categoryDisplay: t.portfolioSection.filters.uiux,
       image: 'https://via.placeholder.com/400x300/5D6BC6/ffffff?text=Landing+Page',
-      description: 'High-converting landing page with modern aesthetics',
-      tags: ['Web Design', 'Conversion', 'Responsive'],
+      description: t.portfolioSection.items.landingPage.description,
+      tags: [t.portfolioSection.tags.webDesign, t.portfolioSection.tags.conversion, t.portfolioSection.tags.responsive],
     },
     {
       id: 7,
-      title: 'Corporate Brochure',
+      title: t.portfolioSection.items.brochure.title,
       category: 'Graphic Design',
+      categoryDisplay: t.portfolioSection.filters.graphicDesign,
       image: 'https://via.placeholder.com/400x300/8B5A8C/ffffff?text=Brochure+Design',
-      description: 'Professional corporate brochure with elegant layout',
-      tags: ['Print Design', 'Layout', 'Corporate'],
+      description: t.portfolioSection.items.brochure.description,
+      tags: [t.portfolioSection.tags.printDesign, t.portfolioSection.tags.layout, t.portfolioSection.tags.corporate],
     },
     {
       id: 8,
-      title: 'Product Promo Video',
+      title: t.portfolioSection.items.promoVideo.title,
       category: 'Motion Graphics',
+      categoryDisplay: t.portfolioSection.filters.motionGraphics,
       image: 'https://via.placeholder.com/400x300/A2655F/ffffff?text=Promo+Video',
-      description: 'Engaging product promotional video with smooth animations',
-      tags: ['Video Editing', 'Motion Design', 'Marketing'],
+      description: t.portfolioSection.items.promoVideo.description,
+      tags: [t.portfolioSection.tags.videoEditing, t.portfolioSection.tags.motionDesign, t.portfolioSection.tags.marketing],
     },
     {
       id: 9,
-      title: 'Dashboard Interface',
+      title: t.portfolioSection.items.dashboard.title,
       category: 'UI/UX',
+      categoryDisplay: t.portfolioSection.filters.uiux,
       image: 'https://via.placeholder.com/400x300/BD9587/ffffff?text=Dashboard+UI',
-      description: 'Clean and functional dashboard for data visualization',
-      tags: ['Data Viz', 'Interface', 'Analytics'],
+      description: t.portfolioSection.items.dashboard.description,
+      tags: [t.portfolioSection.tags.dataViz, t.portfolioSection.tags.interface, t.portfolioSection.tags.analytics],
     },
   ];
 
@@ -103,19 +120,19 @@ const PortfolioSection: React.FC = () => {
         <div className="text-center mb-16">
           <div className="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 rounded-full text-sm font-medium mb-8">
             <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-pulse"></div>
-            <span className="text-gray-700 dark:text-gray-300">Portfolio Showcase</span>
+            <span className="text-gray-700 dark:text-gray-300">{t.portfolioSection.portfolioShowcase}</span>
             <div className="w-2 h-2 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full animate-pulse"></div>
           </div>
           
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight transition-colors duration-300">
-            Showcase Your{" "}
+            {t.portfolioPage.showcaseYour}{" "}
             <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-              Portfolio
+              {t.portfolioPage.portfolioHighlight}
             </span>
           </h2>
           
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed transition-colors duration-300">
-            Explore our curated collection of exceptional design work from talented creators
+            {t.portfolioSection.discoverExceptional}
           </p>
         </div>
 
@@ -123,15 +140,15 @@ const PortfolioSection: React.FC = () => {
         <div className="flex flex-wrap justify-center gap-3 mb-12">
           {filters.map((filter) => (
             <button
-              key={filter}
-              onClick={() => setActiveFilter(filter)}
+              key={filter.key}
+              onClick={() => setActiveFilter(filter.key)}
               className={`px-6 py-3 rounded-full font-medium transition-all duration-300 transform hover:scale-105 cursor-pointer ${
-                activeFilter === filter
+                activeFilter === filter.key
                   ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/25'
                   : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 hover:bg-blue-50 dark:hover:bg-gray-700'
               }`}
             >
-              {filter}
+              {filter.label}
             </button>
           ))}
         </div>
@@ -156,14 +173,14 @@ const PortfolioSection: React.FC = () => {
                 {/* Category Badge */}
                 <div className="absolute top-4 left-4">
                   <span className="px-3 py-1 bg-white/90 backdrop-blur-sm text-gray-800 text-sm font-medium rounded-full">
-                    {item.category}
+                    {item.categoryDisplay}
                   </span>
                 </div>
 
                 {/* Hover Overlay */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <button className="bg-white/20 backdrop-blur-sm text-white px-6 py-3 rounded-xl font-medium hover:bg-white/30 transition-colors duration-200 transform hover:scale-105 cursor-pointer">
-                    View Project
+                    {t.portfolioSection.viewProject}
                   </button>
                 </div>
               </div>
@@ -197,14 +214,10 @@ const PortfolioSection: React.FC = () => {
         <div className="bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 dark:from-blue-900/20 dark:via-purple-900/20 dark:to-pink-900/20 rounded-3xl p-8 lg:p-12">
           <div className="text-center mb-10">
             <h3 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300">
-              Recommended for{" "}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                You
+                {t.portfolioSection.recommended}
               </span>
             </h3>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto transition-colors duration-300">
-              Curated projects based on your interests and browsing history
-            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -247,7 +260,7 @@ const PortfolioSection: React.FC = () => {
         <div className="text-center mt-16">
           <button className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 cursor-pointer">
             <span className="flex items-center space-x-2">
-              <span>View All Projects</span>
+              <span>{t.portfolioSection.viewAll}</span>
               <svg
                 className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300"
                 fill="none"

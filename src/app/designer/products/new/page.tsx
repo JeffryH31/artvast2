@@ -6,6 +6,7 @@ import Link from 'next/link';
 import toast from 'react-hot-toast';
 import { useAuth } from '@/hooks/useAuth';
 import { useRole } from '@/hooks/useRole';
+import { useLanguage, useDatabaseTranslation } from '@/lib/i18n';
 import Header from '@/components/layout/Header';
 import { ImageUpload } from '@/components/ui/ImageUpload';
 import { createClient } from '@/lib/supabase/client';
@@ -27,6 +28,8 @@ interface ProductFormData {
 export default function NewProductPage() {
   const { user, loading: authLoading } = useAuth();
   const { isDesigner, loading: roleLoading } = useRole();
+  const { t } = useLanguage();
+  const { translateCategory } = useDatabaseTranslation();
   const router = useRouter();
   
   const [formData, setFormData] = useState<ProductFormData>({
@@ -116,23 +119,23 @@ export default function NewProductPage() {
 
     // Validation
     if (!formData.name.trim()) {
-      toast.error('Product name is required');
+      toast.error(t.designerProducts.nameRequired);
       return;
     }
     if (!formData.description.trim()) {
-      toast.error('Description is required');
+      toast.error(t.designerProducts.descriptionRequired);
       return;
     }
     if (!formData.category) {
-      toast.error('Please select a category');
+      toast.error(t.designerProducts.categoryRequired);
       return;
     }
     if (formData.price <= 0) {
-      toast.error('Price must be greater than 0');
+      toast.error(t.designerProducts.priceRequired);
       return;
     }
     if (formData.images.length === 0) {
-      toast.error('Please upload at least one product image');
+      toast.error(t.designerProducts.imageRequired);
       return;
     }
 
@@ -201,11 +204,11 @@ export default function NewProductPage() {
 
       if (error) throw error;
 
-      toast.success('Product created successfully!');
+      toast.success(t.designerProducts.createSuccess);
       router.push('/designer/products');
     } catch (error) {
       console.error('Error creating product:', error);
-      toast.error('Failed to create product');
+      toast.error(t.designerProducts.createFailed);
     } finally {
       setSubmitting(false);
     }
@@ -243,16 +246,16 @@ export default function NewProductPage() {
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
-              Back to Products
+              {t.designerProducts.backToProducts}
             </Link>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Upload New Product</h1>
-            <p className="text-gray-600 dark:text-gray-400">Fill in the details to add a new product to your portfolio</p>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t.designerProducts.newProduct}</h1>
+            <p className="text-gray-600 dark:text-gray-400">{t.designerProducts.newProductSubtitle}</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Product Images */}
             <div className="bg-white dark:bg-white/5 rounded-xl p-6 border border-gray-200 dark:border-white/10 shadow-sm">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Product Images</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">{t.designerProducts.productImages}</h2>
               <ImageUpload
                 onUpload={handleImageUpload}
                 onRemove={handleImageRemove}
@@ -260,24 +263,24 @@ export default function NewProductPage() {
                 existingImages={formData.images}
               />
               <p className="text-gray-500 dark:text-gray-400 text-sm mt-2">
-                First image will be used as the main product image
+                {t.designerProducts.firstImageNote}
               </p>
             </div>
 
             {/* Basic Information */}
             <div className="bg-white dark:bg-white/5 rounded-xl p-6 border border-gray-200 dark:border-white/10 shadow-sm">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Basic Information</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">{t.designerProducts.basicInfo}</h2>
               
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Product Name *
+                    {t.designerProducts.productName} *
                   </label>
                   <input
                     type="text"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="e.g., Modern Logo Design Template"
+                    placeholder={t.designerProducts.productNamePlaceholder}
                     className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-300 dark:border-white/10 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
                     required
                   />
@@ -285,13 +288,13 @@ export default function NewProductPage() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Description *
+                    {t.designerProducts.description} *
                   </label>
                   <textarea
                     rows={6}
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    placeholder="Describe your product in detail..."
+                    placeholder={t.designerProducts.descriptionPlaceholder}
                     className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-300 dark:border-white/10 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 resize-none"
                     required
                   />
@@ -300,7 +303,7 @@ export default function NewProductPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Category *
+                      {t.designerProducts.category} *
                     </label>
                     <div className="relative">
                       <select
@@ -309,9 +312,9 @@ export default function NewProductPage() {
                         className="w-full px-4 py-3 bg-white dark:bg-[#1a1a1a] border border-gray-300 dark:border-white/10 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 appearance-none cursor-pointer transition-colors hover:border-gray-400 dark:hover:border-white/20"
                         required
                       >
-                        <option value="" className="bg-white dark:bg-[#1a1a1a] text-gray-400">Select a category</option>
+                        <option value="" className="bg-white dark:bg-[#1a1a1a] text-gray-400">{t.designerProducts.selectCategory}</option>
                         {PRODUCT_CATEGORIES.map(cat => (
-                          <option key={cat} value={cat} className="bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-white">{cat}</option>
+                          <option key={cat} value={cat} className="bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-white">{translateCategory(cat)}</option>
                         ))}
                       </select>
                       <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
@@ -324,7 +327,7 @@ export default function NewProductPage() {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Delivery Time
+                      {t.designerProducts.deliveryTime}
                     </label>
                     <div className="relative">
                       <select
@@ -332,10 +335,10 @@ export default function NewProductPage() {
                         onChange={(e) => setFormData({ ...formData, deliveryTime: e.target.value })}
                         className="w-full px-4 py-3 bg-white dark:bg-[#1a1a1a] border border-gray-300 dark:border-white/10 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 appearance-none cursor-pointer transition-colors hover:border-gray-400 dark:hover:border-white/20"
                       >
-                        <option value="1-2 days" className="bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-white">1-2 days</option>
-                        <option value="3-5 days" className="bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-white">3-5 days</option>
-                        <option value="5-7 days" className="bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-white">5-7 days</option>
-                        <option value="1-2 weeks" className="bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-white">1-2 weeks</option>
+                        <option value="1-2 days" className="bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-white">{t.deliveryTimes['1-2 days']}</option>
+                        <option value="3-5 days" className="bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-white">{t.deliveryTimes['3-5 days']}</option>
+                        <option value="5-7 days" className="bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-white">{t.deliveryTimes['5-7 days']}</option>
+                        <option value="1-2 weeks" className="bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-white">{t.deliveryTimes['1-2 weeks']}</option>
                       </select>
                       <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                         <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -350,12 +353,12 @@ export default function NewProductPage() {
 
             {/* Pricing */}
             <div className="bg-white dark:bg-white/5 rounded-xl p-6 border border-gray-200 dark:border-white/10 shadow-sm">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Pricing</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">{t.designerProducts.pricing}</h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Price (USD) *
+                    {t.designerProducts.priceUsd} *
                   </label>
                   <input
                     type="number"
@@ -371,7 +374,7 @@ export default function NewProductPage() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Original Price (Optional)
+                    {t.designerProducts.originalPrice}
                   </label>
                   <input
                     type="number"
@@ -382,13 +385,13 @@ export default function NewProductPage() {
                     placeholder="79.99"
                     className="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-300 dark:border-white/10 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
                   />
-                  <p className="text-gray-500 text-xs mt-1">Show discount from original price</p>
+                  <p className="text-gray-500 text-xs mt-1">{t.designerProducts.originalPriceNote}</p>
                 </div>
               </div>
 
               <div className="mt-4">
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  License Type
+                  {t.designerProducts.licenseType}
                 </label>
                 <div className="relative">
                   <select
@@ -396,9 +399,9 @@ export default function NewProductPage() {
                     onChange={(e) => setFormData({ ...formData, licenseType: e.target.value })}
                     className="w-full px-4 py-3 bg-white dark:bg-[#1a1a1a] border border-gray-300 dark:border-white/10 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500 appearance-none cursor-pointer transition-colors hover:border-gray-400 dark:hover:border-white/20"
                   >
-                    <option value="Personal Use" className="bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-white">Personal Use</option>
-                    <option value="Commercial Use" className="bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-white">Commercial Use</option>
-                    <option value="Extended License" className="bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-white">Extended License</option>
+                    <option value="Personal Use" className="bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-white">{t.designerProducts.personalUse}</option>
+                    <option value="Commercial Use" className="bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-white">{t.designerProducts.commercialUse}</option>
+                    <option value="Extended License" className="bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-white">{t.designerProducts.extendedLicense}</option>
                   </select>
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                     <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -412,13 +415,13 @@ export default function NewProductPage() {
             {/* Features */}
             <div className="bg-white dark:bg-white/5 rounded-xl p-6 border border-gray-200 dark:border-white/10 shadow-sm">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Product Features</h2>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">{t.designerProducts.productFeatures}</h2>
                 <button
                   type="button"
                   onClick={addFeature}
                   className="px-3 py-1 bg-green-100 dark:bg-green-500/20 text-green-600 dark:text-green-400 rounded-lg text-sm hover:bg-green-200 dark:hover:bg-green-500/30 transition-colors cursor-pointer"
                 >
-                  + Add Feature
+                  {t.designerProducts.addFeature}
                 </button>
               </div>
 
@@ -429,7 +432,7 @@ export default function NewProductPage() {
                       type="text"
                       value={feature}
                       onChange={(e) => updateFeature(index, e.target.value)}
-                      placeholder="e.g., High-resolution files included"
+                      placeholder={t.designerProducts.featurePlaceholder}
                       className="flex-1 px-4 py-2 bg-gray-50 dark:bg-white/5 border border-gray-300 dark:border-white/10 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
                     />
                     {formData.features.length > 1 && (
@@ -450,7 +453,7 @@ export default function NewProductPage() {
 
             {/* Tags */}
             <div className="bg-white dark:bg-white/5 rounded-xl p-6 border border-gray-200 dark:border-white/10 shadow-sm">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Tags</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">{t.designerProducts.tags}</h2>
               
               <div className="flex gap-2 mb-3">
                 <input
@@ -458,7 +461,7 @@ export default function NewProductPage() {
                   value={tagInput}
                   onChange={(e) => setTagInput(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())}
-                  placeholder="Add a tag and press Enter"
+                  placeholder={t.designerProducts.tagPlaceholder}
                   className="flex-1 px-4 py-2 bg-gray-50 dark:bg-white/5 border border-gray-300 dark:border-white/10 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
                 />
                 <button
@@ -466,7 +469,7 @@ export default function NewProductPage() {
                   onClick={addTag}
                   className="px-4 py-2 bg-green-100 dark:bg-green-500/20 text-green-600 dark:text-green-400 rounded-lg hover:bg-green-200 dark:hover:bg-green-500/30 transition-colors cursor-pointer"
                 >
-                  Add
+                  {t.designerProducts.addTag}
                 </button>
               </div>
 
@@ -500,13 +503,13 @@ export default function NewProductPage() {
                 disabled={submitting}
                 className="flex-1 py-3 px-6 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 disabled:from-green-500/50 disabled:to-emerald-500/50 text-white font-medium rounded-lg transition-all disabled:cursor-not-allowed cursor-pointer"
               >
-                {submitting ? 'Creating Product...' : 'Create Product'}
+                {submitting ? t.designerProducts.creatingProduct : t.designerProducts.createProduct}
               </button>
               <Link
                 href="/designer/products"
                 className="px-6 py-3 bg-gray-200 hover:bg-gray-300 dark:bg-white/5 dark:hover:bg-white/10 text-gray-700 dark:text-white font-medium rounded-lg transition-colors text-center cursor-pointer"
               >
-                Cancel
+                {t.common.cancel}
               </Link>
             </div>
           </form>
