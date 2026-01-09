@@ -190,16 +190,6 @@ export const en = {
     browseMarketplace: 'Browse Marketplace',
   },
 
-  // Featured Designers
-  featuredDesigners: {
-    title: 'Featured Designers',
-    subtitle: 'Meet talented creators on our platform',
-    viewProfile: 'View Profile',
-    products: 'products',
-    followers: 'followers',
-    verified: 'Verified',
-  },
-
   // Top Designers
   topDesigners: {
     title: 'Top',
@@ -227,42 +217,6 @@ export const en = {
     },
     explorePortfolios: 'Explore Portfolios',
     contactUs: 'Contact Us',
-  },
-
-  // Reviews Section
-  reviews: {
-    title: 'What Customers Say',
-    subtitle: 'Testimonials from our platform users',
-    writeReview: 'Write a Review',
-    noReviews: 'No reviews yet',
-    beFirstReview: 'Be the first to leave a review!',
-    averageRating: 'Average Rating',
-    basedOn: 'Based on',
-    reviewsCount: 'reviews',
-    rating: 'Rating',
-    comment: 'Comment',
-    submitReview: 'Submit Review',
-    reviewSubmitted: 'Review submitted successfully!',
-    mustPurchase: 'You must purchase this product to leave a review',
-    alreadyReviewed: 'You have already reviewed this product',
-  },
-
-  // Value Propositions
-  valuePropositions: {
-    title: 'The Value We Offer',
-    subtitle: 'Our commitment to creators and buyers',
-    forDesigners: 'For Designers',
-    forDesignersDesc: 'Monetize your work and reach a global audience',
-    forBuyers: 'For Buyers',
-    forBuyersDesc: 'Discover unique works from talented creators',
-    earnMore: 'Earn up to 80% from each sale',
-    globalReach: 'International market reach',
-    easySetup: 'Easy store setup',
-    analytics: 'Complete sales analytics',
-    curatedDesigns: 'Curated quality designs',
-    securePurchase: '100% secure purchase',
-    instantAccess: 'Instant file access',
-    supportIncluded: 'Product support available',
   },
 
   // Portfolio Section
@@ -965,6 +919,18 @@ export const en = {
     completeDescription: 'Complete solutions for all your design and branding needs. From logo design to full brand identity, our talented designers are ready to bring your vision to life.',
     learnMore: 'Learn More',
     services: {
+      branding: {
+        title: 'Branding',
+        description: 'The strategic system of visual, verbal, and experiential elements that shape perception, builds trust, and creates emotional connections to the market.',
+      },
+      uiux: {
+        title: 'UI/UX Design',
+        description: 'The integration of visual identity UI and behavior patterns UX to create digital products that are usable, accessible, and aesthetically engaging.',
+      },
+      motionGraphics: {
+        title: 'Motion Graphics',
+        description: 'Visual art combining animated graphic design and visual effects to convey ideas, enhance storytelling, and engage audiences through dynamic movement and transitions.',
+      },
       logoDesign: {
         title: 'Logo Design',
         description: 'Create a unique and memorable brand identity with our professional logo design services.',
@@ -984,10 +950,6 @@ export const en = {
       illustration: {
         title: 'Illustration',
         description: 'Custom illustrations that bring your ideas to life with creativity and precision.',
-      },
-      motionGraphics: {
-        title: 'Motion Graphics',
-        description: 'Engaging motion graphics and animations that tell your brand story effectively.',
       },
     },
   },

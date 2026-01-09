@@ -4,22 +4,24 @@ import React, { useState, useMemo } from 'react';
 import Header from '@/components/layout/Header';
 import { usePortfolio } from '@/hooks/usePortfolio';
 import { Pagination } from '@/components/ui/Pagination';
-import { PAGINATION } from '@/lib/constants';
+import { PAGINATION, PRODUCT_CATEGORIES } from '@/lib/constants';
 import { useLanguage, useDatabaseTranslation } from '@/lib/i18n';
 
 const PortfolioPage = () => {
-  const [activeFilter, setActiveFilter] = useState('All');
+  const [activeFilter, setActiveFilter] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
   const { items: portfolioData, loading, error } = usePortfolio();
   const { t } = useLanguage();
   const { translateCategory } = useDatabaseTranslation();
 
-  const filters = ['All', 'UI/UX', 'Branding', 'Illustration', 'Graphic Design'];
+  // Filter options from constants + 'all'
+  const filterKeys = ['all', ...PRODUCT_CATEGORIES];
 
   const filteredItems = useMemo(() => {
-    if (activeFilter === 'All') return portfolioData;
+    if (activeFilter === 'all') return portfolioData;
     return portfolioData.filter(item => 
-      item.category.toLowerCase() === activeFilter.toLowerCase()
+      item.category.toLowerCase().replace(/\s+/g, '-') === activeFilter ||
+      item.category.toLowerCase() === activeFilter.replace(/-/g, ' ')
     );
   }, [portfolioData, activeFilter]);
 
@@ -65,17 +67,17 @@ const PortfolioPage = () => {
         <div className="bg-white dark:bg-gray-900 py-4 sm:py-6 lg:py-8 sticky top-16 sm:top-20 z-30 border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-center gap-2 sm:gap-3 lg:gap-4 overflow-x-auto pb-2 sm:pb-0 scrollbar-hide">
-              {filters.map((filter) => (
+              {filterKeys.map((filterKey) => (
                 <button
-                  key={filter}
-                  onClick={() => handleFilterChange(filter)}
+                  key={filterKey}
+                  onClick={() => handleFilterChange(filterKey)}
                   className={`flex-shrink-0 px-4 sm:px-6 lg:px-8 py-2 sm:py-2.5 lg:py-3 rounded-full font-medium text-sm sm:text-base transition-all duration-300 border whitespace-nowrap cursor-pointer ${
-                    activeFilter === filter
+                    activeFilter === filterKey
                       ? 'bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white border-transparent shadow-lg'
                       : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:border-[#5D6BC6] hover:bg-[#5D6BC6]/5 dark:hover:bg-[#5D6BC6]/10'
                   }`}
                 >
-                  {filter}
+                  {translateCategory(filterKey)}
                 </button>
               ))}
             </div>

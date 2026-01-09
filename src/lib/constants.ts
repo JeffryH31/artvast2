@@ -58,16 +58,16 @@ export const APPLICATION_STATUS = {
 
 export type ApplicationStatus = typeof APPLICATION_STATUS[keyof typeof APPLICATION_STATUS];
 
-// Categories
+// Categories - using slug format matching database
 export const PRODUCT_CATEGORIES = [
-  'Branding',
-  'UI/UX Design',
-  'Motion Graphics',
-  'Illustration',
-  'Graphic Design',
-  'Photography',
-  '3D Design',
-  'Web Design',
+  'branding',
+  'ui-ux-design',
+  'motion-graphics',
+  'illustration',
+  'graphic-design',
+  'photography',
+  '3d-design',
+  'web-design',
 ] as const;
 
 export type ProductCategory = typeof PRODUCT_CATEGORIES[number];

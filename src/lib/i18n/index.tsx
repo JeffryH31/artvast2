@@ -105,13 +105,22 @@ const categoryKeyMap: Record<string, keyof TranslationKeys['categories']> = {
   // Variations with spaces/special chars
   'ui/ux': 'uiux',
   'ui/ux design': 'uiux',
+  'ui-ux': 'uiux',
+  'ui-ux-design': 'uiux',
   '3d design': '3d',
+  '3d-design': '3d',
   'motion graphics': 'motionGraphics',
+  'motion-graphics': 'motionGraphics',
   'web design': 'webDesign',
+  'web-design': 'webDesign',
   'app design': 'appDesign',
+  'app-design': 'appDesign',
   'icon design': 'iconDesign',
+  'icon-design': 'iconDesign',
   'social media': 'socialMedia',
+  'social-media': 'socialMedia',
   'graphic design': 'graphicDesign',
+  'graphic-design': 'graphicDesign',
 };
 
 /**
@@ -135,8 +144,13 @@ export function useDatabaseTranslation() {
   ): string => {
     if (!dbValue) return '';
     
-    const normalizedValue = dbValue.toLowerCase().trim().replace(/\s+/g, '');
-    const translationKey = keyMap ? keyMap[normalizedValue] || keyMap[dbValue.toLowerCase().trim()] : normalizedValue;
+    const lowerValue = dbValue.toLowerCase().trim();
+    const normalizedValue = lowerValue.replace(/\s+/g, '');
+    
+    // Try multiple variations for key lookup
+    const translationKey = keyMap 
+      ? (keyMap[lowerValue] || keyMap[normalizedValue] || keyMap[lowerValue.replace(/-/g, '')])
+      : normalizedValue;
     
     // Try exact match first, then normalized key
     if (translationSection[dbValue as keyof T]) {
