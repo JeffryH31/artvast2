@@ -4,7 +4,7 @@ import React, { useState, useMemo } from 'react';
 import Header from '@/components/layout/Header';
 import { usePortfolio } from '@/hooks/usePortfolio';
 import { Pagination } from '@/components/ui/Pagination';
-import { PAGINATION, PRODUCT_CATEGORIES } from '@/lib/constants';
+import { PAGINATION, POPULAR_CATEGORIES } from '@/lib/constants';
 import { useLanguage, useDatabaseTranslation } from '@/lib/i18n';
 
 const PortfolioPage = () => {
@@ -14,8 +14,8 @@ const PortfolioPage = () => {
   const { t } = useLanguage();
   const { translateCategory } = useDatabaseTranslation();
 
-  // Filter options from constants + 'all'
-  const filterKeys = ['all', ...PRODUCT_CATEGORIES];
+  // Filter options - popular categories only to avoid overflow
+  const filterKeys = ['all', ...POPULAR_CATEGORIES];
 
   const filteredItems = useMemo(() => {
     if (activeFilter === 'all') return portfolioData;

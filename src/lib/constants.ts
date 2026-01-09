@@ -70,6 +70,14 @@ export const PRODUCT_CATEGORIES = [
   'web-design',
 ] as const;
 
+// Popular categories for filter display (subset of PRODUCT_CATEGORIES)
+export const POPULAR_CATEGORIES = [
+  'branding',
+  'ui-ux-design',
+  'illustration',
+  'graphic-design',
+] as const;
+
 export type ProductCategory = typeof PRODUCT_CATEGORIES[number];
 
 // Error Messages
