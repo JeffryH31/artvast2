@@ -152,7 +152,7 @@ export function ProductCard({
           </div>
         </div>
 
-        {/* Add to Cart Button - Show only for non-designers */}
+        {/* Add to Cart Button hidden - transaction features disabled
         {onAddToCart && !isDesigner && !isOwner && (
           <button
             onClick={handleAddToCart}
@@ -162,6 +162,7 @@ export function ProductCard({
             {cartLoading ? t.common.loading : t.product.addToCart}
           </button>
         )}
+        */}
 
         {/* Show "Your Product" badge for product owner */}
         {isOwner && (

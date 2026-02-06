@@ -43,8 +43,9 @@ const HeroSection: React.FC = () => {
             className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-12 animate-fade-in-up"
             style={{ animationDelay: "0.6s" }}
           >
+            {/* Marketplace link hidden - transaction features disabled */}
             <Link 
-              href="/marketplace"
+              href="/portfolio"
               className="group bg-white text-gray-900 px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl font-semibold hover:bg-gray-50 transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-white/20 flex items-center justify-center space-x-2 text-sm sm:text-base cursor-pointer"
             >
               <span>{t.hero.getStarted}</span>

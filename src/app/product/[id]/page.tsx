@@ -303,6 +303,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
               /* Designer viewing other products - no action buttons, just viewing */
               null
             ) : (
+            /* Transaction features hidden for now
             <>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 sm:pt-4">
               <button 
@@ -351,7 +352,6 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
               </button>
             </div>
 
-            {/* Add to Wishlist - Only for non-owners */}
             <button 
               onClick={async () => {
                 if (!user) {
@@ -372,6 +372,8 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ params }) => {
               <span>{isSaved(id) ? 'Saved' : 'Add to Wishlist'}</span>
             </button>
             </>
+            */
+            null
             )}
           </div>
         </div>

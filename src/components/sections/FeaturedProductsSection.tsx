@@ -134,10 +134,10 @@ const FeaturedProductsSection: React.FC = () => {
           ))}
         </div>
 
-        {/* View All Button */}
+        {/* View All Button - Marketplace hidden, link to portfolio instead */}
         <div className="text-center mt-10 sm:mt-12">
           <Link
-            href="/marketplace"
+            href="/portfolio"
             className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-[#BD9587] to-[#A2655F] text-white font-semibold rounded-xl hover:shadow-xl transform hover:scale-105 transition-all duration-300"
           >
             {t.featuredProducts.browseMarketplace}
