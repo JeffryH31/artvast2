@@ -40,7 +40,7 @@ const PortfolioGallerySection: React.FC = () => {
       {/* Category Filter Tabs - Sticky like Dribbble */}
       <div className="sticky top-16 sm:top-20 z-30 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto py-3 sm:py-4 scrollbar-hide">
+          <div className="flex items-center justify-center gap-1 sm:gap-2 overflow-x-auto py-3 sm:py-4 scrollbar-hide">
             {categories.map((category) => (
               <button
                 key={category}
@@ -58,14 +58,6 @@ const PortfolioGallerySection: React.FC = () => {
                   : translateCategory(category)}
               </button>
             ))}
-            
-            {/* Filters Button */}
-            <button className="flex-shrink-0 ml-2 px-4 py-2 sm:py-2.5 rounded-full font-medium text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300 flex items-center gap-2 cursor-pointer border border-gray-200 dark:border-gray-700">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-              </svg>
-              <span className="hidden sm:inline">Filters</span>
-            </button>
           </div>
         </div>
       </div>
