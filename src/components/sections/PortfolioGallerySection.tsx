@@ -244,7 +244,7 @@ const PortfolioGallerySection: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div ref={megaFilterRef} className="relative py-3 sm:py-4">
             <div className="flex flex-col gap-3 lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-4">
-              <div className="min-w-0 overflow-x-auto scrollbar-hide">
+              <div className="min-w-0 overflow-x-auto scrollbar-hide touch-pan-x">
                 <div className="flex items-center justify-center gap-1 sm:gap-2 min-w-max lg:min-w-0 lg:justify-center">
                   {categories.map((category) => (
                     <button
@@ -297,7 +297,7 @@ const PortfolioGallerySection: React.FC = () => {
             </div>
 
             {isMegaFilterOpen && (
-              <div className="absolute right-0 top-full z-40 mt-3 w-full rounded-3xl border border-gray-200 bg-white p-5 shadow-[0_24px_80px_rgba(15,23,42,0.14)] dark:border-gray-700 dark:bg-gray-900 md:w-[720px] lg:w-[900px]">
+              <div className="absolute right-0 top-full z-40 mt-3 w-full rounded-3xl border border-gray-200 bg-white p-5 shadow-[0_24px_80px_rgba(15,23,42,0.14)] dark:border-gray-700 dark:bg-gray-900 md:w-[720px] lg:w-[900px] max-h-[75vh] overflow-y-auto overscroll-contain">
                 <div className="mb-4 flex items-center justify-between gap-4 border-b border-gray-100 pb-4 dark:border-gray-800">
                   <div>
                     <h3 className="text-base font-semibold text-gray-900 dark:text-white">

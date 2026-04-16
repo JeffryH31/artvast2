@@ -16,7 +16,7 @@ const FeaturedDesignersRow: React.FC = () => {
     return (
       <section className="bg-gray-50 dark:bg-gray-800/50 py-8 sm:py-12 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
+          <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide touch-pan-x">
             {[...Array(6)].map((_, i) => (
               <div key={i} className="flex-shrink-0 w-48 animate-pulse">
                 <div className="bg-white dark:bg-gray-700 rounded-xl p-4">
@@ -59,7 +59,7 @@ const FeaturedDesignersRow: React.FC = () => {
         </div>
 
         {/* Designers Horizontal Scroll */}
-        <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
+        <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide touch-pan-x -mx-4 px-4 sm:mx-0 sm:px-0">
           {topDesigners.map((designer) => (
             <Link
               key={designer.id}
