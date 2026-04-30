@@ -891,6 +891,16 @@ export const en = {
     joinThousands: 'Join thousands of designers who trust our platform to showcase their best work',
     registerAsDesigner: 'Register as Designer',
     exploreDesigners: 'Explore Designers',
+    // Portfolio detail page
+    portfolioNotFound: 'Portfolio not found',
+    backToPortfolio: 'Back to Portfolio',
+    projectInfo: 'Project Information',
+    moreFromDesigner: 'More from',
+    viewProfile: 'View Profile',
+    similarProjects: 'You might also like',
+    seeAll: 'View all',
+    inspiredCTA: 'Inspired by this design?',
+    shareCTA: 'Share your own creative work with the community',
   },
 
   // Product Detail Page

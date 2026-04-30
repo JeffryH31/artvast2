@@ -1,21 +1,35 @@
 import Header from '@/components/layout/Header';
 import HeroSection from '@/components/sections/HeroSection';
-import ValuePropositionsSection from '@/components/sections/ValuePropositionsSection';
-import TopDesignersSection from '@/components/sections/TopDesignersSection';
-import BenefitsSection from '@/components/sections/BenefitsSection';
+import PortfolioGallerySection from '@/components/sections/PortfolioGallerySection';
+import FeaturedDesignersRow from '@/components/sections/FeaturedDesignersRow';
+import HomeCTASection from '@/components/sections/HomeCTASection';
+// import ValuePropositionsSection from '@/components/sections/ValuePropositionsSection';
+// import TopDesignersSection from '@/components/sections/TopDesignersSection';
+// import BenefitsSection from '@/components/sections/BenefitsSection';
 
 export default function Home() {
   return (
     <div className="bg-white dark:bg-gray-950 transition-colors duration-300">
       <Header />
-      {/* Kontainer utama dengan satu gradien latar belakang seamless */}
+      {/* Hero/Landing Page Section */}
       <main className="hero-gradient relative overflow-hidden seamless-container">
         <HeroSection />
-        <ValuePropositionsSection />
       </main>
-      {/* Section lain di luar gradien utama */}
+      
+      {/* Portfolio Gallery - Dribbble-like structure */}
+      <PortfolioGallerySection />
+      
+      {/* Featured Designers Row */}
+      <FeaturedDesignersRow />
+      
+      {/* CTA Section */}
+      <HomeCTASection />
+      
+      {/* Old sections - hidden for now
+      <ValuePropositionsSection />
       <TopDesignersSection />
       <BenefitsSection />
+      */}
     </div>
   );
 }

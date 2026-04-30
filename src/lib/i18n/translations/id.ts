@@ -915,6 +915,16 @@ export const id = {
       "Bergabunglah dengan ribuan desainer yang mempercayai platform kami untuk menampilkan karya terbaik mereka",
     registerAsDesigner: "Daftar Sebagai Desainer",
     exploreDesigners: "Jelajahi Desainer",
+    // Portfolio detail page
+    portfolioNotFound: "Portofolio tidak ditemukan",
+    backToPortfolio: "Kembali ke Portofolio",
+    projectInfo: "Informasi Proyek",
+    moreFromDesigner: "Lainnya dari",
+    viewProfile: "Lihat Profil",
+    similarProjects: "Anda mungkin juga suka",
+    seeAll: "Lihat semua",
+    inspiredCTA: "Terinspirasi oleh desain ini?",
+    shareCTA: "Bagikan karya kreatif Anda dengan komunitas",
   },
 
   // Product Detail Page
