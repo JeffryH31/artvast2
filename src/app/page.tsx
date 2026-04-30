@@ -3,9 +3,9 @@ import HeroSection from '@/components/sections/HeroSection';
 import PortfolioGallerySection from '@/components/sections/PortfolioGallerySection';
 import FeaturedDesignersRow from '@/components/sections/FeaturedDesignersRow';
 import HomeCTASection from '@/components/sections/HomeCTASection';
-// import ValuePropositionsSection from '@/components/sections/ValuePropositionsSection';
-// import TopDesignersSection from '@/components/sections/TopDesignersSection';
-// import BenefitsSection from '@/components/sections/BenefitsSection';
+import ValuePropositionsSection from '@/components/sections/ValuePropositionsSection';
+import TopDesignersSection from '@/components/sections/TopDesignersSection';
+import BenefitsSection from '@/components/sections/BenefitsSection';
 
 export default function Home() {
   return (
@@ -25,11 +25,9 @@ export default function Home() {
       {/* CTA Section */}
       <HomeCTASection />
       
-      {/* Old sections - hidden for now
       <ValuePropositionsSection />
       <TopDesignersSection />
       <BenefitsSection />
-      */}
     </div>
   );
 }

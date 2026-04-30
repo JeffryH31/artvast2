@@ -451,7 +451,7 @@ export default function DashboardPage() {
               { id: "saved", label: t.dashboard.savedProducts },
               ...(isDesigner
                 ? [
-                    // { id: "products", label: t.dashboard.myProducts }, // Hidden - transaction features disabled
+                    { id: "products", label: t.dashboard.myProducts },
                     { id: "portfolio", label: t.dashboard.portfolio },
                   ]
                 : []),
@@ -916,7 +916,6 @@ export default function DashboardPage() {
                 </div>
               )}
 
-              {/* My Products Tab hidden - transaction features disabled
               {activeTab === "products" && isDesigner && (
                 <div>
                   <div className="flex items-center justify-between mb-6">
@@ -939,7 +938,6 @@ export default function DashboardPage() {
                   </div>
                 </div>
               )}
-              */}
 
               {/* Portfolio Tab (Designer Only) */}
               {activeTab === "portfolio" && isDesigner && (
