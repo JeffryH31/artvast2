@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Manrope } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/Toaster";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
@@ -7,10 +7,10 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 import { LanguageProvider } from "@/lib/i18n";
 import { ConfirmDialogProvider } from "@/components/ui/ConfirmDialog";
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta-sans",
   subsets: ["latin"],
-  weight: ["200", "300", "400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -56,7 +56,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" suppressHydrationWarning>
-      <body className={`${manrope.variable} font-sans antialiased`}>
+      <body className={`${plusJakartaSans.variable} font-sans antialiased`}>
         <ThemeProvider>
           <LanguageProvider>
             <ConfirmDialogProvider>
