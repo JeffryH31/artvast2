@@ -51,22 +51,22 @@ const Header: React.FC = () => {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
           scrolled
-            ? "bg-white/85 dark:bg-gray-900/95 backdrop-blur-3xl shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)] translate-y-0"
-            : "bg-white/40 dark:bg-gray-900/50 backdrop-blur-xl"
+            ? "bg-[#050B1A]/95 backdrop-blur-3xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] border-b border-white/5 translate-y-0"
+            : "bg-[#050B1A]/60 backdrop-blur-xl"
         }`}
       >
         {/* Animated gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#5D6BC6]/5 via-[#8B5A8C]/5 to-[#BD9587]/5 pointer-events-none"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#234CF9]/5 via-[#234CF9]/5 to-[#DFE7F7]/5 pointer-events-none"></div>
 
         {/* Top accent line - animated gradient */}
         <div
-          className={`absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#5D6BC6] via-[#8B5A8C] to-[#BD9587] transition-opacity duration-500 ${
+          className={`absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#234CF9] via-[#234CF9] to-[#DFE7F7] transition-opacity duration-500 ${
             scrolled ? "opacity-100" : "opacity-0"
           }`}
         ></div>
 
         {/* Subtle inner glow */}
-        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/50 dark:from-gray-800/30 to-transparent pointer-events-none"></div>
+        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#234CF9]/5 to-transparent pointer-events-none"></div>
 
         <nav className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div
@@ -82,7 +82,7 @@ const Header: React.FC = () => {
               >
                 <div className="relative">
                   {/* Logo glow effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#5D6BC6] to-[#8B5A8C] rounded-full blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-500 scale-150"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#234CF9] to-[#234CF9] rounded-full blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-500 scale-150"></div>
                   {/* Logo Image */}
                   <Image
                     src="/Artvast Logo.png"
@@ -123,7 +123,7 @@ const Header: React.FC = () => {
                 >
                   {/* Active background pill */}
                   <span
-                    className={`absolute inset-0 bg-gradient-to-r from-[#5D6BC6] to-[#8B5A8C] rounded-xl transition-all duration-300 ${
+                    className={`absolute inset-0 bg-gradient-to-r from-[#234CF9] to-[#234CF9] rounded-xl transition-all duration-300 ${
                       isActive("/")
                         ? "opacity-100 scale-100"
                         : "opacity-0 scale-95"
@@ -168,7 +168,7 @@ const Header: React.FC = () => {
                   }`}
                 >
                   <span
-                    className={`absolute inset-0 bg-gradient-to-r from-[#8B5A8C] to-[#BD9587] rounded-xl transition-all duration-300 ${
+                    className={`absolute inset-0 bg-gradient-to-r from-[#234CF9] to-[#DFE7F7] rounded-xl transition-all duration-300 ${
                       isActive("/portfolio")
                         ? "opacity-100 scale-100"
                         : "opacity-0 scale-95"
@@ -212,7 +212,7 @@ const Header: React.FC = () => {
                   }`}
                 >
                   <span
-                    className={`absolute inset-0 bg-gradient-to-r from-[#BD9587] to-[#A2655F] rounded-xl transition-all duration-300 ${
+                    className={`absolute inset-0 bg-gradient-to-r from-[#DFE7F7] to-[#234CF9] rounded-xl transition-all duration-300 ${
                       isActive("/marketplace")
                         ? "opacity-100 scale-100"
                         : "opacity-0 scale-95"
@@ -257,7 +257,7 @@ const Header: React.FC = () => {
                     }`}
                   >
                     <span
-                      className={`absolute inset-0 bg-gradient-to-r from-[#5D6BC6] to-[#1647A3] rounded-xl transition-all duration-300 ${
+                      className={`absolute inset-0 bg-gradient-to-r from-[#234CF9] to-[#1C277B] rounded-xl transition-all duration-300 ${
                         pathname?.startsWith("/designer")
                           ? "opacity-100 scale-100"
                           : "opacity-0 scale-95"
@@ -297,8 +297,6 @@ const Header: React.FC = () => {
               {/* Settings Toggles */}
               <div className="flex items-center bg-white/40 dark:bg-gray-800/40 backdrop-blur-md rounded-xl p-1 border border-white/20 dark:border-gray-700/30">
                 <LanguageToggle />
-                <div className="w-px h-5 bg-gray-300/50 dark:bg-gray-600/50 mx-0.5"></div>
-                <ThemeToggle />
               </div>
 
               {/* Auth Section */}
@@ -313,7 +311,7 @@ const Header: React.FC = () => {
                       className="relative p-2.5 bg-white/40 dark:bg-gray-800/40 hover:bg-white/70 dark:hover:bg-gray-700/70 backdrop-blur-md rounded-xl transition-all duration-300 group border border-white/20 dark:border-gray-700/30 hover:scale-105"
                     >
                       <svg
-                        className="w-5 h-5 text-gray-700 dark:text-gray-300 group-hover:text-[#5D6BC6] transition-colors"
+                        className="w-5 h-5 text-gray-700 dark:text-gray-300 group-hover:text-[#234CF9] transition-colors"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -338,7 +336,7 @@ const Header: React.FC = () => {
                     href="/dashboard"
                     className="flex items-center space-x-2 px-3 py-1.5 bg-white/40 dark:bg-gray-800/40 backdrop-blur-md rounded-xl border border-white/20 dark:border-gray-700/30 hover:bg-white/70 dark:hover:bg-gray-700/70 hover:scale-105 transition-all duration-300 group"
                   >
-                    <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#5D6BC6] to-[#8B5A8C] flex items-center justify-center text-white text-sm font-bold shadow-md group-hover:scale-110 transition-transform">
+                    <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#234CF9] to-[#234CF9] flex items-center justify-center text-white text-sm font-bold shadow-md group-hover:scale-110 transition-transform">
                       {user.email?.charAt(0).toUpperCase()}
                     </div>
                     <span className="text-sm text-gray-700 dark:text-gray-300 font-medium max-w-[100px] truncate">
@@ -395,9 +393,9 @@ const Header: React.FC = () => {
                     className="relative group overflow-hidden rounded-xl cursor-pointer hover:scale-105 transition-transform duration-300"
                   >
                     {/* Animated gradient background */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#5D6BC6] via-[#8B5A8C] to-[#BD9587] animate-gradient-x"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#234CF9] via-[#234CF9] to-[#DFE7F7] animate-gradient-x"></div>
                     {/* Glow effect */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#5D6BC6] via-[#8B5A8C] to-[#BD9587] blur-xl opacity-40 group-hover:opacity-60 transition-opacity duration-500"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#234CF9] via-[#234CF9] to-[#DFE7F7] blur-xl opacity-40 group-hover:opacity-60 transition-opacity duration-500"></div>
                     {/* Shine effect */}
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
 
@@ -534,12 +532,7 @@ const Header: React.FC = () => {
                   </span>
                   <LanguageToggle />
                 </div>
-                <div className="flex items-center justify-between px-2 py-2">
-                  <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                    {t.settings.theme}
-                  </span>
-                  <ThemeToggle />
-                </div>
+                {/* Theme toggle hidden - dark mode default */}
               </div>
 
               {/* Divider */}
@@ -551,7 +544,7 @@ const Header: React.FC = () => {
               ) : user ? (
                 <div className="space-y-3">
                   <div className="flex items-center space-x-3 px-4 py-3 bg-white/50 dark:bg-gray-700/50 rounded-xl">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#5D6BC6] to-[#1647A3] flex items-center justify-center text-white font-bold flex-shrink-0">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#234CF9] to-[#1C277B] flex items-center justify-center text-white font-bold flex-shrink-0">
                       {user.email?.charAt(0).toUpperCase()}
                     </div>
                     <div className="flex-1 min-w-0">

@@ -222,7 +222,7 @@ export default function DashboardPage() {
     return (
       <>
         <Header />
-        <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 pt-24 transition-colors duration-300">
+        <main className="min-h-screen bg-[#050B1A] pt-24 transition-colors duration-300">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Profile Header Skeleton */}
             <div className="bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 rounded-2xl p-6 sm:p-8 mb-8 border border-gray-200 dark:border-white/10">
@@ -398,7 +398,7 @@ export default function DashboardPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 pt-24 pb-16 transition-colors duration-300">
+      <main className="min-h-screen bg-[#050B1A] pt-24 pb-16 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Profile Header */}
           <div className="bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 rounded-2xl p-6 sm:p-8 mb-8 border border-gray-200 dark:border-white/10 shadow-sm transition-colors duration-300">

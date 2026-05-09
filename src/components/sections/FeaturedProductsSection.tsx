@@ -13,11 +13,11 @@ const FeaturedProductsSection: React.FC = () => {
 
   if (loading) {
     return (
-      <section className="py-16 sm:py-20 lg:py-24 bg-white dark:bg-gray-900 transition-colors duration-300">
+      <section className="py-16 sm:py-20 lg:py-24 bg-transparent transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300">
-              {t.featuredProducts.title} <span className="bg-gradient-to-r from-[#BD9587] to-[#A2655F] bg-clip-text text-transparent">{t.featuredProducts.titleHighlight}</span>
+              {t.featuredProducts.title} <span className="bg-gradient-to-r from-[#DFE7F7] to-[#234CF9] bg-clip-text text-transparent">{t.featuredProducts.titleHighlight}</span>
             </h2>
             <p className="text-gray-600 dark:text-gray-300 text-lg transition-colors duration-300">{t.common.loading}...</p>
           </div>
@@ -45,16 +45,16 @@ const FeaturedProductsSection: React.FC = () => {
   }
 
   return (
-    <section className="py-16 sm:py-20 lg:py-24 bg-white dark:bg-gray-900 relative overflow-hidden transition-colors duration-300">
+    <section className="py-16 sm:py-20 lg:py-24 bg-transparent relative overflow-hidden transition-colors duration-300">
       {/* Background decoration */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#BD9587] via-[#8B5A8C] to-[#5D6BC6]"></div>
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#DFE7F7] via-[#234CF9] to-[#234CF9]"></div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300">
             {t.featuredProducts.title}{" "}
-            <span className="bg-gradient-to-r from-[#BD9587] to-[#A2655F] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#DFE7F7] to-[#234CF9] bg-clip-text text-transparent">
               {t.featuredProducts.titleHighlight}
             </span>
           </h2>
@@ -69,11 +69,11 @@ const FeaturedProductsSection: React.FC = () => {
             <Link
               key={product.id}
               href={`/product/${product.id}`}
-              className="group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-500 border border-gray-100 dark:border-gray-700"
+              className="group bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg hover:shadow-[0_8px_32px_rgba(35,76,249,0.2)] transform hover:scale-105 transition-all duration-500 border border-white/10 hover:border-[#234CF9]/30"
             >
               {/* Image */}
               <div className="relative h-48 sm:h-56 overflow-hidden">
-                <div className="w-full h-full bg-gradient-to-br from-[#BD9587]/20 to-[#5D6BC6]/20 group-hover:scale-110 transition-transform duration-700">
+                <div className="w-full h-full bg-gradient-to-br from-[#DFE7F7]/20 to-[#234CF9]/20 group-hover:scale-110 transition-transform duration-700">
                   {product.image_url && product.image_url.startsWith('http') ? (
                     <img 
                       src={product.image_url} 
@@ -92,12 +92,12 @@ const FeaturedProductsSection: React.FC = () => {
                 {/* Badges */}
                 <div className="absolute top-3 left-3 flex gap-2">
                   {product.featured && (
-                    <span className="px-2 py-1 bg-gradient-to-r from-[#5D6BC6] to-[#1647A3] text-white text-xs font-bold rounded-full">
+                    <span className="px-2 py-1 bg-gradient-to-r from-[#234CF9] to-[#1C277B] text-white text-xs font-bold rounded-full">
                       {t.product.featured.toUpperCase()}
                     </span>
                   )}
                   {product.bestseller && (
-                    <span className="px-2 py-1 bg-gradient-to-r from-[#A2655F] to-[#8B5A8C] text-white text-xs font-bold rounded-full">
+                    <span className="px-2 py-1 bg-gradient-to-r from-[#234CF9] to-[#234CF9] text-white text-xs font-bold rounded-full">
                       {t.product.bestseller.toUpperCase()}
                     </span>
                   )}
@@ -111,7 +111,7 @@ const FeaturedProductsSection: React.FC = () => {
 
               {/* Content */}
               <div className="p-5">
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1 group-hover:text-[#5D6BC6] transition-colors truncate">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1 group-hover:text-[#234CF9] transition-colors truncate">
                   {product.name}
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 truncate">
@@ -119,7 +119,7 @@ const FeaturedProductsSection: React.FC = () => {
                 </p>
                 
                 <div className="flex items-center justify-between">
-                  <span className="px-2 py-0.5 bg-[#8B5A8C]/10 dark:bg-[#8B5A8C]/30 text-[#8B5A8C] dark:text-[#c48bc5] text-xs font-medium rounded-full">
+                  <span className="px-2 py-0.5 bg-[#234CF9]/10 dark:bg-[#234CF9]/30 text-[#234CF9] dark:text-[#c48bc5] text-xs font-medium rounded-full">
                     {translateCategory(product.category)}
                   </span>
                   <div className="flex items-center gap-1">
@@ -138,7 +138,7 @@ const FeaturedProductsSection: React.FC = () => {
         <div className="text-center mt-10 sm:mt-12">
           <Link
             href="/portfolio"
-            className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-[#BD9587] to-[#A2655F] text-white font-semibold rounded-xl hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+            className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-[#DFE7F7] to-[#234CF9] text-white font-semibold rounded-xl hover:shadow-xl transform hover:scale-105 transition-all duration-300"
           >
             {t.featuredProducts.browseMarketplace}
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

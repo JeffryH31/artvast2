@@ -238,7 +238,7 @@ const PortfolioGallerySection: React.FC = () => {
   const displayItems = filteredItems.slice(0, 12);
 
   return (
-    <section className="bg-white dark:bg-gray-900 transition-colors duration-300">
+    <section className="bg-transparent transition-colors duration-300">
       {/* Category Filter Tabs - Sticky like Dribbble */}
       <div className="sticky top-16 sm:top-20 z-30 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -386,7 +386,7 @@ const PortfolioGallerySection: React.FC = () => {
             </p>
             <Link
               href="/become-designer"
-              className="inline-block px-6 py-3 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+              className="inline-block px-6 py-3 bg-gradient-to-r from-[#234CF9] to-[#234CF9] text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300"
             >
               {t.portfolioPage?.becomeDesigner || "Become a Designer"}
             </Link>
@@ -413,7 +413,7 @@ const PortfolioGallerySection: React.FC = () => {
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#BD9587]/20 to-[#5D6BC6]/20">
+                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#DFE7F7]/20 to-[#234CF9]/20">
                         <svg
                           className="w-12 h-12 text-gray-300 dark:text-gray-600"
                           fill="none"
@@ -479,7 +479,7 @@ const PortfolioGallerySection: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2.5 min-w-0">
                       {/* Avatar */}
-                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-[#BD9587] to-[#8B5A8C] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-[#DFE7F7] to-[#234CF9] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
                         {item.title?.charAt(0).toUpperCase() || "D"}
                       </div>
                       {/* Info */}

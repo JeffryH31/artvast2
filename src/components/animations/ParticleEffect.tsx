@@ -13,7 +13,7 @@ interface ParticleEffectProps {
 
 const ParticleEffect: React.FC<ParticleEffectProps> = ({
   count = 50,
-  color = '#5D6BC6',
+  color = '#234CF9',
   size = 2,
   speed = 1,
   className = '',

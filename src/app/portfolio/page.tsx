@@ -249,11 +249,11 @@ const PortfolioPage = () => {
       
       <div className="pt-16 sm:pt-20">
         {/* Hero Section */}
-        <div className="bg-gradient-to-br from-[#BD9587]/10 via-[#8B5A8C]/10 to-[#5D6BC6]/10 dark:from-[#BD9587]/20 dark:via-[#8B5A8C]/20 dark:to-[#5D6BC6]/20 py-10 sm:py-12 lg:py-16">
+        <div className="bg-gradient-to-br from-[#DFE7F7]/10 via-[#234CF9]/10 to-[#234CF9]/10 dark:from-[#DFE7F7]/20 dark:via-[#234CF9]/20 dark:to-[#234CF9]/20 py-10 sm:py-12 lg:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">
               {t.portfolioPage.showcaseYour}{" "}
-              <span className="bg-gradient-to-r from-[#A2655F] via-[#8B5A8C] to-[#5D6BC6] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#234CF9] via-[#234CF9] to-[#234CF9] bg-clip-text text-transparent">
                 {t.portfolioPage.portfolioHighlight}
               </span>
             </h1>
@@ -380,7 +380,7 @@ const PortfolioPage = () => {
             {/* Loading State */}
             {loading && (
               <div className="text-center py-16">
-                <div className="w-12 h-12 border-4 border-[#5D6BC6] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                <div className="w-12 h-12 border-4 border-[#234CF9] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
                 <p className="text-gray-600 dark:text-gray-400">{t.portfolioPage.loading}</p>
               </div>
             )}
@@ -404,7 +404,7 @@ const PortfolioPage = () => {
                 </p>
                 <a 
                   href="/become-designer"
-                  className="inline-block px-6 py-3 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+                  className="inline-block px-6 py-3 bg-gradient-to-r from-[#234CF9] to-[#234CF9] text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300"
                 >
                   {t.portfolioPage.becomeDesigner}
                 </a>
@@ -439,7 +439,7 @@ const PortfolioPage = () => {
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           />
                         ) : (
-                          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#BD9587]/20 to-[#5D6BC6]/20">
+                          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#DFE7F7]/20 to-[#234CF9]/20">
                             <svg className="w-12 h-12 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
@@ -469,7 +469,7 @@ const PortfolioPage = () => {
 
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2.5 min-w-0">
-                          <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-[#BD9587] to-[#8B5A8C] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                          <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-[#DFE7F7] to-[#234CF9] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
                             {item.title?.charAt(0).toUpperCase() || 'D'}
                           </div>
                           <div className="min-w-0">
@@ -518,7 +518,7 @@ const PortfolioPage = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="bg-gradient-to-r from-[#8B5A8C] to-[#1647A3] py-10 sm:py-12 lg:py-16">
+        <div className="bg-gradient-to-r from-[#234CF9] to-[#1C277B] py-10 sm:py-12 lg:py-16">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-6">
               {t.portfolioPage.readyToShowcase}
@@ -527,7 +527,7 @@ const PortfolioPage = () => {
               {t.portfolioPage.joinThousands}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-              <a href="/become-designer" className="bg-white text-[#8B5A8C] px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-sm sm:text-base hover:bg-gray-50 transform hover:scale-105 transition-all duration-300 shadow-lg">
+              <a href="/become-designer" className="bg-white text-[#234CF9] px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-sm sm:text-base hover:bg-gray-50 transform hover:scale-105 transition-all duration-300 shadow-lg">
                 {t.portfolioPage.registerAsDesigner}
               </a>
               <a href="/designers" className="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-sm sm:text-base hover:bg-white/20 transform hover:scale-105 transition-all duration-300">

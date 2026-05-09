@@ -59,7 +59,7 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
         <Header />
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
-            <div className="w-16 h-16 border-4 border-[#5D6BC6] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <div className="w-16 h-16 border-4 border-[#234CF9] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
             <p className="text-gray-600 dark:text-gray-400">{t.designerProfile.loading}</p>
           </div>
         </div>
@@ -82,7 +82,7 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
             <p className="text-gray-600 dark:text-gray-400 mb-4">{error || t.designerProfile.notFoundMessage}</p>
             <Link
               href="/designers"
-              className="px-6 py-2 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white rounded-xl font-medium"
+              className="px-6 py-2 bg-gradient-to-r from-[#234CF9] to-[#234CF9] text-white rounded-xl font-medium"
             >
               {t.designerProfile.browseDesigners}
             </Link>
@@ -97,15 +97,15 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
       {/* Background */}
       <div className="fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 transition-colors duration-300"></div>
-        <div className="absolute top-20 right-10 w-[600px] h-[600px] bg-gradient-to-br from-[#5D6BC6]/15 to-[#1647A3]/15 rounded-full blur-3xl opacity-50 animate-float"></div>
-        <div className="absolute bottom-40 left-10 w-[500px] h-[500px] bg-gradient-to-br from-[#BD9587]/20 to-[#A2655F]/20 rounded-full blur-3xl opacity-60 animate-pulse"></div>
+        <div className="absolute top-20 right-10 w-[600px] h-[600px] bg-gradient-to-br from-[#234CF9]/15 to-[#1C277B]/15 rounded-full blur-3xl opacity-50 animate-float"></div>
+        <div className="absolute bottom-40 left-10 w-[500px] h-[500px] bg-gradient-to-br from-[#DFE7F7]/20 to-[#234CF9]/20 rounded-full blur-3xl opacity-60 animate-pulse"></div>
       </div>
 
       <Header />
 
       {/* Hero Section */}
       <div className="relative pt-20 sm:pt-24">
-        <div className="bg-gradient-to-r from-[#BD9587] via-[#8B5A8C] to-[#5D6BC6] py-12 sm:py-16 lg:py-20">
+        <div className="bg-gradient-to-r from-[#DFE7F7] via-[#234CF9] to-[#234CF9] py-12 sm:py-16 lg:py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row items-center gap-6 sm:gap-8">
               {/* Avatar */}
@@ -114,7 +114,7 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
                   {designer.avatar_initials}
                 </div>
                 {designer.verified && (
-                  <div className="absolute -bottom-2 -right-2 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-[#5D6BC6] to-[#1647A3] rounded-full flex items-center justify-center shadow-lg border-2 border-white">
+                  <div className="absolute -bottom-2 -right-2 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-[#234CF9] to-[#1C277B] rounded-full flex items-center justify-center shadow-lg border-2 border-white">
                     <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                     </svg>
@@ -178,7 +178,7 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
                   className={`px-6 sm:px-8 py-3 font-bold rounded-xl transition-all duration-300 shadow-lg cursor-pointer flex items-center justify-center space-x-2 ${
                     isFollowing 
                       ? 'bg-white/20 backdrop-blur-sm text-white border border-white/30 hover:bg-white/30' 
-                      : 'bg-white text-[#8B5A8C] hover:bg-gray-100'
+                      : 'bg-white text-[#234CF9] hover:bg-gray-100'
                   } ${actionLoading ? 'opacity-70' : ''}`}
                 >
                   {actionLoading ? (
@@ -232,7 +232,7 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
             {designer.featured_works.map((work) => (
               <div
                 key={work.id}
-                className="group relative aspect-square bg-gradient-to-br from-[#BD9587]/20 to-[#5D6BC6]/20 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                className="group relative aspect-square bg-gradient-to-br from-[#DFE7F7]/20 to-[#234CF9]/20 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
               >
                 <div className="w-full h-full flex items-center justify-center">
                   <span className="text-4xl sm:text-5xl lg:text-6xl group-hover:scale-110 transition-transform duration-300">
@@ -258,7 +258,7 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
         
         {productsLoading ? (
           <div className="text-center py-12">
-            <div className="w-12 h-12 border-4 border-[#5D6BC6] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <div className="w-12 h-12 border-4 border-[#234CF9] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
             <p className="text-gray-600 dark:text-gray-400">{t.common.loading}</p>
           </div>
         ) : filteredProducts.length > 0 ? (
@@ -270,7 +270,7 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
                 className="group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg dark:shadow-gray-900/50 hover:shadow-2xl transform hover:scale-105 transition-all duration-500 border border-gray-100 dark:border-gray-700">
                 {/* Image */}
                 <div className="relative h-48 sm:h-56 overflow-hidden">
-                  <div className="w-full h-full bg-gradient-to-br from-[#BD9587]/20 to-[#5D6BC6]/20 group-hover:scale-110 transition-transform duration-700">
+                  <div className="w-full h-full bg-gradient-to-br from-[#DFE7F7]/20 to-[#234CF9]/20 group-hover:scale-110 transition-transform duration-700">
                     {product.image_url && product.image_url.startsWith('http') ? (
                       <img 
                         src={product.image_url} 
@@ -286,7 +286,7 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
                     )}
                   </div>
                   {product.featured && (
-                    <div className="absolute top-3 left-3 px-2 py-1 bg-gradient-to-r from-[#5D6BC6] to-[#1647A3] text-white text-xs font-bold rounded-full">
+                    <div className="absolute top-3 left-3 px-2 py-1 bg-gradient-to-r from-[#234CF9] to-[#1C277B] text-white text-xs font-bold rounded-full">
                       FEATURED
                     </div>
                   )}
@@ -297,11 +297,11 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
 
                 {/* Content */}
                 <div className="p-4 sm:p-5">
-                  <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-1 group-hover:text-[#5D6BC6] transition-colors truncate">
+                  <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-1 group-hover:text-[#234CF9] transition-colors truncate">
                     {product.name}
                   </h3>
                   <div className="flex items-center justify-between">
-                    <span className="px-2 py-0.5 bg-[#8B5A8C]/10 dark:bg-[#8B5A8C]/20 text-[#8B5A8C] text-xs font-medium rounded-full">
+                    <span className="px-2 py-0.5 bg-[#234CF9]/10 dark:bg-[#234CF9]/20 text-[#234CF9] text-xs font-medium rounded-full">
                       {translateCategory(product.category)}
                     </span>
                     <div className="flex items-center space-x-1 text-sm">
@@ -332,7 +332,7 @@ const CreatorPage: React.FC<CreatorPageProps> = ({ params }) => {
           designerId={designer.id}
           designerName={designer.name}
           designerInitials={designer.avatar_initials}
-          designerGradient={designer.avatar_gradient || 'from-[#BD9587] to-[#A2655F]'}
+          designerGradient={designer.avatar_gradient || 'from-[#DFE7F7] to-[#234CF9]'}
         />
       )}
     </div>

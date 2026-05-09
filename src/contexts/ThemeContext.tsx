@@ -23,7 +23,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     if (savedTheme === 'dark' || savedTheme === 'light') {
       setTheme(savedTheme);
     } else {
-      // Default to light if no saved preference
+      // Default to light
       setTheme('light');
       localStorage.setItem('theme', 'light');
     }
@@ -31,7 +31,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     // Ensure HTML starts with correct class
     const root = document.documentElement;
     root.classList.remove('light', 'dark');
-    root.classList.add(savedTheme === 'dark' ? 'dark' : 'light');
+    root.classList.add(savedTheme === 'light' || !savedTheme ? 'light' : 'dark');
   }, []);
 
   useEffect(() => {

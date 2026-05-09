@@ -10,14 +10,14 @@ const ValuePropositionsSection: React.FC = () => {
 
   return (
     // Seamless connection dari HeroSection
-    <div id="services" className="seamless-section text-white dark:text-gray-100">
+    <div id="services" className="seamless-section bg-[#F8FAFF] dark:bg-[#050B1A] text-gray-900 dark:text-gray-100">
       <div className="pt-12 sm:pt-16 lg:pt-20 pb-16 sm:pb-20 lg:pb-24 xl:pb-32">
         <ParticleEffect
-          count={80}
-          color="#ffffff"
-          size={2}
-          speed={0.3}
-          className="opacity-10 dark:opacity-20"
+          count={60}
+          color="#234CF9"
+          size={1.5}
+          speed={0.2}
+          className="opacity-[0.06] dark:opacity-[0.15]"
         />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -26,18 +26,18 @@ const ValuePropositionsSection: React.FC = () => {
               className="animate-float"
               style={{ transform: "translateX(-50%)", animationDuration: "5s" }}
             >
-              <div className="bg-white/10 dark:bg-white/20 backdrop-blur-md z-50 rounded-lg sm:rounded-xl px-4 sm:px-6 lg:px-8 py-3 sm:py-4 border border-white/20 dark:border-white/30 shadow-xl hover:bg-white/15 dark:hover:bg-white/25 transition-all duration-300 hover:scale-105 w-max mx-auto max-w-[95vw]">
-                <div className="flex flex-wrap items-center justify-center gap-x-3 sm:gap-x-6 gap-y-2 text-white/90 dark:text-white/95">
+              <div className="bg-white dark:bg-white/10 backdrop-blur-md z-50 rounded-lg sm:rounded-xl px-4 sm:px-6 lg:px-8 py-3 sm:py-4 border border-gray-200 dark:border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 w-max mx-auto max-w-[95vw]">
+                <div className="flex flex-wrap items-center justify-center gap-x-3 sm:gap-x-6 gap-y-2 text-gray-700 dark:text-white/90">
                   <div className="flex items-center space-x-1.5 sm:space-x-2">
                     <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-400 rounded-full animate-pulse"></div>
                     <span className="text-xs sm:text-sm font-medium">
                       {t.valuePropositions.liveServices}
                     </span>
                   </div>
-                  <div className="w-px h-3 sm:h-4 bg-white/30 hidden sm:block"></div>
+                  <div className="w-px h-3 sm:h-4 bg-gray-200 dark:bg-white/30 hidden sm:block"></div>
                   <div className="flex items-center space-x-1.5 sm:space-x-2">
                     <svg
-                      className="w-3 h-3 sm:w-4 sm:h-4 text-blue-400"
+                      className="w-3 h-3 sm:w-4 sm:h-4 text-blue-500"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
@@ -47,7 +47,7 @@ const ValuePropositionsSection: React.FC = () => {
                       {t.valuePropositions.premiumQuality}
                     </span>
                   </div>
-                  <div className="w-px h-3 sm:h-4 bg-white/30 hidden sm:block"></div>
+                  <div className="w-px h-3 sm:h-4 bg-gray-200 dark:bg-white/30 hidden sm:block"></div>
                   <div className="flex items-center space-x-1.5 sm:space-x-2">
                     <div className="flex -space-x-1">
                       <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-gradient-to-r from-pink-500 to-violet-500 border border-white"></div>
@@ -64,16 +64,17 @@ const ValuePropositionsSection: React.FC = () => {
           </div>
 
           <div className="text-center mb-12 sm:mb-16 lg:mb-24">
-            <div className="inline-flex items-center space-x-2 px-4 sm:px-6 py-2 sm:py-3 bg-white/10 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium text-white/90 border border-white/20 mb-4 sm:mb-6 lg:mb-8">
+            <div className="inline-flex items-center space-x-2 px-4 sm:px-6 py-2 sm:py-3 bg-[#234CF9]/10 dark:bg-white/10 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium text-[#234CF9] dark:text-white/90 border border-[#234CF9]/20 dark:border-white/20 mb-4 sm:mb-6 lg:mb-8">
               <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full"></div>
               <span>{t.valuePropositions.featuredServices}</span>
               <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"></div>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight animate-fade-in-up">
-              {t.valuePropositions.ourValuePropositions}
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-gray-900 dark:text-white mb-4 sm:mb-6 leading-tight animate-fade-in-up">
+              <span>{t.valuePropositions.ourValuePropositions.split(' ').slice(0, -1).join(' ')}</span>{' '}
+              <span className="bg-gradient-to-r from-[#234CF9] via-[#1C277B] to-[#234CF9] bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient-x">{t.valuePropositions.ourValuePropositions.split(' ').slice(-1)[0]}</span>
             </h2>
             <p
-              className="text-base sm:text-lg lg:text-xl text-white/80 max-w-3xl mx-auto leading-relaxed mb-4 sm:mb-6 lg:mb-8 animate-fade-in-up px-4"
+              className="text-base sm:text-lg lg:text-xl text-gray-600 dark:text-white/80 max-w-3xl mx-auto leading-relaxed mb-4 sm:mb-6 lg:mb-8 animate-fade-in-up px-4"
               style={{ animationDelay: "0.2s" }}
             >
               {t.valuePropositions.completeDescription}
@@ -115,8 +116,12 @@ const ValuePropositionsSection: React.FC = () => {
             ].map((service, index) => (
               <Magnetic key={index} intensity={0.1}>
                 <div
-                  className={`group bg-white/95 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-5 sm:p-7 lg:p-10 shadow-xl sm:shadow-2xl hover:${service.glowColor} hover:shadow-3xl transform hover:scale-[1.02] sm:hover:scale-105 hover:-translate-y-1 sm:hover:-translate-y-3 transition-all duration-500 border border-white/10 relative overflow-hidden`}
+                  className="group bg-white dark:bg-white/5 rounded-2xl sm:rounded-3xl p-5 sm:p-7 lg:p-10 shadow-sm sm:shadow-md hover:shadow-[0_16px_48px_rgba(35,76,249,0.12)] dark:hover:shadow-[0_16px_48px_rgba(35,76,249,0.20)] transform hover:scale-[1.02] sm:hover:scale-105 hover:-translate-y-1 sm:hover:-translate-y-3 transition-all duration-500 border border-gray-100 dark:border-white/10 relative overflow-hidden"
                 >
+                  {/* Step number */}
+                  <div className="absolute top-4 right-4 sm:top-5 sm:right-5 text-4xl sm:text-5xl font-extrabold text-[#234CF9]/8 dark:text-white/5 select-none leading-none">
+                    0{index + 1}
+                  </div>
                   <div className="absolute top-0 right-0 w-16 sm:w-20 lg:w-24 h-16 sm:h-20 lg:h-24 bg-gradient-to-bl from-white/10 to-transparent rounded-bl-3xl"></div>
                   <div className="text-center relative z-10">
                     <div className="relative mb-4 sm:mb-6 lg:mb-8">
@@ -144,7 +149,7 @@ const ValuePropositionsSection: React.FC = () => {
                         {service.badge}
                       </div>
                     </div>
-                    <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent mb-3 sm:mb-4 lg:mb-6">
+                    <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-extrabold text-gray-900 mb-3 sm:mb-4 lg:mb-6">
                       {service.title}
                     </h3>
                     <p className="text-sm sm:text-base lg:text-lg text-gray-600 leading-relaxed mb-4 sm:mb-6 lg:mb-8">
@@ -152,14 +157,14 @@ const ValuePropositionsSection: React.FC = () => {
                     </p>
                     <div className="relative">
                       <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg sm:rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      <div className="relative pt-4 sm:pt-5 lg:pt-6 border-t border-gray-100">
+                      <div className="relative pt-4 sm:pt-5 lg:pt-6 border-t border-gray-100/80">
                         <Link 
                           href={service.href}
-                          className="inline-flex items-center text-xs sm:text-sm font-medium text-blue-600 group-hover:text-blue-700 transition-colors duration-300"
+                          className="inline-flex items-center text-xs sm:text-sm font-semibold text-[#234CF9] group-hover:text-[#1C277B] transition-colors duration-300 link-neon"
                         >
                           {t.valuePropositions.learnMore}
                           <svg
-                            className="w-3 h-3 sm:w-4 sm:h-4 ml-1.5 sm:ml-2 group-hover:translate-x-1 transition-transform duration-300"
+                            className="w-3 h-3 sm:w-4 sm:h-4 ml-1.5 sm:ml-2 group-hover:translate-x-1.5 transition-transform duration-300"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"

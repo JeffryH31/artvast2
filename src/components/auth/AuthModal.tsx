@@ -177,7 +177,7 @@ export default function AuthModal({
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:bg-white dark:focus:bg-gray-600 focus:ring-2 focus:ring-[#5D6BC6] focus:border-[#5D6BC6] outline-none transition-all"
+              className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:bg-white dark:focus:bg-gray-600 focus:ring-2 focus:ring-[#234CF9] focus:border-[#234CF9] outline-none transition-all"
               placeholder={t.auth.emailPlaceholder}
               required
             />
@@ -192,7 +192,7 @@ export default function AuthModal({
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:bg-white dark:focus:bg-gray-600 focus:ring-2 focus:ring-[#5D6BC6] focus:border-[#5D6BC6] outline-none transition-all"
+                className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:bg-white dark:focus:bg-gray-600 focus:ring-2 focus:ring-[#234CF9] focus:border-[#234CF9] outline-none transition-all"
                 placeholder="••••••••"
                 required
               />
@@ -204,7 +204,7 @@ export default function AuthModal({
               <button
                 type="button"
                 onClick={() => setMode("forgot")}
-                className="text-sm text-[#5D6BC6] hover:underline cursor-pointer"
+                className="text-sm text-[#234CF9] hover:underline cursor-pointer"
               >
                 {t.auth.forgotPassword}
               </button>
@@ -214,7 +214,7 @@ export default function AuthModal({
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-gradient-to-r from-[#5D6BC6] to-[#8B5A8C] text-white font-semibold rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 cursor-pointer"
+            className="w-full py-3 bg-gradient-to-r from-[#234CF9] to-[#234CF9] text-white font-semibold rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 cursor-pointer"
           >
             {loading ? (
               <span className="flex items-center justify-center gap-2">
@@ -296,7 +296,7 @@ export default function AuthModal({
               {t.auth.noAccount}{" "}
               <button
                 onClick={() => setMode("signup")}
-                className="text-[#5D6BC6] font-semibold hover:underline cursor-pointer"
+                className="text-[#234CF9] font-semibold hover:underline cursor-pointer"
               >
                 {t.auth.signUp}
               </button>
@@ -307,7 +307,7 @@ export default function AuthModal({
               {t.auth.haveAccount}{" "}
               <button
                 onClick={() => setMode("login")}
-                className="text-[#5D6BC6] font-semibold hover:underline cursor-pointer"
+                className="text-[#234CF9] font-semibold hover:underline cursor-pointer"
               >
                 {t.auth.signIn}
               </button>
@@ -316,7 +316,7 @@ export default function AuthModal({
           {mode === "forgot" && (
             <button
               onClick={() => setMode("login")}
-              className="text-[#5D6BC6] font-semibold hover:underline cursor-pointer"
+              className="text-[#234CF9] font-semibold hover:underline cursor-pointer"
             >
               {t.auth.backToSignIn}
             </button>

@@ -9,7 +9,7 @@ import BenefitsSection from '@/components/sections/BenefitsSection';
 
 export default function Home() {
   return (
-    <div className="bg-white dark:bg-gray-950 transition-colors duration-300">
+    <div className="bg-white dark:bg-[#050B1A] transition-colors duration-300">
       <Header />
       {/* Hero/Landing Page Section */}
       <main className="hero-gradient relative overflow-hidden seamless-container">

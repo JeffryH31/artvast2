@@ -161,7 +161,7 @@ const PortfolioDetailPage = () => {
             </p>
             <Link
               href="/portfolio"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#234CF9] to-[#234CF9] text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -229,7 +229,7 @@ const PortfolioDetailPage = () => {
                   onClick={handleSave}
                   className={`flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer ${
                     saved
-                      ? "bg-[#5D6BC6] text-white"
+                      ? "bg-[#234CF9] text-white"
                       : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
                   }`}
                 >
@@ -282,7 +282,7 @@ const PortfolioDetailPage = () => {
                   style={{ maxHeight: "80vh" }}
                 />
               ) : (
-                <div className="aspect-video flex items-center justify-center bg-gradient-to-br from-[#BD9587]/20 to-[#5D6BC6]/20">
+                <div className="aspect-video flex items-center justify-center bg-gradient-to-br from-[#DFE7F7]/20 to-[#234CF9]/20">
                   <svg
                     className="w-24 h-24 text-gray-300 dark:text-gray-600"
                     fill="none"
@@ -316,20 +316,20 @@ const PortfolioDetailPage = () => {
                     <img
                       src={portfolio.designer.avatar_url}
                       alt={portfolio.designer.name}
-                      className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover ring-2 ring-transparent group-hover:ring-[#5D6BC6] transition-all duration-300"
+                      className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover ring-2 ring-transparent group-hover:ring-[#234CF9] transition-all duration-300"
                     />
                   ) : (
                     <div
-                      className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-white text-lg font-bold ring-2 ring-transparent group-hover:ring-[#5D6BC6] transition-all duration-300"
+                      className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-white text-lg font-bold ring-2 ring-transparent group-hover:ring-[#234CF9] transition-all duration-300"
                       style={{
-                        background: portfolio.designer?.avatar_gradient || "linear-gradient(135deg, #BD9587, #8B5A8C)",
+                        background: portfolio.designer?.avatar_gradient || "linear-gradient(135deg, #DFE7F7, #234CF9)",
                       }}
                     >
                       {portfolio.designer?.avatar_initials || portfolio.title?.charAt(0).toUpperCase()}
                     </div>
                   )}
                   <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-[#5D6BC6] transition-colors">
+                    <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-[#234CF9] transition-colors">
                       {portfolio.designer?.name || "Anonymous Designer"}
                     </h3>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -362,7 +362,7 @@ const PortfolioDetailPage = () => {
                   {translateCategory(portfolio.category)}
                 </span>
                 {portfolio.featured && (
-                  <span className="px-4 py-1.5 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white rounded-full text-sm font-medium">
+                  <span className="px-4 py-1.5 bg-gradient-to-r from-[#234CF9] to-[#234CF9] text-white rounded-full text-sm font-medium">
                     Featured
                   </span>
                 )}
@@ -441,7 +441,7 @@ const PortfolioDetailPage = () => {
                 {portfolio.designer && (
                   <Link
                     href={`/creator/${portfolio.designer.id}`}
-                    className="text-[#5D6BC6] hover:text-[#8B5A8C] font-medium text-sm transition-colors"
+                    className="text-[#234CF9] hover:text-[#234CF9] font-medium text-sm transition-colors"
                   >
                     {t.portfolioPage?.viewProfile || "View Profile"} →
                   </Link>
@@ -463,14 +463,14 @@ const PortfolioDetailPage = () => {
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#BD9587]/20 to-[#5D6BC6]/20">
+                        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#DFE7F7]/20 to-[#234CF9]/20">
                           <svg className="w-8 h-8 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                           </svg>
                         </div>
                       )}
                     </div>
-                    <h4 className="mt-2 text-sm font-medium text-gray-900 dark:text-white truncate group-hover:text-[#5D6BC6] transition-colors">
+                    <h4 className="mt-2 text-sm font-medium text-gray-900 dark:text-white truncate group-hover:text-[#234CF9] transition-colors">
                       {item.title}
                     </h4>
                   </Link>
@@ -490,7 +490,7 @@ const PortfolioDetailPage = () => {
                 </h2>
                 <Link
                   href="/portfolio"
-                  className="text-[#5D6BC6] hover:text-[#8B5A8C] font-medium text-sm transition-colors"
+                  className="text-[#234CF9] hover:text-[#234CF9] font-medium text-sm transition-colors"
                 >
                   {t.portfolioPage?.seeAll || "View all"} →
                 </Link>
@@ -511,14 +511,14 @@ const PortfolioDetailPage = () => {
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#BD9587]/20 to-[#5D6BC6]/20">
+                        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#DFE7F7]/20 to-[#234CF9]/20">
                           <svg className="w-8 h-8 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                           </svg>
                         </div>
                       )}
                     </div>
-                    <h4 className="mt-2 text-sm font-medium text-gray-900 dark:text-white truncate group-hover:text-[#5D6BC6] transition-colors">
+                    <h4 className="mt-2 text-sm font-medium text-gray-900 dark:text-white truncate group-hover:text-[#234CF9] transition-colors">
                       {item.title}
                     </h4>
                   </Link>
@@ -529,7 +529,7 @@ const PortfolioDetailPage = () => {
         )}
 
         {/* Footer CTA */}
-        <section className="bg-gradient-to-r from-[#5D6BC6] to-[#8B5A8C] py-12 sm:py-16">
+        <section className="bg-gradient-to-r from-[#234CF9] to-[#234CF9] py-12 sm:py-16">
           <div className="max-w-4xl mx-auto px-4 text-center">
             <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
               {t.portfolioPage?.inspiredCTA || "Inspired by this design?"}

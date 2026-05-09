@@ -44,7 +44,7 @@ export function ReviewSection({ productId }: ReviewSectionProps) {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">{t.reviews.title}</h2>
+          <h2 className="text-2xl font-bold text-white">{t.reviews.title}</h2>
           {totalReviews > 0 && (
             <div className="flex items-center gap-2 mt-1">
               <div className="flex items-center">
@@ -54,7 +54,7 @@ export function ReviewSection({ productId }: ReviewSectionProps) {
                     className={`w-5 h-5 ${
                       star <= Math.round(averageRating)
                         ? 'text-yellow-400 fill-current'
-                        : 'text-gray-300'
+                        : 'text-white/20'
                     }`}
                     fill="none"
                     stroke="currentColor"
@@ -69,7 +69,7 @@ export function ReviewSection({ productId }: ReviewSectionProps) {
                   </svg>
                 ))}
               </div>
-              <span className="text-gray-600 text-sm">
+              <span className="text-[#DFE7F7]/70 text-sm">
                 {averageRating.toFixed(1)} ({totalReviews} {totalReviews === 1 ? t.reviews.review : t.reviews.reviewsPlural})
               </span>
             </div>
@@ -79,7 +79,7 @@ export function ReviewSection({ productId }: ReviewSectionProps) {
         {canReview && !showForm && (
           <button
             onClick={() => setShowForm(true)}
-            className="px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg transition-colors cursor-pointer"
+            className="px-5 py-2.5 btn-primary text-white rounded-xl font-semibold cursor-pointer"
           >
             {t.reviews.writeReview}
           </button>
@@ -88,24 +88,24 @@ export function ReviewSection({ productId }: ReviewSectionProps) {
 
       {/* Review Form */}
       {showForm && (
-        <form onSubmit={handleSubmit} className="bg-gray-50 rounded-xl p-6 border-2 border-purple-500/20">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">{t.reviews.writeYourReview}</h3>
+        <form onSubmit={handleSubmit} className="glass-card rounded-2xl p-6 border border-[#234CF9]/30">
+          <h3 className="text-lg font-semibold text-white mb-4">{t.reviews.writeYourReview}</h3>
 
           {/* Rating */}
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">{t.reviews.rating}</label>
+            <label className="block text-sm font-medium text-[#DFE7F7]/80 mb-2">{t.reviews.rating}</label>
             <div className="flex gap-2">
               {[1, 2, 3, 4, 5].map((star) => (
                 <button
                   key={star}
                   type="button"
                   onClick={() => setRating(star)}
-                  className="focus:outline-none cursor-pointer"
+                  className="focus:outline-none cursor-pointer transition-transform hover:scale-125"
                 >
                   <svg
                     className={`w-8 h-8 ${
-                      star <= rating ? 'text-yellow-400 fill-current' : 'text-gray-300'
-                    } hover:text-yellow-400 transition-colors`}
+                      star <= rating ? 'text-yellow-400 fill-current drop-shadow-[0_0_6px_rgba(250,204,21,0.6)]' : 'text-white/20'
+                    } transition-all duration-200`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -124,13 +124,13 @@ export function ReviewSection({ productId }: ReviewSectionProps) {
 
           {/* Comment */}
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">{t.reviews.yourReview}</label>
+            <label className="block text-sm font-medium text-[#DFE7F7]/80 mb-2">{t.reviews.yourReview}</label>
             <textarea
               rows={4}
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               placeholder={t.reviews.placeholder}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
+              className="w-full px-4 py-3 bg-white/5 border border-white/15 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#234CF9] focus:border-[#234CF9]/50 resize-none text-white placeholder-white/30 transition-all duration-300"
               required
             />
           </div>
@@ -140,14 +140,14 @@ export function ReviewSection({ productId }: ReviewSectionProps) {
             <button
               type="submit"
               disabled={submitting}
-              className="px-6 py-2 bg-purple-500 hover:bg-purple-600 disabled:bg-purple-300 text-white rounded-lg transition-colors cursor-pointer"
+              className="px-6 py-2.5 btn-primary disabled:opacity-50 text-white rounded-xl font-semibold cursor-pointer"
             >
               {submitting ? t.reviews.submitting : t.reviews.submitReview}
             </button>
             <button
               type="button"
               onClick={() => setShowForm(false)}
-              className="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition-colors cursor-pointer"
+              className="px-6 py-2.5 bg-white/10 hover:bg-white/20 text-white/80 hover:text-white rounded-xl transition-all duration-300 cursor-pointer"
             >
               {t.reviews.cancel}
             </button>
@@ -159,38 +159,43 @@ export function ReviewSection({ productId }: ReviewSectionProps) {
       {loading ? (
         <div className="space-y-4">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="animate-pulse bg-gray-50 rounded-xl p-6">
-              <div className="h-4 bg-gray-200 rounded w-1/4 mb-3"></div>
-              <div className="h-3 bg-gray-200 rounded w-3/4 mb-2"></div>
-              <div className="h-3 bg-gray-200 rounded w-2/3"></div>
+            <div key={i} className="rounded-2xl p-6 border border-white/10 overflow-hidden relative bg-white/5">
+              <div className="animate-shimmer absolute inset-0" />
+              <div className="h-4 bg-white/10 rounded w-1/4 mb-3"></div>
+              <div className="h-3 bg-white/10 rounded w-3/4 mb-2"></div>
+              <div className="h-3 bg-white/10 rounded w-2/3"></div>
             </div>
           ))}
         </div>
       ) : reviews.length > 0 ? (
         <div className="space-y-4">
-          {reviews.map((review) => (
-            <div key={review.id} className="bg-white rounded-xl p-6 border border-gray-200">
+          {reviews.map((review, idx) => (
+            <div
+              key={review.id}
+              className="glass-card rounded-2xl p-6 border border-white/10 group"
+              style={{ animationDelay: `${idx * 0.05}s` }}
+            >
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-semibold">
+                  <div className="w-10 h-10 bg-gradient-to-br from-[#234CF9] to-[#1C277B] rounded-full flex items-center justify-center text-white font-bold shadow-[0_0_12px_rgba(35,76,249,0.3)]">
                     {review.author_avatar || review.author_name.charAt(0).toUpperCase()}
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">{review.author_name}</p>
-                    <p className="text-sm text-gray-500">
+                    <p className="font-semibold text-white">{review.author_name}</p>
+                    <p className="text-xs text-white/40">
                       {new Date(review.created_at).toLocaleDateString()}
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-center">
+                <div className="flex items-center gap-0.5">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <svg
                       key={star}
                       className={`w-4 h-4 ${
                         star <= review.rating
                           ? 'text-yellow-400 fill-current'
-                          : 'text-gray-300'
+                          : 'text-white/15'
                       }`}
                       fill="none"
                       stroke="currentColor"
@@ -207,27 +212,29 @@ export function ReviewSection({ productId }: ReviewSectionProps) {
                 </div>
               </div>
 
-              <p className="text-gray-700">{review.comment}</p>
+              <p className="text-white/80 leading-relaxed">{review.comment}</p>
             </div>
           ))}
         </div>
       ) : (
-        <div className="text-center py-12 bg-gray-50 rounded-xl">
-          <svg
-            className="w-16 h-16 text-gray-400 mx-auto mb-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
-            />
-          </svg>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">{t.reviews.noReviewsYet}</h3>
-          <p className="text-gray-600">{t.reviews.beFirstToReview}</p>
+        <div className="text-center py-14 glass-card rounded-2xl">
+          <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-[#234CF9]/15 border border-[#234CF9]/25 flex items-center justify-center">
+            <svg
+              className="w-8 h-8 text-[#234CF9]"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
+              />
+            </svg>
+          </div>
+          <h3 className="text-lg font-semibold text-white mb-2">{t.reviews.noReviewsYet}</h3>
+          <p className="text-white/50">{t.reviews.beFirstToReview}</p>
         </div>
       )}
     </div>

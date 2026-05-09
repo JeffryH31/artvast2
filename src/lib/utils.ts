@@ -182,10 +182,10 @@ export function calculateDiscount(originalPrice: number, currentPrice: number): 
  */
 export function generateGradient(): string {
   const gradients = [
-    'from-[#BD9587] to-[#A2655F]',
-    'from-[#8B5A8C] to-[#5D6BC6]',
-    'from-[#5D6BC6] to-[#1647A3]',
-    'from-[#A2655F] to-[#8B5A8C]',
+    'from-[#DFE7F7] to-[#234CF9]',
+    'from-[#234CF9] to-[#234CF9]',
+    'from-[#234CF9] to-[#1C277B]',
+    'from-[#234CF9] to-[#234CF9]',
   ];
   return gradients[Math.floor(Math.random() * gradients.length)];
 }

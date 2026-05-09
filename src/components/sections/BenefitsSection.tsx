@@ -7,7 +7,7 @@ const BenefitsSection: React.FC = () => {
   const { t } = useLanguage();
   
   return (
-    <section className="value-gradient dark:from-gray-900 dark:via-purple-900/30 dark:to-gray-900 py-16 sm:py-20 lg:py-24 xl:py-32 relative overflow-hidden transition-colors duration-300">
+    <section className="value-gradient py-12 sm:py-16 lg:py-20 relative overflow-hidden transition-colors duration-300">
       {/* Enhanced Background decoration - responsive sizes */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent dark:from-black/40"></div>
       <div className="absolute inset-0">
@@ -17,60 +17,66 @@ const BenefitsSection: React.FC = () => {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10 sm:mb-16 lg:mb-20">
+        <div className="text-center mb-8 sm:mb-10">
           <span className="inline-block px-4 sm:px-6 py-2 sm:py-3 bg-white/10 dark:bg-white/20 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium text-white/90 dark:text-white/95 border border-white/20 dark:border-white/30 mb-4 sm:mb-6">
             💎 {t.benefits.badge}
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl  lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 lg:mb-8 leading-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4 leading-tight">
             <span className="block bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
               {t.benefits.title}
             </span>
           </h2>
-          <p className="text-base sm:text-lg lg:text-xl text-white/80 dark:text-gray-200 max-w-4xl mx-auto leading-relaxed px-4">
+          <p className="text-sm sm:text-base lg:text-lg text-white/80 dark:text-gray-200 max-w-3xl mx-auto leading-relaxed px-4">
             {t.benefits.description}
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12">
           {/* For Clients Card */}
-          <div className="group bg-white/95 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-5 sm:p-7 lg:p-10 shadow-xl sm:shadow-2xl hover:shadow-white/10 transform hover:scale-[1.02] sm:hover:scale-105 hover:-translate-y-1 sm:hover:-translate-y-2 transition-all duration-500 border border-white/10">
-            {/* Enhanced Image placeholder */}
-            <div className="relative bg-gradient-to-br from-orange-100 via-orange-50 to-yellow-50 rounded-xl sm:rounded-2xl mb-5 sm:mb-8 h-40 sm:h-48 lg:h-56 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform duration-500">
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-200/20 to-yellow-200/20"></div>
-              <div className="relative text-center">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-orange-400 to-orange-500 rounded-xl sm:rounded-2xl mx-auto mb-2 sm:mb-4 flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg sm:shadow-xl">
-                  <svg
-                    className="w-7 h-7 sm:w-8 sm:h-8 lg:w-10 lg:h-10 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                    />
-                  </svg>
+          <div className="group bg-white/8 backdrop-blur-sm rounded-2xl p-5 sm:p-6 shadow-lg hover:shadow-[0_8px_32px_rgba(35,76,249,0.15)] transform hover:scale-[1.01] sm:hover:scale-[1.02] hover:-translate-y-1 transition-all duration-500 border border-white/10">
+            {/* For Clients — UI Mockup */}
+            <div className="relative bg-gradient-to-br from-[#EEF2FF] via-[#E8EDFF] to-[#DDE5FF] rounded-xl mb-4 sm:mb-5 h-36 sm:h-40 overflow-hidden group-hover:scale-[1.02] transition-transform duration-500">
+              <div className="absolute inset-0 bg-[#234CF9]/5"></div>
+              <div className="absolute inset-0 flex items-center justify-center p-3 sm:p-4">
+                <div className="w-full max-w-[220px]">
+                  {/* Search bar */}
+                  <div className="bg-white rounded-xl shadow-lg px-2.5 py-2 mb-2.5 flex items-center gap-2">
+                    <svg className="w-3.5 h-3.5 text-[#234CF9] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <div className="flex-1 h-2 bg-gray-100 rounded-full"></div>
+                    <div className="h-5 w-10 rounded-md bg-gradient-to-r from-[#234CF9] to-[#1C277B] flex-shrink-0"></div>
+                  </div>
+                  {/* Designer cards grid */}
+                  <div className="grid grid-cols-3 gap-1.5">
+                    {[
+                      { gradient: "from-[#234CF9] to-[#1C277B]", star: "4.9" },
+                      { gradient: "from-violet-500 to-purple-600", star: "5.0" },
+                      { gradient: "from-teal-500 to-emerald-600", star: "4.8" },
+                    ].map((d, i) => (
+                      <div key={i} className="bg-white rounded-xl shadow-sm p-1.5">
+                        <div className={`w-full h-9 rounded-lg mb-1 bg-gradient-to-br ${d.gradient}`}></div>
+                        <div className="h-1.5 bg-gray-200 rounded-full mb-1"></div>
+                        <div className="text-[8px] font-bold text-amber-500">★ {d.star}</div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <p className="text-sm sm:text-base text-orange-700 font-semibold">
-                  {t.benefits.forClients.imageText}
-                </p>
-                {/* Floating elements - hidden on very small screens */}
-                <div className="hidden sm:block absolute top-4 right-4 w-3 h-3 sm:w-4 sm:h-4 bg-orange-300 rounded-full animate-bounce"></div>
-                <div className="hidden sm:block absolute bottom-4 left-4 w-2 h-2 sm:w-3 sm:h-3 bg-yellow-300 rounded-full animate-pulse"></div>
+              </div>
+              <div className="absolute top-2.5 right-2.5 bg-[#234CF9] text-white text-[8px] font-bold px-2 py-0.5 rounded-full shadow-md animate-pulse">
+                500+ Designers
               </div>
             </div>
 
             <div className="relative">
               <div className="absolute -left-1 sm:-left-2 top-0 bottom-0 w-0.5 sm:w-1 custom-gradient-bg rounded-full"></div>
               <div className="pl-4 sm:pl-6 lg:pl-8">
-                <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold custom-gradient-text mb-4 sm:mb-6 lg:mb-8">
+                <h3 className="text-lg sm:text-xl lg:text-2xl font-bold custom-gradient-text mb-3 sm:mb-4">
                   {t.benefits.forClients.title}
                 </h3>
-                <ul className="space-y-3 sm:space-y-4 lg:space-y-6">
-                  <li className="group/item flex items-start space-x-2 sm:space-x-3 lg:space-x-4 p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl hover:bg-blue-50 transition-colors duration-300">
-                    <div className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
+                <ul className="space-y-1.5 sm:space-y-2">
+                  <li className="group/item flex items-start space-x-2 sm:space-x-3 p-2 sm:p-2.5 rounded-lg hover:bg-white/10 transition-colors duration-300">
+                    <div className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
                       <svg
                         className="w-3 h-3 sm:w-3.5 sm:h-3.5 lg:w-4 lg:h-4 text-white"
                         fill="none"
@@ -85,12 +91,12 @@ const BenefitsSection: React.FC = () => {
                         />
                       </svg>
                     </div>
-                    <span className="text-sm sm:text-base lg:text-lg text-gray-700 font-medium group-hover/item:text-blue-700 transition-colors duration-300">
+                    <span className="text-sm sm:text-base text-white/90 font-medium group-hover/item:text-white transition-colors duration-300">
                       {t.benefits.forClients.features.aiMatchmaking}
                     </span>
                   </li>
-                  <li className="group/item flex items-start space-x-2 sm:space-x-3 lg:space-x-4 p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl hover:bg-blue-50 transition-colors duration-300">
-                    <div className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
+                  <li className="group/item flex items-start space-x-2 sm:space-x-3 p-2 sm:p-2.5 rounded-lg hover:bg-white/10 transition-colors duration-300">
+                    <div className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
                       <svg
                         className="w-3 h-3 sm:w-3.5 sm:h-3.5 lg:w-4 lg:h-4 text-white"
                         fill="none"
@@ -105,12 +111,12 @@ const BenefitsSection: React.FC = () => {
                         />
                       </svg>
                     </div>
-                    <span className="text-sm sm:text-base lg:text-lg text-gray-700 font-medium group-hover/item:text-blue-700 transition-colors duration-300">
+                    <span className="text-sm sm:text-base text-white/90 font-medium group-hover/item:text-white transition-colors duration-300">
                       {t.benefits.forClients.features.transparentPricing}
                     </span>
                   </li>
-                  <li className="group/item flex items-start space-x-2 sm:space-x-3 lg:space-x-4 p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl hover:bg-blue-50 transition-colors duration-300">
-                    <div className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
+                  <li className="group/item flex items-start space-x-2 sm:space-x-3 p-2 sm:p-2.5 rounded-lg hover:bg-white/10 transition-colors duration-300">
+                    <div className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
                       <svg
                         className="w-3 h-3 sm:w-3.5 sm:h-3.5 lg:w-4 lg:h-4 text-white"
                         fill="none"
@@ -126,11 +132,11 @@ const BenefitsSection: React.FC = () => {
                       </svg>
                     </div>
                     <div className="flex-1">
-                      <span className="text-sm sm:text-base lg:text-lg text-gray-700 font-medium decoration-blue-500 decoration-2 group-hover/item:text-blue-700 transition-colors duration-300">
+                      <span className="text-sm sm:text-base text-white/90 font-medium decoration-[#DFE7F7] decoration-2 group-hover/item:text-white transition-colors duration-300">
                         {t.benefits.forClients.features.escrowPayments}
                       </span>
                       <div className="mt-1">
-                        <span className="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                        <span className="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-[#234CF9]/20 text-[#DFE7F7] border border-[#234CF9]/30">
                           🔒 {t.benefits.forClients.features.secure}
                         </span>
                       </div>
@@ -142,42 +148,57 @@ const BenefitsSection: React.FC = () => {
           </div>
 
           {/* For Designers Card */}
-          <div className="group bg-white/95 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-5 sm:p-7 lg:p-10 shadow-xl sm:shadow-2xl hover:shadow-white/10 transform hover:scale-[1.02] sm:hover:scale-105 hover:-translate-y-1 sm:hover:-translate-y-2 transition-all duration-500 border border-white/10">
-            {/* Enhanced Image placeholder */}
-            <div className="relative bg-gradient-to-br from-gray-100 via-gray-50 to-blue-50 rounded-xl sm:rounded-2xl mb-5 sm:mb-8 h-40 sm:h-48 lg:h-56 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform duration-500">
-              <div className="absolute inset-0 bg-gradient-to-br from-gray-200/20 to-blue-200/20"></div>
-              <div className="relative text-center">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-gray-500 to-gray-600 rounded-xl sm:rounded-2xl mx-auto mb-2 sm:mb-4 flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg sm:shadow-xl">
-                  <svg
-                    className="w-7 h-7 sm:w-8 sm:h-8 lg:w-10 lg:h-10 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                    />
-                  </svg>
+          <div className="group bg-white/8 backdrop-blur-sm rounded-2xl p-5 sm:p-6 shadow-lg hover:shadow-[0_8px_32px_rgba(35,76,249,0.15)] transform hover:scale-[1.01] sm:hover:scale-[1.02] hover:-translate-y-1 transition-all duration-500 border border-white/10">
+            {/* For Designers — Portfolio Mockup */}
+            <div className="relative bg-gradient-to-br from-[#EEF2FF] via-[#E8EDFF] to-[#DDE5FF] rounded-xl mb-4 sm:mb-5 h-36 sm:h-40 overflow-hidden group-hover:scale-[1.02] transition-transform duration-500">
+              <div className="absolute inset-0 bg-[#1C277B]/5"></div>
+              <div className="absolute inset-0 flex items-center justify-center p-3 sm:p-4">
+                <div className="w-full max-w-[220px]">
+                  {/* Profile & stats card */}
+                  <div className="bg-white rounded-xl shadow-lg p-2.5 mb-2">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#234CF9] to-[#1C277B] flex-shrink-0"></div>
+                      <div className="flex-1">
+                        <div className="h-1.5 w-16 bg-gray-200 rounded-full mb-0.5"></div>
+                        <div className="h-1 w-10 bg-gray-100 rounded-full"></div>
+                      </div>
+                      <span className="text-[7px] px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 font-extrabold">PRO</span>
+                    </div>
+                    <div className="grid grid-cols-3 gap-1">
+                      <div className="bg-[#234CF9]/10 rounded-lg p-1.5 text-center">
+                        <div className="text-[9px] font-extrabold text-[#234CF9]">148</div>
+                        <div className="text-[7px] text-gray-400">Jobs</div>
+                      </div>
+                      <div className="bg-amber-50 rounded-lg p-1.5 text-center">
+                        <div className="text-[9px] font-extrabold text-amber-600">4.9★</div>
+                        <div className="text-[7px] text-gray-400">Rating</div>
+                      </div>
+                      <div className="bg-emerald-50 rounded-lg p-1.5 text-center">
+                        <div className="text-[9px] font-extrabold text-emerald-600">$8k</div>
+                        <div className="text-[7px] text-gray-400">Earned</div>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Portfolio thumbnails */}
+                  <div className="grid grid-cols-3 gap-1.5">
+                    {["from-[#234CF9] to-[#1C277B]", "from-violet-400 to-purple-500", "from-[#1C277B] to-[#234CF9]"].map((g, i) => (
+                      <div key={i} className={`h-10 rounded-lg bg-gradient-to-br ${g}`}></div>
+                    ))}
+                  </div>
                 </div>
-                <p className="text-sm sm:text-base text-gray-700 font-semibold">
-                  {t.benefits.forDesigners.imageText}
-                </p>
-                {/* Floating elements - hidden on very small screens */}
-                <div className="hidden sm:block absolute top-4 right-4 w-3 h-3 sm:w-4 sm:h-4 bg-blue-300 rounded-full animate-bounce delay-200"></div>
-                <div className="hidden sm:block absolute bottom-4 left-4 w-2 h-2 sm:w-3 sm:h-3 bg-purple-300 rounded-full animate-pulse delay-500"></div>
+              </div>
+              <div className="absolute top-2.5 right-2.5 bg-emerald-500 text-white text-[8px] font-bold px-2 py-0.5 rounded-full shadow-md">
+                +$2.4k / month
               </div>
             </div>
 
             <div className="space-y-4 sm:space-y-6">
-              <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold custom-gradient-text mb-4 sm:mb-6 lg:mb-8">
+              <h3 className="text-lg sm:text-xl lg:text-2xl font-bold custom-gradient-text mb-3 sm:mb-4">
                 {t.benefits.forDesigners.title}
               </h3>
-              <ul className="space-y-3 sm:space-y-4 lg:space-y-6">
-                <li className="group/item flex items-start space-x-2 sm:space-x-3 lg:space-x-4 p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl hover:bg-blue-50 transition-colors duration-300">
-                  <div className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
+              <ul className="space-y-1.5 sm:space-y-2">
+                <li className="group/item flex items-start space-x-2 sm:space-x-3 p-2 sm:p-2.5 rounded-lg hover:bg-white/10 transition-colors duration-300">
+                  <div className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
                     <svg
                       className="w-3 h-3 sm:w-3.5 sm:h-3.5 lg:w-4 lg:h-4 text-white"
                       fill="none"
@@ -198,12 +219,12 @@ const BenefitsSection: React.FC = () => {
                       />
                     </svg>
                   </div>
-                  <span className="text-sm sm:text-base lg:text-lg text-gray-700 font-medium group-hover/item:text-blue-700 transition-colors duration-300">
+                  <span className="text-sm sm:text-base text-white/90 font-medium group-hover/item:text-white transition-colors duration-300">
                     {t.benefits.forDesigners.features.gainExposure}
                   </span>
                 </li>
-                <li className="group/item flex items-start space-x-2 sm:space-x-3 lg:space-x-4 p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl hover:bg-blue-50 transition-colors duration-300">
-                  <div className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
+                <li className="group/item flex items-start space-x-2 sm:space-x-3 p-2 sm:p-2.5 rounded-lg hover:bg-white/10 transition-colors duration-300">
+                  <div className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
                     <svg
                       className="w-3 h-3 sm:w-3.5 sm:h-3.5 lg:w-4 lg:h-4 text-white"
                       fill="none"
@@ -218,12 +239,12 @@ const BenefitsSection: React.FC = () => {
                       />
                     </svg>
                   </div>
-                  <span className="text-sm sm:text-base lg:text-lg text-gray-700 font-medium group-hover/item:text-blue-700 transition-colors duration-300">
+                  <span className="text-sm sm:text-base text-white/90 font-medium group-hover/item:text-white transition-colors duration-300">
                     {t.benefits.forDesigners.features.fairPricing}
                   </span>
                 </li>
-                <li className="group/item flex items-start space-x-2 sm:space-x-3 lg:space-x-4 p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl hover:bg-blue-50 transition-colors duration-300">
-                  <div className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
+                <li className="group/item flex items-start space-x-2 sm:space-x-3 p-2 sm:p-2.5 rounded-lg hover:bg-white/10 transition-colors duration-300">
+                  <div className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
                     <svg
                       className="w-3 h-3 sm:w-3.5 sm:h-3.5 lg:w-4 lg:h-4 text-white"
                       fill="none"
@@ -238,12 +259,12 @@ const BenefitsSection: React.FC = () => {
                       />
                     </svg>
                   </div>
-                  <span className="text-sm sm:text-base lg:text-lg text-gray-700 font-medium group-hover/item:text-blue-700 transition-colors duration-300">
+                  <span className="text-sm sm:text-base text-white/90 font-medium group-hover/item:text-white transition-colors duration-300">
                     {t.benefits.forDesigners.features.protectIP}
                   </span>
                 </li>
-                <li className="group/item flex items-start space-x-2 sm:space-x-3 lg:space-x-4 p-2 sm:p-3 lg:p-4 rounded-lg sm:rounded-xl hover:bg-blue-50 transition-colors duration-300">
-                  <div className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
+                <li className="group/item flex items-start space-x-2 sm:space-x-3 p-2 sm:p-2.5 rounded-lg hover:bg-white/10 transition-colors duration-300">
+                  <div className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 custom-gradient-bg rounded-full flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
                     <svg
                       className="w-3 h-3 sm:w-3.5 sm:h-3.5 lg:w-4 lg:h-4 text-white"
                       fill="none"
@@ -258,7 +279,7 @@ const BenefitsSection: React.FC = () => {
                       />
                     </svg>
                   </div>
-                  <span className="text-sm sm:text-base lg:text-lg text-gray-700 font-medium group-hover/item:text-blue-700 transition-colors duration-300">
+                  <span className="text-sm sm:text-base text-white/90 font-medium group-hover/item:text-white transition-colors duration-300">
                     {t.benefits.forDesigners.features.growCareer}
                   </span>
                 </li>

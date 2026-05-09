@@ -79,7 +79,7 @@ const DesignersPage: React.FC = () => {
         <Header />
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
-            <div className="w-16 h-16 border-4 border-[#5D6BC6] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <div className="w-16 h-16 border-4 border-[#234CF9] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
             <p className="text-gray-600 dark:text-gray-400">{t.designersPage.loadingDesigners}</p>
           </div>
         </div>
@@ -104,7 +104,7 @@ const DesignersPage: React.FC = () => {
             <p className="text-gray-600 dark:text-gray-400 mb-4">{error}</p>
             <button
               onClick={() => window.location.reload()}
-              className="px-6 py-2 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white rounded-xl font-medium cursor-pointer"
+              className="px-6 py-2 bg-gradient-to-r from-[#234CF9] to-[#234CF9] text-white rounded-xl font-medium cursor-pointer"
             >
               {t.common.tryAgain}
             </button>
@@ -119,8 +119,8 @@ const DesignersPage: React.FC = () => {
       {/* Background */}
       <div className="fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800"></div>
-        <div className="absolute top-20 right-10 w-[600px] h-[600px] bg-gradient-to-br from-[#5D6BC6]/15 to-[#1647A3]/15 rounded-full blur-3xl opacity-50 animate-float"></div>
-        <div className="absolute bottom-40 left-10 w-[500px] h-[500px] bg-gradient-to-br from-[#BD9587]/20 to-[#A2655F]/20 rounded-full blur-3xl opacity-60 animate-pulse"></div>
+        <div className="absolute top-20 right-10 w-[600px] h-[600px] bg-gradient-to-br from-[#234CF9]/15 to-[#1C277B]/15 rounded-full blur-3xl opacity-50 animate-float"></div>
+        <div className="absolute bottom-40 left-10 w-[500px] h-[500px] bg-gradient-to-br from-[#DFE7F7]/20 to-[#234CF9]/20 rounded-full blur-3xl opacity-60 animate-pulse"></div>
       </div>
 
       <Header />
@@ -131,7 +131,7 @@ const DesignersPage: React.FC = () => {
           <div className="mb-8 sm:mb-12 text-center">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
               {t.designersPage.availableDesigners}{" "}
-              <span className="bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#234CF9] to-[#234CF9] bg-clip-text text-transparent">
                 {t.designersPage.designersHighlight}
               </span>
             </h1>
@@ -151,7 +151,7 @@ const DesignersPage: React.FC = () => {
                     onClick={() => handleCategoryChange(category.value)}
                     className={`flex-shrink-0 px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-medium sm:font-semibold text-sm sm:text-base transition-all duration-300 cursor-pointer ${
                       selectedCategory === category.value
-                        ? "bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white shadow-lg"
+                        ? "bg-gradient-to-r from-[#234CF9] to-[#234CF9] text-white shadow-lg"
                         : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
                     }`}
                   >
@@ -168,7 +168,7 @@ const DesignersPage: React.FC = () => {
                 <select
                   value={sortBy}
                   onChange={(e) => handleSortChange(e.target.value)}
-                  className="flex-1 sm:flex-none px-3 sm:px-4 py-2 sm:py-2.5 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg sm:rounded-xl text-gray-700 dark:text-gray-300 font-medium text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#5D6BC6] focus:border-transparent transition-all duration-200"
+                  className="flex-1 sm:flex-none px-3 sm:px-4 py-2 sm:py-2.5 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg sm:rounded-xl text-gray-700 dark:text-gray-300 font-medium text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#234CF9] focus:border-transparent transition-all duration-200"
                 >
                   <option value="rating">{t.designersPage.rating}</option>
                   <option value="projects">{t.designersPage.projects}</option>
@@ -201,22 +201,22 @@ const DesignersPage: React.FC = () => {
               <Link
                 href={`/creator/${designer.id}`}
                 key={designer.id}
-                className="group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-500 border border-gray-100 dark:border-gray-700"
+                className="group bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg hover:shadow-[0_8px_32px_rgba(35,76,249,0.2)] transform hover:scale-105 transition-all duration-500 border border-white/10 hover:border-[#234CF9]/30"
               >
                 {/* Designer Header */}
-                <div className="relative p-4 sm:p-5 lg:p-6 bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-800">
+                <div className="relative p-4 sm:p-5 lg:p-6 bg-transparent">
                   {/* Avatar */}
                   <div className="flex items-center space-x-3 sm:space-x-4 mb-3 sm:mb-4">
                     <div
                       className={`w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-gradient-to-br ${
                         designer.avatar_gradient ||
-                        "from-[#BD9587] to-[#A2655F]"
+                        "from-[#DFE7F7] to-[#234CF9]"
                       } rounded-xl sm:rounded-2xl flex items-center justify-center text-white text-lg sm:text-xl lg:text-2xl font-bold shadow-lg`}
                     >
                       {designer.avatar_initials}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 dark:text-white group-hover:text-[#5D6BC6] transition-colors duration-200 truncate">
+                      <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 dark:text-white group-hover:text-[#234CF9] transition-colors duration-200 truncate">
                         {designer.name}
                       </h3>
                       <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 truncate">
@@ -242,7 +242,7 @@ const DesignersPage: React.FC = () => {
                     {designer.specialties?.map((specialty) => (
                       <span
                         key={specialty}
-                        className="px-2 sm:px-3 py-0.5 sm:py-1 bg-gradient-to-r from-[#BD9587]/10 to-[#8B5A8C]/10 text-[#8B5A8C] text-[10px] sm:text-xs font-semibold rounded-full border border-[#8B5A8C]/20"
+                        className="px-2 sm:px-3 py-0.5 sm:py-1 bg-gradient-to-r from-[#DFE7F7]/10 to-[#234CF9]/10 text-[#234CF9] text-[10px] sm:text-xs font-semibold rounded-full border border-[#234CF9]/20"
                       >
                         {specialty}
                       </span>
@@ -288,7 +288,7 @@ const DesignersPage: React.FC = () => {
                     {designer.featured_works.map((work) => (
                       <div
                         key={work.id}
-                        className="relative aspect-square bg-gradient-to-br from-white to-gray-100 dark:from-gray-700 dark:to-gray-800 rounded-lg sm:rounded-xl flex items-center justify-center text-xl sm:text-2xl lg:text-3xl border border-gray-200 dark:border-gray-600 group-hover:border-[#5D6BC6]/30 transition-all duration-300 overflow-hidden"
+                        className="relative aspect-square bg-gradient-to-br from-white to-gray-100 dark:from-gray-700 dark:to-gray-800 rounded-lg sm:rounded-xl flex items-center justify-center text-xl sm:text-2xl lg:text-3xl border border-gray-200 dark:border-gray-600 group-hover:border-[#234CF9]/30 transition-all duration-300 overflow-hidden"
                       >
                         <span className="group-hover:scale-110 transition-transform duration-300">
                           {work.image}
@@ -301,7 +301,7 @@ const DesignersPage: React.FC = () => {
 
                 {/* View Profile Button */}
                 <div className="p-3 sm:p-4 bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700">
-                  <button className="w-full py-2.5 sm:py-3 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white font-bold text-sm sm:text-base rounded-lg sm:rounded-xl hover:shadow-lg transition-all duration-300 cursor-pointer">
+                  <button className="w-full py-2.5 sm:py-3 bg-gradient-to-r from-[#234CF9] to-[#234CF9] text-white font-bold text-sm sm:text-base rounded-lg sm:rounded-xl hover:shadow-lg transition-all duration-300 cursor-pointer">
                     View Profile
                   </button>
                 </div>

@@ -20,7 +20,7 @@ const FeaturedDesignersSection: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300">
-              {t.featuredDesigners.featured} <span className="bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] bg-clip-text text-transparent">{t.featuredDesigners.designers}</span>
+              {t.featuredDesigners.featured} <span className="bg-gradient-to-r from-[#234CF9] to-[#234CF9] bg-clip-text text-transparent">{t.featuredDesigners.designers}</span>
             </h2>
             <p className="text-gray-600 dark:text-gray-300 text-lg transition-colors duration-300">{t.featuredDesigners.loading}</p>
           </div>
@@ -45,15 +45,15 @@ const FeaturedDesignersSection: React.FC = () => {
   return (
     <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden transition-colors duration-300">
       {/* Background decoration */}
-      <div className="absolute top-20 right-20 w-80 h-80 bg-[#5D6BC6]/10 dark:bg-[#5D6BC6]/20 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-20 left-20 w-96 h-96 bg-[#BD9587]/10 dark:bg-[#BD9587]/20 rounded-full blur-3xl"></div>
+      <div className="absolute top-20 right-20 w-80 h-80 bg-[#234CF9]/10 dark:bg-[#234CF9]/20 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-20 left-20 w-96 h-96 bg-[#DFE7F7]/10 dark:bg-[#DFE7F7]/20 rounded-full blur-3xl"></div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300">
             {t.featuredDesigners.featured}{" "}
-            <span className="bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#234CF9] to-[#234CF9] bg-clip-text text-transparent">
               {t.featuredDesigners.designers}
             </span>
           </h2>
@@ -68,14 +68,14 @@ const FeaturedDesignersSection: React.FC = () => {
             <Link
               key={designer.id}
               href={`/creator/${designer.id}`}
-              className="group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-500 border border-gray-100 dark:border-gray-700">
+              className="group bg-white/5 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-[0_8px_32px_rgba(35,76,249,0.2)] transform hover:scale-105 transition-all duration-500 border border-white/10 hover:border-[#234CF9]/30">
               {/* Avatar */}
               <div className="relative mb-4">
-                <div className={`w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br ${designer.avatar_gradient || 'from-[#BD9587] to-[#A2655F]'} rounded-full mx-auto flex items-center justify-center text-white text-2xl sm:text-3xl font-bold shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                <div className={`w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br ${designer.avatar_gradient || 'from-[#DFE7F7] to-[#234CF9]'} rounded-full mx-auto flex items-center justify-center text-white text-2xl sm:text-3xl font-bold shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                   {designer.avatar_initials}
                 </div>
                 {designer.verified && (
-                  <div className="absolute bottom-0 right-1/2 translate-x-8 w-6 h-6 bg-gradient-to-r from-[#5D6BC6] to-[#1647A3] rounded-full flex items-center justify-center shadow-lg">
+                  <div className="absolute bottom-0 right-1/2 translate-x-8 w-6 h-6 bg-gradient-to-r from-[#234CF9] to-[#1C277B] rounded-full flex items-center justify-center shadow-lg">
                     <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
@@ -85,7 +85,7 @@ const FeaturedDesignersSection: React.FC = () => {
 
               {/* Info */}
               <div className="text-center">
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1 group-hover:text-[#5D6BC6] transition-colors">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1 group-hover:text-[#234CF9] transition-colors">
                   {designer.name}
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{designer.username}</p>
@@ -104,7 +104,7 @@ const FeaturedDesignersSection: React.FC = () => {
                   {designer.specialties?.slice(0, 2).map((specialty) => (
                     <span
                       key={specialty}
-                      className="px-2 py-0.5 bg-[#8B5A8C]/10 text-[#8B5A8C] text-xs font-medium rounded-full"
+                      className="px-2 py-0.5 bg-[#234CF9]/10 text-[#234CF9] text-xs font-medium rounded-full"
                     >
                       {specialty}
                     </span>
@@ -119,7 +119,7 @@ const FeaturedDesignersSection: React.FC = () => {
         <div className="text-center mt-10 sm:mt-12">
           <Link
             href="/designers"
-            className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-[#8B5A8C] to-[#5D6BC6] text-white font-semibold rounded-xl hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+            className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-[#234CF9] to-[#234CF9] text-white font-semibold rounded-xl hover:shadow-xl transform hover:scale-105 transition-all duration-300"
           >
             {t.featuredDesigners.viewAllDesigners}
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
