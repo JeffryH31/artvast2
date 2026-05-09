@@ -317,8 +317,9 @@ const PortfolioPage = () => {
               </div>
 
               {isMegaFilterOpen && (
-                <div className="absolute right-0 top-full z-40 mt-3 w-full rounded-3xl border border-gray-200 bg-white p-5 shadow-[0_24px_80px_rgba(15,23,42,0.14)] dark:border-gray-700 dark:bg-gray-900 md:w-[720px] lg:w-[900px]">
-                  <div className="mb-4 flex items-center justify-between gap-4 border-b border-gray-100 pb-4 dark:border-gray-800">
+                <div className="absolute right-0 top-full z-40 mt-3 w-full rounded-3xl border border-gray-200 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.14)] dark:border-gray-700 dark:bg-gray-900 md:w-[720px] lg:w-[900px] max-h-[65vh] overflow-y-scroll overscroll-y-contain touch-pan-y megamenu-scroll flex flex-col">
+                  {/* Sticky header */}
+                  <div className="sticky top-0 z-10 flex items-center justify-between gap-4 border-b border-gray-100 bg-white px-5 py-4 dark:border-gray-800 dark:bg-gray-900 rounded-t-3xl shrink-0">
                     <div>
                       <h3 className="text-base font-semibold text-gray-900 dark:text-white">
                         {t.filter.category || 'Categories'}
@@ -330,12 +331,14 @@ const PortfolioPage = () => {
                     <button
                       type="button"
                       onClick={() => handleMegaFilterSelect('All', 'all')}
-                      className="rounded-full bg-gray-100 px-4 py-2 text-xs font-semibold text-gray-700 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+                      className="rounded-full bg-gray-100 px-4 py-2 text-xs font-semibold text-gray-700 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700 shrink-0"
                     >
                       {t.filter.allCategories || 'All Categories'}
                     </button>
                   </div>
 
+                  {/* Scrollable grid */}
+                  <div className="p-5">
                   <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
                     {MEGA_FILTER_GROUPS.map((group) => (
                       <div key={group.title} className="rounded-2xl border border-gray-100 bg-gray-50/70 p-4 dark:border-gray-800 dark:bg-gray-800/40">
@@ -367,6 +370,7 @@ const PortfolioPage = () => {
                         </div>
                       </div>
                     ))}
+                  </div>
                   </div>
                 </div>
               )}
