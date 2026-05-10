@@ -16,17 +16,17 @@ interface LanguageContextType {
   t: TranslationKeys;
 }
 
-// Default context value with Indonesian translations
+// Default context value with English translations
 const defaultContextValue: LanguageContextType = {
-  language: 'id',
+  language: 'en',
   setLanguage: () => {},
-  t: id,
+  t: en,
 };
 
 const LanguageContext = createContext<LanguageContextType>(defaultContextValue);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguageState] = useState<Language>('id');
+  const [language, setLanguageState] = useState<Language>('en');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -35,9 +35,9 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     if (savedLanguage === 'id' || savedLanguage === 'en') {
       setLanguageState(savedLanguage);
     } else {
-      // Default to Indonesian
-      setLanguageState('id');
-      localStorage.setItem('language', 'id');
+      // Default to English
+      setLanguageState('en');
+      localStorage.setItem('language', 'en');
     }
   }, []);
 
