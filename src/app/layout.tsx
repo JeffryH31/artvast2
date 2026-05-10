@@ -56,21 +56,29 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      <head>
+      <body className={`${plusJakartaSans.variable} font-sans antialiased`} suppressHydrationWarning>
         <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
                 try {
-                  var theme = localStorage.getItem('theme');
+                  var THEME_VERSION = '2';
+                  var storedVersion = localStorage.getItem('theme-version');
+                  var theme;
+                  if (storedVersion !== THEME_VERSION) {
+                    theme = 'dark';
+                    localStorage.setItem('theme', 'dark');
+                    localStorage.setItem('theme-version', THEME_VERSION);
+                  } else {
+                    theme = localStorage.getItem('theme');
+                    if (theme !== 'light' && theme !== 'dark') {
+                      theme = 'dark';
+                      localStorage.setItem('theme', 'dark');
+                    }
+                  }
                   var root = document.documentElement;
                   root.classList.remove('light', 'dark');
-                  if (theme === 'light' || theme === 'dark') {
-                    root.classList.add(theme);
-                  } else {
-                    root.classList.add('dark');
-                    localStorage.setItem('theme', 'dark');
-                  }
+                  root.classList.add(theme);
                 } catch(e) {
                   document.documentElement.classList.add('dark');
                 }
@@ -78,8 +86,6 @@ export default function RootLayout({
             `,
           }}
         />
-      </head>
-      <body className={`${plusJakartaSans.variable} font-sans antialiased`}>
         <ThemeProvider>
           <LanguageProvider>
             <ConfirmDialogProvider>
