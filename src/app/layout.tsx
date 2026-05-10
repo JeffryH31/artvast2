@@ -55,7 +55,30 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className="light" suppressHydrationWarning>
+    <html lang="en" className="dark" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('theme');
+                  var root = document.documentElement;
+                  root.classList.remove('light', 'dark');
+                  if (theme === 'light' || theme === 'dark') {
+                    root.classList.add(theme);
+                  } else {
+                    root.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                  }
+                } catch(e) {
+                  document.documentElement.classList.add('dark');
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className={`${plusJakartaSans.variable} font-sans antialiased`}>
         <ThemeProvider>
           <LanguageProvider>
