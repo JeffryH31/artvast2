@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from 'react';
 import { useLanguage } from '@/lib/i18n';
@@ -33,24 +33,24 @@ const BenefitsSection: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12">
           {/* For Clients Card */}
-          <div className="group bg-white/8 backdrop-blur-sm rounded-2xl p-5 sm:p-6 shadow-lg hover:shadow-[0_8px_32px_rgba(35,76,249,0.15)] transform hover:scale-[1.01] sm:hover:scale-[1.02] hover:-translate-y-1 transition-all duration-500 border border-white/10">
+          <div className="group bg-white/8 backdrop-blur-sm rounded-2xl p-5 sm:p-6 shadow-lg hover:shadow-[0_8px_32px_rgba(27,110,243,0.15)] transform hover:scale-[1.01] sm:hover:scale-[1.02] hover:-translate-y-1 transition-all duration-500 border border-white/10">
             {/* For Clients — UI Mockup */}
             <div className="relative bg-gradient-to-br from-[#EEF2FF] via-[#E8EDFF] to-[#DDE5FF] rounded-xl mb-4 sm:mb-5 h-36 sm:h-40 overflow-hidden group-hover:scale-[1.02] transition-transform duration-500">
-              <div className="absolute inset-0 bg-[#234CF9]/5"></div>
+              <div className="absolute inset-0 bg-[#1B6EF3]/5"></div>
               <div className="absolute inset-0 flex items-center justify-center p-3 sm:p-4">
                 <div className="w-full max-w-[220px]">
                   {/* Search bar */}
                   <div className="bg-white rounded-xl shadow-lg px-2.5 py-2 mb-2.5 flex items-center gap-2">
-                    <svg className="w-3.5 h-3.5 text-[#234CF9] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-3.5 h-3.5 text-[#1B6EF3] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
                     <div className="flex-1 h-2 bg-gray-100 rounded-full"></div>
-                    <div className="h-5 w-10 rounded-md bg-gradient-to-r from-[#234CF9] to-[#1C277B] flex-shrink-0"></div>
+                    <div className="h-5 w-10 rounded-md bg-gradient-to-r from-[#1B6EF3] to-[#1755E0] flex-shrink-0"></div>
                   </div>
                   {/* Designer cards grid */}
                   <div className="grid grid-cols-3 gap-1.5">
                     {[
-                      { gradient: "from-[#234CF9] to-[#1C277B]", star: "4.9" },
+                      { gradient: "from-[#1B6EF3] to-[#1755E0]", star: "4.9" },
                       { gradient: "from-violet-500 to-purple-600", star: "5.0" },
                       { gradient: "from-teal-500 to-emerald-600", star: "4.8" },
                     ].map((d, i) => (
@@ -63,7 +63,7 @@ const BenefitsSection: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="absolute top-2.5 right-2.5 bg-[#234CF9] text-white text-[8px] font-bold px-2 py-0.5 rounded-full shadow-md animate-pulse">
+              <div className="absolute top-2.5 right-2.5 bg-[#1B6EF3] text-white text-[8px] font-bold px-2 py-0.5 rounded-full shadow-md animate-pulse">
                 500+ Designers
               </div>
             </div>
@@ -136,7 +136,7 @@ const BenefitsSection: React.FC = () => {
                         {t.benefits.forClients.features.escrowPayments}
                       </span>
                       <div className="mt-1">
-                        <span className="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-[#234CF9]/20 text-[#DFE7F7] border border-[#234CF9]/30">
+                        <span className="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-[#1B6EF3]/20 text-[#DFE7F7] border border-[#1B6EF3]/30">
                           🔒 {t.benefits.forClients.features.secure}
                         </span>
                       </div>
@@ -148,16 +148,16 @@ const BenefitsSection: React.FC = () => {
           </div>
 
           {/* For Designers Card */}
-          <div className="group bg-white/8 backdrop-blur-sm rounded-2xl p-5 sm:p-6 shadow-lg hover:shadow-[0_8px_32px_rgba(35,76,249,0.15)] transform hover:scale-[1.01] sm:hover:scale-[1.02] hover:-translate-y-1 transition-all duration-500 border border-white/10">
+          <div className="group bg-white/8 backdrop-blur-sm rounded-2xl p-5 sm:p-6 shadow-lg hover:shadow-[0_8px_32px_rgba(27,110,243,0.15)] transform hover:scale-[1.01] sm:hover:scale-[1.02] hover:-translate-y-1 transition-all duration-500 border border-white/10">
             {/* For Designers — Portfolio Mockup */}
             <div className="relative bg-gradient-to-br from-[#EEF2FF] via-[#E8EDFF] to-[#DDE5FF] rounded-xl mb-4 sm:mb-5 h-36 sm:h-40 overflow-hidden group-hover:scale-[1.02] transition-transform duration-500">
-              <div className="absolute inset-0 bg-[#1C277B]/5"></div>
+              <div className="absolute inset-0 bg-[#1755E0]/5"></div>
               <div className="absolute inset-0 flex items-center justify-center p-3 sm:p-4">
                 <div className="w-full max-w-[220px]">
                   {/* Profile & stats card */}
                   <div className="bg-white rounded-xl shadow-lg p-2.5 mb-2">
                     <div className="flex items-center gap-2 mb-2">
-                      <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#234CF9] to-[#1C277B] flex-shrink-0"></div>
+                      <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#1B6EF3] to-[#1755E0] flex-shrink-0"></div>
                       <div className="flex-1">
                         <div className="h-1.5 w-16 bg-gray-200 rounded-full mb-0.5"></div>
                         <div className="h-1 w-10 bg-gray-100 rounded-full"></div>
@@ -165,8 +165,8 @@ const BenefitsSection: React.FC = () => {
                       <span className="text-[7px] px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 font-extrabold">PRO</span>
                     </div>
                     <div className="grid grid-cols-3 gap-1">
-                      <div className="bg-[#234CF9]/10 rounded-lg p-1.5 text-center">
-                        <div className="text-[9px] font-extrabold text-[#234CF9]">148</div>
+                      <div className="bg-[#1B6EF3]/10 rounded-lg p-1.5 text-center">
+                        <div className="text-[9px] font-extrabold text-[#1B6EF3]">148</div>
                         <div className="text-[7px] text-gray-400">Jobs</div>
                       </div>
                       <div className="bg-amber-50 rounded-lg p-1.5 text-center">
@@ -181,7 +181,7 @@ const BenefitsSection: React.FC = () => {
                   </div>
                   {/* Portfolio thumbnails */}
                   <div className="grid grid-cols-3 gap-1.5">
-                    {["from-[#234CF9] to-[#1C277B]", "from-violet-400 to-purple-500", "from-[#1C277B] to-[#234CF9]"].map((g, i) => (
+                    {["from-[#1B6EF3] to-[#1755E0]", "from-violet-400 to-purple-500", "from-[#1755E0] to-[#1B6EF3]"].map((g, i) => (
                       <div key={i} className={`h-10 rounded-lg bg-gradient-to-br ${g}`}></div>
                     ))}
                   </div>

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -88,7 +88,7 @@ export function ReviewSection({ productId }: ReviewSectionProps) {
 
       {/* Review Form */}
       {showForm && (
-        <form onSubmit={handleSubmit} className="glass-card rounded-2xl p-6 border border-[#234CF9]/30">
+        <form onSubmit={handleSubmit} className="glass-card rounded-2xl p-6 border border-[#1B6EF3]/30">
           <h3 className="text-lg font-semibold text-white mb-4">{t.reviews.writeYourReview}</h3>
 
           {/* Rating */}
@@ -130,7 +130,7 @@ export function ReviewSection({ productId }: ReviewSectionProps) {
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               placeholder={t.reviews.placeholder}
-              className="w-full px-4 py-3 bg-white/5 border border-white/15 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#234CF9] focus:border-[#234CF9]/50 resize-none text-white placeholder-white/30 transition-all duration-300"
+              className="w-full px-4 py-3 bg-white/5 border border-white/15 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1B6EF3] focus:border-[#1B6EF3]/50 resize-none text-white placeholder-white/30 transition-all duration-300"
               required
             />
           </div>
@@ -177,7 +177,7 @@ export function ReviewSection({ productId }: ReviewSectionProps) {
             >
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-[#234CF9] to-[#1C277B] rounded-full flex items-center justify-center text-white font-bold shadow-[0_0_12px_rgba(35,76,249,0.3)]">
+                  <div className="w-10 h-10 bg-gradient-to-br from-[#1B6EF3] to-[#1755E0] rounded-full flex items-center justify-center text-white font-bold shadow-[0_0_12px_rgba(27,110,243,0.3)]">
                     {review.author_avatar || review.author_name.charAt(0).toUpperCase()}
                   </div>
                   <div>
@@ -218,9 +218,9 @@ export function ReviewSection({ productId }: ReviewSectionProps) {
         </div>
       ) : (
         <div className="text-center py-14 glass-card rounded-2xl">
-          <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-[#234CF9]/15 border border-[#234CF9]/25 flex items-center justify-center">
+          <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-[#1B6EF3]/15 border border-[#1B6EF3]/25 flex items-center justify-center">
             <svg
-              className="w-8 h-8 text-[#234CF9]"
+              className="w-8 h-8 text-[#1B6EF3]"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

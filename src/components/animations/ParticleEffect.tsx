@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useRef } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
@@ -13,7 +13,7 @@ interface ParticleEffectProps {
 
 const ParticleEffect: React.FC<ParticleEffectProps> = ({
   count = 50,
-  color = '#234CF9',
+  color = '#1B6EF3',
   size = 2,
   speed = 1,
   className = '',

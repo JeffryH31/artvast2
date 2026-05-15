@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import Link from "next/link";
@@ -14,7 +14,7 @@ const ValuePropositionsSection: React.FC = () => {
       <div className="pt-12 sm:pt-16 lg:pt-20 pb-16 sm:pb-20 lg:pb-24 xl:pb-32">
         <ParticleEffect
           count={60}
-          color="#234CF9"
+          color="#1B6EF3"
           size={1.5}
           speed={0.2}
           className="opacity-[0.06] dark:opacity-[0.15]"
@@ -64,14 +64,14 @@ const ValuePropositionsSection: React.FC = () => {
           </div>
 
           <div className="text-center mb-12 sm:mb-16 lg:mb-24">
-            <div className="inline-flex items-center space-x-2 px-4 sm:px-6 py-2 sm:py-3 bg-[#234CF9]/10 dark:bg-white/10 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium text-[#234CF9] dark:text-white/90 border border-[#234CF9]/20 dark:border-white/20 mb-4 sm:mb-6 lg:mb-8">
-              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full"></div>
+            <div className="inline-flex items-center space-x-2 px-4 sm:px-6 py-2 sm:py-3 bg-[#1B6EF3]/10 dark:bg-white/10 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium text-[#1B6EF3] dark:text-white/90 border border-[#1B6EF3]/20 dark:border-white/20 mb-4 sm:mb-6 lg:mb-8">
+              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gradient-to-r from-[#1B6EF3] to-[#60A5F8] rounded-full"></div>
               <span>{t.valuePropositions.featuredServices}</span>
-              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"></div>
+              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gradient-to-r from-[#1755E0] to-[#1B6EF3] rounded-full"></div>
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-gray-900 dark:text-white mb-4 sm:mb-6 leading-tight animate-fade-in-up">
               <span>{t.valuePropositions.ourValuePropositions.split(' ').slice(0, -1).join(' ')}</span>{' '}
-              <span className="bg-gradient-to-r from-[#234CF9] via-[#1C277B] to-[#234CF9] bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient-x">{t.valuePropositions.ourValuePropositions.split(' ').slice(-1)[0]}</span>
+              <span className="bg-gradient-to-r from-[#1B6EF3] via-[#1755E0] to-[#1B6EF3] bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient-x">{t.valuePropositions.ourValuePropositions.split(' ').slice(-1)[0]}</span>
             </h2>
             <p
               className="text-base sm:text-lg lg:text-xl text-gray-600 dark:text-white/80 max-w-3xl mx-auto leading-relaxed mb-4 sm:mb-6 lg:mb-8 animate-fade-in-up px-4"
@@ -89,8 +89,8 @@ const ValuePropositionsSection: React.FC = () => {
                 description:
                   "The strategic system of visual, verbal, and experiential elements that shape perception, builds trust, and creates emotional connections to the market.",
                 badge: "★",
-                badgeColor: "from-yellow-400 to-orange-400",
-                glowColor: "shadow-yellow-500/20",
+                badgeColor: "from-[#1B6EF3] to-[#1755E0]",
+                glowColor: "shadow-blue-500/20",
                 href: "/marketplace?category=branding",
               },
               {
@@ -99,7 +99,7 @@ const ValuePropositionsSection: React.FC = () => {
                 description:
                   "The integration of visual identity UI and behavior patterns UX to create digital products that are usable, accessible, and aesthetically engaging.",
                 badge: "◆",
-                badgeColor: "from-green-400 to-blue-400",
+                badgeColor: "from-[#60A5F8] to-[#1B6EF3]",
                 glowColor: "shadow-blue-500/20",
                 href: "/marketplace?category=ui-ux",
               },
@@ -109,21 +109,21 @@ const ValuePropositionsSection: React.FC = () => {
                 description:
                   "Visual art combining animated graphic design and visual effects to convey ideas, enhance storytelling, and engage audiences through dynamic movement and transitions.",
                 badge: "●",
-                badgeColor: "from-purple-400 to-pink-400",
-                glowColor: "shadow-purple-500/20",
+                badgeColor: "from-[#1B6EF3] to-[#5BA8F8]",
+                glowColor: "shadow-blue-500/20",
                 href: "/marketplace?category=motion-graphics",
               },
             ].map((service, index) => (
-              <Magnetic key={index} intensity={0.1}>
+              <Magnetic key={index} intensity={0.1} className="h-full">
                 <div
-                  className="group bg-white dark:bg-white/5 rounded-2xl sm:rounded-3xl p-5 sm:p-7 lg:p-10 shadow-sm sm:shadow-md hover:shadow-[0_16px_48px_rgba(35,76,249,0.12)] dark:hover:shadow-[0_16px_48px_rgba(35,76,249,0.20)] transform hover:scale-[1.02] sm:hover:scale-105 hover:-translate-y-1 sm:hover:-translate-y-3 transition-all duration-500 border border-gray-100 dark:border-white/10 relative overflow-hidden"
+                  className="group h-full flex flex-col bg-white dark:bg-white/5 rounded-2xl sm:rounded-3xl p-5 sm:p-7 lg:p-10 shadow-sm sm:shadow-md hover:shadow-[0_16px_48px_rgba(27,110,243,0.12)] dark:hover:shadow-[0_16px_48px_rgba(27,110,243,0.20)] transform hover:scale-[1.02] sm:hover:scale-105 hover:-translate-y-1 sm:hover:-translate-y-3 transition-all duration-500 border border-gray-100 dark:border-white/10 relative overflow-hidden"
                 >
                   {/* Step number */}
-                  <div className="absolute top-4 right-4 sm:top-5 sm:right-5 text-4xl sm:text-5xl font-extrabold text-[#234CF9]/8 dark:text-white/5 select-none leading-none">
+                  <div className="absolute top-4 right-4 sm:top-5 sm:right-5 text-4xl sm:text-5xl font-extrabold text-white/10 select-none leading-none">
                     0{index + 1}
                   </div>
                   <div className="absolute top-0 right-0 w-16 sm:w-20 lg:w-24 h-16 sm:h-20 lg:h-24 bg-gradient-to-bl from-white/10 to-transparent rounded-bl-3xl"></div>
-                  <div className="text-center relative z-10">
+                  <div className="text-center relative z-10 flex flex-col flex-1">
                     <div className="relative mb-4 sm:mb-6 lg:mb-8">
                       <div
                         className={`w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-gradient-to-r ${service.badgeColor} rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg sm:shadow-xl relative overflow-hidden`}
@@ -149,18 +149,18 @@ const ValuePropositionsSection: React.FC = () => {
                         {service.badge}
                       </div>
                     </div>
-                    <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-extrabold text-gray-900 mb-3 sm:mb-4 lg:mb-6">
+                    <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-extrabold text-gray-900 dark:text-white mb-3 sm:mb-4 lg:mb-6">
                       {service.title}
                     </h3>
-                    <p className="text-sm sm:text-base lg:text-lg text-gray-600 leading-relaxed mb-4 sm:mb-6 lg:mb-8">
+                    <p className="text-sm sm:text-base lg:text-lg text-gray-600 dark:text-white/80 leading-relaxed mb-4 sm:mb-6 lg:mb-8 flex-1">
                       {service.description}
                     </p>
                     <div className="relative">
-                      <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg sm:rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      <div className="relative pt-4 sm:pt-5 lg:pt-6 border-t border-gray-100/80">
+                      <div className="absolute inset-0 bg-[#1B6EF3]/8 rounded-lg sm:rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="relative pt-4 sm:pt-5 lg:pt-6 border-t border-gray-100/80 dark:border-white/10">
                         <Link 
                           href={service.href}
-                          className="inline-flex items-center text-xs sm:text-sm font-semibold text-[#234CF9] group-hover:text-[#1C277B] transition-colors duration-300 link-neon"
+                          className="inline-flex items-center text-xs sm:text-sm font-semibold text-[#1B6EF3] dark:text-white transition-colors duration-300 link-neon"
                         >
                           {t.valuePropositions.learnMore}
                           <svg

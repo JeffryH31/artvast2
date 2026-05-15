@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -56,17 +56,17 @@ const Header: React.FC = () => {
         }`}
       >
         {/* Animated gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#234CF9]/5 via-[#234CF9]/5 to-[#DFE7F7]/5 pointer-events-none"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1B6EF3]/5 via-[#1B6EF3]/5 to-[#DFE7F7]/5 pointer-events-none"></div>
 
         {/* Top accent line - animated gradient */}
         <div
-          className={`absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#234CF9] via-[#234CF9] to-[#DFE7F7] transition-opacity duration-500 ${
+          className={`absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#1B6EF3] via-[#1B6EF3] to-[#DFE7F7] transition-opacity duration-500 ${
             scrolled ? "opacity-100" : "opacity-0"
           }`}
         ></div>
 
         {/* Subtle inner glow */}
-        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#234CF9]/5 to-transparent pointer-events-none"></div>
+        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#1B6EF3]/5 to-transparent pointer-events-none"></div>
 
         <nav className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div
@@ -82,7 +82,7 @@ const Header: React.FC = () => {
               >
                 <div className="relative">
                   {/* Logo glow effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#234CF9] to-[#234CF9] rounded-full blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-500 scale-150"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#1B6EF3] to-[#1B6EF3] rounded-full blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-500 scale-150"></div>
                   {/* Logo Image */}
                   <Image
                     src="/Artvast Logo.png"
@@ -123,7 +123,7 @@ const Header: React.FC = () => {
                 >
                   {/* Active background pill */}
                   <span
-                    className={`absolute inset-0 bg-gradient-to-r from-[#234CF9] to-[#234CF9] rounded-xl transition-all duration-300 ${
+                    className={`absolute inset-0 bg-gradient-to-r from-[#1B6EF3] to-[#1B6EF3] rounded-xl transition-all duration-300 ${
                       isActive("/")
                         ? "opacity-100 scale-100"
                         : "opacity-0 scale-95"
@@ -168,7 +168,7 @@ const Header: React.FC = () => {
                   }`}
                 >
                   <span
-                    className={`absolute inset-0 bg-gradient-to-r from-[#234CF9] to-[#DFE7F7] rounded-xl transition-all duration-300 ${
+                    className={`absolute inset-0 bg-gradient-to-r from-[#1B6EF3] to-[#DFE7F7] rounded-xl transition-all duration-300 ${
                       isActive("/portfolio")
                         ? "opacity-100 scale-100"
                         : "opacity-0 scale-95"
@@ -212,7 +212,7 @@ const Header: React.FC = () => {
                   }`}
                 >
                   <span
-                    className={`absolute inset-0 bg-gradient-to-r from-[#DFE7F7] to-[#234CF9] rounded-xl transition-all duration-300 ${
+                    className={`absolute inset-0 bg-gradient-to-r from-[#DFE7F7] to-[#1B6EF3] rounded-xl transition-all duration-300 ${
                       isActive("/marketplace")
                         ? "opacity-100 scale-100"
                         : "opacity-0 scale-95"
@@ -257,7 +257,7 @@ const Header: React.FC = () => {
                     }`}
                   >
                     <span
-                      className={`absolute inset-0 bg-gradient-to-r from-[#234CF9] to-[#1C277B] rounded-xl transition-all duration-300 ${
+                      className={`absolute inset-0 bg-gradient-to-r from-[#1B6EF3] to-[#1755E0] rounded-xl transition-all duration-300 ${
                         pathname?.startsWith("/designer")
                           ? "opacity-100 scale-100"
                           : "opacity-0 scale-95"
@@ -311,7 +311,7 @@ const Header: React.FC = () => {
                       className="relative p-2.5 bg-white/40 dark:bg-gray-800/40 hover:bg-white/70 dark:hover:bg-gray-700/70 backdrop-blur-md rounded-xl transition-all duration-300 group border border-white/20 dark:border-gray-700/30 hover:scale-105"
                     >
                       <svg
-                        className="w-5 h-5 text-gray-700 dark:text-gray-300 group-hover:text-[#234CF9] transition-colors"
+                        className="w-5 h-5 text-gray-700 dark:text-gray-300 group-hover:text-[#1B6EF3] transition-colors"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -336,7 +336,7 @@ const Header: React.FC = () => {
                     href="/dashboard"
                     className="flex items-center space-x-2 px-3 py-1.5 bg-white/40 dark:bg-gray-800/40 backdrop-blur-md rounded-xl border border-white/20 dark:border-gray-700/30 hover:bg-white/70 dark:hover:bg-gray-700/70 hover:scale-105 transition-all duration-300 group"
                   >
-                    <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#234CF9] to-[#234CF9] flex items-center justify-center text-white text-sm font-bold shadow-md group-hover:scale-110 transition-transform">
+                    <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#1B6EF3] to-[#1B6EF3] flex items-center justify-center text-white text-sm font-bold shadow-md group-hover:scale-110 transition-transform">
                       {user.email?.charAt(0).toUpperCase()}
                     </div>
                     <span className="text-sm text-gray-700 dark:text-gray-300 font-medium max-w-[100px] truncate">
@@ -393,9 +393,9 @@ const Header: React.FC = () => {
                     className="relative group overflow-hidden rounded-xl cursor-pointer hover:scale-105 transition-transform duration-300"
                   >
                     {/* Animated gradient background */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#234CF9] via-[#234CF9] to-[#DFE7F7] animate-gradient-x"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#1B6EF3] via-[#1B6EF3] to-[#DFE7F7] animate-gradient-x"></div>
                     {/* Glow effect */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#234CF9] via-[#234CF9] to-[#DFE7F7] blur-xl opacity-40 group-hover:opacity-60 transition-opacity duration-500"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#1B6EF3] via-[#1B6EF3] to-[#DFE7F7] blur-xl opacity-40 group-hover:opacity-60 transition-opacity duration-500"></div>
                     {/* Shine effect */}
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
 
@@ -544,7 +544,7 @@ const Header: React.FC = () => {
               ) : user ? (
                 <div className="space-y-3">
                   <div className="flex items-center space-x-3 px-4 py-3 bg-white/50 dark:bg-gray-700/50 rounded-xl">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#234CF9] to-[#1C277B] flex items-center justify-center text-white font-bold flex-shrink-0">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#1B6EF3] to-[#1755E0] flex items-center justify-center text-white font-bold flex-shrink-0">
                       {user.email?.charAt(0).toUpperCase()}
                     </div>
                     <div className="flex-1 min-w-0">

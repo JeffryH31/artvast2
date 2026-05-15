@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useMessages, Message, Conversation } from '@/hooks/useMessages';
@@ -130,7 +130,7 @@ const MessageModal: React.FC<MessageModalProps> = ({
       {/* Modal */}
       <div className="relative w-full max-w-lg h-[600px] max-h-[85vh] bg-white dark:bg-gray-900 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-[#234CF9]/5 to-[#234CF9]/5">
+        <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-[#1B6EF3]/5 to-[#1B6EF3]/5">
           <div className="flex items-center space-x-3">
             <div className={`w-10 h-10 bg-gradient-to-br ${designerGradient} rounded-full flex items-center justify-center text-white font-bold`}>
               {designerInitials}
@@ -164,7 +164,7 @@ const MessageModal: React.FC<MessageModalProps> = ({
             </div>
           ) : messagesLoading ? (
             <div className="flex items-center justify-center h-full">
-              <div className="w-8 h-8 border-3 border-[#234CF9] border-t-transparent rounded-full animate-spin"></div>
+              <div className="w-8 h-8 border-3 border-[#1B6EF3] border-t-transparent rounded-full animate-spin"></div>
             </div>
           ) : messages.length === 0 ? (
             <div className="flex items-center justify-center h-full text-center">
@@ -196,7 +196,7 @@ const MessageModal: React.FC<MessageModalProps> = ({
                       <div
                         className={`max-w-[75%] px-4 py-2.5 rounded-2xl ${
                           isOwnMessage(message)
-                            ? 'bg-gradient-to-r from-[#234CF9] to-[#234CF9] text-white rounded-br-md'
+                            ? 'bg-gradient-to-r from-[#1B6EF3] to-[#1B6EF3] text-white rounded-br-md'
                             : 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white rounded-bl-md'
                         }`}
                       >
@@ -231,14 +231,14 @@ const MessageModal: React.FC<MessageModalProps> = ({
                   onKeyDown={handleKeyDown}
                   placeholder={t.messages.typeMessage}
                   rows={1}
-                  className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#234CF9] focus:border-transparent resize-none text-gray-900 dark:text-white placeholder-gray-400"
+                  className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1B6EF3] focus:border-transparent resize-none text-gray-900 dark:text-white placeholder-gray-400"
                   style={{ minHeight: '48px', maxHeight: '120px' }}
                 />
               </div>
               <button
                 onClick={handleSend}
                 disabled={!messageInput.trim() || sending}
-                className="p-3 bg-gradient-to-r from-[#234CF9] to-[#234CF9] text-white rounded-xl hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 cursor-pointer flex-shrink-0"
+                className="p-3 bg-gradient-to-r from-[#1B6EF3] to-[#1B6EF3] text-white rounded-xl hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 cursor-pointer flex-shrink-0"
               >
                 {sending ? (
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>

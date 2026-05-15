@@ -1,4 +1,4 @@
-// Utility functions for the application
+﻿// Utility functions for the application
 
 import { ERROR_MESSAGES } from './constants';
 
@@ -182,10 +182,10 @@ export function calculateDiscount(originalPrice: number, currentPrice: number): 
  */
 export function generateGradient(): string {
   const gradients = [
-    'from-[#DFE7F7] to-[#234CF9]',
-    'from-[#234CF9] to-[#234CF9]',
-    'from-[#234CF9] to-[#1C277B]',
-    'from-[#234CF9] to-[#234CF9]',
+    'from-[#DFE7F7] to-[#1B6EF3]',
+    'from-[#1B6EF3] to-[#1B6EF3]',
+    'from-[#1B6EF3] to-[#1755E0]',
+    'from-[#1B6EF3] to-[#1B6EF3]',
   ];
   return gradients[Math.floor(Math.random() * gradients.length)];
 }

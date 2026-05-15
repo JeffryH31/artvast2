@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import Link from "next/link";
@@ -49,7 +49,7 @@ const FeaturedDesignersRow: React.FC = () => {
           </div>
           <Link
             href="/designers"
-            className="hidden sm:flex items-center gap-2 text-sm font-semibold text-[#234CF9] hover:text-[#DFE7F7] transition-colors link-neon"
+            className="hidden sm:flex items-center gap-2 text-sm font-semibold text-[#1B6EF3] hover:text-[#DFE7F7] transition-colors link-neon"
           >
             View all
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -66,18 +66,18 @@ const FeaturedDesignersRow: React.FC = () => {
               href={`/creator/${designer.id}`}
               className="flex-shrink-0 w-44 sm:w-48 group"
             >
-              <div className="bg-white dark:bg-white/5 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-5 text-center shadow-sm hover:shadow-[0_8px_24px_rgba(35,76,249,0.18)] border border-gray-100 dark:border-white/10 hover:border-[#234CF9]/40 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1">
+              <div className="bg-white dark:bg-white/5 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-5 text-center shadow-sm hover:shadow-[0_8px_24px_rgba(27,110,243,0.18)] border border-gray-100 dark:border-white/10 hover:border-[#1B6EF3]/40 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1">
                 {/* Avatar */}
                 <div className="relative inline-block mb-3">
                   <div
                     className={`w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br ${
-                      designer.avatar_gradient || "from-[#DFE7F7] to-[#234CF9]"
+                      designer.avatar_gradient || "from-[#DFE7F7] to-[#1B6EF3]"
                     } flex items-center justify-center text-white text-lg sm:text-xl font-bold shadow-lg group-hover:scale-110 transition-transform duration-300`}
                   >
                     {designer.avatar_initials || designer.name?.charAt(0).toUpperCase()}
                   </div>
                   {designer.verified && (
-                    <div className="absolute -bottom-1 -right-1 w-5 h-5 sm:w-6 sm:h-6 bg-gradient-to-r from-[#234CF9] to-[#1C277B] rounded-full flex items-center justify-center shadow-md">
+                    <div className="absolute -bottom-1 -right-1 w-5 h-5 sm:w-6 sm:h-6 bg-gradient-to-r from-[#1B6EF3] to-[#1755E0] rounded-full flex items-center justify-center shadow-md">
                       <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white" fill="currentColor" viewBox="0 0 20 20">
                         <path
                           fillRule="evenodd"
@@ -128,7 +128,7 @@ const FeaturedDesignersRow: React.FC = () => {
         <div className="sm:hidden text-center mt-4">
           <Link
             href="/designers"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-[#234CF9] hover:text-[#DFE7F7] transition-colors link-neon"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-[#1B6EF3] hover:text-[#DFE7F7] transition-colors link-neon"
           >
             View all designers
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
